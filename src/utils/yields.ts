@@ -22,3 +22,10 @@ export const productsLabel = (count: number): string =>
 
 /** Label of the sort toggle for the current order. */
 export const sortLabel = (descending: boolean): string => (descending ? 'Highest APR' : 'Lowest APR');
+
+/** Assets whose symbol or name contains the query (case-insensitive). An empty query returns all. */
+export const filterAssets = <T extends { symbol: string; name: string }>(items: readonly T[], query: string): T[] => {
+  const q = query.trim().toLowerCase();
+  if (!q) return [...items];
+  return items.filter((item) => item.symbol.toLowerCase().includes(q) || item.name.toLowerCase().includes(q));
+};

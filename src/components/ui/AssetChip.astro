@@ -1,0 +1,57 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { Asset } from '~/data/yields';
+
+// One selectable asset button (coloured icon circle + symbol + name).
+// Pressed state is driven by `aria-pressed`, so the picker script only has to
+// flip that attribute. Extra attributes (data-*, hidden…) pass through.
+export interface Props extends HTMLAttributes<'button'> {
+  asset: Asset;
+  pressed?: boolean;
+  size?: 'md' | 'sm';
+}
+
+const { asset, pressed = false, size = 'md', class: className, ...attrs } = Astro.props;
+const small = size === 'sm';
+---
+
+<button
+  type="button"
+  aria-pressed={pressed ? 'true' : 'false'}
+  class:list={[
+    'group flex items-center rounded-xl border border-slate-200 bg-white transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 aria-pressed:border-slate-900 aria-pressed:bg-slate-900 aria-pressed:shadow-lg aria-pressed:shadow-slate-200 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700 dark:hover:bg-slate-800 dark:aria-pressed:border-emerald-600 dark:aria-pressed:bg-emerald-600 dark:aria-pressed:shadow-none',
+    small ? 'gap-2.5 px-3 py-2' : 'gap-3 px-4 py-2.5',
+    className,
+  ]}
+  {...attrs}
+>
+  <span
+    class:list={[
+      'flex shrink-0 items-center justify-center rounded-full font-bold text-white shadow-inner',
+      small ? 'h-7 w-7' : 'h-8 w-8',
+      asset.icon.length > 1 ? 'text-xs' : 'text-sm',
+      asset.colorClass,
+    ]}
+    aria-hidden="true"
+  >
+    {asset.icon}
+  </span>
+  <span class="flex min-w-0 flex-col items-start">
+    <span class="text-sm font-bold leading-tight text-slate-900 group-aria-pressed:text-white dark:text-white">
+      {asset.symbol}
+    </span>
+    <span
+      class="truncate text-[10px] font-medium leading-tight text-slate-500 group-aria-pressed:text-slate-400 dark:text-slate-400 dark:group-aria-pressed:text-emerald-100"
+    >
+      {asset.name}
+    </span>
+  </span>
+  {
+    !small && (
+      <span
+        class="ml-1 hidden h-1.5 w-1.5 rounded-full bg-emerald-400 group-aria-pressed:block motion-safe:animate-pulse dark:bg-white"
+        aria-hidden="true"
+      />
+    )
+  }
+</button>

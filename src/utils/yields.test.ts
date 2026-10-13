@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { assets, rateRows } from '~/data/yields';
-import { formatRate, productsLabel, ratesForAsset, sortByRate, sortLabel } from '~/utils/yields';
+import { assets, coinAssets, mainAssets, rateRows, stablecoinAssets } from '~/data/yields';
+import { filterAssets, formatRate, productsLabel, ratesForAsset, sortByRate, sortLabel } from '~/utils/yields';
 
 describe('formatRate', () => {
   it('always shows two decimals', () => {
@@ -64,5 +64,73 @@ describe('sample data', () => {
   it('only uses assets that exist in the selector', () => {
     const symbols = new Set(assets.map((a) => a.symbol));
     expect(rateRows.every((r) => symbols.has(r.asset))).toBe(true);
+  });
+});
+
+describe('filterAssets', () => {
+  it('returns everything for an empty or blank query', () => {
+    expect(filterAssets(assets, '')).toHaveLength(assets.length);
+    expect(filterAssets(assets, '   ')).toHaveLength(assets.length);
+  });
+
+  it('matches by symbol, case-insensitively', () => {
+    expect(filterAssets(assets, 'doge').map((a) => a.symbol)).toEqual(['DOGE']);
+  });
+
+  it('matches by name', () => {
+    expect(filterAssets(assets, 'Cardano').map((a) => a.symbol)).toEqual(['ADA']);
+  });
+
+  it('matches partial text across symbol and name', () => {
+    const symbols = filterAssets(assets, 'usd').map((a) => a.symbol);
+    expect(symbols).toEqual(expect.arrayContaining(['USDT', 'USDC', 'USDS', 'USDe']));
+  });
+
+  it('returns an empty list when nothing matches', () => {
+    expect(filterAssets(assets, 'zzz')).toEqual([]);
+  });
+});
+
+describe('asset groups', () => {
+  it('has exactly the five main assets in order', () => {
+    expect(mainAssets.map((a) => a.symbol)).toEqual(['USDT', 'USDC', 'BTC', 'ETH', 'XAUT']);
+  });
+
+  it('lists the popover stablecoins and coins', () => {
+    expect(stablecoinAssets.map((a) => a.symbol)).toEqual(['USDS', 'USDe', 'EURC']);
+    expect(coinAssets.map((a) => a.symbol)).toEqual(
+      expect.arrayContaining([
+        'SOL',
+        'BNB',
+        'XRP',
+        'DOGE',
+        'ADA',
+        'TRX',
+        'TON',
+        'HYPE',
+        'LINK',
+        'NEAR',
+        'DOT',
+        'LTC',
+        'SUI',
+        'AVAX',
+        'POL',
+      ])
+    );
+    expect(coinAssets).toHaveLength(15);
+  });
+
+  it('puts every asset in exactly one group', () => {
+    expect(mainAssets.length + stablecoinAssets.length + coinAssets.length).toBe(assets.length);
+  });
+
+  it('has unique ids and symbols', () => {
+    expect(new Set(assets.map((a) => a.id)).size).toBe(assets.length);
+    expect(new Set(assets.map((a) => a.symbol.toUpperCase())).size).toBe(assets.length);
+  });
+
+  it('no longer lists removed coins', () => {
+    const symbols = assets.map((a) => a.symbol);
+    for (const removed of ['DAI', 'FDUSD', 'BCH', 'ZEC']) expect(symbols).not.toContain(removed);
   });
 });

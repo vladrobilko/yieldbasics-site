@@ -5,13 +5,17 @@
 
 export type RateType = 'APR' | 'APY';
 
+/** Where an asset appears in the picker: the main chip row, or the "···" popover sections. */
+export type AssetGroup = 'main' | 'stablecoin' | 'coin';
+
 export interface Asset {
   id: string;
   symbol: string;
   name: string;
-  /** Glyph shown inside the coloured circle. */
+  group: AssetGroup;
+  /** Glyph shown inside the coloured circle (placeholder until real coin logos). */
   icon: string;
-  /** Tailwind background class for the circle. */
+  /** Tailwind classes for the circle (background, and text colour when white is unreadable). */
   colorClass: string;
 }
 
@@ -33,12 +37,60 @@ export interface RateRow {
 }
 
 export const assets: Asset[] = [
-  { id: 'usdt', symbol: 'USDT', name: 'Tether', icon: '₮', colorClass: 'bg-emerald-500' },
-  { id: 'usdc', symbol: 'USDC', name: 'USD Coin', icon: '$', colorClass: 'bg-blue-500' },
-  { id: 'btc', symbol: 'BTC', name: 'Bitcoin', icon: '₿', colorClass: 'bg-orange-500' },
-  { id: 'eth', symbol: 'ETH', name: 'Ethereum', icon: 'Ξ', colorClass: 'bg-indigo-500' },
-  { id: 'sol', symbol: 'SOL', name: 'Solana', icon: 'S', colorClass: 'bg-purple-500' },
+  // Main row
+  { id: 'usdt', symbol: 'USDT', name: 'Tether', group: 'main', icon: '₮', colorClass: 'bg-emerald-500' },
+  { id: 'usdc', symbol: 'USDC', name: 'USD Coin', group: 'main', icon: '$', colorClass: 'bg-blue-500' },
+  { id: 'btc', symbol: 'BTC', name: 'Bitcoin', group: 'main', icon: '₿', colorClass: 'bg-orange-500' },
+  { id: 'eth', symbol: 'ETH', name: 'Ethereum', group: 'main', icon: 'Ξ', colorClass: 'bg-indigo-500' },
+  { id: 'xaut', symbol: 'XAUT', name: 'Tether Gold', group: 'main', icon: 'Au', colorClass: 'bg-amber-500' },
+
+  // "···" popover: stablecoins
+  { id: 'usds', symbol: 'USDS', name: 'Sky Dollar', group: 'stablecoin', icon: 'S', colorClass: 'bg-amber-600' },
+  {
+    id: 'usde',
+    symbol: 'USDe',
+    name: 'Ethena USDe',
+    group: 'stablecoin',
+    icon: 'e',
+    colorClass: 'bg-slate-800 dark:bg-slate-600',
+  },
+  { id: 'eurc', symbol: 'EURC', name: 'Euro Coin', group: 'stablecoin', icon: '€', colorClass: 'bg-blue-600' },
+
+  // "···" popover: other coins
+  { id: 'sol', symbol: 'SOL', name: 'Solana', group: 'coin', icon: 'S', colorClass: 'bg-purple-500' },
+  { id: 'bnb', symbol: 'BNB', name: 'BNB', group: 'coin', icon: 'B', colorClass: 'bg-yellow-400 text-slate-900' },
+  { id: 'xrp', symbol: 'XRP', name: 'XRP', group: 'coin', icon: '✕', colorClass: 'bg-slate-700' },
+  { id: 'doge', symbol: 'DOGE', name: 'Dogecoin', group: 'coin', icon: 'Ð', colorClass: 'bg-yellow-500' },
+  { id: 'ada', symbol: 'ADA', name: 'Cardano', group: 'coin', icon: '₳', colorClass: 'bg-blue-700' },
+  { id: 'trx', symbol: 'TRX', name: 'TRON', group: 'coin', icon: 'T', colorClass: 'bg-red-500' },
+  { id: 'ton', symbol: 'TON', name: 'Toncoin', group: 'coin', icon: '◇', colorClass: 'bg-sky-500' },
+  {
+    id: 'hype',
+    symbol: 'HYPE',
+    name: 'Hyperliquid',
+    group: 'coin',
+    icon: 'H',
+    colorClass: 'bg-teal-400 text-slate-900',
+  },
+  { id: 'link', symbol: 'LINK', name: 'Chainlink', group: 'coin', icon: '⬡', colorClass: 'bg-blue-800' },
+  {
+    id: 'near',
+    symbol: 'NEAR',
+    name: 'NEAR Protocol',
+    group: 'coin',
+    icon: 'N',
+    colorClass: 'bg-slate-900 dark:bg-slate-600',
+  },
+  { id: 'dot', symbol: 'DOT', name: 'Polkadot', group: 'coin', icon: '●', colorClass: 'bg-pink-500' },
+  { id: 'ltc', symbol: 'LTC', name: 'Litecoin', group: 'coin', icon: 'Ł', colorClass: 'bg-slate-400' },
+  { id: 'sui', symbol: 'SUI', name: 'Sui', group: 'coin', icon: 'S', colorClass: 'bg-sky-400' },
+  { id: 'avax', symbol: 'AVAX', name: 'Avalanche', group: 'coin', icon: 'A', colorClass: 'bg-red-600' },
+  { id: 'pol', symbol: 'POL', name: 'Polygon', group: 'coin', icon: 'P', colorClass: 'bg-violet-600' },
 ];
+
+export const mainAssets = assets.filter((asset) => asset.group === 'main');
+export const stablecoinAssets = assets.filter((asset) => asset.group === 'stablecoin');
+export const coinAssets = assets.filter((asset) => asset.group === 'coin');
 
 export const DEFAULT_ASSET_ID = 'usdt';
 
