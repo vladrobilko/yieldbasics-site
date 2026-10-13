@@ -1,19 +1,13 @@
 ---
-// Thin bar above the header. Everything is a prop so a site can change the
-// message without touching the component; the defaults reproduce the demo.
+// Thin bar above the header. Not shown by default: pass it through the
+// `announcement` slot of PageLayout with the message you want.
 export interface Props {
   badge?: string;
   text?: string;
   href?: string;
-  showStars?: boolean;
 }
 
-const {
-  badge = 'NEW',
-  text = 'Astro v7 is now available! »',
-  href = 'https://astro.build/blog/astro-7/',
-  showStars = true,
-} = Astro.props;
+const { badge, text, href } = Astro.props;
 ---
 
 <div
@@ -33,18 +27,5 @@ const {
       ) : (
         <span class="text-slate-300 dark:text-slate-400 font-medium" set:html={text} />
       ))
-  }
-  {
-    showStars && (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        class="ltr:ml-auto rtl:mr-auto w-[5.6rem] h-[1.25rem] ml-auto bg-contain bg-right bg-no-repeat inline-block bg-[url(https://img.shields.io/github/stars/arthelokyo/astrowind.svg?style=social&label=Stars&maxAge=86400)]"
-        title="If you like AstroWind, give us a star."
-        href="https://github.com/arthelokyo/astrowind"
-      >
-        <span class="sr-only">GitHub stars</span>
-      </a>
-    )
   }
 </div>

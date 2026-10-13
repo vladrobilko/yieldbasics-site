@@ -1,0 +1,13 @@
+#!/bin/sh
+# Runs before every `git push` (enabled by `npm install` via core.hooksPath).
+# Do not bypass with --no-verify: fix the failure instead.
+set -e
+
+echo "pre-push: npm test"
+npm test
+
+echo "pre-push: npm run check"
+npm run check
+
+echo "pre-push: npm run build"
+npm run build

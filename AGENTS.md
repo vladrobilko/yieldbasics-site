@@ -1,24 +1,42 @@
-# AstroWind Agent Instructions
+# YieldBasics Agent Instructions
 
 ## Project Overview
 
-AstroWind is a free, open-source website template built with **Astro v7** and **Tailwind CSS v4**. It generates a fully static site optimized for performance, SEO, and accessibility.
+**YieldBasics** ([yieldbasics.com](https://yieldbasics.com)) is a site about yields in crypto, stocks and other assets: plain-language educational articles plus tools/calculators to compare yields. English only. The brand is "YieldBasics" — never publish a personal name. Content is educational, not financial advice.
 
-**Stack:** Astro v7 | Tailwind CSS v4 | TypeScript 5.9 | MDX | Sharp
+It is a fully static site built on the open-source **AstroWind** template (Astro v7 + Tailwind CSS v4) and will be hosted on **GitHub Pages** (deploy workflow not added yet).
+
+**Stack:** Astro v7 | Tailwind CSS v4 | TypeScript 5.9 | MDX | Sharp | Vitest
+
+## Workflow Rules (mandatory for every agent)
+
+1. **Pull requests only.** Never commit or push directly to `main`. Every change goes on its own branch and is merged through a pull request (`gh pr create`).
+2. **Branch naming:** `<bugfix|feature>/<agent>/<kebab-case-summary>`, where `<agent>` is who implements it (`claude`, `codex`, `human`, …).
+   - `feature/claude/change-design-for-home-page`
+   - `bugfix/claude/fix-mobile-menu-overlap`
+3. **Logic is covered by tests.** Any logic (utils, data transforms, calculators, config handling) gets Vitest unit tests in the same PR, next to the code as `*.test.ts`. Pure markup/copy changes don't need tests.
+4. **Run everything locally before pushing:** `npm test`, `npm run check`, `npm run build` must all pass. The `.githooks/pre-push` hook runs them automatically; never bypass it with `--no-verify`.
+5. **The user sees the UI before every push.** Start `npm run dev` (or `npm run build && npm run preview`), give the user the local URL and the list of pages affected, and push only after the user explicitly approves.
+6. **The repo is public — no sensitive data.** Never commit `.env*` files (only a value-free `.env.example`), API keys, tokens, passwords, private keys or seed phrases, wallet/account details, personal information, or local machine paths. Secrets go in GitHub Actions secrets. Review `git diff --staged` before every commit.
+7. Keep commits focused with a short imperative message.
 
 ## Skills
 
-Before implementing a project-specific task (disabling the blog, Open Graph images, base paths, CMS, deployments, header customisation…), check `.agents/skills/` for an existing skill and follow it.
+Before implementing a project-specific task (disabling the blog, Open Graph images, header customisation, contact form…), check `.agents/skills/` for an existing skill and follow it.
 
 ## Quick Reference
 
-| Command           | Purpose                             |
-| ----------------- | ----------------------------------- |
-| `npm run dev`     | Start dev server at localhost:4321  |
-| `npm run build`   | Production build to `./dist/`       |
-| `npm run preview` | Preview production build locally    |
-| `npm run check`   | Run astro check + ESLint + Prettier |
-| `npm run fix`     | Auto-fix ESLint + Prettier issues   |
+| Command              | Purpose                             |
+| -------------------- | ----------------------------------- |
+| `npm run dev`        | Start dev server at localhost:4321  |
+| `npm run build`      | Production build to `./dist/`       |
+| `npm run preview`    | Preview production build locally    |
+| `npm test`           | Run Vitest unit tests once          |
+| `npm run test:watch` | Run Vitest in watch mode            |
+| `npm run check`      | Run astro check + ESLint + Prettier |
+| `npm run fix`        | Auto-fix ESLint + Prettier issues   |
+
+`npm install` also sets `git config core.hooksPath .githooks`, which enables the pre-push hook.
 
 **Node.js requirement:** >= 22.22.3
 
@@ -45,6 +63,10 @@ src/
   types.d.ts           # TypeScript type definitions
 vendor/integration/    # Custom Astro integration for config loading
 ```
+
+### Testing
+
+Unit tests use **Vitest** (`vitest.config.ts` wraps the Astro config via `getViteConfig`, so `~/` and `astrowind:config` work in tests). Put tests next to the code as `*.test.ts` under `src/` or `vendor/`.
 
 ### Path Aliases
 
@@ -117,7 +139,8 @@ Astro's native CSP is intentionally **not** enabled in this version: it is incom
 
 After changes, always verify:
 
-1. `npm run build` succeeds
-2. `npm run check` passes (astro check + ESLint + Prettier)
-3. Visual check in browser: homepage, blog, dark mode, mobile menu
-4. Structured data describes the site it is on: the `WebSite` / `Organization` block in `src/pages/index.astro` is built only from `config.yaml`; anything you add there must be true for your site
+1. `npm test` passes (Vitest)
+2. `npm run build` succeeds
+3. `npm run check` passes (astro check + ESLint + Prettier)
+4. The user has reviewed the UI locally: homepage, blog, dark mode, mobile menu, plus every page you changed
+5. Structured data describes the site it is on: the `WebSite` / `Organization` block in `src/pages/index.astro` is built only from `config.yaml`; anything you add there must be true for your site
