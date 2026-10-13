@@ -6,15 +6,9 @@
 
 1. Pick a backend and add the attributes to the `<form>` in `src/components/ui/Form.astro`:
 
-   **Netlify Forms** (works with the static build):
+   GitHub Pages serves static files only, so use a hosted form service.
 
-   ```html
-   <form name="contact" method="POST" data-netlify="true" action="/thank-you">
-     <input type="hidden" name="form-name" value="contact" />
-   </form>
-   ```
-
-   **Formspree / Web3Forms / Getform** (any host):
+   **Formspree / Web3Forms / Getform**:
 
    ```html
    <form method="POST" action="https://formspree.io/f/<your-id>"></form>
@@ -24,7 +18,7 @@
 
 2. Mark the fields you need as `required` (`inputs` in `src/pages/contact.astro` → `Form.astro` renders `name`, `label`, `type`, `placeholder`, `autocomplete`; add `required` where the input is rendered if you want validation).
 3. Create the page users land on after submitting (e.g. `src/pages/thank-you.astro`) if your backend redirects.
-4. Test in production, not only in `astro dev` (Netlify Forms are detected at deploy time).
+4. Test in production, not only in `astro dev`.
 
 ## Where things are
 

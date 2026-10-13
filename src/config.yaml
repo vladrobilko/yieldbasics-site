@@ -4,14 +4,14 @@ site:
   base: '/'
   trailingSlash: false
 
-  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+  googleSiteVerificationId: null # Google Search Console verification ID (public, safe to commit)
 
 # Default SEO metadata
 metadata:
   title:
     default: YieldBasics
     template: '%s — YieldBasics'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+  description: 'Plain-language guides and simple tools for understanding yields in crypto, stocks and beyond.'
   robots:
     index: true
     follow: true
@@ -23,8 +23,6 @@ metadata:
         height: 628
     type: website
   twitter:
-    handle: '@arthelokyo'
-    site: '@arthelokyo'
     cardType: summary_large_image
 
 i18n:
