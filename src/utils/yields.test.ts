@@ -2,7 +2,15 @@ import { describe, expect, it } from 'vitest';
 import { icons as tokenBranded } from '@iconify-json/token-branded';
 
 import { assetLogoNames, assets, coinAssets, mainAssets, rateRows, stablecoinAssets } from '~/data/yields';
-import { filterAssets, formatRate, productsLabel, ratesForAsset, sortByRate, sortLabel } from '~/utils/yields';
+import {
+  filterAssets,
+  formatRate,
+  placePopover,
+  productsLabel,
+  ratesForAsset,
+  sortByRate,
+  sortLabel,
+} from '~/utils/yields';
 
 describe('formatRate', () => {
   it('always shows two decimals', () => {
@@ -150,5 +158,48 @@ describe('asset logos', () => {
 
   it('only USDS uses the fallback glyph (no logo in the set yet)', () => {
     expect(assets.filter((a) => !a.logo).map((a) => a.symbol)).toEqual(['USDS']);
+  });
+});
+
+describe('placePopover', () => {
+  const base = {
+    width: 400,
+    contentHeight: 470,
+    viewport: { width: 1366, height: 700 },
+    minTop: 69,
+  };
+
+  it('opens below the trigger and shrinks to the room left (the reported bug: it jumped to the top)', () => {
+    const p = placePopover({ ...base, anchor: { top: 371, bottom: 427, right: 775 } });
+    expect(p.top).toBe(435);
+    expect(p.maxHeight).toBe(700 - 16 - 435);
+    expect(p.top).toBeGreaterThan(69);
+  });
+
+  it('uses the full content height when it fits below', () => {
+    const p = placePopover({
+      ...base,
+      viewport: { width: 1366, height: 1200 },
+      anchor: { top: 371, bottom: 427, right: 775 },
+    });
+    expect(p).toMatchObject({ top: 435, maxHeight: 470 });
+  });
+
+  it('flips above only when there is little room below and more above, never over the header', () => {
+    const p = placePopover({ ...base, anchor: { top: 600, bottom: 656, right: 775 } });
+    expect(p.top + p.maxHeight).toBe(600 - 8);
+    expect(p.top).toBeGreaterThanOrEqual(69);
+  });
+
+  it('keeps the panel inside the viewport horizontally', () => {
+    expect(placePopover({ ...base, anchor: { top: 371, bottom: 427, right: 100 } }).left).toBe(16);
+    expect(
+      placePopover({
+        ...base,
+        viewport: { width: 390, height: 700 },
+        width: 358,
+        anchor: { top: 480, bottom: 541, right: 500 },
+      }).left
+    ).toBe(16);
   });
 });

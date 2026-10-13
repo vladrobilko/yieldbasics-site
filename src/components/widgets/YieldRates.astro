@@ -248,7 +248,7 @@ const moreGroups = [
 </style>
 
 <script>
-  import { filterAssets, productsLabel, ratesForAsset, sortLabel } from '~/utils/yields';
+  import { filterAssets, placePopover, productsLabel, ratesForAsset, sortLabel } from '~/utils/yields';
 
   class YbYieldRates extends HTMLElement {
     connectedCallback() {
@@ -317,18 +317,24 @@ const moreGroups = [
         if (none) none.hidden = matches.size > 0;
       };
 
-      // Popovers render in the top layer, so place it under the trigger ourselves
-      // (kept on screen, flipped above the trigger when there is no room below).
+      // Popovers render in the top layer, so place it under the trigger ourselves.
+      // The panel shrinks to the room below (its list scrolls) rather than jumping
+      // over the sticky header; see placePopover in ~/utils/yields.
       const place = () => {
-        const gap = 8;
-        const margin = 16;
-        const anchor = trigger.getBoundingClientRect();
-        const { offsetWidth: width, offsetHeight: height } = popover;
-        const left = Math.min(Math.max(anchor.right - width, margin), window.innerWidth - width - margin);
-        const below = anchor.bottom + gap;
-        const top = below + height > window.innerHeight - margin ? Math.max(margin, anchor.top - height - gap) : below;
-        popover.style.left = `${left}px`;
-        popover.style.top = `${top}px`;
+        const { top, left, maxHeight } = placePopover({
+          anchor: trigger.getBoundingClientRect(),
+          width: popover.offsetWidth,
+          contentHeight: popover.scrollHeight,
+          viewport: { width: window.innerWidth, height: window.innerHeight },
+          minTop: (document.querySelector('#header')?.getBoundingClientRect().bottom ?? 0) + 8,
+        });
+        Object.assign(popover.style, {
+          top: `${top}px`,
+          left: `${left}px`,
+          right: 'auto',
+          bottom: 'auto',
+          maxHeight: `${maxHeight}px`,
+        });
       };
 
       popover.addEventListener('toggle', (event) => {
@@ -345,7 +351,10 @@ const moreGroups = [
         }
       });
 
-      search.addEventListener('input', applySearch);
+      search.addEventListener('input', () => {
+        applySearch();
+        place();
+      });
       search.addEventListener('keydown', (event) => {
         if (event.key !== 'Enter') return;
         event.preventDefault();
