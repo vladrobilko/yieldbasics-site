@@ -1,8 +1,10 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import { Icon } from 'astro-icon/components';
 import type { Asset } from '~/data/yields';
 
-// One selectable asset button (coloured icon circle + symbol + name).
+// One selectable asset button (coin logo, or a coloured glyph circle when the
+// asset has no logo, + symbol + name).
 // Pressed state is driven by `aria-pressed`, so the picker script only has to
 // flip that attribute. Extra attributes (data-*, hidden…) pass through.
 export interface Props extends HTMLAttributes<'button'> {
@@ -25,17 +27,28 @@ const small = size === 'sm';
   ]}
   {...attrs}
 >
-  <span
-    class:list={[
-      'flex shrink-0 items-center justify-center rounded-full font-bold text-white shadow-inner',
-      small ? 'h-7 w-7' : 'h-8 w-8',
-      asset.icon.length > 1 ? 'text-xs' : 'text-sm',
-      asset.colorClass,
-    ]}
-    aria-hidden="true"
-  >
-    {asset.icon}
-  </span>
+  {
+    asset.logo ? (
+      <span
+        class:list={['shrink-0 overflow-hidden rounded-full shadow-inner', small ? 'h-7 w-7' : 'h-8 w-8']}
+        aria-hidden="true"
+      >
+        <Icon name={`token-branded:${asset.logo}`} class="h-full w-full" />
+      </span>
+    ) : (
+      <span
+        class:list={[
+          'flex shrink-0 items-center justify-center rounded-full font-bold text-white shadow-inner',
+          small ? 'h-7 w-7' : 'h-8 w-8',
+          asset.icon.length > 1 ? 'text-xs' : 'text-sm',
+          asset.colorClass,
+        ]}
+        aria-hidden="true"
+      >
+        {asset.icon}
+      </span>
+    )
+  }
   <span class="flex min-w-0 flex-col items-start">
     <span class="text-sm font-bold leading-tight text-slate-900 group-aria-pressed:text-white dark:text-white">
       {asset.symbol}

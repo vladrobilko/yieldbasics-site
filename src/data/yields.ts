@@ -13,7 +13,12 @@ export interface Asset {
   symbol: string;
   name: string;
   group: AssetGroup;
-  /** Glyph shown inside the coloured circle (placeholder until real coin logos). */
+  /**
+   * Coin logo from the Web3 Icons "token-branded" Iconify set (MIT), without the
+   * `token-branded:` prefix. Assets without a logo there fall back to `icon`.
+   */
+  logo?: string;
+  /** Fallback glyph shown inside the coloured circle when there is no logo. */
   icon: string;
   /** Tailwind classes for the circle (background, and text colour when white is unreadable). */
   colorClass: string;
@@ -38,11 +43,51 @@ export interface RateRow {
 
 export const assets: Asset[] = [
   // Main row
-  { id: 'usdt', symbol: 'USDT', name: 'Tether', group: 'main', icon: '₮', colorClass: 'bg-emerald-500' },
-  { id: 'usdc', symbol: 'USDC', name: 'USD Coin', group: 'main', icon: '$', colorClass: 'bg-blue-500' },
-  { id: 'btc', symbol: 'BTC', name: 'Bitcoin', group: 'main', icon: '₿', colorClass: 'bg-orange-500' },
-  { id: 'eth', symbol: 'ETH', name: 'Ethereum', group: 'main', icon: 'Ξ', colorClass: 'bg-indigo-500' },
-  { id: 'xaut', symbol: 'XAUT', name: 'Tether Gold', group: 'main', icon: 'Au', colorClass: 'bg-amber-500' },
+  {
+    id: 'usdt',
+    symbol: 'USDT',
+    name: 'Tether',
+    group: 'main',
+    logo: 'usdt-background',
+    icon: '₮',
+    colorClass: 'bg-emerald-500',
+  },
+  {
+    id: 'usdc',
+    symbol: 'USDC',
+    name: 'USD Coin',
+    group: 'main',
+    logo: 'usdc-background',
+    icon: '$',
+    colorClass: 'bg-blue-500',
+  },
+  {
+    id: 'btc',
+    symbol: 'BTC',
+    name: 'Bitcoin',
+    group: 'main',
+    logo: 'btc-background',
+    icon: '₿',
+    colorClass: 'bg-orange-500',
+  },
+  {
+    id: 'eth',
+    symbol: 'ETH',
+    name: 'Ethereum',
+    group: 'main',
+    logo: 'eth-background',
+    icon: 'Ξ',
+    colorClass: 'bg-indigo-500',
+  },
+  {
+    id: 'xaut',
+    symbol: 'XAUT',
+    name: 'Tether Gold',
+    group: 'main',
+    logo: 'xaut-background',
+    icon: 'Au',
+    colorClass: 'bg-amber-500',
+  },
 
   // "···" popover: stablecoins
   { id: 'usds', symbol: 'USDS', name: 'Sky Dollar', group: 'stablecoin', icon: 'S', colorClass: 'bg-amber-600' },
@@ -51,42 +96,152 @@ export const assets: Asset[] = [
     symbol: 'USDe',
     name: 'Ethena USDe',
     group: 'stablecoin',
+    logo: 'usde-background',
     icon: 'e',
     colorClass: 'bg-slate-800 dark:bg-slate-600',
   },
-  { id: 'eurc', symbol: 'EURC', name: 'Euro Coin', group: 'stablecoin', icon: '€', colorClass: 'bg-blue-600' },
+  {
+    id: 'eurc',
+    symbol: 'EURC',
+    name: 'Euro Coin',
+    group: 'stablecoin',
+    logo: 'eurc-background',
+    icon: '€',
+    colorClass: 'bg-blue-600',
+  },
 
   // "···" popover: other coins
-  { id: 'sol', symbol: 'SOL', name: 'Solana', group: 'coin', icon: 'S', colorClass: 'bg-purple-500' },
-  { id: 'bnb', symbol: 'BNB', name: 'BNB', group: 'coin', icon: 'B', colorClass: 'bg-yellow-400 text-slate-900' },
-  { id: 'xrp', symbol: 'XRP', name: 'XRP', group: 'coin', icon: '✕', colorClass: 'bg-slate-700' },
-  { id: 'doge', symbol: 'DOGE', name: 'Dogecoin', group: 'coin', icon: 'Ð', colorClass: 'bg-yellow-500' },
-  { id: 'ada', symbol: 'ADA', name: 'Cardano', group: 'coin', icon: '₳', colorClass: 'bg-blue-700' },
-  { id: 'trx', symbol: 'TRX', name: 'TRON', group: 'coin', icon: 'T', colorClass: 'bg-red-500' },
-  { id: 'ton', symbol: 'TON', name: 'Toncoin', group: 'coin', icon: '◇', colorClass: 'bg-sky-500' },
+  {
+    id: 'sol',
+    symbol: 'SOL',
+    name: 'Solana',
+    group: 'coin',
+    logo: 'sol-background',
+    icon: 'S',
+    colorClass: 'bg-purple-500',
+  },
+  {
+    id: 'bnb',
+    symbol: 'BNB',
+    name: 'BNB',
+    group: 'coin',
+    logo: 'bnb-background',
+    icon: 'B',
+    colorClass: 'bg-yellow-400 text-slate-900',
+  },
+  {
+    id: 'xrp',
+    symbol: 'XRP',
+    name: 'XRP',
+    group: 'coin',
+    logo: 'xrp-background',
+    icon: '✕',
+    colorClass: 'bg-slate-700',
+  },
+  {
+    id: 'doge',
+    symbol: 'DOGE',
+    name: 'Dogecoin',
+    group: 'coin',
+    logo: 'doge-background',
+    icon: 'Ð',
+    colorClass: 'bg-yellow-500',
+  },
+  {
+    id: 'ada',
+    symbol: 'ADA',
+    name: 'Cardano',
+    group: 'coin',
+    logo: 'ada-background',
+    icon: '₳',
+    colorClass: 'bg-blue-700',
+  },
+  {
+    id: 'trx',
+    symbol: 'TRX',
+    name: 'TRON',
+    group: 'coin',
+    logo: 'trx-background',
+    icon: 'T',
+    colorClass: 'bg-red-500',
+  },
+  {
+    id: 'ton',
+    symbol: 'TON',
+    name: 'Toncoin',
+    group: 'coin',
+    logo: 'ton-background',
+    icon: '◇',
+    colorClass: 'bg-sky-500',
+  },
   {
     id: 'hype',
     symbol: 'HYPE',
     name: 'Hyperliquid',
     group: 'coin',
+    logo: 'hyper-evm-background',
     icon: 'H',
     colorClass: 'bg-teal-400 text-slate-900',
   },
-  { id: 'link', symbol: 'LINK', name: 'Chainlink', group: 'coin', icon: '⬡', colorClass: 'bg-blue-800' },
+  {
+    id: 'link',
+    symbol: 'LINK',
+    name: 'Chainlink',
+    group: 'coin',
+    logo: 'link-background',
+    icon: '⬡',
+    colorClass: 'bg-blue-800',
+  },
   {
     id: 'near',
     symbol: 'NEAR',
     name: 'NEAR Protocol',
     group: 'coin',
+    logo: 'near-background',
     icon: 'N',
     colorClass: 'bg-slate-900 dark:bg-slate-600',
   },
-  { id: 'dot', symbol: 'DOT', name: 'Polkadot', group: 'coin', icon: '●', colorClass: 'bg-pink-500' },
-  { id: 'ltc', symbol: 'LTC', name: 'Litecoin', group: 'coin', icon: 'Ł', colorClass: 'bg-slate-400' },
-  { id: 'sui', symbol: 'SUI', name: 'Sui', group: 'coin', icon: 'S', colorClass: 'bg-sky-400' },
-  { id: 'avax', symbol: 'AVAX', name: 'Avalanche', group: 'coin', icon: 'A', colorClass: 'bg-red-600' },
-  { id: 'pol', symbol: 'POL', name: 'Polygon', group: 'coin', icon: 'P', colorClass: 'bg-violet-600' },
+  {
+    id: 'dot',
+    symbol: 'DOT',
+    name: 'Polkadot',
+    group: 'coin',
+    logo: 'dot-background',
+    icon: '●',
+    colorClass: 'bg-pink-500',
+  },
+  {
+    id: 'ltc',
+    symbol: 'LTC',
+    name: 'Litecoin',
+    group: 'coin',
+    logo: 'ltc-background',
+    icon: 'Ł',
+    colorClass: 'bg-slate-400',
+  },
+  { id: 'sui', symbol: 'SUI', name: 'Sui', group: 'coin', logo: 'sui-background', icon: 'S', colorClass: 'bg-sky-400' },
+  {
+    id: 'avax',
+    symbol: 'AVAX',
+    name: 'Avalanche',
+    group: 'coin',
+    logo: 'avax-background',
+    icon: 'A',
+    colorClass: 'bg-red-600',
+  },
+  {
+    id: 'pol',
+    symbol: 'POL',
+    name: 'Polygon',
+    group: 'coin',
+    logo: 'pol-background',
+    icon: 'P',
+    colorClass: 'bg-violet-600',
+  },
 ];
+
+/** Iconify names of every coin logo used, so astro.config.ts bundles only these. */
+export const assetLogoNames = assets.flatMap((asset) => (asset.logo ? [asset.logo] : []));
 
 export const mainAssets = assets.filter((asset) => asset.group === 'main');
 export const stablecoinAssets = assets.filter((asset) => asset.group === 'stablecoin');

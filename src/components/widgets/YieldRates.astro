@@ -2,7 +2,15 @@
 import { Icon } from 'astro-icon/components';
 import AssetChip from '~/components/ui/AssetChip.astro';
 import YieldBadge from '~/components/ui/YieldBadge.astro';
-import { assets, coinAssets, DEFAULT_ASSET_ID, mainAssets, rateRows, stablecoinAssets } from '~/data/yields';
+import {
+  assetLogoNames,
+  assets,
+  coinAssets,
+  DEFAULT_ASSET_ID,
+  mainAssets,
+  rateRows,
+  stablecoinAssets,
+} from '~/data/yields';
 import { productsLabel, ratesForAsset, sortByRate, sortLabel } from '~/utils/yields';
 
 // Asset picker + sortable rates table from the YieldBasics MagicPath design.
@@ -20,6 +28,17 @@ const moreGroups = [
 ---
 
 <yb-yield-rates data-default-asset={defaultAsset.symbol}>
+  {
+    /*
+      astro-icon defines each icon once (<symbol>) and reuses it with <use>.
+      Several coin logos use gradients, which browsers don't paint when that
+      first definition sits inside hidden content (the hidden extra chips or
+      the closed popover). Define every logo here first: off-screen, but rendered.
+    */
+  }
+  <div class="sr-only" aria-hidden="true">
+    {assetLogoNames.map((name) => <Icon name={`token-branded:${name}`} />)}
+  </div>
   <section class="mt-10" aria-labelledby="asset-heading">
     <div class="flex items-center justify-between gap-4">
       <div>

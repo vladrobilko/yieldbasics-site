@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { icons as tokenBranded } from '@iconify-json/token-branded';
 
-import { assets, coinAssets, mainAssets, rateRows, stablecoinAssets } from '~/data/yields';
+import { assetLogoNames, assets, coinAssets, mainAssets, rateRows, stablecoinAssets } from '~/data/yields';
 import { filterAssets, formatRate, productsLabel, ratesForAsset, sortByRate, sortLabel } from '~/utils/yields';
 
 describe('formatRate', () => {
@@ -132,5 +133,22 @@ describe('asset groups', () => {
   it('no longer lists removed coins', () => {
     const symbols = assets.map((a) => a.symbol);
     for (const removed of ['DAI', 'FDUSD', 'BCH', 'ZEC']) expect(symbols).not.toContain(removed);
+  });
+});
+
+describe('asset logos', () => {
+  const available = new Set([...Object.keys(tokenBranded.icons), ...Object.keys(tokenBranded.aliases ?? {})]);
+
+  it('every logo name exists in the token-branded icon set', () => {
+    const missing = assetLogoNames.filter((name) => !available.has(name));
+    expect(missing).toEqual([]);
+  });
+
+  it('every asset has a logo or a fallback glyph', () => {
+    expect(assets.every((a) => a.logo || a.icon)).toBe(true);
+  });
+
+  it('only USDS uses the fallback glyph (no logo in the set yet)', () => {
+    expect(assets.filter((a) => !a.logo).map((a) => a.symbol)).toEqual(['USDS']);
   });
 });

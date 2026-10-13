@@ -14,6 +14,7 @@ import compress from 'astro-compress';
 import type { AstroIntegration } from 'astro';
 
 import astrowind from './vendor/integration';
+import { assetLogoNames } from './src/data/yields';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
@@ -56,6 +57,8 @@ export default defineConfig({
       iconDir: 'src/assets/icons',
       include: {
         tabler: ['*'],
+        // Coin logos (Web3 Icons, MIT) used by the asset picker in src/data/yields.ts.
+        'token-branded': assetLogoNames,
         'flat-color-icons': [
           'template',
           'gallery',
