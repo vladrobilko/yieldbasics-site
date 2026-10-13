@@ -1,19 +1,44 @@
 ---
 import { Icon } from 'astro-icon/components';
+import AssetChip from '~/components/ui/AssetChip.astro';
 import YieldBadge from '~/components/ui/YieldBadge.astro';
-import { assets, DEFAULT_ASSET_ID, rateRows } from '~/data/yields';
+import {
+  assetLogoNames,
+  assets,
+  coinAssets,
+  DEFAULT_ASSET_ID,
+  mainAssets,
+  rateRows,
+  stablecoinAssets,
+} from '~/data/yields';
 import { productsLabel, ratesForAsset, sortByRate, sortLabel } from '~/utils/yields';
 
 // Asset picker + sortable rates table from the YieldBasics MagicPath design.
 // Every row is rendered at build time (static site); the small script below
-// only filters by asset and flips the sort order in the browser.
+// only filters by asset, flips the sort order and drives the "···" popover.
 
 const defaultAsset = assets.find((a) => a.id === DEFAULT_ASSET_ID) ?? assets[0];
 const defaultRows = ratesForAsset(rateRows, defaultAsset.symbol);
 const allRows = sortByRate(rateRows);
+const moreAssets = [...stablecoinAssets, ...coinAssets];
+const moreGroups = [
+  { id: 'stablecoin', title: 'Stablecoins', items: stablecoinAssets },
+  { id: 'coin', title: 'Other coins', items: coinAssets },
+];
 ---
 
 <yb-yield-rates data-default-asset={defaultAsset.symbol}>
+  {
+    /*
+      astro-icon defines each icon once (<symbol>) and reuses it with <use>.
+      Several coin logos use gradients, which browsers don't paint when that
+      first definition sits inside hidden content (the hidden extra chips or
+      the closed popover). Define every logo here first: off-screen, but rendered.
+    */
+  }
+  <div class="sr-only" aria-hidden="true">
+    {assetLogoNames.map((name) => <Icon name={name} />)}
+  </div>
   <section class="mt-10" aria-labelledby="asset-heading">
     <div class="flex items-center justify-between gap-4">
       <div>
@@ -28,47 +53,77 @@ const allRows = sortByRate(rateRows);
     <div class="w-full overflow-x-auto py-4 [scrollbar-width:none]">
       <div class="flex min-w-max items-center gap-3">
         {
-          assets.map((asset) => (
-            <button
-              type="button"
+          mainAssets.map((asset) => (
+            <AssetChip
+              asset={asset}
+              pressed={asset.symbol === defaultAsset.symbol}
               data-asset-button
               data-symbol={asset.symbol}
-              aria-pressed={asset.symbol === defaultAsset.symbol ? 'true' : 'false'}
-              class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 aria-pressed:border-slate-900 aria-pressed:bg-slate-900 aria-pressed:shadow-lg aria-pressed:shadow-slate-200 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700 dark:hover:bg-slate-800 dark:aria-pressed:border-emerald-600 dark:aria-pressed:bg-emerald-600 dark:aria-pressed:shadow-none"
-            >
-              <span
-                class:list={[
-                  'flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-white shadow-inner',
-                  asset.colorClass,
-                ]}
-                aria-hidden="true"
-              >
-                {asset.icon}
-              </span>
-              <span class="flex flex-col items-start">
-                <span class="text-sm font-bold leading-tight text-slate-900 group-aria-pressed:text-white dark:text-white">
-                  {asset.symbol}
-                </span>
-                <span class="text-[10px] font-medium leading-tight text-slate-500 group-aria-pressed:text-slate-400 dark:text-slate-400 dark:group-aria-pressed:text-emerald-100">
-                  {asset.name}
-                </span>
-              </span>
-              <span
-                class="ml-1 hidden h-1.5 w-1.5 rounded-full bg-emerald-400 group-aria-pressed:block motion-safe:animate-pulse dark:bg-white"
-                aria-hidden="true"
-              />
-            </button>
+            />
+          ))
+        }
+        {
+          /* One pre-rendered chip per popover asset; the picked one is shown as the 6th chip. */
+          moreAssets.map((asset) => (
+            <AssetChip asset={asset} data-asset-button data-extra data-symbol={asset.symbol} hidden />
           ))
         }
         <button
           type="button"
-          class="flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-400 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
-          aria-label="More assets coming soon"
-          title="More assets coming soon"
+          popovertarget="more-assets"
+          data-more-button
+          class="flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-400 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
+          aria-label="More assets"
+          title="More assets"
         >
           <span aria-hidden="true" class="text-lg leading-8 tracking-[0.16em]">···</span>
         </button>
       </div>
+    </div>
+
+    <div
+      id="more-assets"
+      popover
+      role="dialog"
+      aria-label="More assets"
+      class="m-0 max-h-[min(30rem,75vh)] w-[min(26rem,calc(100vw-2rem))] overflow-y-auto rounded-xl border border-slate-200 bg-white p-4 text-slate-900 shadow-xl dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+    >
+      <label class="relative block">
+        <span class="sr-only">Search assets</span>
+        <Icon
+          name="tabler:search"
+          class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+        />
+        <input
+          type="search"
+          data-asset-search
+          placeholder="Search asset…"
+          autocomplete="off"
+          class="w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+        />
+      </label>
+      {
+        moreGroups.map((group) => (
+          <div class="mt-4" data-asset-group>
+            <p class="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
+              {group.title}
+            </p>
+            <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {group.items.map((asset) => (
+                <AssetChip
+                  asset={asset}
+                  size="sm"
+                  data-asset-pick
+                  data-symbol={asset.symbol}
+                  data-name={asset.name}
+                  class="w-full"
+                />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+      <p data-asset-none hidden class="mt-4 text-center text-sm text-slate-500 dark:text-slate-400">No assets match</p>
     </div>
   </section>
 
@@ -193,7 +248,7 @@ const allRows = sortByRate(rateRows);
 </style>
 
 <script>
-  import { productsLabel, ratesForAsset, sortLabel } from '~/utils/yields';
+  import { filterAssets, placePopover, productsLabel, ratesForAsset, sortLabel } from '~/utils/yields';
 
   class YbYieldRates extends HTMLElement {
     connectedCallback() {
@@ -228,16 +283,101 @@ const allRows = sortByRate(rateRows);
         buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.symbol === asset)));
       };
 
-      buttons.forEach((button) =>
-        button.addEventListener('click', () => {
-          asset = button.dataset.symbol ?? asset;
-          render();
-        })
-      );
+      const select = (symbol: string) => {
+        asset = symbol;
+        render();
+      };
+
+      buttons.forEach((button) => button.addEventListener('click', () => select(button.dataset.symbol ?? asset)));
       this.querySelector('[data-sort-button]')?.addEventListener('click', () => {
         descending = !descending;
         render();
       });
+
+      this.setupMoreAssets(select);
+    }
+
+    /** "···" popover: search, pick an asset, show it as the extra chip after the main row. */
+    private setupMoreAssets(select: (symbol: string) => void) {
+      const popover = this.querySelector<HTMLElement>('#more-assets');
+      const trigger = this.querySelector<HTMLButtonElement>('[data-more-button]');
+      const search = this.querySelector<HTMLInputElement>('[data-asset-search]');
+      if (!popover || !trigger || !search) return;
+
+      const picks = Array.from(popover.querySelectorAll<HTMLButtonElement>('[data-asset-pick]'));
+      const items = picks.map((el) => ({ el, symbol: el.dataset.symbol ?? '', name: el.dataset.name ?? '' }));
+      const extras = Array.from(this.querySelectorAll<HTMLButtonElement>('[data-extra]'));
+      const groups = Array.from(popover.querySelectorAll<HTMLElement>('[data-asset-group]'));
+      const none = popover.querySelector<HTMLElement>('[data-asset-none]');
+
+      const applySearch = () => {
+        const matches = new Set(filterAssets(items, search.value).map((item) => item.el));
+        items.forEach((item) => (item.el.hidden = !matches.has(item.el)));
+        groups.forEach((group) => (group.hidden = !group.querySelector('[data-asset-pick]:not([hidden])')));
+        if (none) none.hidden = matches.size > 0;
+      };
+
+      // Popovers render in the top layer, so place it under the trigger ourselves.
+      // The panel shrinks to the room below (its list scrolls) rather than jumping
+      // over the sticky header; see placePopover in ~/utils/yields.
+      const place = () => {
+        const { top, left, maxHeight } = placePopover({
+          anchor: trigger.getBoundingClientRect(),
+          width: popover.offsetWidth,
+          contentHeight: popover.scrollHeight,
+          viewport: { width: window.innerWidth, height: window.innerHeight },
+          minTop: (document.querySelector('#header')?.getBoundingClientRect().bottom ?? 0) + 8,
+        });
+        Object.assign(popover.style, {
+          top: `${top}px`,
+          left: `${left}px`,
+          right: 'auto',
+          bottom: 'auto',
+          maxHeight: `${maxHeight}px`,
+        });
+      };
+
+      // `toggle` fires after the popover is already shown, so the browser can paint
+      // one frame at its default top-left spot (or where it was last time). Hide it
+      // in `beforetoggle` (runs before it is shown) and reveal it once placed.
+      popover.addEventListener('beforetoggle', (event) => {
+        if ((event as ToggleEvent).newState === 'open') popover.style.visibility = 'hidden';
+      });
+
+      popover.addEventListener('toggle', (event) => {
+        if ((event as ToggleEvent).newState === 'open') {
+          place();
+          popover.style.visibility = '';
+          search.focus();
+          window.addEventListener('resize', place);
+          window.addEventListener('scroll', place, { passive: true });
+        } else {
+          search.value = '';
+          applySearch();
+          window.removeEventListener('resize', place);
+          window.removeEventListener('scroll', place);
+        }
+      });
+
+      search.addEventListener('input', () => {
+        applySearch();
+        place();
+      });
+      search.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter') return;
+        event.preventDefault();
+        popover.querySelector<HTMLButtonElement>('[data-asset-pick]:not([hidden])')?.click();
+      });
+
+      picks.forEach((pick) =>
+        pick.addEventListener('click', () => {
+          const symbol = pick.dataset.symbol ?? '';
+          extras.forEach((chip) => (chip.hidden = chip.dataset.symbol !== symbol));
+          select(symbol);
+          popover.hidePopover();
+          extras.find((chip) => !chip.hidden)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        })
+      );
     }
   }
 

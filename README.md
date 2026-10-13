@@ -21,6 +21,10 @@ npm run dev      # http://localhost:4321
 | `npm run build`   | Production build to `./dist/`   |
 | `npm run preview` | Preview the production build    |
 
+## Credits
+
+- Coin icons: [Web3 Icons](https://github.com/0xa3k5/web3icons) "token-branded" set (MIT), via [Iconify](https://icon-sets.iconify.design/token-branded/). USDS (Sky Dollar) logo: as submitted by Sky Ecosystem to [MetaMask/contract-metadata](https://github.com/MetaMask/contract-metadata) (ISC), in `src/assets/icons/coin-usds.svg`. Coin names and logos are trademarks of their respective owners and are used only to identify the assets.
+
 ## Contributing
 
 All changes go through pull requests from branches named `<bugfix|feature>/<author>/<summary>`, e.g. `feature/claude/change-design-for-home-page`. See [AGENTS.md](./AGENTS.md) for the full workflow rules.
