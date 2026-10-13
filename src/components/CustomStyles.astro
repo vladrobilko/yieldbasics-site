@@ -2,6 +2,9 @@
 // Font family is provided by Astro's native Fonts API (see `fonts` in
 // astro.config.ts and <Font /> in Layout.astro), exposed as `--font-inter`.
 // To switch typefaces, change the `fonts` entry and repoint `--aw-font-*` below.
+//
+// Colours follow the YieldBasics design from MagicPath: slate neutrals with an
+// emerald accent (Tailwind emerald-500/600/700, slate-50…950).
 ---
 
 <style is:inline>
@@ -10,19 +13,19 @@
     --aw-font-serif: var(--font-inter);
     --aw-font-heading: var(--font-inter);
 
-    --aw-color-primary: rgb(1 97 239);
-    --aw-color-secondary: rgb(1 84 207);
-    --aw-color-accent: rgb(109 40 217);
+    --aw-color-primary: rgb(5 150 105);
+    --aw-color-secondary: rgb(4 120 87);
+    --aw-color-accent: rgb(16 185 129);
 
-    --aw-color-text-heading: rgb(0 0 0);
-    --aw-color-text-default: rgb(16 16 16);
-    --aw-color-text-muted: rgb(16 16 16 / 66%);
-    --aw-color-bg-page: rgb(255 255 255);
+    --aw-color-text-heading: rgb(2 6 23);
+    --aw-color-text-default: rgb(15 23 42);
+    --aw-color-text-muted: rgb(71 85 105);
+    --aw-color-bg-page: rgb(248 250 252);
 
-    --aw-color-bg-page-dark: rgb(8 9 10);
+    --aw-color-bg-page-dark: rgb(2 6 23);
 
     ::selection {
-      background-color: lavender;
+      background-color: rgb(209 250 229);
     }
   }
 
@@ -31,18 +34,18 @@
     --aw-font-serif: var(--font-inter);
     --aw-font-heading: var(--font-inter);
 
-    --aw-color-primary: rgb(1 97 239);
-    --aw-color-secondary: rgb(1 84 207);
-    --aw-color-accent: rgb(109 40 217);
+    --aw-color-primary: rgb(16 185 129);
+    --aw-color-secondary: rgb(5 150 105);
+    --aw-color-accent: rgb(52 211 153);
 
-    --aw-color-text-heading: rgb(247, 248, 248);
-    --aw-color-text-default: rgb(229 236 246);
-    --aw-color-text-muted: rgb(229 236 246 / 66%);
-    --aw-color-bg-page: rgb(8 9 10);
+    --aw-color-text-heading: rgb(248 250 252);
+    --aw-color-text-default: rgb(226 232 240);
+    --aw-color-text-muted: rgb(148 163 184);
+    --aw-color-bg-page: rgb(2 6 23);
 
     ::selection {
-      background-color: black;
-      color: snow;
+      background-color: rgb(6 78 59);
+      color: rgb(236 253 245);
     }
   }
 </style>

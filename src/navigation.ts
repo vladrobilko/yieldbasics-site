@@ -2,10 +2,10 @@ import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
 
 export const headerData = {
   links: [
-    { text: 'Home', href: getPermalink('/') },
-    { text: 'Blog', href: getBlogPermalink() },
-    { text: 'About', href: getPermalink('/about') },
-    { text: 'Contact', href: getPermalink('/contact') },
+    { text: 'Rates', href: getPermalink('/'), icon: 'tabler:table' },
+    { text: 'Blog', href: getBlogPermalink(), icon: 'tabler:news' },
+    { text: 'About', href: getPermalink('/about'), icon: 'tabler:info-circle' },
+    { text: 'Contact', href: getPermalink('/contact'), icon: 'tabler:mail' },
   ],
   actions: [],
 };

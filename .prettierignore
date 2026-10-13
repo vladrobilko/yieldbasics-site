@@ -2,3 +2,5 @@ dist
 node_modules
 .github
 .astro
+.claude/skills
+skills-lock.json

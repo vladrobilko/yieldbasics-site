@@ -25,6 +25,17 @@
   --font-heading: var(--aw-font-heading, ui-sans-serif), ui-sans-serif, system-ui, sans-serif;
 
   --animate-fade: fadeInUp 0.5s both;
+  --animate-bounce-slow: bounceSlow 2s ease-in-out infinite;
+
+  @keyframes bounceSlow {
+    0%,
+    100% {
+      transform: translateY(-5%);
+    }
+    50% {
+      transform: translateY(5%);
+    }
+  }
 
   @keyframes fadeInUp {
     0% {
@@ -120,10 +131,9 @@
 }
 
 /* Current page in the header navigation (set server-side in Header.astro and
-   kept in sync on client-side navigations). Override --aw-color-link in
-   CustomStyles.astro to change the colour. */
+   kept in sync on client-side navigations). Emerald pill from the YieldBasics design. */
 #header nav .aw-link-active {
-  @apply text-link;
+  @apply bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400;
 }
 
 .dd *:first-child {

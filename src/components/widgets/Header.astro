@@ -67,7 +67,7 @@ const persistKey = `header-${Array.from(
   <header
     class:list={[
       { sticky: isSticky, relative: !isSticky, dark: isDark },
-      'top-0 z-40 flex-none mx-auto w-full border-b border-gray-50/0 transition-[opacity] ease-in-out',
+      'top-0 z-40 flex-none mx-auto w-full border-b border-slate-200 bg-white shadow-sm transition-[opacity] ease-in-out dark:border-slate-800 dark:bg-slate-950',
     ]}
     {...isSticky ? { 'data-aw-sticky-header': true } : {}}
     {...id ? { id } : {}}
@@ -75,7 +75,7 @@ const persistKey = `header-${Array.from(
     <div class="absolute inset-0"></div>
     <div
       class:list={[
-        'relative text-default py-3 px-3 lg:px-6 mx-auto w-full',
+        'relative text-default py-3 px-4 sm:px-6 lg:px-8 mx-auto w-full',
         {
           'lg:flex lg:justify-between': position !== 'center',
         },
@@ -100,10 +100,10 @@ const persistKey = `header-${Array.from(
         aria-label="Main navigation"
       >
         <ul
-          class="flex flex-col lg:flex-row lg:self-center w-full lg:w-auto text-xl lg:text-[0.9375rem] tracking-[0.01rem] font-medium lg:justify-center"
+          class="flex flex-col lg:flex-row lg:self-center w-full lg:w-auto text-xl lg:text-sm font-medium lg:justify-center lg:gap-1"
         >
           {
-            links.map(({ text, href, links }) => (
+            links.map(({ text, href, icon, links }) => (
               <li class={links?.length ? 'dropdown' : ''}>
                 {links?.length ? (
                   <>
@@ -136,11 +136,12 @@ const persistKey = `header-${Array.from(
                 ) : (
                   <a
                     class:list={[
-                      'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
+                      'flex items-center gap-2 whitespace-nowrap rounded-md px-4 py-3 lg:py-2 text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white',
                       { 'aw-link-active': isActive(href) },
                     ]}
                     href={href}
                   >
+                    {icon && <Icon name={icon} class="h-5 w-5 lg:h-4 lg:w-4" />}
                     {text}
                   </a>
                 )}
@@ -157,7 +158,14 @@ const persistKey = `header-${Array.from(
       >
         <div class="items-center flex justify-between w-full lg:w-auto">
           <div class="flex">
-            {showToggleTheme && <ToggleTheme iconClass="w-6 h-6 lg:w-5 lg:h-5 lg:inline-block" />}
+            {
+              showToggleTheme && (
+                <ToggleTheme
+                  class="inline-flex items-center rounded-full p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
+                  iconClass="w-6 h-6 lg:w-5 lg:h-5 lg:inline-block"
+                />
+              )
+            }
             {
               showRssFeed && (
                 <a

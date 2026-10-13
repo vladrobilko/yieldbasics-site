@@ -1,0 +1,44 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { RateType } from '~/data/yields';
+import { formatRate } from '~/utils/yields';
+
+export interface Props {
+  rate: number;
+  type?: RateType;
+  isPromotional?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { rate, type = 'APR', isPromotional = false, size = 'md' } = Astro.props;
+
+const sizeClasses = {
+  sm: 'text-sm py-0.5 px-2',
+  md: 'text-lg py-1 px-3',
+  lg: 'text-2xl py-2 px-4',
+};
+---
+
+<div class="inline-flex flex-col items-start gap-1">
+  <div
+    class:list={[
+      'inline-flex items-center rounded-lg font-bold transition-all',
+      isPromotional
+        ? 'border border-amber-200 bg-amber-50 text-amber-700 shadow-sm dark:border-amber-800/60 dark:bg-amber-950/40 dark:text-amber-300'
+        : 'border border-emerald-100 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300',
+      sizeClasses[size],
+    ]}
+  >
+    <span class="tabular-nums">{formatRate(rate)}</span>
+    <span class="ml-1 text-[10px] font-medium tracking-tight opacity-70">{type}</span>
+    {isPromotional && <Icon name="tabler:trending-up" class="ml-2 h-3.5 w-3.5 motion-safe:animate-bounce-slow" />}
+  </div>
+  {
+    isPromotional && (
+      <span class="flex items-center gap-1 px-1 text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+        <Icon name="tabler:award" class="h-2.5 w-2.5" />
+        Promo
+      </span>
+    )
+  }
+</div>
