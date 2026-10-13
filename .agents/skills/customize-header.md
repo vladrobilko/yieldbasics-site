@@ -15,7 +15,7 @@ Files: `src/components/widgets/Header.astro` (markup + `aw-header` web component
 | `showRssFeed`     | `false`    | RSS icon (`/rss.xml`)                              |
 | `position`        | `'center'` | `'left'`, `'center'` (3-column grid) or `'right'`  |
 
-`PageLayout.astro` renders `<Header {...headerData} isSticky showRssFeed showToggleTheme />`. Pages can pass their own `<Header>` through the `header` slot for a reduced menu.
+`PageLayout.astro` renders `<Header {...headerData} isSticky showToggleTheme />` (RSS stays in the footer). Pages can pass their own `<Header>` through the `header` slot for a reduced menu.
 
 ## Breakpoints
 

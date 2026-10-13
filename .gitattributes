@@ -1,2 +1,8 @@
+# Keep LF everywhere (Prettier writes LF; avoids CRLF churn on Windows)
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.jpg binary
+*.webp binary
 # Git hooks run under sh: keep LF endings even with core.autocrlf on Windows
 .githooks/* text eol=lf
