@@ -1,7 +1,16 @@
+import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { icons as tokenBranded } from '@iconify-json/token-branded';
 
-import { assetLogoNames, assets, coinAssets, mainAssets, rateRows, stablecoinAssets } from '~/data/yields';
+import {
+  assetLogoNames,
+  assets,
+  tokenBrandedLogoNames,
+  coinAssets,
+  mainAssets,
+  rateRows,
+  stablecoinAssets,
+} from '~/data/yields';
 import {
   filterAssets,
   formatRate,
@@ -147,17 +156,19 @@ describe('asset groups', () => {
 describe('asset logos', () => {
   const available = new Set([...Object.keys(tokenBranded.icons), ...Object.keys(tokenBranded.aliases ?? {})]);
 
-  it('every logo name exists in the token-branded icon set', () => {
-    const missing = assetLogoNames.filter((name) => !available.has(name));
+  it('every token-branded logo exists in the icon set', () => {
+    const missing = tokenBrandedLogoNames.filter((name) => !available.has(name));
     expect(missing).toEqual([]);
   });
 
-  it('every asset has a logo or a fallback glyph', () => {
-    expect(assets.every((a) => a.logo || a.icon)).toBe(true);
+  it('every local logo has a file in src/assets/icons', () => {
+    const local = assetLogoNames.filter((name) => !name.includes(':'));
+    expect(local).toEqual(['coin-usds']);
+    for (const name of local) expect(existsSync(`src/assets/icons/${name}.svg`)).toBe(true);
   });
 
-  it('only USDS uses the fallback glyph (no logo in the set yet)', () => {
-    expect(assets.filter((a) => !a.logo).map((a) => a.symbol)).toEqual(['USDS']);
+  it('every asset has a real logo', () => {
+    expect(assets.filter((a) => !a.logo).map((a) => a.symbol)).toEqual([]);
   });
 });
 
