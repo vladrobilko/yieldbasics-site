@@ -10,7 +10,7 @@ It is a fully static site built on the open-source **AstroWind** template (Astro
 
 ## Workflow Rules (mandatory for every agent)
 
-1. **Pull requests only.** Never commit or push directly to `main`. Every change goes on its own branch and is merged through a pull request (`gh pr create`).
+1. **Pull requests only.** Never commit or push directly to `master` (the default branch). Every change goes on its own branch and is merged through a pull request (`gh pr create`).
 2. **Branch naming:** `<bugfix|feature>/<agent>/<kebab-case-summary>`, where `<agent>` is who implements it (`claude`, `codex`, `human`, …).
    - `feature/claude/change-design-for-home-page`
    - `bugfix/claude/fix-mobile-menu-overlap`
