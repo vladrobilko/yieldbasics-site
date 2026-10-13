@@ -337,9 +337,17 @@ const moreGroups = [
         });
       };
 
+      // `toggle` fires after the popover is already shown, so the browser can paint
+      // one frame at its default top-left spot (or where it was last time). Hide it
+      // in `beforetoggle` (runs before it is shown) and reveal it once placed.
+      popover.addEventListener('beforetoggle', (event) => {
+        if ((event as ToggleEvent).newState === 'open') popover.style.visibility = 'hidden';
+      });
+
       popover.addEventListener('toggle', (event) => {
         if ((event as ToggleEvent).newState === 'open') {
           place();
+          popover.style.visibility = '';
           search.focus();
           window.addEventListener('resize', place);
           window.addEventListener('scroll', place, { passive: true });
