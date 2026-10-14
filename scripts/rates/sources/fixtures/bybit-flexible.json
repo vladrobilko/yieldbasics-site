@@ -1,0 +1,113 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "list": [
+      {
+        "category": "FlexibleSaving",
+        "estimateApr": "0.5%",
+        "coin": "PEPE",
+        "minStakeAmount": "5000000",
+        "maxStakeAmount": "200000000000",
+        "precision": "0",
+        "productId": "185",
+        "status": "Available",
+        "bonusEvents": [],
+        "minRedeemAmount": "",
+        "maxRedeemAmount": "",
+        "duration": "",
+        "term": 0,
+        "swapCoin": "",
+        "swapCoinPrecision": "",
+        "stakeExchangeRate": "",
+        "redeemExchangeRate": "",
+        "rewardDistributionType": "",
+        "rewardIntervalMinute": 0,
+        "redeemProcessingMinute": 0,
+        "stakeTime": "",
+        "interestCalculationTime": "",
+        "hasTieredApr": false,
+        "tierAprDetails": [],
+        "remainingPoolAmount": "198584903051823"
+      },
+      {
+        "category": "FlexibleSaving",
+        "estimateApr": "0.1%",
+        "coin": "BTC",
+        "minStakeAmount": "0.002",
+        "maxStakeAmount": "1500",
+        "precision": "8",
+        "productId": "3",
+        "status": "Available",
+        "bonusEvents": [],
+        "minRedeemAmount": "",
+        "maxRedeemAmount": "",
+        "duration": "",
+        "term": 0,
+        "swapCoin": "",
+        "swapCoinPrecision": "",
+        "stakeExchangeRate": "",
+        "redeemExchangeRate": "",
+        "rewardDistributionType": "",
+        "rewardIntervalMinute": 0,
+        "redeemProcessingMinute": 0,
+        "stakeTime": "",
+        "interestCalculationTime": "",
+        "hasTieredApr": true,
+        "tierAprDetails": [
+          {
+            "min": "0",
+            "max": "0.003",
+            "estimateApr": "0.4%"
+          },
+          {
+            "min": "0.003",
+            "max": "-1",
+            "estimateApr": "0.1%"
+          }
+        ],
+        "remainingPoolAmount": "7991.2092677"
+      },
+      {
+        "category": "FlexibleSaving",
+        "estimateApr": "1.93%",
+        "coin": "USDT",
+        "minStakeAmount": "1",
+        "maxStakeAmount": "100000000",
+        "precision": "4",
+        "productId": "1",
+        "status": "Available",
+        "bonusEvents": [],
+        "minRedeemAmount": "",
+        "maxRedeemAmount": "",
+        "duration": "",
+        "term": 0,
+        "swapCoin": "",
+        "swapCoinPrecision": "",
+        "stakeExchangeRate": "",
+        "redeemExchangeRate": "",
+        "rewardDistributionType": "",
+        "rewardIntervalMinute": 0,
+        "redeemProcessingMinute": 0,
+        "stakeTime": "",
+        "interestCalculationTime": "",
+        "hasTieredApr": true,
+        "tierAprDetails": [
+          {
+            "min": "0",
+            "max": "100",
+            "estimateApr": "6.93%"
+          },
+          {
+            "min": "100",
+            "max": "-1",
+            "estimateApr": "1.93%"
+          }
+        ],
+        "remainingPoolAmount": "-1"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1791972354617
+}

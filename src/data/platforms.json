@@ -5,6 +5,7 @@
     "kind": "cex",
     "website": "https://www.binance.com/",
     "referralUrl": "https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_3JK5B",
+    "logo": "token-branded:binance-background",
     "mark": "B",
     "markClass": "bg-[#F0B90B] text-[#17191C]"
   },
@@ -14,6 +15,7 @@
     "kind": "cex",
     "website": "https://www.bybit.com/",
     "referralUrl": "https://www.bybit.com/invite?ref=7JY8Q8",
+    "logo": "token-branded:bybit-background",
     "mark": "BY",
     "markClass": "bg-[#17181E] text-[#F7A600] dark:bg-slate-700"
   },
@@ -23,6 +25,7 @@
     "kind": "cex",
     "website": "https://www.okx.com/",
     "referralUrl": "https://okx.com/join/2PGXPZ2P",
+    "logo": "token-branded:okx-background",
     "mark": "OK",
     "markClass": "bg-[#111827] text-white dark:bg-slate-700"
   },
@@ -32,6 +35,7 @@
     "kind": "defi",
     "website": "https://aave.com/",
     "referralUrl": "https://aave.com/r/18497A",
+    "logo": "token-branded:aave-background",
     "mark": "A",
     "markClass": "bg-[#B6509E] text-white"
   },
@@ -41,6 +45,7 @@
     "kind": "cex",
     "website": "https://www.bitget.com/",
     "referralUrl": "https://share.bitget.com/u/E6TVWZT1?clacCode=AL3DGX2A",
+    "logo": "token-branded:bitget-background",
     "mark": "BG",
     "markClass": "bg-[#00F0FF] text-slate-900"
   },
@@ -50,6 +55,7 @@
     "kind": "cex",
     "website": "https://www.gate.com/",
     "referralUrl": "https://www.gate.com/rewards_hub?ch=RewardsHub&ref=VLMVUVSKCA&ref_type=145",
+    "logo": "token-branded:gate-io-background",
     "mark": "G",
     "markClass": "bg-[#2354E6] text-white"
   },
@@ -59,6 +65,7 @@
     "kind": "cex",
     "website": "https://www.kucoin.com/",
     "referralUrl": "https://link.kucoin.com/iqEP/alk9lpk6?rcode=5XVM8KJK",
+    "logo": "token-branded:kucoin-background",
     "mark": "KC",
     "markClass": "bg-[#01BC8D] text-white"
   },
@@ -68,6 +75,7 @@
     "kind": "cex",
     "website": "https://www.mexc.com/",
     "referralUrl": "https://s.mexc.com/referral/pmUXXJxVcq",
+    "logo": "platform-mexc",
     "mark": "MX",
     "markClass": "bg-[#1972F5] text-white"
   },
@@ -75,8 +83,9 @@
     "id": "telegram-wallet",
     "name": "Walt",
     "kind": "wallet",
-    "website": "https://wallet.tg/",
+    "website": "https://walt.io/",
     "referralUrl": "https://telegram.me/walt/start?startapp=ref-3-Eaf_7ElBp0A",
+    "logo": "platform-walt",
     "mark": "W",
     "markClass": "bg-[#2AABEE] text-white"
   },
@@ -86,6 +95,7 @@
     "kind": "cex",
     "website": "https://www.coinw.com/",
     "referralUrl": "https://www.coinw.com/en_US/register?r=26756348",
+    "logo": "platform-coinw",
     "mark": "CW",
     "markClass": "bg-[#3A6FF8] text-white"
   },
@@ -95,6 +105,7 @@
     "kind": "cex",
     "website": "https://www.weex.com/",
     "referralUrl": "https://weex.com/register?vipCode=0h7ra",
+    "logo": "platform-weex",
     "mark": "WX",
     "markClass": "bg-[#0B0B0B] text-[#FFD600] dark:bg-slate-700"
   }

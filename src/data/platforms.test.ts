@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 import { getPlatform, platformKindLabels, platforms } from '~/data/platforms';
@@ -25,6 +26,16 @@ describe('platforms', () => {
         keys.filter((key) => key.startsWith('utm_')),
         p.id
       ).toEqual([]);
+    }
+  });
+
+  it('gives every platform a logo', () => {
+    expect(platforms.filter((p) => !p.logo).map((p) => p.id)).toEqual([]);
+  });
+
+  it('every local platform logo has a file in src/assets/icons', () => {
+    for (const p of platforms) {
+      if (p.logo && !p.logo.includes(':')) expect(existsSync(`src/assets/icons/${p.logo}.svg`), p.id).toBe(true);
     }
   });
 

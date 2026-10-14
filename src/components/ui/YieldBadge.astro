@@ -7,10 +7,12 @@ export interface Props {
   rate: number;
   type?: RateType;
   isPromotional?: boolean;
+  /** Text under a promotional badge. */
+  promoLabel?: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
-const { rate, type = 'APR', isPromotional = false, size = 'md' } = Astro.props;
+const { rate, type = 'APR', isPromotional = false, promoLabel = 'Promo', size = 'md' } = Astro.props;
 
 const sizeClasses = {
   sm: 'text-sm py-0.5 px-2',
@@ -37,7 +39,7 @@ const sizeClasses = {
     isPromotional && (
       <span class="flex items-center gap-1 px-1 text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
         <Icon name="tabler:award" class="h-2.5 w-2.5" />
-        Promo
+        {promoLabel}
       </span>
     )
   }

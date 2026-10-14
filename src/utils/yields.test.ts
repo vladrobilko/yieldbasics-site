@@ -14,11 +14,14 @@ import {
 } from '~/data/yields';
 import {
   filterAssets,
+  emptyMessage,
+  filterByTerm,
   formatRate,
   placePopover,
   productsLabel,
   ratesForAsset,
   sortByRate,
+  sortByReward,
   sortLabel,
 } from '~/utils/yields';
 
@@ -48,15 +51,64 @@ describe('sortByRate', () => {
 });
 
 describe('ratesForAsset', () => {
+  const rows = [
+    { asset: 'USDT', rate: 3 },
+    { asset: 'BTC', rate: 1 },
+    { asset: 'USDT', rate: 7 },
+  ];
+
   it('returns only rows of the asset, highest rate first', () => {
-    const rows = ratesForAsset(rateRows, 'usdt');
-    expect(rows.length).toBeGreaterThan(0);
-    expect(rows.every((r) => r.asset === 'USDT')).toBe(true);
-    expect(rows.map((r) => r.rate)).toEqual([...rows.map((r) => r.rate)].sort((a, b) => b - a));
+    expect(ratesForAsset(rows, 'usdt')).toEqual([
+      { asset: 'USDT', rate: 7 },
+      { asset: 'USDT', rate: 3 },
+    ]);
   });
 
   it('returns an empty list for an asset without offers', () => {
-    expect(ratesForAsset(rateRows, 'DOGE')).toEqual([]);
+    expect(ratesForAsset(rows, 'DOGE')).toEqual([]);
+  });
+});
+
+describe('filterByTerm', () => {
+  const rows = [
+    { termDays: 0, audience: 'all' },
+    { termDays: 30, audience: 'all' },
+    { termDays: 7, audience: 'all' },
+    { termDays: 2, audience: 'new-user' },
+  ];
+
+  it('keeps everything, only flexible, or only fixed-term rows, never new-user ones', () => {
+    expect(filterByTerm(rows, 'all')).toHaveLength(3);
+    expect(filterByTerm(rows, 'flexible').map((r) => r.termDays)).toEqual([0]);
+    expect(filterByTerm(rows, 'fixed').map((r) => r.termDays)).toEqual([30, 7]);
+  });
+
+  it('shows only new-user rows in the New users tab', () => {
+    expect(filterByTerm(rows, 'new-user')).toEqual([{ termDays: 2, audience: 'new-user' }]);
+  });
+});
+
+describe('sortByReward', () => {
+  const rows = [
+    { id: 'a', reward: 6.58, rate: 600 },
+    { id: 'b', reward: null, rate: 100 },
+    { id: 'c', reward: 0.82, rate: 100 },
+    { id: 'd', reward: null, rate: 200 },
+  ];
+
+  it('ranks by reward and puts unknown rewards last, by rate', () => {
+    expect(sortByReward(rows).map((r) => r.id)).toEqual(['a', 'c', 'd', 'b']);
+    expect(sortByReward(rows, false).map((r) => r.id)).toEqual(['c', 'a', 'd', 'b']);
+  });
+});
+
+describe('emptyMessage', () => {
+  it('explains which assets have new-user offers', () => {
+    expect(emptyMessage('BTC', 'new-user', ['USDT', 'USDC'])).toBe(
+      'New-user offers are tracked for USDT and USDC only.'
+    );
+    expect(emptyMessage('USDT', 'new-user', ['USDT', 'USDC'])).toMatch(/No matching USDT offers/);
+    expect(emptyMessage('BTC', 'fixed', ['USDT', 'USDC'])).toMatch(/No matching BTC offers/);
   });
 });
 
@@ -72,10 +124,11 @@ describe('sortLabel', () => {
   it('names the current order', () => {
     expect(sortLabel(true)).toBe('Highest APR');
     expect(sortLabel(false)).toBe('Lowest APR');
+    expect(sortLabel(true, 'reward')).toBe('Highest reward');
   });
 });
 
-describe('sample data', () => {
+describe('rates data', () => {
   it('has unique row ids', () => {
     expect(new Set(rateRows.map((r) => r.id)).size).toBe(rateRows.length);
   });
@@ -130,7 +183,7 @@ describe('asset groups', () => {
         'DOGE',
         'ADA',
         'TRX',
-        'TON',
+        'GRAM',
         'HYPE',
         'LINK',
         'NEAR',

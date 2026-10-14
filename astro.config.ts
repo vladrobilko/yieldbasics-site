@@ -57,7 +57,7 @@ export default defineConfig({
       iconDir: 'src/assets/icons',
       include: {
         tabler: ['*'],
-        // Coin logos (Web3 Icons, MIT) used by the asset picker in src/data/yields.ts.
+        // Coin and platform logos (Web3 Icons, MIT) from src/data/yields.ts and platforms.json.
         'token-branded': tokenBrandedLogoNames,
         'flat-color-icons': [
           'template',

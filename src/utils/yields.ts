@@ -20,8 +20,25 @@ export const ratesForAsset = <T extends { asset: string; rate: number }>(
 export const productsLabel = (count: number): string =>
   count === 0 ? 'No products listed yet' : `${count} ${count === 1 ? 'product' : 'products'} across leading exchanges`;
 
+/**
+ * Sorted by estimated max reward (the "New users" tab), highest first unless
+ * `descending` is false. Rows without a known reward always go last, by rate.
+ */
+export const sortByReward = <T extends { reward: number | null; rate: number }>(
+  items: readonly T[],
+  descending = true
+): T[] =>
+  [...items].sort((a, b) => {
+    if (a.reward === null || b.reward === null) {
+      if (a.reward === b.reward) return b.rate - a.rate;
+      return a.reward === null ? 1 : -1;
+    }
+    return descending ? b.reward - a.reward : a.reward - b.reward;
+  });
+
 /** Label of the sort toggle for the current order. */
-export const sortLabel = (descending: boolean): string => (descending ? 'Highest APR' : 'Lowest APR');
+export const sortLabel = (descending: boolean, by: 'rate' | 'reward' = 'rate'): string =>
+  `${descending ? 'Highest' : 'Lowest'} ${by === 'reward' ? 'reward' : 'APR'}`;
 
 /** Assets whose symbol or name contains the query (case-insensitive). An empty query returns all. */
 export const filterAssets = <T extends { symbol: string; name: string }>(items: readonly T[], query: string): T[] => {
@@ -72,3 +89,26 @@ export const placePopover = ({
   const maxHeight = Math.max(0, Math.min(contentHeight, spaceAbove));
   return { top: anchor.top - gap - maxHeight, left, maxHeight };
 };
+
+export type TermFilter = 'all' | 'flexible' | 'fixed' | 'new-user';
+
+/**
+ * Rows matching the All / Flexible / Fixed / New users toggle (`termDays` 0
+ * means flexible). New-user offers appear only in their own tab, so their huge
+ * APRs never top the regular ranking.
+ */
+export const filterByTerm = <T extends { termDays: number; audience: string }>(
+  items: readonly T[],
+  term: TermFilter
+): T[] =>
+  items.filter((item) => {
+    if (term === 'new-user') return item.audience === 'new-user';
+    if (item.audience === 'new-user') return false;
+    return term === 'all' || (term === 'flexible') === (item.termDays === 0);
+  });
+
+/** Text for an empty table. */
+export const emptyMessage = (asset: string, term: TermFilter, newUserAssets: readonly string[]): string =>
+  term === 'new-user' && !newUserAssets.includes(asset)
+    ? `New-user offers are tracked for ${newUserAssets.join(' and ')} only.`
+    : `No matching ${asset} offers right now — try another term or asset.`;

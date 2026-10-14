@@ -1,0 +1,165 @@
+{
+  "status": "success",
+  "data": [
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "WETH",
+      "poolMeta": null,
+      "tvlUsd": 990274801,
+      "apy": 1.31765,
+      "apyBase": 1.31765,
+      "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "USDT",
+      "poolMeta": null,
+      "tvlUsd": 327100470,
+      "apy": 3.27958,
+      "apyBase": 3.27958,
+      "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "USDC",
+      "poolMeta": null,
+      "tvlUsd": 142840001,
+      "apy": 3.74013,
+      "apyBase": 3.74013,
+      "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "USDT",
+      "poolMeta": "Umbrella",
+      "tvlUsd": 62550411,
+      "apy": 4.90958,
+      "apyBase": 3.27958,
+      "apyReward": 1.63
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "USDC",
+      "poolMeta": "Umbrella",
+      "tvlUsd": 53245606,
+      "apy": 5.57013,
+      "apyBase": 3.74013,
+      "apyReward": 1.83
+    },
+    {
+      "chain": "Base",
+      "project": "aave-v3",
+      "symbol": "WETH",
+      "poolMeta": null,
+      "tvlUsd": 43137194,
+      "apy": 2.13236,
+      "apyBase": 1.39097,
+      "apyReward": 0.7414
+    },
+    {
+      "chain": "Arbitrum",
+      "project": "aave-v3",
+      "symbol": "USDC",
+      "poolMeta": null,
+      "tvlUsd": 41825464,
+      "apy": 2.51384,
+      "apyBase": 2.51384,
+      "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "WETH",
+      "poolMeta": "Umbrella",
+      "tvlUsd": 28864186,
+      "apy": 4.78765,
+      "apyBase": 1.31765,
+      "apyReward": 3.47
+    },
+    {
+      "chain": "Polygon",
+      "project": "aave-v3",
+      "symbol": "WETH",
+      "poolMeta": null,
+      "tvlUsd": 25319311,
+      "apy": 0.42964,
+      "apyBase": 0.42964,
+      "apyReward": null
+    },
+    {
+      "chain": "Arbitrum",
+      "project": "aave-v3",
+      "symbol": "WETH",
+      "poolMeta": null,
+      "tvlUsd": 25041605,
+      "apy": 1.01842,
+      "apyBase": 1.01842,
+      "apyReward": null
+    },
+    {
+      "chain": "Monad",
+      "project": "aave-v3",
+      "symbol": "USDC",
+      "poolMeta": null,
+      "tvlUsd": 19108789,
+      "apy": 5.81126,
+      "apyBase": 4.09353,
+      "apyReward": 1.71773
+    },
+    {
+      "chain": "Base",
+      "project": "aave-v3",
+      "symbol": "USDC",
+      "poolMeta": null,
+      "tvlUsd": 18470452,
+      "apy": 3.87044,
+      "apyBase": 3.79997,
+      "apyReward": 0.07047
+    },
+    {
+      "chain": "BSC",
+      "project": "aave-v3",
+      "symbol": "USDT",
+      "poolMeta": null,
+      "tvlUsd": 11724359,
+      "apy": 2.95685,
+      "apyBase": 2.95685,
+      "apyReward": null
+    },
+    {
+      "chain": "Polygon",
+      "project": "aave-v3",
+      "symbol": "USDC",
+      "poolMeta": null,
+      "tvlUsd": 10559647,
+      "apy": 3.0773,
+      "apyBase": 3.0773,
+      "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "USDC",
+      "poolMeta": null,
+      "tvlUsd": 5000,
+      "apy": 40,
+      "apyBase": 40,
+      "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "compound-v3",
+      "symbol": "USDT",
+      "poolMeta": null,
+      "tvlUsd": 500000000,
+      "apy": 9,
+      "apyBase": 9,
+      "apyReward": null
+    }
+  ]
+}

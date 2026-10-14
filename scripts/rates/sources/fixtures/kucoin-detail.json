@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "code": 200,
+  "msg": "success",
+  "data": {
+    "product_id": 2310,
+    "currency": "USDT",
+    "duration": 7,
+    "apr": "100.0000",
+    "tags": ["NEWBIE"],
+    "user_upper_limit": "100",
+    "user_lower_limit": "1"
+  }
+}
