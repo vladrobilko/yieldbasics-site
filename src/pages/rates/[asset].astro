@@ -1,0 +1,202 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '~/layouts/PageLayout.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import RateTableRow from '~/components/ui/RateTableRow.astro';
+import { getPlatform } from '~/data/platforms';
+import { assets, rateRows, ratesUpdatedAt, type Asset } from '~/data/yields';
+import {
+  assetFaq,
+  assetsWithOffers,
+  assetPageDescription,
+  assetPageTitle,
+  assetSlug,
+  summarizeAsset,
+} from '~/utils/assetPages';
+import { formatRateDate } from '~/utils/rates';
+import { getPermalink } from '~/utils/permalinks';
+import { formatRate, sortByRate, sortByReward } from '~/utils/yields';
+
+// One page per coin (/rates/usdt, /rates/btc…), rebuilt with every rates
+// update. Everything is server-rendered, so search engines see the offers
+// without running JavaScript.
+
+export const getStaticPaths = () =>
+  assetsWithOffers(assets, rateRows).map((asset) => ({ params: { asset: assetSlug(asset.symbol) }, props: { asset } }));
+
+const { asset } = Astro.props as { asset: Asset };
+
+const rows = rateRows
+  .filter((row) => row.asset === asset.symbol)
+  .map((row) => ({ ...row, platform: getPlatform(row.platformId) }));
+const flexible = sortByRate(rows.filter((row) => row.audience !== 'new-user' && row.termDays === 0));
+const fixed = sortByRate(rows.filter((row) => row.audience !== 'new-user' && row.termDays > 0));
+const newUser = sortByReward(
+  rows.filter((row) => row.audience === 'new-user').map((row) => ({ ...row, reward: row.maxReward }))
+);
+
+const summary = summarizeAsset(rows);
+const platformName = (id: string) => getPlatform(id).name;
+const updated = formatRateDate(ratesUpdatedAt);
+const faq = assetFaq(asset.symbol, summary, platformName, updated);
+const otherAssets = assetsWithOffers(assets, rateRows).filter((a) => a.symbol !== asset.symbol);
+
+const intro = [
+  `${summary.offerCount} ${asset.symbol} (${asset.name}) savings and staking offers from ${summary.platformCount}`,
+  `${summary.platformCount === 1 ? 'platform' : 'platforms'}, ranked by rate.`,
+  `Flexible and fixed-term offers are listed separately${newUser.length > 0 ? ', with new-user deals in their own section' : ''}.`,
+].join(' ');
+
+const metadata = {
+  title: assetPageTitle(asset.symbol),
+  description: assetPageDescription(asset.symbol, asset.name, summary, platformName),
+};
+
+const highlights = [
+  { label: 'Best flexible', row: summary.bestFlexible },
+  { label: 'Best fixed term', row: summary.bestFixed },
+  { label: 'Best for new users', row: summary.bestNewUser },
+].filter((item) => item.row);
+
+const sections = [
+  { id: 'flexible', title: `Flexible ${asset.symbol} savings`, note: 'Withdraw at any time.', rows: flexible },
+  { id: 'fixed', title: `Fixed-term ${asset.symbol} savings`, note: 'Locked for the term shown.', rows: fixed },
+  {
+    id: 'new-users',
+    title: `${asset.symbol} offers for new users`,
+    note: 'New accounts or first deposits only, ranked by the most you can earn.',
+    rows: newUser,
+  },
+].filter((section) => section.rows.length > 0);
+---
+
+<Layout metadata={metadata}>
+  <Breadcrumbs
+    bar
+    items={[
+      { text: 'Rates', href: getPermalink('/') },
+      { text: `${asset.symbol} earn rates`, href: getPermalink(`/rates/${assetSlug(asset.symbol)}`) },
+    ]}
+  />
+
+  <div class="mx-auto w-full max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+    <header class="flex flex-col gap-5 sm:flex-row sm:items-center">
+      {
+        asset.logo && (
+          <span class="h-14 w-14 shrink-0 overflow-hidden rounded-full shadow-inner" aria-hidden="true">
+            <Icon name={asset.logo} class="h-full w-full" />
+          </span>
+        )
+      }
+      <div>
+        <h1 class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
+          Best {asset.symbol} earn rates today
+        </h1>
+        <p class="mt-2 max-w-3xl text-base text-slate-600 dark:text-slate-400">
+          {intro}
+        </p>
+        <p class="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400">
+          <Icon name="tabler:clock-check" class="h-4 w-4" /> Updated {updated}
+        </p>
+      </div>
+    </header>
+
+    {
+      highlights.length > 0 && (
+        <section aria-label="Highlights" class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {highlights.map(({ label, row }) => (
+            <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <p class="text-xs font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{label}</p>
+              <p class="mt-2 text-3xl font-extrabold tabular-nums text-emerald-700 dark:text-emerald-400">
+                {formatRate(row!.rate)} <span class="text-base font-semibold">{row!.type}</span>
+              </p>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                {platformName(row!.platformId)} · {row!.product} · {row!.term}
+                {row!.audience === 'new-user' && row!.maxReward !== null && ` · ≈ $${row!.maxReward.toFixed(2)} total`}
+              </p>
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      sections.map((section) => (
+        <section id={section.id} class="mt-12" aria-labelledby={`${section.id}-heading`}>
+          <h2 id={`${section.id}-heading`} class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">
+            {section.title}
+          </h2>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{section.note}</p>
+          <div class="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[820px] border-collapse text-left">
+                <thead class="border-b border-slate-200 bg-slate-50/80 dark:border-slate-800 dark:bg-slate-800/50">
+                  <tr class="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
+                    <th scope="col" class="px-5 py-4">
+                      Platform
+                    </th>
+                    <th scope="col" class="px-4 py-4">
+                      APR / APY
+                    </th>
+                    <th scope="col" class="px-4 py-4">
+                      Product
+                    </th>
+                    <th scope="col" class="px-4 py-4">
+                      Term
+                    </th>
+                    <th scope="col" class="px-4 py-4">
+                      Conditions
+                    </th>
+                    <th scope="col" class="px-5 py-4 text-right">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                  {section.rows.map((row) => (
+                    <RateTableRow row={row} showAsset={false} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      ))
+    }
+
+    <p class="mt-6 text-xs leading-5 text-slate-500 dark:text-slate-400">
+      Rates are collected once a day from each platform's public data and can change at any time; boosted rates usually
+      apply to a limited amount. "View offer" buttons are referral links: we may earn a commission, which never changes
+      the ranking. Not financial advice.
+    </p>
+  </div>
+
+  <FAQs id="faq" title={`${asset.symbol} earn rates: common questions`} items={faq} schema />
+
+  <section class="mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 lg:px-8" aria-labelledby="other-coins">
+    <h2 id="other-coins" class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">
+      Earn rates for other coins
+    </h2>
+    <ul class="mt-4 flex flex-wrap gap-2">
+      {
+        otherAssets.map((other) => (
+          <li>
+            <a
+              href={getPermalink(`/rates/${assetSlug(other.symbol)}`)}
+              class="inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:border-emerald-500 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:text-emerald-400"
+            >
+              {other.symbol}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a
+      href={getPermalink('/')}
+      class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+    >
+      <Icon name="tabler:table" class="h-4 w-4" /> Compare all coins in one table
+    </a>
+  </section>
+</Layout>

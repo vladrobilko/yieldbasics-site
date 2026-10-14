@@ -14,7 +14,7 @@ import compress from 'astro-compress';
 import type { AstroIntegration } from 'astro';
 
 import astrowind from './vendor/integration';
-import { tokenBrandedLogoNames } from './src/data/yields';
+import { ratesUpdatedAt, tokenBrandedLogoNames } from './src/data/yields';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
@@ -60,6 +60,11 @@ export default defineConfig({
     sitemap({
       // The 404 page is not content.
       filter: (page) => !page.endsWith('/404') && !page.endsWith('/404.html'),
+      // The home page and the /rates/<coin> pages change with every daily rates update.
+      serialize: (item) => {
+        const path = new URL(item.url).pathname;
+        return path === '/' || path.startsWith('/rates/') ? { ...item, lastmod: ratesUpdatedAt } : item;
+      },
     }),
     mdx(),
     icon({

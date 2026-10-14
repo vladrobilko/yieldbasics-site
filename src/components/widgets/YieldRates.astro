@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import AssetChip from '~/components/ui/AssetChip.astro';
-import YieldBadge from '~/components/ui/YieldBadge.astro';
+import RateTableRow from '~/components/ui/RateTableRow.astro';
 import { getPlatform } from '~/data/platforms';
 import {
   allLogoNames,
@@ -13,6 +13,8 @@ import {
   ratesUpdatedAt,
   stablecoinAssets,
 } from '~/data/yields';
+import { assetSlug } from '~/utils/assetPages';
+import { getPermalink } from '~/utils/permalinks';
 import { formatRateDate, NEW_USER_ASSETS } from '~/utils/rates';
 import {
   emptyMessage,
@@ -91,7 +93,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
           type="button"
           popovertarget="more-assets"
           data-more-button
-          class="flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-400 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
+          class="flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-500 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
           aria-label="More assets"
           title="More assets"
         >
@@ -152,7 +154,17 @@ const termOptions: { id: TermFilter; label: string }[] = [
         <h2 id="results-heading" class="text-lg font-bold tracking-tight text-slate-950 dark:text-white">
           Top <span data-asset-label>{defaultAsset.symbol}</span> opportunities
         </h2>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400" data-count>{productsLabel(defaultRows.length)}</p>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          <span data-count>{productsLabel(defaultRows.length)}</span>
+          <span aria-hidden="true"> · </span>
+          <a
+            data-asset-page
+            href={getPermalink(`/rates/${assetSlug(defaultAsset.symbol)}`)}
+            class="font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+          >
+            See all <span data-asset-label>{defaultAsset.symbol}</span> rates →
+          </a>
+        </p>
       </div>
       <div class="flex flex-wrap items-center gap-2">
         <div
@@ -208,90 +220,15 @@ const termOptions: { id: TermFilter; label: string }[] = [
           <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
             {
               allRows.map((row) => (
-                <tr
+                <RateTableRow
+                  row={row}
                   data-asset={row.asset}
                   data-rate={row.rate}
                   data-term-days={row.termDays}
                   data-audience={row.audience}
                   data-reward={row.maxReward ?? ''}
                   hidden={!defaultRowIds.has(row.id)}
-                  class="group transition-colors hover:bg-emerald-50/30 dark:hover:bg-emerald-950/20"
-                >
-                  <th scope="row" class="px-5 py-5 font-normal">
-                    <div class="flex items-center gap-3">
-                      {row.platform.logo ? (
-                        <span
-                          class="h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-slate-200 dark:ring-slate-700"
-                          aria-hidden="true"
-                        >
-                          <Icon name={row.platform.logo} class="h-full w-full" />
-                        </span>
-                      ) : (
-                        <span
-                          class:list={[
-                            'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-extrabold',
-                            row.platform.markClass,
-                          ]}
-                          aria-hidden="true"
-                        >
-                          {row.platform.mark}
-                        </span>
-                      )}
-                      <span class="font-bold text-slate-900 dark:text-white">{row.platform.name}</span>
-                    </div>
-                  </th>
-                  <td class="px-4 py-5">
-                    <span class="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                      {row.asset}
-                    </span>
-                  </td>
-                  <td class="px-4 py-5">
-                    <YieldBadge
-                      rate={row.rate}
-                      type={row.type}
-                      isPromotional={row.promotional || row.audience === 'new-user'}
-                      promoLabel={row.audience === 'new-user' ? 'New users' : 'Promo'}
-                      size="md"
-                    />
-                  </td>
-                  <td class="px-4 py-5">
-                    <span class="block font-semibold text-slate-800 dark:text-slate-200">{row.product}</span>
-                    {(row.stale || row.source === 'manual') && (
-                      <span
-                        class="mt-1 inline-flex items-center gap-1 text-[11px] font-medium text-amber-600 dark:text-amber-400"
-                        title={
-                          row.source === 'manual'
-                            ? 'Checked by hand on the platform'
-                            : 'Could not refresh this rate recently'
-                        }
-                      >
-                        <Icon name="tabler:clock" class="h-3 w-3" />
-                        Checked {formatRateDate(row.updatedAt)}
-                      </span>
-                    )}
-                  </td>
-                  <td class="px-4 py-5">
-                    <span class="text-sm text-slate-600 dark:text-slate-400">{row.term}</span>
-                  </td>
-                  <td class="px-4 py-5">
-                    <span class="inline-flex flex-col gap-0.5 rounded-lg bg-slate-50 px-3 py-2 text-xs font-semibold leading-4 text-slate-700 ring-1 ring-inset ring-slate-200 dark:bg-slate-800/60 dark:text-slate-300 dark:ring-slate-700">
-                      <span>{row.conditionTop}</span>
-                      <span class="text-slate-500 dark:text-slate-400">{row.conditionBottom}</span>
-                    </span>
-                  </td>
-                  <td class="px-5 py-5 text-right">
-                    <a
-                      href={row.platform.referralUrl}
-                      target="_blank"
-                      rel="sponsored nofollow noopener"
-                      aria-label={`View ${row.product} offer on ${row.platform.name} (opens in a new tab)`}
-                      class="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-3.5 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 dark:bg-white dark:text-slate-950 dark:hover:bg-emerald-400"
-                    >
-                      <span>View offer</span>
-                      <Icon name="tabler:external-link" class="h-3.5 w-3.5" />
-                    </a>
-                  </td>
-                </tr>
+                />
               ))
             }
             <tr data-empty hidden={defaultRows.length > 0}>
@@ -333,6 +270,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
 </style>
 
 <script>
+  import { assetSlug } from '~/utils/assetPages';
   import { NEW_USER_ASSETS } from '~/utils/rates';
   import {
     emptyMessage,
@@ -389,8 +327,11 @@ const termOptions: { id: TermFilter; label: string }[] = [
         termButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.term === term)));
       };
 
+      const assetPage = this.querySelector<HTMLAnchorElement>('[data-asset-page]');
       const select = (symbol: string) => {
         asset = symbol;
+        // Every coin in the picker has a /rates/<coin> page.
+        if (assetPage) assetPage.href = assetPage.href.replace(/[^/]+$/, assetSlug(symbol));
         render();
       };
 

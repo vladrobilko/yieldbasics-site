@@ -3,12 +3,17 @@ import Layout from '~/layouts/PageLayout.astro';
 
 import { Icon } from 'astro-icon/components';
 import YieldRates from '~/components/widgets/YieldRates.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import { platforms } from '~/data/platforms';
+import { assets, rateRows } from '~/data/yields';
+import { assetSlug, assetsWithOffers } from '~/utils/assetPages';
+import { getPermalink } from '~/utils/permalinks';
 import StructuredData from '~/components/common/StructuredData.astro';
 import { SITE, METADATA, I18N } from 'astrowind:config';
 
 const metadata = {
   title: `${SITE?.name} — Compare crypto earn rates`,
-  description: 'Compare crypto earn rates (APR / APY) across exchanges in one clear view.',
+  description: `Compare crypto earn rates (APR / APY) across ${platforms.length} exchanges, DeFi and wallets for USDT, BTC, ETH and ${assets.length - 3} more coins. Updated daily.`,
   ignoreTitleTemplate: true,
 };
 
@@ -37,6 +42,43 @@ const structuredData = [
     ...(METADATA?.twitter?.handle ? { sameAs: [`https://x.com/${METADATA.twitter.handle.replace(/^@/, '')}`] } : {}),
   },
 ];
+
+// Coin pages and FAQ (SEO): links to every /rates/<coin> page, plus common
+// questions with FAQPage structured data.
+const coinPages = assetsWithOffers(assets, rateRows);
+const heroIntro = `Find the best place to put your crypto to work. We compare the savings, staking and fixed-term rates of ${platforms.length} exchanges, DeFi protocols and wallets every day, so you can see where USDT, BTC, ETH and ${assets.length - 3} other coins earn the most.`;
+const faq = [
+  {
+    title: 'What is the difference between APR and APY?',
+    description:
+      'APR is the simple yearly rate. APY includes compounding, the interest earned on your interest, so 5% APY pays slightly less than 5% APR. Most exchanges quote APR, while DeFi protocols such as Aave usually quote APY. The table shows which one each offer uses.',
+  },
+  {
+    title: 'How often are the rates updated?',
+    description:
+      "Every day. We read each platform's published earn rates automatically. A few platforms only show their rates to signed-in users; we check those by hand and mark them with the date we checked.",
+  },
+  {
+    title: 'Flexible or fixed term: which should I choose?',
+    description:
+      'Flexible products let you withdraw at any time, and the rate can change daily. Fixed terms lock your coins for a set number of days, often for a higher rate, but you usually lose the interest if you withdraw early.',
+  },
+  {
+    title: 'What are new-user offers?',
+    description:
+      'Some platforms pay a very high APR, sometimes hundreds of percent, on a small amount for a few days to attract new accounts. Because they are capped and short, we list them in their own "New users" tab and rank them by the total you can earn, not by APR.',
+  },
+  {
+    title: 'How does YieldBasics make money?',
+    description:
+      '"View offer" buttons are referral links: we may earn a commission when you sign up through them, at no extra cost to you. It never affects the ranking, which is always by rate.',
+  },
+  {
+    title: 'Is earning interest on crypto safe?',
+    description:
+      'It carries real risk: platforms can fail, pause withdrawals or change terms, and DeFi protocols can have smart-contract bugs. Spread your deposits, read the terms of each offer, and only deposit what you can afford to lose. Nothing here is financial advice.',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
@@ -56,8 +98,7 @@ const structuredData = [
             Compare Crypto Earn Rates
           </h1>
           <p class="mt-4 max-w-xl text-base leading-7 text-slate-600 dark:text-slate-300">
-            Find the best place to put your digital assets to work. Compare rates across trusted exchanges in one clear
-            view.
+            {heroIntro}
           </p>
         </div>
         <div
@@ -71,6 +112,27 @@ const structuredData = [
 
     <YieldRates />
 
+    <section class="mt-12" aria-labelledby="coins-heading">
+      <h2 id="coins-heading" class="text-lg font-bold tracking-tight text-slate-950 dark:text-white">Rates by coin</h2>
+      <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+        Every offer for one coin on its own page, with flexible, fixed-term and new-user deals listed separately.
+      </p>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {
+          coinPages.map((coin) => (
+            <li>
+              <a
+                href={getPermalink(`/rates/${assetSlug(coin.symbol)}`)}
+                class="inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:border-emerald-500 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:text-emerald-400"
+              >
+                {coin.symbol} rates
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
     <aside
       class="mt-8 flex items-center gap-3 rounded-xl border border-emerald-100 bg-emerald-50/70 px-5 py-4 text-sm text-emerald-950 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-100"
     >
@@ -81,4 +143,6 @@ const structuredData = [
       </p>
     </aside>
   </div>
+
+  <FAQs id="faq" title="Questions about crypto earn rates" items={faq} schema />
 </Layout>

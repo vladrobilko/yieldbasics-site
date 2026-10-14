@@ -98,6 +98,7 @@ The home page rates table is built from `src/data/rates.json`, which `npm run ra
 - Offers only for new accounts or first deposits are kept with `audience: 'new-user'` and a `maxAmount` cap, for USDT/USDC only. They appear only in the "New users" tab, ranked by estimated max reward.
 - If a source fails, its previous offers are kept, so a broken parser never empties the table. Rates older than 3 days show a "Checked <date>" hint.
 - Shared types and helpers are in `src/utils/rates.ts`.
+- Every coin with offers gets a server-rendered page, `/rates/<coin>` (`src/pages/rates/[asset].astro`): title, description and FAQ answers come from the day's rates (`src/utils/assetPages.ts`), with `FAQPage` + `BreadcrumbList` structured data. The home page links to all of them, and their sitemap `lastmod` is the rates' `generatedAt`. The table row markup is shared in `src/components/ui/RateTableRow.astro`.
 
 ## Tailwind CSS v4
 
