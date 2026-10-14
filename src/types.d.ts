@@ -158,11 +158,15 @@ export interface Testimonial {
 }
 
 export interface Input {
-  type: astroHTML.JSX.HTMLInputTypeAttribute;
+  /** An input type, or 'select' for a dropdown of `options`. */
+  type: astroHTML.JSX.HTMLInputTypeAttribute | 'select';
   name: string;
   label?: string;
   autocomplete?: string;
   placeholder?: string;
+  required?: boolean;
+  /** Choices when `type` is 'select'. */
+  options?: readonly string[];
 }
 
 export interface Textarea {
@@ -170,6 +174,7 @@ export interface Textarea {
   name?: string;
   placeholder?: string;
   rows?: number;
+  required?: boolean;
 }
 
 export interface Disclaimer {
@@ -191,6 +196,12 @@ export interface Form {
   disclaimer?: Disclaimer;
   button?: string;
   description?: string;
+  /** Where the form posts (method POST). Without it the form does nothing on a static site. */
+  action?: string;
+  /** Hidden fields sent with every submission, e.g. a form service's access key. */
+  hidden?: Record<string, string>;
+  /** Hidden checkbox name that bots tend to fill in; submissions with it ticked are spam. */
+  honeypot?: string;
 }
 
 // WIDGETS

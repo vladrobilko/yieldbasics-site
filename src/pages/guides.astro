@@ -1,0 +1,72 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+// Placeholder for the upcoming guides section (the blog is switched off in
+// config.yaml until there is real content). Lives at /guides so it never
+// clashes with the blog routes if they are enabled later.
+
+const metadata = {
+  title: 'Guides — coming soon',
+  description:
+    'Plain-language guides to crypto earn products: APR vs APY, flexible vs fixed terms, new-user offers and the risks to know. Coming soon.',
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText
+    badge="Coming soon"
+    tagline="Guides"
+    title="Earn products, explained plainly"
+    subtitle="Short, practical guides to help you read the rates table with confidence — what the numbers mean, where the yield comes from and what can go wrong."
+  />
+
+  <Features2
+    title="What we're writing first"
+    columns={3}
+    items={[
+      {
+        title: 'APR vs APY',
+        description:
+          'Why two platforms quoting the same number can pay different amounts, and how compounding changes it.',
+        icon: 'tabler:percentage',
+      },
+      {
+        title: 'Flexible vs fixed terms',
+        description: 'When locking your coins for a higher rate is worth it, and what you give up in return.',
+        icon: 'tabler:lock-open',
+      },
+      {
+        title: 'How new-user offers really pay',
+        description:
+          'A 600% APR for two days on 200 USDT is a few dollars. How to read caps, terms and the real reward.',
+        icon: 'tabler:gift',
+      },
+      {
+        title: 'Stablecoin yields explained',
+        description: 'Where the interest on USDT and USDC comes from, and why it moves with lending demand.',
+        icon: 'tabler:coin',
+      },
+      {
+        title: 'How we collect rates',
+        description: 'Which platforms we read daily, which we check by hand, and how we keep the table honest.',
+        icon: 'tabler:database-search',
+      },
+      {
+        title: 'Risks of earn products',
+        description:
+          'Platform risk, lock-ups, rate changes and smart-contract risk — what to check before you deposit.',
+        icon: 'tabler:alert-triangle',
+      },
+    ]}
+  />
+
+  <CallToAction
+    title="In the meantime, compare today's rates"
+    subtitle="Live earn rates across exchanges and DeFi, refreshed every day."
+    actions={[{ variant: 'primary', text: 'See the rates', href: getPermalink('/'), icon: 'tabler:table' }]}
+  />
+</Layout>

@@ -3,46 +3,76 @@ import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import Features2 from '~/components/widgets/Features2.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
-import { getBlogPermalink } from '~/utils/permalinks';
+import { platforms } from '~/data/platforms';
+import { assets } from '~/data/yields';
+import { getPermalink } from '~/utils/permalinks';
+
+// Counts come from the data so this page stays accurate as platforms and assets are added.
+const platformCount = platforms.length;
+const assetCount = assets.length;
+const exchangeNames = platforms.filter((p) => p.kind === 'cex').map((p) => p.name);
 
 const metadata = {
   title: 'About',
-  description: 'YieldBasics explains how yields work across crypto, stocks and other assets — in plain language.',
+  description: `YieldBasics compares crypto earn rates (APR / APY) across ${platformCount} exchanges, DeFi and wallets — updated daily, ranked by rate.`,
 };
 ---
 
 <Layout metadata={metadata}>
   <HeroText
     tagline="About"
-    title="Yields, explained simply"
-    subtitle="YieldBasics is a place to understand where returns come from — staking, lending, dividends, bonds and more — and how to compare them honestly."
+    title="Crypto earn rates, side by side"
+    subtitle={`YieldBasics is an independent comparison of crypto earn rates. We collect the savings, staking and fixed-term rates of ${platformCount} platforms for ${assetCount} coins and stablecoins, and put them in one table so you can see where your assets earn the most.`}
   />
 
   <Features2
-    title="What you will find here"
+    title="How it works"
     columns={3}
     items={[
       {
-        title: 'Plain-language guides',
-        description: 'Clear explanations of how each kind of yield is generated and what the risks are.',
-        icon: 'tabler:book',
+        title: 'Rates from the source',
+        description: `Every day we read the earn rates each platform publishes — ${exchangeNames.join(', ')}, plus Aave (DeFi) and Walt, the wallet in Telegram.`,
+        icon: 'tabler:database',
       },
       {
-        title: 'Tools and calculators',
-        description: 'Simple tools to compare yields and see what a rate really means over time.',
-        icon: 'tabler:calculator',
+        title: 'Updated daily',
+        description:
+          'Rates are refreshed once a day. A few platforms only show their rates to signed-in users; we check those by hand and mark them with the date we checked.',
+        icon: 'tabler:clock-check',
       },
       {
-        title: 'Crypto and traditional markets',
-        description: 'Side-by-side look at on-chain yields and classic income investments.',
-        icon: 'tabler:chart-line',
+        title: 'Flexible, fixed and new-user offers',
+        description:
+          'Filter by flexible or fixed terms. Offers only for new accounts sit in their own tab, ranked by what you can actually earn, so huge capped APRs never distort the main ranking.',
+        icon: 'tabler:filter',
+      },
+      {
+        title: 'Ranked by rate, nothing else',
+        description:
+          'The table is always sorted by rate (or by estimated reward for new-user offers). No platform pays to be listed higher.',
+        icon: 'tabler:sort-descending',
+      },
+      {
+        title: 'How we make money',
+        description:
+          '"View offer" buttons are referral links: we may earn a commission when you sign up through them, at no extra cost to you. It never changes the order of the table.',
+        icon: 'tabler:link',
+      },
+      {
+        title: 'Not financial advice',
+        description:
+          'Rates change, vary by region and account tier, and every platform carries its own risks. Always read the offer terms on the platform before you deposit.',
+        icon: 'tabler:alert-circle',
       },
     ]}
   />
 
   <CallToAction
-    title="Start reading"
-    subtitle="New articles are on the way."
-    actions={[{ variant: 'primary', text: 'Go to the blog', href: getBlogPermalink() }]}
+    title="Spotted a wrong rate or a missing platform?"
+    subtitle="Tell us — corrections and suggestions make the table better for everyone."
+    actions={[
+      { variant: 'primary', text: 'Compare rates', href: getPermalink('/'), icon: 'tabler:table' },
+      { variant: 'secondary', text: 'Contact us', href: getPermalink('/contact') },
+    ]}
   />
 </Layout>

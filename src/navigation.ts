@@ -1,9 +1,9 @@
-import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
+import { getPermalink } from './utils/permalinks';
 
 export const headerData = {
   links: [
     { text: 'Rates', href: getPermalink('/'), icon: 'tabler:table' },
-    { text: 'Blog', href: getBlogPermalink(), icon: 'tabler:news' },
+    { text: 'Guides', href: getPermalink('/guides'), icon: 'tabler:book', badge: 'soon' },
     { text: 'About', href: getPermalink('/about'), icon: 'tabler:info-circle' },
     { text: 'Contact', href: getPermalink('/contact'), icon: 'tabler:mail' },
   ],
@@ -16,7 +16,7 @@ export const footerData = {
       title: 'YieldBasics',
       links: [
         { text: 'Home', href: getPermalink('/') },
-        { text: 'Blog', href: getBlogPermalink() },
+        { text: 'Guides', href: getPermalink('/guides') },
         { text: 'About', href: getPermalink('/about') },
         { text: 'Contact', href: getPermalink('/contact') },
       ],
@@ -26,7 +26,7 @@ export const footerData = {
     { text: 'Terms', href: getPermalink('/terms') },
     { text: 'Privacy Policy', href: getPermalink('/privacy') },
   ],
-  socialLinks: [{ ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') }],
+  socialLinks: [],
   footNote: `
     © ${new Date().getFullYear()} YieldBasics · Educational content, not financial advice.
   `,

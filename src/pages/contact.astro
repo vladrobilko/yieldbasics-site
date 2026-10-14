@@ -2,37 +2,123 @@
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
+import { CONTACT_TOPICS, contactSubject, WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '~/utils/contact';
+
+// Messages go to Web3Forms, which emails them with a "[YieldBasics] Contact: <topic>"
+// subject (see ~/utils/contact). The script below sends them without leaving the
+// page; without JavaScript the form still posts to Web3Forms directly.
 
 const metadata = {
   title: 'Contact',
-  description: 'Get in touch with YieldBasics: questions, corrections and suggestions for new topics.',
+  description:
+    'Contact YieldBasics: questions, rate corrections, platforms to add or partnership ideas — we read every message.',
 };
 ---
 
 <Layout metadata={metadata}>
   <HeroText tagline="Contact" title="Get in touch" />
 
-  <ContactUs
-    id="form"
-    title="Send us a message"
-    subtitle="Questions, corrections or ideas for a topic we should cover — we read every message."
-    inputs={[
-      {
-        type: 'text',
-        name: 'name',
-        label: 'Name',
-      },
-      {
-        type: 'email',
-        name: 'email',
-        label: 'Email',
-      },
-    ]}
-    textarea={{
-      label: 'Message',
-    }}
-    disclaimer={{
-      label: 'By submitting this form, you agree that we may use your email address to reply to your message.',
-    }}
-  />
+  <yb-contact-form data-endpoint={WEB3FORMS_ENDPOINT}>
+    <ContactUs
+      id="form"
+      title="Send us a message"
+      subtitle="Questions, a rate that looks wrong, a platform we should add or a partnership idea — we read every message and reply by email."
+      action={WEB3FORMS_ENDPOINT}
+      hidden={{
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: contactSubject(CONTACT_TOPICS[0]),
+        from_name: 'YieldBasics website',
+      }}
+      honeypot="botcheck"
+      inputs={[
+        { type: 'select', name: 'topic', label: 'Topic', options: CONTACT_TOPICS, required: true },
+        { type: 'text', name: 'name', label: 'Name', autocomplete: 'name' },
+        { type: 'email', name: 'email', label: 'Email', autocomplete: 'email', required: true },
+      ]}
+      textarea={{ label: 'Message', required: true, rows: 5 }}
+      button="Send message"
+      description="We only use your email address to reply to your message."
+    />
+  </yb-contact-form>
 </Layout>
+
+<style>
+  yb-contact-form {
+    display: block;
+  }
+</style>
+
+<script>
+  import { buildContactPayload, contactProblem, contactSubject, WEB3FORMS_ACCESS_KEY } from '~/utils/contact';
+
+  class YbContactForm extends HTMLElement {
+    connectedCallback() {
+      const form = this.querySelector('form');
+      const status = this.querySelector<HTMLElement>('[data-form-status]');
+      const submit = this.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const endpoint = this.dataset.endpoint;
+      if (!form || !status || !submit || !endpoint) return;
+
+      const show = (text: string, tone: 'info' | 'ok' | 'error') => {
+        status.textContent = text;
+        status.hidden = false;
+        status.className = `mt-4 text-center text-sm font-medium ${
+          tone === 'ok'
+            ? 'text-emerald-600 dark:text-emerald-400'
+            : tone === 'error'
+              ? 'text-red-600 dark:text-red-400'
+              : 'text-slate-500 dark:text-slate-400'
+        }`;
+      };
+
+      // Keep the no-JavaScript subject in step with the chosen topic.
+      const topic = form.querySelector<HTMLSelectElement>('select[name="topic"]');
+      const subject = form.querySelector<HTMLInputElement>('input[name="subject"]');
+      topic?.addEventListener('change', () => {
+        if (subject) subject.value = contactSubject(topic.value);
+      });
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const data = Object.fromEntries(
+          Array.from(new FormData(form).entries()).map(([key, value]) => [key, String(value)])
+        );
+        // Bots tick the hidden checkbox; pretend it worked and send nothing.
+        if (data.botcheck) {
+          form.reset();
+          show("Thanks! We'll reply by email.", 'ok');
+          return;
+        }
+        const payload = buildContactPayload(data, WEB3FORMS_ACCESS_KEY);
+        const problem = contactProblem(payload);
+        if (problem) {
+          show(problem, 'error');
+          return;
+        }
+
+        submit.disabled = true;
+        show('Sending…', 'info');
+        try {
+          // Plain form data (no JSON content type) keeps this a "simple" CORS
+          // request, with no preflight, as in Web3Forms' own examples.
+          const body = new FormData();
+          Object.entries(payload).forEach(([key, value]) => body.append(key, value));
+          const response = await fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body });
+          const result = (await response.json().catch(() => ({}))) as { success?: boolean };
+          if (!response.ok || !result.success) throw new Error(`HTTP ${response.status}`);
+          form.reset();
+          if (subject) subject.value = contactSubject(topic?.value);
+          show("Thanks! Your message is on its way — we'll reply by email.", 'ok');
+        } catch {
+          show('Something went wrong and your message was not sent. Please try again in a minute.', 'error');
+        } finally {
+          submit.disabled = false;
+        }
+      });
+    }
+  }
+
+  if (!customElements.get('yb-contact-form')) {
+    customElements.define('yb-contact-form', YbContactForm);
+  }
+</script>
