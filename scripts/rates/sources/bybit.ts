@@ -1,8 +1,12 @@
 import { canonicalAsset, parsePercent, type RateOffer, type RateTier } from '../../../src/utils/rates';
+import { fetchJsonWithFallback } from '../http';
 import type { Source } from '../types';
 
 // Official public API: https://bybit-exchange.github.io/docs/v5/earn/product-info
-const API = 'https://api.bybit.com/v5/earn/product';
+// api.bybit.com answers 403 to some regions (e.g. GitHub's US runners), so
+// Bybit's alternate domain is tried next.
+const HOSTS = ['https://api.bybit.com', 'https://api.bytick.com'];
+const PATH = '/v5/earn/product';
 
 interface BybitProduct {
   category: string;
@@ -60,7 +64,9 @@ export const bybit: Source = {
   kind: 'api',
   fetch: async (fetchJson, assets) => {
     const categories = Object.keys(PRODUCT_NAMES);
-    const responses = await Promise.all(categories.map((category) => fetchJson(`${API}?category=${category}`)));
+    const responses = await Promise.all(
+      categories.map((category) => fetchJsonWithFallback(fetchJson, HOSTS, `${PATH}?category=${category}`))
+    );
     return responses.flatMap((response) => parseBybit(response as BybitResponse, assets));
   },
 };
