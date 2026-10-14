@@ -86,6 +86,8 @@ Site config lives in `src/config.yaml` and is loaded as a Vite virtual module `a
 
 The home page rates table is built from `src/data/rates.json`, which `npm run rates` (`scripts/rates/run.ts`) regenerates; never edit it by hand.
 
+- `.github/workflows/update-rates.yaml` runs `npm run rates` daily at 06:00 UTC (or on demand: `gh workflow run update-rates.yaml`) and opens or updates one PR, `feature/bot/daily-rates-update`, with the new `rates.json` and a summary of changes and failed sources. Merging it publishes the rates.
+
 - Platforms (name, avatar, referral link) live in `src/data/platforms.json`. Every "View offer" button uses the platform's `referralUrl`.
 - Each platform with an automatic source has a parser in `scripts/rates/sources/<id>.ts`, tested against trimmed real responses in `scripts/rates/sources/fixtures/`.
 - Platforms without a source (currently WEEX and Walt, whose rates are only shown to signed-in users) go in `src/data/manual-rates.json`: one entry per offer with the `RateOffer` fields plus `verifiedAt` (the date the rate was checked on the platform). They show a "Checked <date>" hint and are dropped 30 days after `verifiedAt`. Never automate a signed-in session to collect them.

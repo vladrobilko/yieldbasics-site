@@ -1,0 +1,63 @@
+name: Update rates
+
+# Once a day: fetch earn rates (npm run rates) and open or refresh one PR with
+# the new src/data/rates.json for review. Merging it publishes the new rates.
+# Needs Settings → Actions → General → "Allow GitHub Actions to create and
+# approve pull requests". PRs opened with GITHUB_TOKEN don't trigger the CI
+# workflow, so this job runs the tests and the build itself.
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-rates
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Fetch rates and open PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # MEXC is read through the runner's preinstalled Google Chrome (playwright-core, channel "chrome").
+      - name: Fetch rates
+        run: npm run rates -- --summary "$RUNNER_TEMP/rates-summary.md"
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Date
+        id: date
+        run: echo "today=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the rates PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: feature/bot/daily-rates-update
+          delete-branch: true
+          add-paths: src/data/rates.json
+          commit-message: Update earn rates (${{ steps.date.outputs.today }})
+          title: Daily earn rates update (${{ steps.date.outputs.today }})
+          body-path: ${{ runner.temp }}/rates-summary.md
