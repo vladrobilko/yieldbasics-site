@@ -36,3 +36,24 @@ export const createFetchJson =
     }
     throw lastError;
   };
+
+/**
+ * GETs `path` from each base URL in turn and returns the first success, e.g.
+ * an exchange's alternate API domain when the main one blocks the runner's
+ * region. Throws with every error when all of them fail.
+ */
+export const fetchJsonWithFallback = async (
+  fetchJson: FetchJson,
+  baseUrls: readonly string[],
+  path: string
+): Promise<unknown> => {
+  const errors: string[] = [];
+  for (const baseUrl of baseUrls) {
+    try {
+      return await fetchJson(`${baseUrl}${path}`);
+    } catch (error) {
+      errors.push(error instanceof Error ? error.message : String(error));
+    }
+  }
+  throw new Error(errors.join('; '));
+};
