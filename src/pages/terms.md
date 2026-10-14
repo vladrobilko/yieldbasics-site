@@ -37,6 +37,10 @@ For the purposes of these Terms and Conditions:
 
 - **You** means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
 
+## Referral Links
+
+Some links on the Service, including the "View offer" buttons in the rates table, are referral links to third-party exchanges, wallets and protocols. If You sign up through one of them, We may earn a commission at no extra cost to You. Referral arrangements never affect how offers are ordered: the rates table is sorted by rate only. Rates are shown for information only and are not financial advice; always check the offer terms on the platform itself.
+
 ## Acknowledgment
 
 These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.
