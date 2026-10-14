@@ -28,6 +28,6 @@ export const footerData = {
   ],
   socialLinks: [],
   footNote: `
-    © ${new Date().getFullYear()} YieldBasics · Educational content, not financial advice.
+    © ${new Date().getFullYear()} YieldBasics · Educational content, not financial advice. Some links are referral links: we may earn a commission, which never changes the ranking.
   `,
 };
