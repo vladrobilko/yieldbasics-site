@@ -1,0 +1,495 @@
+{
+  "success": true,
+  "code": 200,
+  "msg": "success",
+  "timestamp": 1791973521860,
+  "data": [
+    {
+      "currency": "USDT",
+      "products": [
+        {
+          "category_group": "STEADY",
+          "products": [
+            {
+              "category_group": "SIMPLE_EARN",
+              "products": [
+                {
+                  "id": 2152,
+                  "currency": "USDT",
+                  "name": "USDT",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "DEMAND",
+                  "type": "SAVING",
+                  "status": "ONGOING",
+                  "duration": 0,
+                  "total_apr": "1.2485",
+                  "tags": []
+                },
+                {
+                  "id": 2310,
+                  "currency": "USDT",
+                  "name": "USDT-7D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 7,
+                  "total_apr": "100.0000",
+                  "tags": ["NEWBIE"]
+                },
+                {
+                  "id": 3548,
+                  "currency": "USDT",
+                  "name": "USDT-7D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 7,
+                  "total_apr": "1.8000",
+                  "tags": []
+                },
+                {
+                  "id": 2506,
+                  "currency": "USDT",
+                  "name": "USDT-14D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 14,
+                  "total_apr": "2.2000",
+                  "tags": []
+                },
+                {
+                  "id": 3535,
+                  "currency": "USDT",
+                  "name": "USDT-35D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 35,
+                  "total_apr": "2.8000",
+                  "tags": []
+                },
+                {
+                  "id": 3322,
+                  "currency": "USDT",
+                  "name": "USDT-90D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 90,
+                  "total_apr": "3.0000",
+                  "tags": []
+                },
+                {
+                  "id": 3323,
+                  "currency": "USDT",
+                  "name": "USDT-180D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 180,
+                  "total_apr": "3.6000",
+                  "tags": []
+                },
+                {
+                  "id": 3324,
+                  "currency": "USDT",
+                  "name": "USDT-365D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 365,
+                  "total_apr": "4.1000",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "category_group": "KCUSD",
+              "products": [
+                {
+                  "id": "1",
+                  "currency": "USDT",
+                  "name": "KCUSD",
+                  "category_group2": "KCUSD",
+                  "category": "KCUSD",
+                  "type": "DEMAND",
+                  "status": "ONGOING",
+                  "duration": 0,
+                  "total_apr": "4.0000",
+                  "tags": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "category_group": "ADVANCED",
+          "products": [
+            {
+              "category_group": "DUAL",
+              "products": [
+                {
+                  "id": "559367",
+                  "currency": "USDT",
+                  "name": "ARB-U",
+                  "category_group2": "DUAL",
+                  "category": "DUAL",
+                  "type": "TIME",
+                  "status": "ONGOING",
+                  "duration": 1,
+                  "total_apr": "534.4470",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "category_group": "SHARKFIN",
+              "products": [
+                {
+                  "id": "602155",
+                  "currency": "USDT",
+                  "name": "Bearish BTC",
+                  "category_group2": "SHARKFIN",
+                  "category": "SHARKFIN",
+                  "type": "TIME",
+                  "status": "ONGOING",
+                  "duration": 92,
+                  "total_apr": "20.2568",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "category_group": "PROTECTIVE_EARN",
+              "products": [
+                {
+                  "id": "601816",
+                  "currency": "USDT",
+                  "name": "SnowBall-BTC",
+                  "category_group2": "PROTECTIVE_EARN",
+                  "category": "PROTECTIVE_EARN",
+                  "type": "TIME",
+                  "status": "ONGOING",
+                  "duration": 5,
+                  "total_apr": "73.1100",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "category_group": "DISCOUNT_BUY",
+              "products": [
+                {
+                  "id": "600758",
+                  "currency": "USDT",
+                  "name": "ETH-USDT",
+                  "category_group2": "DISCOUNT_BUY",
+                  "category": "DISCOUNT_BUY",
+                  "type": "TIME",
+                  "status": "ONGOING",
+                  "duration": 6,
+                  "total_apr": "50.0000",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "category_group": "RANGE_BOUND",
+              "products": [
+                {
+                  "id": "128381",
+                  "currency": "USDT",
+                  "name": "BTC-U",
+                  "category_group2": "RANGE_BOUND",
+                  "category": "RANGE_BOUND",
+                  "type": "TIME",
+                  "status": "ONGOING",
+                  "duration": 13,
+                  "total_apr": "1568.1200",
+                  "tags": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "category_group": "PWM",
+          "products": [
+            {
+              "category_group": "PWM_FIXED",
+              "products": [
+                {
+                  "id": 3441,
+                  "currency": "USDT",
+                  "name": "USDT-90D",
+                  "category_group2": "PWM_FIXED",
+                  "category": "PWM_FIXED",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 90,
+                  "total_apr": "4.7000",
+                  "tags": []
+                },
+                {
+                  "id": 3442,
+                  "currency": "USDT",
+                  "name": "USDT-180D",
+                  "category_group2": "PWM_FIXED",
+                  "category": "PWM_FIXED",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 180,
+                  "total_apr": "5.2000",
+                  "tags": []
+                },
+                {
+                  "id": 3440,
+                  "currency": "USDT",
+                  "name": "USDT-365D",
+                  "category_group2": "PWM_FIXED",
+                  "category": "PWM_FIXED",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 365,
+                  "total_apr": "5.7000",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "category_group": "PWM_FUND",
+              "products": [
+                {
+                  "id": "3",
+                  "currency": "USDT",
+                  "name": "Market-Neutral Excess Arbitrage",
+                  "category_group2": "PWM_FUND",
+                  "category": "PWM_FUND",
+                  "type": "DEMAND",
+                  "status": "ONGOING",
+                  "duration": -1,
+                  "total_apr": "0.4900",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "category_group": "PWM_RWA_FUND",
+              "products": [
+                {
+                  "id": "13",
+                  "currency": "USDT",
+                  "name": "Crypto Asset Multi-Strategy",
+                  "category_group2": "PWM_RWA_FUND",
+                  "category": "PWM_RWA_FUND",
+                  "type": "DEMAND",
+                  "status": "ONGOING",
+                  "duration": -1,
+                  "total_apr": "40.4700",
+                  "tags": []
+                },
+                {
+                  "id": "12",
+                  "currency": "USDT",
+                  "name": "All-Weather Multi-Asset Strategy - Principal-Protected Type",
+                  "category_group2": "PWM_RWA_FUND",
+                  "category": "PWM_RWA_FUND",
+                  "type": "DEMAND",
+                  "status": "ONGOING",
+                  "duration": -1,
+                  "total_apr": "13.1900",
+                  "tags": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "currency": "ETH",
+      "products": [
+        {
+          "category_group": "STEADY",
+          "products": [
+            {
+              "category_group": "SIMPLE_EARN",
+              "products": [
+                {
+                  "id": 2173,
+                  "currency": "ETH",
+                  "name": "ETH",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "DEMAND",
+                  "type": "SAVING",
+                  "status": "ONGOING",
+                  "duration": 0,
+                  "total_apr": "0.1523",
+                  "tags": []
+                },
+                {
+                  "id": 3502,
+                  "currency": "ETH",
+                  "name": "ETH-14D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 14,
+                  "total_apr": "1.0000",
+                  "tags": []
+                },
+                {
+                  "id": 3426,
+                  "currency": "ETH",
+                  "name": "ETH-30D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 30,
+                  "total_apr": "1.2000",
+                  "tags": []
+                },
+                {
+                  "id": 3425,
+                  "currency": "ETH",
+                  "name": "ETH-60D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 60,
+                  "total_apr": "1.4000",
+                  "tags": []
+                },
+                {
+                  "id": 3424,
+                  "currency": "ETH",
+                  "name": "ETH-90D",
+                  "category_group2": "SIMPLE_EARN",
+                  "category": "ACTIVITY",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 90,
+                  "total_apr": "1.6000",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "category_group": "STAKING",
+              "products": [
+                {
+                  "id": 3319,
+                  "currency": "ETH",
+                  "name": "ETH",
+                  "category_group2": "STAKING",
+                  "category": "STAKING",
+                  "type": "DEMAND",
+                  "status": "ONGOING",
+                  "duration": 0,
+                  "total_apr": "2.0077",
+                  "tags": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "category_group": "ADVANCED",
+          "products": [
+            {
+              "category_group": "DUAL",
+              "products": [
+                {
+                  "id": "567774",
+                  "currency": "ETH",
+                  "name": "ETH",
+                  "category_group2": "DUAL",
+                  "category": "DUAL",
+                  "type": "TIME",
+                  "status": "ONGOING",
+                  "duration": 1,
+                  "total_apr": "269.2170",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "category_group": "RANGE_BOUND",
+              "products": [
+                {
+                  "id": "15211",
+                  "currency": "ETH",
+                  "name": "ETH",
+                  "category_group2": "RANGE_BOUND",
+                  "category": "RANGE_BOUND",
+                  "type": "TIME",
+                  "status": "ONGOING",
+                  "duration": 4,
+                  "total_apr": "538.4600",
+                  "tags": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "category_group": "PWM",
+          "products": [
+            {
+              "category_group": "PWM_FIXED",
+              "products": [
+                {
+                  "id": 3448,
+                  "currency": "ETH",
+                  "name": "ETH-30D",
+                  "category_group2": "PWM_FIXED",
+                  "category": "PWM_FIXED",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 30,
+                  "total_apr": "1.6000",
+                  "tags": []
+                },
+                {
+                  "id": 3449,
+                  "currency": "ETH",
+                  "name": "ETH-60D",
+                  "category_group2": "PWM_FIXED",
+                  "category": "PWM_FIXED",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 60,
+                  "total_apr": "1.8000",
+                  "tags": []
+                },
+                {
+                  "id": 3447,
+                  "currency": "ETH",
+                  "name": "ETH-90D",
+                  "category_group2": "PWM_FIXED",
+                  "category": "PWM_FIXED",
+                  "type": "MULTI_TIME",
+                  "status": "ONGOING",
+                  "duration": 90,
+                  "total_apr": "2.2000",
+                  "tags": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

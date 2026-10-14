@@ -4,3 +4,6 @@ node_modules
 .astro
 .claude/skills
 skills-lock.json
+
+# written by `npm run rates`
+src/data/rates.json

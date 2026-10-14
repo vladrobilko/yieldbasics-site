@@ -1,0 +1,307 @@
+{
+  "code": 200,
+  "data": {
+    "total": 10,
+    "rows": [
+      {
+        "productClassifiy": "CURRENT_FINANCIAL",
+        "deadline": null,
+        "productInvestList": [
+          {
+            "currencyName": "USDT",
+            "userLimitAmount": 5000000,
+            "isSellOut": 1,
+            "isNewerProduct": 0
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "10.8%",
+            "maxExpectedRate": "0.108"
+          }
+        ],
+        "incomeFloatList": [
+          {
+            "minAmount": "0",
+            "maxAmount": "500",
+            "maxExpectedRate": "0.108"
+          },
+          {
+            "minAmount": "500",
+            "maxAmount": "5000000",
+            "maxExpectedRate": "0.03"
+          }
+        ],
+        "financialProductExpectedCombinationInfoList": []
+      },
+      {
+        "productClassifiy": "CURRENT_FINANCIAL",
+        "deadline": null,
+        "productInvestList": [
+          {
+            "currencyName": "XAUT",
+            "userLimitAmount": 25,
+            "isSellOut": 0,
+            "isNewerProduct": 0
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "15%",
+            "maxExpectedRate": "0.15"
+          }
+        ],
+        "incomeFloatList": [
+          {
+            "minAmount": "0",
+            "maxAmount": "0.2",
+            "maxExpectedRate": "0.15"
+          },
+          {
+            "minAmount": "0.2",
+            "maxAmount": "25",
+            "maxExpectedRate": "0.05"
+          }
+        ],
+        "financialProductExpectedCombinationInfoList": []
+      },
+      {
+        "productClassifiy": "REGULAR_FINANCIAL",
+        "deadline": "3",
+        "productInvestList": [
+          {
+            "currencyName": "USDT",
+            "userLimitAmount": 100,
+            "isSellOut": 0,
+            "isNewerProduct": 1
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "100%",
+            "maxExpectedRate": "1"
+          }
+        ],
+        "incomeFloatList": [],
+        "financialProductExpectedCombinationInfoList": []
+      },
+      {
+        "productClassifiy": "REGULAR_FINANCIAL",
+        "deadline": "90",
+        "productInvestList": [
+          {
+            "currencyName": "USDT",
+            "userLimitAmount": 20000,
+            "isSellOut": 0,
+            "isNewerProduct": 0
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "10.01%",
+            "maxExpectedRate": "0.0001"
+          }
+        ],
+        "incomeFloatList": [],
+        "financialProductExpectedCombinationInfoList": [
+          {
+            "isSupportExpectedCombination": true,
+            "totalRate": "0.1001",
+            "baseRate": "0.000100000000000000",
+            "financialProductExpectedCombinationAwardInfoList": [
+              {
+                "targetName": "CWC"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "productClassifiy": "REGULAR_FINANCIAL",
+        "deadline": "60",
+        "productInvestList": [
+          {
+            "currencyName": "USDT",
+            "userLimitAmount": 20000,
+            "isSellOut": 0,
+            "isNewerProduct": 0
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "9.01%",
+            "maxExpectedRate": "0.0001"
+          }
+        ],
+        "incomeFloatList": [],
+        "financialProductExpectedCombinationInfoList": [
+          {
+            "isSupportExpectedCombination": true,
+            "totalRate": "0.0901",
+            "baseRate": "0.000100000000000000",
+            "financialProductExpectedCombinationAwardInfoList": [
+              {
+                "targetName": "CWC"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "productClassifiy": "REGULAR_FINANCIAL",
+        "deadline": "90",
+        "productInvestList": [
+          {
+            "currencyName": "USDT",
+            "userLimitAmount": 10000,
+            "isSellOut": 0,
+            "isNewerProduct": 0
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "9.01%",
+            "maxExpectedRate": "0.0001"
+          }
+        ],
+        "incomeFloatList": [],
+        "financialProductExpectedCombinationInfoList": [
+          {
+            "isSupportExpectedCombination": true,
+            "totalRate": "0.0901",
+            "baseRate": "0.000100000000000000",
+            "financialProductExpectedCombinationAwardInfoList": [
+              {
+                "targetName": "CWC"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "productClassifiy": "REGULAR_FINANCIAL",
+        "deadline": "60",
+        "productInvestList": [
+          {
+            "currencyName": "USDT",
+            "userLimitAmount": 10000,
+            "isSellOut": 0,
+            "isNewerProduct": 0
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "8.01%",
+            "maxExpectedRate": "0.0001"
+          }
+        ],
+        "incomeFloatList": [],
+        "financialProductExpectedCombinationInfoList": [
+          {
+            "isSupportExpectedCombination": true,
+            "totalRate": "0.0801",
+            "baseRate": "0.000100000000000000",
+            "financialProductExpectedCombinationAwardInfoList": [
+              {
+                "targetName": "CWC"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "productClassifiy": "REGULAR_FINANCIAL",
+        "deadline": "30",
+        "productInvestList": [
+          {
+            "currencyName": "USDT",
+            "userLimitAmount": 10000,
+            "isSellOut": 0,
+            "isNewerProduct": 0
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "7.51%",
+            "maxExpectedRate": "0.0001"
+          }
+        ],
+        "incomeFloatList": [],
+        "financialProductExpectedCombinationInfoList": [
+          {
+            "isSupportExpectedCombination": true,
+            "totalRate": "0.0751",
+            "baseRate": "0.000100000000000000",
+            "financialProductExpectedCombinationAwardInfoList": [
+              {
+                "targetName": "CWC"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "productClassifiy": "REGULAR_FINANCIAL",
+        "deadline": "15",
+        "productInvestList": [
+          {
+            "currencyName": "USDT",
+            "userLimitAmount": 10000,
+            "isSellOut": 0,
+            "isNewerProduct": 0
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "7.01%",
+            "maxExpectedRate": "0.0001"
+          }
+        ],
+        "incomeFloatList": [],
+        "financialProductExpectedCombinationInfoList": [
+          {
+            "isSupportExpectedCombination": true,
+            "totalRate": "0.0701",
+            "baseRate": "0.000100000000000000",
+            "financialProductExpectedCombinationAwardInfoList": [
+              {
+                "targetName": "CWC"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "productClassifiy": "REGULAR_FINANCIAL",
+        "deadline": "7",
+        "productInvestList": [
+          {
+            "currencyName": "USDT",
+            "userLimitAmount": 10000,
+            "isSellOut": 0,
+            "isNewerProduct": 0
+          }
+        ],
+        "productIncomeList": [
+          {
+            "expectedRate": "6.51%",
+            "maxExpectedRate": "0.0001"
+          }
+        ],
+        "incomeFloatList": [],
+        "financialProductExpectedCombinationInfoList": [
+          {
+            "isSupportExpectedCombination": true,
+            "totalRate": "0.0651",
+            "baseRate": "0.000100000000000000",
+            "financialProductExpectedCombinationAwardInfoList": [
+              {
+                "targetName": "CWC"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

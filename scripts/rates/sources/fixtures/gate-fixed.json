@@ -1,0 +1,154 @@
+{
+  "code": 0,
+  "message": "",
+  "data": {
+    "list": [
+      {
+        "asset": "USDT",
+        "name": "USDT - 3",
+        "lock_up_period": 3,
+        "year_rate": "0.0289",
+        "type": 1,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 0,
+        "min_vip": 0,
+        "max_vip": 0
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - 7 天",
+        "lock_up_period": 7,
+        "year_rate": "0.018",
+        "type": 1,
+        "status": 2,
+        "sale_status": 2,
+        "is_for_all_user": 1,
+        "min_vip": 0,
+        "max_vip": 0
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - 30 天",
+        "lock_up_period": 30,
+        "year_rate": "0.032",
+        "type": 1,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 1,
+        "min_vip": 0,
+        "max_vip": 0
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - 1",
+        "lock_up_period": 1,
+        "year_rate": "0.0289",
+        "type": 1,
+        "status": 3,
+        "sale_status": 1,
+        "is_for_all_user": 0,
+        "min_vip": 0,
+        "max_vip": 0
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - 14 天",
+        "lock_up_period": 14,
+        "year_rate": "0.028",
+        "type": 1,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 1,
+        "min_vip": 0,
+        "max_vip": 0
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - 60",
+        "lock_up_period": 60,
+        "year_rate": "0.05",
+        "type": 1,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 0,
+        "min_vip": 0,
+        "max_vip": 0
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - 90",
+        "lock_up_period": 90,
+        "year_rate": "0.0447",
+        "type": 1,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 0,
+        "min_vip": 0,
+        "max_vip": 0
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - V5-7 - 7 天",
+        "lock_up_period": 7,
+        "year_rate": "0.0234",
+        "type": 2,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 1,
+        "min_vip": 5,
+        "max_vip": 7
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - V8-11 - 7 天",
+        "lock_up_period": 7,
+        "year_rate": "0.0234",
+        "type": 2,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 1,
+        "min_vip": 8,
+        "max_vip": 11
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - V12-14 - 7 天",
+        "lock_up_period": 7,
+        "year_rate": "0.0234",
+        "type": 2,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 1,
+        "min_vip": 12,
+        "max_vip": 14
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - V5-7 - 30 天",
+        "lock_up_period": 30,
+        "year_rate": "0.0225",
+        "type": 2,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 1,
+        "min_vip": 5,
+        "max_vip": 7
+      },
+      {
+        "asset": "USDT",
+        "name": "USDT - V8-11 - 30 天",
+        "lock_up_period": 30,
+        "year_rate": "0.0225",
+        "type": 2,
+        "status": 2,
+        "sale_status": 1,
+        "is_for_all_user": 1,
+        "min_vip": 8,
+        "max_vip": 11
+      }
+    ],
+    "total": 12
+  },
+  "timestamp": 1791972378
+}

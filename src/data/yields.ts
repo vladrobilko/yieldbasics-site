@@ -1,10 +1,14 @@
 /**
- * Sample yield data for the home page preview. These are NOT live rates:
- * exchange integrations will replace `rateRows` later. Platforms (names,
+ * Assets for the picker, plus the rates table rows built from ./rates.json,
+ * which `npm run rates` (scripts/rates) refreshes daily. Platforms (names,
  * avatars, referral links) live in ./platforms.json.
  */
 
-export type RateType = 'APR' | 'APY';
+import { toRateRow, type RateRow, type RatesFile } from '~/utils/rates';
+import { platformLogoNames } from './platforms';
+import rates from './rates.json';
+
+export type { RateRow, RateType } from '~/utils/rates';
 
 /** Where an asset appears in the picker: the main chip row, or the "···" popover sections. */
 export type AssetGroup = 'main' | 'stablecoin' | 'coin';
@@ -24,20 +28,6 @@ export interface Asset {
   icon: string;
   /** Tailwind classes for the circle (background, and text colour when white is unreadable). */
   colorClass: string;
-}
-
-export interface RateRow {
-  id: string;
-  /** Platform id from src/data/platforms.json (name, avatar and referral link). */
-  platformId: string;
-  asset: string;
-  rate: number;
-  type: RateType;
-  product: string;
-  term: string;
-  conditionTop: string;
-  conditionBottom: string;
-  promotional?: boolean;
 }
 
 export const assets: Asset[] = [
@@ -173,11 +163,12 @@ export const assets: Asset[] = [
     colorClass: 'bg-red-500',
   },
   {
-    id: 'ton',
-    symbol: 'TON',
-    name: 'Toncoin',
+    // Toncoin was renamed Gram; exchanges now list it as GRAM (see ASSET_ALIASES in ~/utils/rates).
+    id: 'gram',
+    symbol: 'GRAM',
+    name: 'Gram (prev. TON)',
     group: 'coin',
-    logo: 'token-branded:ton-background',
+    logo: 'token-branded:gram-background',
     icon: '◇',
     colorClass: 'bg-sky-500',
   },
@@ -258,8 +249,11 @@ export const assets: Asset[] = [
 /** Every coin logo (astro-icon names), e.g. to pre-render their SVG definitions once. */
 export const assetLogoNames = assets.flatMap((asset) => (asset.logo ? [asset.logo] : []));
 
+/** Coin and platform logos, e.g. to pre-render their SVG definitions once. */
+export const allLogoNames = [...new Set([...assetLogoNames, ...platformLogoNames])];
+
 /** token-branded icons in use (without prefix), so astro.config.ts bundles only these. */
-export const tokenBrandedLogoNames = assetLogoNames.flatMap((name) =>
+export const tokenBrandedLogoNames = allLogoNames.flatMap((name) =>
   name.startsWith('token-branded:') ? [name.slice('token-branded:'.length)] : []
 );
 
@@ -269,61 +263,10 @@ export const coinAssets = assets.filter((asset) => asset.group === 'coin');
 
 export const DEFAULT_ASSET_ID = 'usdt';
 
-export const rateRows: RateRow[] = [
-  {
-    id: 'binance-usdt-earn',
-    platformId: 'binance',
-    asset: 'USDT',
-    rate: 12.5,
-    type: 'APY',
-    product: 'Simple Earn',
-    term: 'Flexible',
-    conditionTop: 'Under $500: 12.5% APY',
-    conditionBottom: '$500+: 3.8% APY',
-    promotional: true,
-  },
-  {
-    id: 'okx-usdt-savings',
-    platformId: 'okx',
-    asset: 'USDT',
-    rate: 10,
-    type: 'APR',
-    product: 'Savings',
-    term: 'Flexible',
-    conditionTop: 'First $1K: 10% APR',
-    conditionBottom: '$1K+: 2.5% APR',
-  },
-  {
-    id: 'bybit-usdt-flexible',
-    platformId: 'bybit',
-    asset: 'USDT',
-    rate: 8,
-    type: 'APY',
-    product: 'Flexible Savings',
-    term: 'Flexible',
-    conditionTop: 'Up to $750: 8% APY',
-    conditionBottom: 'Balance above: 1.9% APY',
-  },
-  {
-    id: 'gate-usdt-fixed',
-    platformId: 'gate',
-    asset: 'USDT',
-    rate: 7.25,
-    type: 'APR',
-    product: 'Fixed Earn',
-    term: '30-day',
-    conditionTop: 'Under $2K: 7.25% APR',
-    conditionBottom: '$2K+: 4.1% APR',
-  },
-  {
-    id: 'binance-usdt-fixed',
-    platformId: 'binance',
-    asset: 'USDT',
-    rate: 6.8,
-    type: 'APR',
-    product: 'Locked Earn',
-    term: '30-day',
-    conditionTop: '$100–$5K: 6.8% APR',
-    conditionBottom: '$5K+: 3.2% APR',
-  },
-];
+const ratesFile = rates as RatesFile;
+
+/** When the rates were last fetched (ISO time). */
+export const ratesUpdatedAt = ratesFile.generatedAt;
+
+/** One table row per offer. Staleness is judged at build time. */
+export const rateRows: RateRow[] = ratesFile.offers.map((offer) => toRateRow(offer, new Date()));

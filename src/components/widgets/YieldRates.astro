@@ -4,27 +4,45 @@ import AssetChip from '~/components/ui/AssetChip.astro';
 import YieldBadge from '~/components/ui/YieldBadge.astro';
 import { getPlatform } from '~/data/platforms';
 import {
-  assetLogoNames,
+  allLogoNames,
   assets,
   coinAssets,
   DEFAULT_ASSET_ID,
   mainAssets,
   rateRows,
+  ratesUpdatedAt,
   stablecoinAssets,
 } from '~/data/yields';
-import { productsLabel, ratesForAsset, sortByRate, sortLabel } from '~/utils/yields';
+import { formatRateDate, NEW_USER_ASSETS } from '~/utils/rates';
+import {
+  emptyMessage,
+  filterByTerm,
+  productsLabel,
+  ratesForAsset,
+  sortByRate,
+  sortLabel,
+  type TermFilter,
+} from '~/utils/yields';
 
 // Asset picker + sortable rates table from the YieldBasics MagicPath design.
 // Every row is rendered at build time (static site); the small script below
-// only filters by asset, flips the sort order and drives the "···" popover.
+// only filters by asset and term, flips the sort order and drives the "···"
+// popover. Rates come from src/data/rates.json (see scripts/rates).
 
 const defaultAsset = assets.find((a) => a.id === DEFAULT_ASSET_ID) ?? assets[0];
-const defaultRows = ratesForAsset(rateRows, defaultAsset.symbol);
+const defaultRows = filterByTerm(ratesForAsset(rateRows, defaultAsset.symbol), 'all');
+const defaultRowIds = new Set(defaultRows.map((row) => row.id));
 const allRows = sortByRate(rateRows).map((row) => ({ ...row, platform: getPlatform(row.platformId) }));
 const moreAssets = [...stablecoinAssets, ...coinAssets];
 const moreGroups = [
   { id: 'stablecoin', title: 'Stablecoins', items: stablecoinAssets },
   { id: 'coin', title: 'Other coins', items: coinAssets },
+];
+const termOptions: { id: TermFilter; label: string }[] = [
+  { id: 'all', label: 'All' },
+  { id: 'flexible', label: 'Flexible' },
+  { id: 'fixed', label: 'Fixed' },
+  { id: 'new-user', label: 'New users' },
 ];
 ---
 
@@ -38,7 +56,7 @@ const moreGroups = [
     */
   }
   <div class="sr-only" aria-hidden="true">
-    {assetLogoNames.map((name) => <Icon name={name} />)}
+    {allLogoNames.map((name) => <Icon name={name} />)}
   </div>
   <section class="mt-10" aria-labelledby="asset-heading">
     <div class="flex items-center justify-between gap-4">
@@ -47,7 +65,7 @@ const moreGroups = [
         <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Showing the highest available yield first</p>
       </div>
       <span class="hidden items-center gap-1 text-xs text-slate-400 sm:flex">
-        <Icon name="tabler:shield-check" class="h-3.5 w-3.5" /> Rates will be checked daily
+        <Icon name="tabler:clock-check" class="h-3.5 w-3.5" /> Rates updated {formatRateDate(ratesUpdatedAt)}
       </span>
     </div>
 
@@ -136,15 +154,36 @@ const moreGroups = [
         </h2>
         <p class="mt-1 text-sm text-slate-500 dark:text-slate-400" data-count>{productsLabel(defaultRows.length)}</p>
       </div>
-      <button
-        type="button"
-        data-sort-button
-        class="inline-flex w-fit items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
-        aria-label="Toggle rate sort order"
-      >
-        <Icon name="tabler:arrows-sort" class="h-4 w-4" />
-        <span data-sort-label>{sortLabel(true)}</span>
-      </button>
+      <div class="flex flex-wrap items-center gap-2">
+        <div
+          role="group"
+          aria-label="Term"
+          class="inline-flex rounded-lg border border-slate-200 bg-white p-0.5 shadow-sm dark:border-slate-700 dark:bg-slate-900"
+        >
+          {
+            termOptions.map((option) => (
+              <button
+                type="button"
+                data-term-button
+                data-term={option.id}
+                aria-pressed={option.id === 'all' ? 'true' : 'false'}
+                class="rounded-md px-3 py-1.5 text-sm font-semibold text-slate-500 transition hover:text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 aria-pressed:bg-slate-900 aria-pressed:text-white dark:text-slate-400 dark:hover:text-slate-100 dark:aria-pressed:bg-white dark:aria-pressed:text-slate-900"
+              >
+                {option.label}
+              </button>
+            ))
+          }
+        </div>
+        <button
+          type="button"
+          data-sort-button
+          class="inline-flex w-fit items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+          aria-label="Toggle rate sort order"
+        >
+          <Icon name="tabler:arrows-sort" class="h-4 w-4" />
+          <span data-sort-label>{sortLabel(true)}</span>
+        </button>
+      </div>
     </div>
 
     <div
@@ -157,7 +196,7 @@ const moreGroups = [
           </caption>
           <thead class="border-b border-slate-200 bg-slate-50/80 dark:border-slate-800 dark:bg-slate-800/50">
             <tr class="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
-              <th scope="col" class="px-5 py-4">Exchange</th>
+              <th scope="col" class="px-5 py-4">Platform</th>
               <th scope="col" class="px-4 py-4">Asset</th>
               <th scope="col" class="px-4 py-4">APR / APY</th>
               <th scope="col" class="px-4 py-4">Product</th>
@@ -172,20 +211,32 @@ const moreGroups = [
                 <tr
                   data-asset={row.asset}
                   data-rate={row.rate}
-                  hidden={row.asset !== defaultAsset.symbol}
+                  data-term-days={row.termDays}
+                  data-audience={row.audience}
+                  data-reward={row.maxReward ?? ''}
+                  hidden={!defaultRowIds.has(row.id)}
                   class="group transition-colors hover:bg-emerald-50/30 dark:hover:bg-emerald-950/20"
                 >
                   <th scope="row" class="px-5 py-5 font-normal">
                     <div class="flex items-center gap-3">
-                      <span
-                        class:list={[
-                          'flex h-9 w-9 items-center justify-center rounded-full text-xs font-extrabold',
-                          row.platform.markClass,
-                        ]}
-                        aria-hidden="true"
-                      >
-                        {row.platform.mark}
-                      </span>
+                      {row.platform.logo ? (
+                        <span
+                          class="h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-slate-200 dark:ring-slate-700"
+                          aria-hidden="true"
+                        >
+                          <Icon name={row.platform.logo} class="h-full w-full" />
+                        </span>
+                      ) : (
+                        <span
+                          class:list={[
+                            'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-extrabold',
+                            row.platform.markClass,
+                          ]}
+                          aria-hidden="true"
+                        >
+                          {row.platform.mark}
+                        </span>
+                      )}
                       <span class="font-bold text-slate-900 dark:text-white">{row.platform.name}</span>
                     </div>
                   </th>
@@ -195,10 +246,29 @@ const moreGroups = [
                     </span>
                   </td>
                   <td class="px-4 py-5">
-                    <YieldBadge rate={row.rate} type={row.type} isPromotional={row.promotional} size="md" />
+                    <YieldBadge
+                      rate={row.rate}
+                      type={row.type}
+                      isPromotional={row.promotional || row.audience === 'new-user'}
+                      promoLabel={row.audience === 'new-user' ? 'New users' : 'Promo'}
+                      size="md"
+                    />
                   </td>
                   <td class="px-4 py-5">
-                    <span class="font-semibold text-slate-800 dark:text-slate-200">{row.product}</span>
+                    <span class="block font-semibold text-slate-800 dark:text-slate-200">{row.product}</span>
+                    {(row.stale || row.source === 'manual') && (
+                      <span
+                        class="mt-1 inline-flex items-center gap-1 text-[11px] font-medium text-amber-600 dark:text-amber-400"
+                        title={
+                          row.source === 'manual'
+                            ? 'Checked by hand on the platform'
+                            : 'Could not refresh this rate recently'
+                        }
+                      >
+                        <Icon name="tabler:clock" class="h-3 w-3" />
+                        Checked {formatRateDate(row.updatedAt)}
+                      </span>
+                    )}
                   </td>
                   <td class="px-4 py-5">
                     <span class="text-sm text-slate-600 dark:text-slate-400">{row.term}</span>
@@ -225,8 +295,8 @@ const moreGroups = [
               ))
             }
             <tr data-empty hidden={defaultRows.length > 0}>
-              <td colspan="7" class="px-5 py-10 text-center text-sm text-slate-500 dark:text-slate-400">
-                No <span data-asset-label>{defaultAsset.symbol}</span> offers listed yet — more assets are coming soon.
+              <td colspan="7" class="px-5 py-10 text-center text-sm text-slate-500 dark:text-slate-400" data-empty-text>
+                {emptyMessage(defaultAsset.symbol, 'all', NEW_USER_ASSETS)}
               </td>
             </tr>
           </tbody>
@@ -237,8 +307,10 @@ const moreGroups = [
       >
         <Icon name="tabler:info-circle" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-400" />
         <p>
-          Sample rates for preview only — not live data. Rates are indicative and may vary by region, account tier, and
-          platform terms. Always review the offer details before depositing. Not financial advice.
+          Rates are collected once a day from each platform's public data and can change at any time. They may vary by
+          region, account tier and platform terms, and boosted rates usually apply to a limited amount. Offers in the
+          "New users" tab are only for new accounts or first deposits, and their reward is an estimate for the maximum
+          amount. Always review the offer details before depositing. Not financial advice.
         </p>
       </div>
       <div
@@ -247,7 +319,7 @@ const moreGroups = [
         <Icon name="tabler:link" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-400" />
         <p>
           "View offer" buttons are referral links: YieldBasics may earn a commission when you sign up through them, at
-          no extra cost to you. Referrals never change the order of the table, which is sorted by rate only.
+          no extra cost to you. Referrals never change the order of the table.
         </p>
       </div>
     </div>
@@ -261,7 +333,18 @@ const moreGroups = [
 </style>
 
 <script>
-  import { filterAssets, placePopover, productsLabel, ratesForAsset, sortLabel } from '~/utils/yields';
+  import { NEW_USER_ASSETS } from '~/utils/rates';
+  import {
+    emptyMessage,
+    filterAssets,
+    filterByTerm,
+    placePopover,
+    productsLabel,
+    ratesForAsset,
+    sortByReward,
+    sortLabel,
+    type TermFilter,
+  } from '~/utils/yields';
 
   class YbYieldRates extends HTMLElement {
     connectedCallback() {
@@ -274,26 +357,36 @@ const moreGroups = [
         el,
         asset: el.dataset.asset ?? '',
         rate: Number(el.dataset.rate),
+        termDays: Number(el.dataset.termDays),
+        audience: el.dataset.audience ?? 'all',
+        reward: el.dataset.reward ? Number(el.dataset.reward) : null,
       }));
+      const termButtons = Array.from(this.querySelectorAll<HTMLButtonElement>('[data-term-button]'));
 
       let asset = this.dataset.defaultAsset ?? '';
       let descending = true;
+      let term: TermFilter = 'all';
 
       const render = () => {
-        const visible = ratesForAsset(rows, asset, descending);
+        const byReward = term === 'new-user';
+        const matching = filterByTerm(ratesForAsset(rows, asset, descending), term);
+        const visible = byReward ? sortByReward(matching, descending) : matching;
         rows.forEach((row) => (row.el.hidden = true));
         visible.forEach((row) => {
           row.el.hidden = false;
           tbody.insertBefore(row.el, empty);
         });
         empty.hidden = visible.length > 0;
+        const emptyText = empty.querySelector('[data-empty-text]');
+        if (emptyText) emptyText.textContent = emptyMessage(asset, term, NEW_USER_ASSETS);
 
         this.querySelectorAll('[data-asset-label]').forEach((label) => (label.textContent = asset));
         const count = this.querySelector('[data-count]');
         if (count) count.textContent = productsLabel(visible.length);
         const sort = this.querySelector('[data-sort-label]');
-        if (sort) sort.textContent = sortLabel(descending);
+        if (sort) sort.textContent = sortLabel(descending, byReward ? 'reward' : 'rate');
         buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.symbol === asset)));
+        termButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.term === term)));
       };
 
       const select = (symbol: string) => {
@@ -302,6 +395,12 @@ const moreGroups = [
       };
 
       buttons.forEach((button) => button.addEventListener('click', () => select(button.dataset.symbol ?? asset)));
+      termButtons.forEach((button) =>
+        button.addEventListener('click', () => {
+          term = (button.dataset.term as TermFilter | undefined) ?? 'all';
+          render();
+        })
+      );
       this.querySelector('[data-sort-button]')?.addEventListener('click', () => {
         descending = !descending;
         render();

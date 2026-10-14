@@ -1,0 +1,292 @@
+{
+  "offers": [
+    {
+      "platformId": "weex",
+      "asset": "USDT",
+      "product": "Auto Earn",
+      "termDays": 0,
+      "rate": 10,
+      "type": "APR",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 200,
+          "rate": 10
+        },
+        {
+          "min": 200,
+          "max": null,
+          "rate": 3
+        }
+      ],
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "USDT",
+      "product": "Auto Earn",
+      "termDays": 7,
+      "rate": 100,
+      "type": "APR",
+      "audience": "new-user",
+      "maxAmount": 200,
+      "note": "Then 3% APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "USDC",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 8,
+      "type": "APR",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 200,
+          "rate": 8
+        },
+        {
+          "min": 200,
+          "max": null,
+          "rate": 3
+        }
+      ],
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "BTC",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 8,
+      "type": "APR",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 0.005,
+          "rate": 8
+        },
+        {
+          "min": 0.005,
+          "max": null,
+          "rate": 0.9
+        }
+      ],
+      "note": "Limited-time rate",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "BTC",
+      "product": "Earn",
+      "termDays": 30,
+      "rate": 2,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "ETH",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 8,
+      "type": "APR",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 0.2,
+          "rate": 8
+        },
+        {
+          "min": 0.2,
+          "max": null,
+          "rate": 2
+        }
+      ],
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "ETH",
+      "product": "Earn",
+      "termDays": 7,
+      "rate": 2.3,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "ETH",
+      "product": "Earn",
+      "termDays": 14,
+      "rate": 2.5,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "ETH",
+      "product": "Earn",
+      "termDays": 30,
+      "rate": 3,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "SOL",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 8,
+      "type": "APR",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 3,
+          "rate": 8
+        },
+        {
+          "min": 3,
+          "max": null,
+          "rate": 4
+        }
+      ],
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "SOL",
+      "product": "Earn",
+      "termDays": 7,
+      "rate": 4.2,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "SOL",
+      "product": "Earn",
+      "termDays": 14,
+      "rate": 4.5,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "SOL",
+      "product": "Earn",
+      "termDays": 30,
+      "rate": 5,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "DOGE",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 5,
+      "type": "APR",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 2000,
+          "rate": 5
+        },
+        {
+          "min": 2000,
+          "max": null,
+          "rate": 2
+        }
+      ],
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "TRX",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 2,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "ADA",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 2,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "weex",
+      "asset": "HYPE",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 2,
+      "type": "APR",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "telegram-wallet",
+      "asset": "USDT",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 4.13,
+      "type": "APY",
+      "note": "Walt Dollars balance",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "telegram-wallet",
+      "asset": "ETH",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 4.25,
+      "type": "APY",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 4.2,
+          "rate": 4.25
+        },
+        {
+          "min": 4.2,
+          "max": null,
+          "rate": 2.21
+        }
+      ],
+      "note": "Bonus rate for the first 30 days",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "telegram-wallet",
+      "asset": "SOL",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 5.31,
+      "type": "APY",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "telegram-wallet",
+      "asset": "TRX",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 3.34,
+      "type": "APY",
+      "verifiedAt": "2026-10-14"
+    },
+    {
+      "platformId": "telegram-wallet",
+      "asset": "GRAM",
+      "product": "Earn",
+      "termDays": 0,
+      "rate": 13.49,
+      "type": "APY",
+      "verifiedAt": "2026-10-14"
+    }
+  ]
+}

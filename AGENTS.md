@@ -35,6 +35,7 @@ Before implementing a project-specific task (disabling the blog, Open Graph imag
 | `npm run test:watch` | Run Vitest in watch mode            |
 | `npm run check`      | Run astro check + ESLint + Prettier |
 | `npm run fix`        | Auto-fix ESLint + Prettier issues   |
+| `npm run rates`      | Fetch earn rates → `rates.json`     |
 
 `npm install` also sets `git config core.hooksPath .githooks`, which enables the pre-push hook.
 
@@ -80,6 +81,17 @@ import { SITE } from 'astrowind:config';
 ### Configuration System
 
 Site config lives in `src/config.yaml` and is loaded as a Vite virtual module `astrowind:config` by the custom integration in `vendor/integration/`. Exports: `SITE`, `I18N`, `METADATA`, `APP_BLOG`, `UI`, `ANALYTICS`.
+
+## Earn Rates
+
+The home page rates table is built from `src/data/rates.json`, which `npm run rates` (`scripts/rates/run.ts`) regenerates; never edit it by hand.
+
+- Platforms (name, avatar, referral link) live in `src/data/platforms.json`. Every "View offer" button uses the platform's `referralUrl`.
+- Each platform with an automatic source has a parser in `scripts/rates/sources/<id>.ts`, tested against trimmed real responses in `scripts/rates/sources/fixtures/`.
+- Platforms without a source (currently WEEX and Walt, whose rates are only shown to signed-in users) go in `src/data/manual-rates.json`: one entry per offer with the `RateOffer` fields plus `verifiedAt` (the date the rate was checked on the platform). They show a "Checked <date>" hint and are dropped 30 days after `verifiedAt`. Never automate a signed-in session to collect them.
+- Offers only for new accounts or first deposits are kept with `audience: 'new-user'` and a `maxAmount` cap, for USDT/USDC only. They appear only in the "New users" tab, ranked by estimated max reward.
+- If a source fails, its previous offers are kept, so a broken parser never empties the table. Rates older than 3 days show a "Checked <date>" hint.
+- Shared types and helpers are in `src/utils/rates.ts`.
 
 ## Tailwind CSS v4
 

@@ -10,7 +10,13 @@ export interface Platform {
   website: string;
   /** Where "View offer" sends visitors. Referral codes are public by design. */
   referralUrl: string;
-  /** Short text mark shown in the platform avatar. */
+  /**
+   * Platform logo as an astro-icon name: `token-branded:<name>` from the Web3
+   * Icons set (MIT), or an official mark saved in src/assets/icons. Without a
+   * logo the avatar shows `mark`.
+   */
+  logo?: string;
+  /** Short text mark shown in the platform avatar when there is no logo. */
   mark: string;
   /** Tailwind classes for the platform avatar. */
   markClass: string;
@@ -23,6 +29,9 @@ export const platformKindLabels: Record<PlatformKind, string> = {
 };
 
 export const platforms = platformList as Platform[];
+
+/** Every platform logo (astro-icon names). */
+export const platformLogoNames = platforms.flatMap((platform) => (platform.logo ? [platform.logo] : []));
 
 const byId = new Map(platforms.map((platform) => [platform.id, platform]));
 

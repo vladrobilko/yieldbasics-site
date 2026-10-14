@@ -5,6 +5,6 @@ import { getViteConfig } from 'astro/config';
 // virtual module (built from src/config.yaml) resolve in tests too.
 export default getViteConfig({
   test: {
-    include: ['src/**/*.test.ts', 'vendor/**/*.test.ts'],
+    include: ['src/**/*.test.ts', 'vendor/**/*.test.ts', 'scripts/**/*.test.ts'],
   },
 });
