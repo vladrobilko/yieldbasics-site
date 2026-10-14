@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { icons as tokenBranded } from '@iconify-json/token-branded';
 
+import { platforms } from '~/data/platforms';
 import {
   assetLogoNames,
   assets,
@@ -82,6 +83,11 @@ describe('sample data', () => {
   it('only uses assets that exist in the selector', () => {
     const symbols = new Set(assets.map((a) => a.symbol));
     expect(rateRows.every((r) => symbols.has(r.asset))).toBe(true);
+  });
+
+  it('only uses known platforms', () => {
+    const ids = new Set(platforms.map((p) => p.id));
+    expect(rateRows.filter((r) => !ids.has(r.platformId))).toEqual([]);
   });
 });
 

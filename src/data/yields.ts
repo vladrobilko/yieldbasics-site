@@ -1,6 +1,7 @@
 /**
  * Sample yield data for the home page preview. These are NOT live rates:
- * exchange integrations will replace this module later.
+ * exchange integrations will replace `rateRows` later. Platforms (names,
+ * avatars, referral links) live in ./platforms.json.
  */
 
 export type RateType = 'APR' | 'APY';
@@ -27,11 +28,8 @@ export interface Asset {
 
 export interface RateRow {
   id: string;
-  exchange: string;
-  /** Short text mark shown in the exchange avatar. */
-  mark: string;
-  /** Tailwind classes for the exchange avatar. */
-  markClass: string;
+  /** Platform id from src/data/platforms.json (name, avatar and referral link). */
+  platformId: string;
   asset: string;
   rate: number;
   type: RateType;
@@ -274,9 +272,7 @@ export const DEFAULT_ASSET_ID = 'usdt';
 export const rateRows: RateRow[] = [
   {
     id: 'binance-usdt-earn',
-    exchange: 'Binance',
-    mark: 'B',
-    markClass: 'bg-[#F0B90B] text-[#17191C]',
+    platformId: 'binance',
     asset: 'USDT',
     rate: 12.5,
     type: 'APY',
@@ -288,9 +284,7 @@ export const rateRows: RateRow[] = [
   },
   {
     id: 'okx-usdt-savings',
-    exchange: 'OKX',
-    mark: 'OK',
-    markClass: 'bg-[#111827] text-white dark:bg-slate-700',
+    platformId: 'okx',
     asset: 'USDT',
     rate: 10,
     type: 'APR',
@@ -300,36 +294,30 @@ export const rateRows: RateRow[] = [
     conditionBottom: '$1K+: 2.5% APR',
   },
   {
-    id: 'coinbase-usdt-rewards',
-    exchange: 'Coinbase',
-    mark: 'C',
-    markClass: 'bg-[#1652F0] text-white',
+    id: 'bybit-usdt-flexible',
+    platformId: 'bybit',
     asset: 'USDT',
     rate: 8,
     type: 'APY',
-    product: 'USDC Rewards',
+    product: 'Flexible Savings',
     term: 'Flexible',
     conditionTop: 'Up to $750: 8% APY',
     conditionBottom: 'Balance above: 1.9% APY',
   },
   {
-    id: 'kraken-usdt-bond',
-    exchange: 'Kraken',
-    mark: 'K',
-    markClass: 'bg-[#5741D9] text-white',
+    id: 'gate-usdt-fixed',
+    platformId: 'gate',
     asset: 'USDT',
     rate: 7.25,
     type: 'APR',
-    product: 'Opt-in Rewards',
+    product: 'Fixed Earn',
     term: '30-day',
     conditionTop: 'Under $2K: 7.25% APR',
     conditionBottom: '$2K+: 4.1% APR',
   },
   {
     id: 'binance-usdt-fixed',
-    exchange: 'Binance',
-    mark: 'B',
-    markClass: 'bg-[#F0B90B] text-[#17191C]',
+    platformId: 'binance',
     asset: 'USDT',
     rate: 6.8,
     type: 'APR',
