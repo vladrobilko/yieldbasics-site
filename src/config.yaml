@@ -11,7 +11,7 @@ metadata:
   title:
     default: YieldBasics
     template: '%s — YieldBasics'
-  description: 'Plain-language guides and simple tools for understanding yields in crypto, stocks and beyond.'
+  description: 'Compare crypto earn rates (APR / APY) across 11 exchanges and DeFi platforms, updated daily.'
   robots:
     index: true
     follow: true
@@ -31,7 +31,7 @@ i18n:
 
 apps:
   blog:
-    isEnabled: true
+    isEnabled: false # no blog yet; /guides is the "coming soon" page
     postsPerPage: 8
 
     post:

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**YieldBasics** ([yieldbasics.com](https://yieldbasics.com)) is a site about yields in crypto, stocks and other assets: plain-language educational articles plus tools/calculators to compare yields. English only. The brand is "YieldBasics" — never publish a personal name. Content is educational, not financial advice.
+**YieldBasics** ([yieldbasics.com](https://yieldbasics.com)) compares crypto earn rates (APR / APY) across exchanges, DeFi and wallets, refreshed daily, with referral links on every offer. Plain-language guides are planned (`/guides` is a "coming soon" page; the blog is switched off in `config.yaml` until there is content). English only. The brand is "YieldBasics" — never publish a personal name. Content is educational, not financial advice.
 
 It is a fully static site built on the open-source **AstroWind** template (Astro v7 + Tailwind CSS v4) and will be hosted on **GitHub Pages** (deploy workflow not added yet).
 
@@ -19,6 +19,10 @@ It is a fully static site built on the open-source **AstroWind** template (Astro
 5. **The user sees the UI before every push.** Start `npm run dev` (or `npm run build && npm run preview`), give the user the local URL and the list of pages affected, and push only after the user explicitly approves.
 6. **The repo is public — no sensitive data.** Never commit `.env*` files (only a value-free `.env.example`), API keys, tokens, passwords, private keys or seed phrases, wallet/account details, personal information, or local machine paths. Secrets go in GitHub Actions secrets. Review `git diff --staged` before every commit.
 7. Keep commits focused with a short imperative message.
+
+## Contact Form
+
+`/contact` posts to [Web3Forms](https://web3forms.com), which emails each message to the site owner with the subject "[YieldBasics] Contact: <topic>". The access key (`WEB3FORMS_ACCESS_KEY` in `src/utils/contact.ts`) is public by design and safe to commit; never put the destination email address in the repo.
 
 ## Skills
 
@@ -156,5 +160,5 @@ After changes, always verify:
 1. `npm test` passes (Vitest)
 2. `npm run build` succeeds
 3. `npm run check` passes (astro check + ESLint + Prettier)
-4. The user has reviewed the UI locally: homepage, blog, dark mode, mobile menu, plus every page you changed
+4. The user has reviewed the UI locally: homepage (rates table), guides, about, contact, dark mode, mobile menu, plus every page you changed
 5. Structured data describes the site it is on: the `WebSite` / `Organization` block in `src/pages/index.astro` is built only from `config.yaml`; anything you add there must be true for your site
