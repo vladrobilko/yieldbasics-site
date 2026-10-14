@@ -58,5 +58,7 @@ describe('getCanonical', () => {
   it('builds absolute URLs on the site domain without a trailing slash', () => {
     expect(String(getCanonical('/about/'))).toBe('https://yieldbasics.com/about');
     expect(String(getCanonical('/'))).toBe('https://yieldbasics.com');
+    expect(String(getCanonical('/about.html'))).toBe('https://yieldbasics.com/about');
+    expect(String(getCanonical('/index.html'))).toBe('https://yieldbasics.com');
   });
 });

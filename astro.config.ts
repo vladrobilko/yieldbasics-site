@@ -27,6 +27,13 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
+  // Emit /about.html instead of /about/index.html. With trailingSlash 'never'
+  // (config.yaml), GitHub Pages then serves /about directly, with no redirect
+  // to /about/, so canonical and sitemap URLs match the served URL.
+  build: {
+    format: 'file',
+  },
+
   // Prefetch links as they enter the viewport for snappier navigations
   // (works together with <ClientRouter />, which enables prefetch by default).
   prefetch: {
@@ -50,7 +57,10 @@ export default defineConfig({
   ],
 
   integrations: [
-    sitemap(),
+    sitemap({
+      // The 404 page is not content.
+      filter: (page) => !page.endsWith('/404') && !page.endsWith('/404.html'),
+    }),
     mdx(),
     icon({
       // Local SVG icons (used as <Icon name="file-name" />) live next to the other assets.

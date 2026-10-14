@@ -4,7 +4,7 @@
 
 **YieldBasics** ([yieldbasics.com](https://yieldbasics.com)) compares crypto earn rates (APR / APY) across exchanges, DeFi and wallets, refreshed daily, with referral links on every offer. Plain-language guides are planned (`/guides` is a "coming soon" page; the blog is switched off in `config.yaml` until there is content). English only. The brand is "YieldBasics" — never publish a personal name. Content is educational, not financial advice.
 
-It is a fully static site built on the open-source **AstroWind** template (Astro v7 + Tailwind CSS v4) and will be hosted on **GitHub Pages** (deploy workflow not added yet).
+It is a fully static site built on the open-source **AstroWind** template (Astro v7 + Tailwind CSS v4) hosted on **GitHub Pages** at yieldbasics.com: `.github/workflows/deploy.yaml` builds and publishes every push to `master` (`public/CNAME` holds the domain). Pages are emitted as `about.html` (`build.format: 'file'`) so `/about` is served without a redirect; `getCanonical` strips the `.html`.
 
 **Stack:** Astro v7 | Tailwind CSS v4 | TypeScript 5.9 | MDX | Sharp | Vitest
 
