@@ -32,12 +32,12 @@ const sizeClasses = {
     ]}
   >
     <span class="tabular-nums">{formatRate(rate)}</span>
-    <span class="ml-1 text-[10px] font-medium tracking-tight opacity-70">{type}</span>
+    <span class="ml-1 text-[10px] font-medium tracking-tight">{type}</span>
     {isPromotional && <Icon name="tabler:trending-up" class="ml-2 h-3.5 w-3.5 motion-safe:animate-bounce-slow" />}
   </div>
   {
     isPromotional && (
-      <span class="flex items-center gap-1 px-1 text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+      <span class="flex items-center gap-1 px-1 text-[10px] font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400">
         <Icon name="tabler:award" class="h-2.5 w-2.5" />
         {promoLabel}
       </span>
