@@ -10,13 +10,13 @@ import {
   DEFAULT_ASSET_ID,
   mainAssets,
   rateRows,
-  ratesUpdatedAt,
   stablecoinAssets,
 } from '~/data/yields';
 import { assetSlug } from '~/utils/assetPages';
 import { getPermalink } from '~/utils/permalinks';
-import { formatRateDate, NEW_USER_ASSETS } from '~/utils/rates';
+import { NEW_USER_ASSETS } from '~/utils/rates';
 import {
+  COLLAPSED_ROWS,
   emptyMessage,
   filterByTerm,
   productsLabel,
@@ -28,12 +28,13 @@ import {
 
 // Asset picker + sortable rates table from the YieldBasics MagicPath design.
 // Every row is rendered at build time (static site); the small script below
-// only filters by asset and term, flips the sort order and drives the "···"
-// popover. Rates come from src/data/rates.json (see scripts/rates).
+// only filters by asset and term, flips the sort order, expands the list past
+// the first COLLAPSED_ROWS rows and drives the "···" popover. Rates come from src/data/rates.json (see scripts/rates).
 
 const defaultAsset = assets.find((a) => a.id === DEFAULT_ASSET_ID) ?? assets[0];
 const defaultRows = filterByTerm(ratesForAsset(rateRows, defaultAsset.symbol), 'all');
-const defaultRowIds = new Set(defaultRows.map((row) => row.id));
+const defaultRowIds = new Set(defaultRows.slice(0, COLLAPSED_ROWS).map((row) => row.id));
+const platformCount = (rows: { platformId: string }[]) => new Set(rows.map((row) => row.platformId)).size;
 const allRows = sortByRate(rateRows).map((row) => ({ ...row, platform: getPlatform(row.platformId) }));
 const moreAssets = [...stablecoinAssets, ...coinAssets];
 const moreGroups = [
@@ -63,12 +64,9 @@ const termOptions: { id: TermFilter; label: string }[] = [
   <section class="mt-10" aria-labelledby="asset-heading">
     <div class="flex items-center justify-between gap-4">
       <div>
-        <h2 id="asset-heading" class="text-sm font-bold text-slate-900 dark:text-white">Choose an asset</h2>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Showing the highest available yield first</p>
+        <h2 id="asset-heading" class="text-sm font-bold text-slate-900 dark:text-white">Choose a coin</h2>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Ranked by rate, highest first</p>
       </div>
-      <span class="hidden items-center gap-1 text-xs text-slate-400 sm:flex">
-        <Icon name="tabler:clock-check" class="h-3.5 w-3.5" /> Rates updated {formatRateDate(ratesUpdatedAt)}
-      </span>
     </div>
 
     <div class="w-full overflow-x-auto py-4 [scrollbar-width:none]">
@@ -94,8 +92,8 @@ const termOptions: { id: TermFilter; label: string }[] = [
           popovertarget="more-assets"
           data-more-button
           class="flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-500 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
-          aria-label="More assets"
-          title="More assets"
+          aria-label="More coins"
+          title="More coins"
         >
           <span aria-hidden="true" class="text-lg leading-8 tracking-[0.16em]">···</span>
         </button>
@@ -106,11 +104,11 @@ const termOptions: { id: TermFilter; label: string }[] = [
       id="more-assets"
       popover
       role="dialog"
-      aria-label="More assets"
+      aria-label="More coins"
       class="m-0 max-h-[min(30rem,75vh)] w-[min(26rem,calc(100vw-2rem))] overflow-y-auto rounded-xl border border-slate-200 bg-white p-4 text-slate-900 shadow-xl dark:border-slate-700 dark:bg-slate-900 dark:text-white"
     >
       <label class="relative block">
-        <span class="sr-only">Search assets</span>
+        <span class="sr-only">Search coins</span>
         <Icon
           name="tabler:search"
           class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
@@ -118,7 +116,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
         <input
           type="search"
           data-asset-search
-          placeholder="Search asset…"
+          placeholder="Search coin…"
           autocomplete="off"
           class="w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
         />
@@ -144,7 +142,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
           </div>
         ))
       }
-      <p data-asset-none hidden class="mt-4 text-center text-sm text-slate-500 dark:text-slate-400">No assets match</p>
+      <p data-asset-none hidden class="mt-4 text-center text-sm text-slate-500 dark:text-slate-400">No coins match</p>
     </div>
   </section>
 
@@ -152,10 +150,10 @@ const termOptions: { id: TermFilter; label: string }[] = [
     <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h2 id="results-heading" class="text-lg font-bold tracking-tight text-slate-950 dark:text-white">
-          Top <span data-asset-label>{defaultAsset.symbol}</span> opportunities
+          <span data-asset-label>{defaultAsset.symbol}</span> rates
         </h2>
         <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
-          <span data-count>{productsLabel(defaultRows.length)}</span>
+          <span data-count>{productsLabel(defaultRows.length, platformCount(defaultRows))}</span>
           <span aria-hidden="true"> · </span>
           <a
             data-asset-page
@@ -202,14 +200,15 @@ const termOptions: { id: TermFilter; label: string }[] = [
       class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.04)] dark:border-slate-800 dark:bg-slate-900"
     >
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[930px] border-collapse text-left">
+        <table class="block w-full border-collapse text-left lg:table lg:min-w-[860px]">
           <caption class="sr-only">
             Crypto earn rates for <span data-asset-label>{defaultAsset.symbol}</span>, sorted by yield
           </caption>
-          <thead class="border-b border-slate-200 bg-slate-50/80 dark:border-slate-800 dark:bg-slate-800/50">
+          <thead
+            class="hidden border-b border-slate-200 bg-slate-50/80 lg:table-header-group dark:border-slate-800 dark:bg-slate-800/50"
+          >
             <tr class="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
               <th scope="col" class="px-5 py-4">Platform</th>
-              <th scope="col" class="px-4 py-4">Asset</th>
               <th scope="col" class="px-4 py-4">APR / APY</th>
               <th scope="col" class="px-4 py-4">Product</th>
               <th scope="col" class="px-4 py-4">Term</th>
@@ -217,12 +216,14 @@ const termOptions: { id: TermFilter; label: string }[] = [
               <th scope="col" class="px-5 py-4 text-right">Action</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+          <tbody class="block divide-y divide-slate-100 lg:table-row-group dark:divide-slate-800">
             {
               allRows.map((row) => (
                 <RateTableRow
                   row={row}
+                  showAsset={false}
                   data-asset={row.asset}
+                  data-platform={row.platformId}
                   data-rate={row.rate}
                   data-term-days={row.termDays}
                   data-audience={row.audience}
@@ -231,13 +232,32 @@ const termOptions: { id: TermFilter; label: string }[] = [
                 />
               ))
             }
-            <tr data-empty hidden={defaultRows.length > 0}>
-              <td colspan="7" class="px-5 py-10 text-center text-sm text-slate-500 dark:text-slate-400" data-empty-text>
+            <tr data-empty class="block lg:table-row" hidden={defaultRows.length > 0}>
+              <td
+                colspan="6"
+                class="block px-5 py-10 lg:table-cell text-center text-sm text-slate-500 dark:text-slate-400"
+                data-empty-text
+              >
                 {emptyMessage(defaultAsset.symbol, 'all', NEW_USER_ASSETS)}
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <div
+        data-show-all-wrap
+        class="border-t border-slate-100 p-3 dark:border-slate-800"
+        hidden={defaultRows.length <= COLLAPSED_ROWS}
+      >
+        <button
+          type="button"
+          data-show-all
+          aria-expanded="false"
+          class="flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:text-emerald-400 dark:hover:bg-emerald-950/40"
+        >
+          <span data-show-all-label>Show all</span>
+          <Icon name="tabler:chevron-down" class="h-4 w-4 transition-transform" data-show-all-icon />
+        </button>
       </div>
       <div
         class="flex items-start gap-2 border-t border-slate-100 bg-slate-50/50 px-5 py-3.5 text-xs leading-5 text-slate-500 dark:border-slate-800 dark:bg-slate-800/30 dark:text-slate-400"
@@ -273,6 +293,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
   import { assetSlug } from '~/utils/assetPages';
   import { NEW_USER_ASSETS } from '~/utils/rates';
   import {
+    COLLAPSED_ROWS,
     emptyMessage,
     filterAssets,
     filterByTerm,
@@ -298,29 +319,41 @@ const termOptions: { id: TermFilter; label: string }[] = [
         termDays: Number(el.dataset.termDays),
         audience: el.dataset.audience ?? 'all',
         reward: el.dataset.reward ? Number(el.dataset.reward) : null,
+        platform: el.dataset.platform ?? '',
       }));
+      const showAllWrap = this.querySelector<HTMLElement>('[data-show-all-wrap]');
+      const showAll = this.querySelector<HTMLButtonElement>('[data-show-all]');
       const termButtons = Array.from(this.querySelectorAll<HTMLButtonElement>('[data-term-button]'));
 
       let asset = this.dataset.defaultAsset ?? '';
       let descending = true;
       let term: TermFilter = 'all';
+      let expanded = false;
 
       const render = () => {
         const byReward = term === 'new-user';
         const matching = filterByTerm(ratesForAsset(rows, asset, descending), term);
         const visible = byReward ? sortByReward(matching, descending) : matching;
+        const shown = expanded ? visible.length : COLLAPSED_ROWS;
         rows.forEach((row) => (row.el.hidden = true));
-        visible.forEach((row) => {
-          row.el.hidden = false;
+        visible.forEach((row, index) => {
+          row.el.hidden = index >= shown;
           tbody.insertBefore(row.el, empty);
         });
+        if (showAllWrap) showAllWrap.hidden = visible.length <= COLLAPSED_ROWS;
+        if (showAll) {
+          showAll.setAttribute('aria-expanded', String(expanded));
+          const label = showAll.querySelector('[data-show-all-label]');
+          if (label) label.textContent = expanded ? 'Show less' : 'Show all';
+          showAll.querySelector('[data-show-all-icon]')?.classList.toggle('rotate-180', expanded);
+        }
         empty.hidden = visible.length > 0;
         const emptyText = empty.querySelector('[data-empty-text]');
         if (emptyText) emptyText.textContent = emptyMessage(asset, term, NEW_USER_ASSETS);
 
         this.querySelectorAll('[data-asset-label]').forEach((label) => (label.textContent = asset));
         const count = this.querySelector('[data-count]');
-        if (count) count.textContent = productsLabel(visible.length);
+        if (count) count.textContent = productsLabel(visible.length, new Set(visible.map((row) => row.platform)).size);
         const sort = this.querySelector('[data-sort-label]');
         if (sort) sort.textContent = sortLabel(descending, byReward ? 'reward' : 'rate');
         buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.symbol === asset)));
@@ -330,6 +363,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
       const assetPage = this.querySelector<HTMLAnchorElement>('[data-asset-page]');
       const select = (symbol: string) => {
         asset = symbol;
+        expanded = false;
         // Every coin in the picker has a /rates/<coin> page.
         if (assetPage) assetPage.href = assetPage.href.replace(/[^/]+$/, assetSlug(symbol));
         render();
@@ -339,9 +373,16 @@ const termOptions: { id: TermFilter; label: string }[] = [
       termButtons.forEach((button) =>
         button.addEventListener('click', () => {
           term = (button.dataset.term as TermFilter | undefined) ?? 'all';
+          expanded = false;
           render();
         })
       );
+      showAll?.addEventListener('click', () => {
+        expanded = !expanded;
+        render();
+        // Collapsing a long list: bring the table heading back into view.
+        if (!expanded) this.querySelector('#results-heading')?.scrollIntoView({ block: 'nearest' });
+      });
       this.querySelector('[data-sort-button]')?.addEventListener('click', () => {
         descending = !descending;
         render();

@@ -133,7 +133,15 @@
 /* Current page in the header navigation (set server-side in Header.astro and
    kept in sync on client-side navigations). Emerald pill from the YieldBasics design. */
 #header nav .aw-link-active {
-  @apply bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400;
+  @apply bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400;
+}
+
+/* Rows that the coin pages' highlight cards jump to (#offer-<id>). */
+tr[id^='offer-'] {
+  scroll-margin-top: 6rem;
+}
+tr[id^='offer-']:target {
+  @apply bg-emerald-50 dark:bg-emerald-950/40;
 }
 
 .dd *:first-child {

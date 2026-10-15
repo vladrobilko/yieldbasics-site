@@ -25,9 +25,14 @@ const { metadata } = Astro.props;
     goes missing on that page.
   */
   }
+  <a
+    href="#main"
+    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-900 focus:shadow-lg focus:ring-2 focus:ring-emerald-500 dark:focus:bg-slate-900 dark:focus:text-white"
+    >Skip to content</a
+  >
   {Astro.slots.has('announcement') && <slot name="announcement" />}
   {Astro.slots.has('header') ? <slot name="header" /> : <Header {...headerData} isSticky showToggleTheme />}
-  <main class="flex-1">
+  <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
     <slot />
   </main>
   {Astro.slots.has('footer') ? <slot name="footer" /> : <Footer {...footerData} />}

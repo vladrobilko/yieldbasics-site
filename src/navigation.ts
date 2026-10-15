@@ -14,11 +14,27 @@ export const headerData = {
 export const footerData = {
   links: [
     {
-      title: 'YieldBasics',
+      title: 'Rates',
       links: [
-        { text: 'Home', href: getPermalink('/') },
+        { text: 'All rates', href: getPermalink('/') },
+        { text: 'USDT rates', href: getPermalink('/rates/usdt') },
+        { text: 'USDC rates', href: getPermalink('/rates/usdc') },
+        { text: 'BTC rates', href: getPermalink('/rates/btc') },
+        { text: 'ETH rates', href: getPermalink('/rates/eth') },
+      ],
+    },
+    {
+      title: 'Learn',
+      links: [
         { text: 'Guides', href: getPermalink('/guides') },
+        { text: 'APR vs APY', href: getPermalink('/guides/apr-vs-apy-crypto') },
+        { text: 'Is crypto earn safe?', href: getPermalink('/guides/is-crypto-earn-safe') },
         { text: 'APR to APY calculator', href: getPermalink('/apr-to-apy-calculator') },
+      ],
+    },
+    {
+      title: 'Company',
+      links: [
         { text: 'About', href: getPermalink('/about') },
         { text: 'Contact', href: getPermalink('/contact') },
       ],

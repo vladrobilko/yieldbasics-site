@@ -16,9 +16,15 @@ export const ratesForAsset = <T extends { asset: string; rate: number }>(
     descending
   );
 
-/** "5 products across leading exchanges", with singular and empty forms. */
-export const productsLabel = (count: number): string =>
-  count === 0 ? 'No products listed yet' : `${count} ${count === 1 ? 'product' : 'products'} across leading exchanges`;
+/** "28 offers from 11 platforms", with singular and empty forms. */
+export const productsLabel = (count: number, platforms: number): string => {
+  if (count === 0) return 'No offers listed yet';
+  const offers = `${count} ${count === 1 ? 'offer' : 'offers'}`;
+  return `${offers} from ${platforms} ${platforms === 1 ? 'platform' : 'platforms'}`;
+};
+
+/** Rows the home table shows before "Show all" is pressed. */
+export const COLLAPSED_ROWS = 7;
 
 /**
  * Sorted by estimated max reward (the "New users" tab), highest first unless

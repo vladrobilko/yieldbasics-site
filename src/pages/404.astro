@@ -14,11 +14,15 @@ const metadata = {
       <p class="text-8xl font-extrabold text-primary">404</p>
       <h1 class="mt-6 text-3xl font-bold text-slate-900 dark:text-white">Sorry, we couldn't find this page.</h1>
       <p class="mt-4 text-lg text-muted dark:text-slate-400">
-        The link may be old or mistyped. Today's earn rates are just one click away.
+        The link may be old or mistyped. Try today's rates, our guides or the APR to APY calculator, or <a
+          href={getPermalink('/contact')}
+          class="font-semibold text-emerald-700 underline dark:text-emerald-400">tell us</a
+        > what you were looking for.
       </p>
       <div class="mt-8 flex flex-wrap justify-center gap-3">
         <a href={getHomePermalink()} class="btn-primary">Compare rates</a>
-        <a href={getPermalink('/contact')} class="btn">Contact us</a>
+        <a href={getPermalink('/guides')} class="btn">Read the guides</a>
+        <a href={getPermalink('/apr-to-apy-calculator')} class="btn">APR to APY calculator</a>
       </div>
     </div>
   </section>
