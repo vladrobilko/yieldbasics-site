@@ -33,6 +33,9 @@ export interface Post {
 
   /** Estimated reading time in minutes. */
   readingTime?: number;
+
+  /** Position in the guides list (frontmatter `order`). */
+  order?: number;
 }
 
 export interface Taxonomy {

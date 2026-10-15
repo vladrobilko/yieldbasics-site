@@ -53,6 +53,8 @@ const postCollection = defineCollection({
     publishDate: z.date().optional(),
     updateDate: z.date().optional(),
     draft: z.boolean().optional(),
+    /** Position in the guides list, lowest first; posts without it follow, newest first. */
+    order: z.number().int().optional(),
 
     title: z.string(),
     excerpt: z.string().optional(),

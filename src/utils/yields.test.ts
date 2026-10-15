@@ -114,9 +114,10 @@ describe('emptyMessage', () => {
 
 describe('productsLabel', () => {
   it('handles plural, singular and empty', () => {
-    expect(productsLabel(5)).toBe('5 products across leading exchanges');
-    expect(productsLabel(1)).toBe('1 product across leading exchanges');
-    expect(productsLabel(0)).toBe('No products listed yet');
+    expect(productsLabel(28, 11)).toBe('28 offers from 11 platforms');
+    expect(productsLabel(1, 1)).toBe('1 offer from 1 platform');
+    expect(productsLabel(3, 1)).toBe('3 offers from 1 platform');
+    expect(productsLabel(0, 0)).toBe('No offers listed yet');
   });
 });
 

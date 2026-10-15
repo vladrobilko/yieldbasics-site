@@ -16,13 +16,15 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <HeroText tagline="Contact" title="Get in touch" />
+  <HeroText
+    tagline="Contact"
+    title="Get in touch"
+    subtitle="Questions, a rate that looks wrong, a platform we should add or a partnership idea: we read every message and usually reply by email within a few days."
+  />
 
   <yb-contact-form data-endpoint={WEB3FORMS_ENDPOINT}>
     <ContactUs
       id="form"
-      title="Send us a message"
-      subtitle="Questions, a rate that looks wrong, a platform we should add or a partnership idea — we read every message and reply by email."
       action={WEB3FORMS_ENDPOINT}
       hidden={{
         access_key: WEB3FORMS_ACCESS_KEY,

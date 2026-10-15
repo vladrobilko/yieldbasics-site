@@ -5,9 +5,10 @@ import { Icon } from 'astro-icon/components';
 import YieldRates from '~/components/widgets/YieldRates.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import { platforms } from '~/data/platforms';
-import { assets, rateRows } from '~/data/yields';
+import { assets, rateRows, ratesUpdatedAt } from '~/data/yields';
 import { assetSlug, assetsWithOffers } from '~/utils/assetPages';
 import { getPermalink } from '~/utils/permalinks';
+import { formatRateDate } from '~/utils/rates';
 import StructuredData from '~/components/common/StructuredData.astro';
 import { SITE, METADATA, I18N } from 'astrowind:config';
 
@@ -46,7 +47,7 @@ const structuredData = [
 // Coin pages and FAQ (SEO): links to every /rates/<coin> page, plus common
 // questions with FAQPage structured data.
 const coinPages = assetsWithOffers(assets, rateRows);
-const heroIntro = `Find the best place to put your crypto to work. We compare the savings, staking and fixed-term rates of ${platforms.length} exchanges, DeFi protocols and wallets every day, so you can see where USDT, BTC, ETH and ${assets.length - 3} other coins earn the most.`;
+const heroIntro = `Compare savings and staking rates for USDT, BTC, ETH and ${assets.length - 3} more coins across ${platforms.length} exchanges, DeFi protocols and wallets, updated every day.`;
 const faq = [
   {
     title: 'What is the difference between APR and APY?',
@@ -89,7 +90,7 @@ const faq = [
       <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div class="max-w-2xl">
           <p class="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
-            Yield marketplace
+            Crypto savings and staking rates
           </p>
           <h1
             id="page-title"
@@ -104,8 +105,8 @@ const faq = [
         <div
           class="flex items-center gap-2 self-start rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-500 shadow-sm md:self-end dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
         >
-          <Icon name="tabler:clock" class="h-3.5 w-3.5 text-emerald-600" />
-          <span>Live rates · updated daily</span>
+          <Icon name="tabler:clock-check" class="h-3.5 w-3.5 text-emerald-700 dark:text-emerald-400" />
+          <span>Updated daily · last update {formatRateDate(ratesUpdatedAt)}</span>
         </div>
       </div>
     </section>

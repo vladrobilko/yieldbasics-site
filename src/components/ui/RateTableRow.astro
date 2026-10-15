@@ -6,7 +6,11 @@ import type { Platform } from '~/data/platforms';
 import { formatRateDate, type RateRow } from '~/utils/rates';
 
 // One offer in a rates table (home page and /rates/<coin> pages). Extra
-// attributes (data-*, hidden…) pass through to the <tr>.
+// attributes (data-*, hidden…) pass through to the <tr>. Below the lg
+// breakpoint the row is laid out as a card (a two-column grid: platform and
+// rate, product and term, then conditions and the button at full width), so
+// phones see the whole offer without scrolling sideways. The table's <thead>
+// is hidden there to match.
 export interface Props extends HTMLAttributes<'tr'> {
   row: RateRow & { platform: Platform };
   /** Hide the asset column on pages about a single coin. */
@@ -16,8 +20,11 @@ export interface Props extends HTMLAttributes<'tr'> {
 const { row, showAsset = true, ...attrs } = Astro.props;
 ---
 
-<tr class="group transition-colors hover:bg-emerald-50/30 dark:hover:bg-emerald-950/20" {...attrs}>
-  <th scope="row" class="px-5 py-5 font-normal">
+<tr
+  class="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-3 px-4 py-4 transition-colors hover:bg-emerald-50/30 lg:table-row lg:p-0 dark:hover:bg-emerald-950/20"
+  {...attrs}
+>
+  <th scope="row" class="font-normal lg:table-cell lg:px-5 lg:py-5">
     {
       /* Same referral link as "View offer". Out of the tab order so keyboard users
         stop once per row; not aria-hidden, since the name labels the row. */
@@ -58,14 +65,14 @@ const { row, showAsset = true, ...attrs } = Astro.props;
   </th>
   {
     showAsset && (
-      <td class="px-4 py-5">
+      <td class="hidden lg:table-cell lg:px-4 lg:py-5">
         <span class="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
           {row.asset}
         </span>
       </td>
     )
   }
-  <td class="px-4 py-5">
+  <td class="justify-self-end lg:table-cell lg:px-4 lg:py-5">
     <YieldBadge
       rate={row.rate}
       type={row.type}
@@ -74,7 +81,7 @@ const { row, showAsset = true, ...attrs } = Astro.props;
       size="md"
     />
   </td>
-  <td class="px-4 py-5">
+  <td class="min-w-0 lg:table-cell lg:px-4 lg:py-5">
     <span class="block font-semibold text-slate-800 dark:text-slate-200">{row.product}</span>
     {
       (row.stale || row.source === 'manual') && (
@@ -88,24 +95,24 @@ const { row, showAsset = true, ...attrs } = Astro.props;
       )
     }
   </td>
-  <td class="px-4 py-5">
+  <td class="justify-self-end lg:table-cell lg:px-4 lg:py-5">
     <span class="text-sm text-slate-600 dark:text-slate-400">{row.term}</span>
   </td>
-  <td class="px-4 py-5">
+  <td class="col-span-2 lg:table-cell lg:px-4 lg:py-5">
     <span
-      class="inline-flex flex-col gap-0.5 rounded-lg bg-slate-50 px-3 py-2 text-xs font-semibold leading-4 text-slate-700 ring-1 ring-inset ring-slate-200 dark:bg-slate-800/60 dark:text-slate-300 dark:ring-slate-700"
+      class="flex flex-col lg:inline-flex gap-0.5 rounded-lg bg-slate-50 px-3 py-2 text-xs font-semibold leading-4 text-slate-700 ring-1 ring-inset ring-slate-200 dark:bg-slate-800/60 dark:text-slate-300 dark:ring-slate-700"
     >
       <span>{row.conditionTop}</span>
       <span class="text-slate-500 dark:text-slate-400">{row.conditionBottom}</span>
     </span>
   </td>
-  <td class="px-5 py-5 text-right">
+  <td class="col-span-2 lg:table-cell lg:px-5 lg:py-5 lg:text-right">
     <a
       href={row.platform.referralUrl}
       target="_blank"
       rel="sponsored nofollow noopener"
       aria-label={`View ${row.product} offer on ${row.platform.name} (opens in a new tab)`}
-      class="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-3.5 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 dark:bg-white dark:text-slate-950 dark:hover:bg-emerald-400"
+      class="flex items-center justify-center gap-1.5 rounded-lg bg-slate-950 px-3.5 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 dark:bg-white dark:text-slate-950 dark:hover:bg-emerald-400 lg:inline-flex"
     >
       <span>View offer</span>
       <Icon name="tabler:external-link" class="h-3.5 w-3.5" />
