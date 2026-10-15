@@ -11,7 +11,7 @@ import {
 } from '~/utils/permalinks';
 
 // Values below follow src/config.yaml: base '/', trailingSlash false,
-// blog at /blog, categories at /category, tags at /tag.
+// blog (guides) at /guides, categories at /category, tags at /tag.
 
 describe('trimSlash', () => {
   it('removes leading and trailing slashes', () => {
@@ -42,9 +42,9 @@ describe('getPermalink', () => {
     expect(getPermalink('my-post', 'post')).toBe('/my-post');
   });
 
-  it('builds home and blog paths', () => {
+  it('builds home and guides paths', () => {
     expect(getHomePermalink()).toBe('/');
-    expect(getBlogPermalink()).toBe('/blog');
+    expect(getBlogPermalink()).toBe('/guides');
   });
 });
 

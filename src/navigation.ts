@@ -3,7 +3,7 @@ import { getPermalink } from './utils/permalinks';
 export const headerData = {
   links: [
     { text: 'Rates', href: getPermalink('/'), icon: 'tabler:table' },
-    { text: 'Guides', href: getPermalink('/guides'), icon: 'tabler:book', badge: 'soon' },
+    { text: 'Guides', href: getPermalink('/guides'), icon: 'tabler:book' },
     { text: 'About', href: getPermalink('/about'), icon: 'tabler:info-circle' },
     { text: 'Contact', href: getPermalink('/contact'), icon: 'tabler:mail' },
   ],

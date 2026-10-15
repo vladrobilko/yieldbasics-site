@@ -16,14 +16,14 @@ const relatedPosts = post.tags ? await getRelatedPosts(post, 4) : [];
 ---
 
 {
-  APP_BLOG.isRelatedPostsEnabled ? (
+  APP_BLOG.isRelatedPostsEnabled && relatedPosts.length > 0 ? (
     <BlogHighlightedPosts
       classes={{
         container:
           'pt-0 lg:pt-0 md:pt-0 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
       }}
-      title="Related Posts"
-      linkText="View All Posts"
+      title="Related guides"
+      linkText="All guides"
       linkUrl={getBlogPermalink()}
       postIds={relatedPosts.map((post) => post.id)}
     />

@@ -81,7 +81,7 @@ const articleSchema = {
 
 const breadcrumbs = [
   { text: 'Home', href: getPermalink('/') },
-  ...(isBlogListRouteEnabled ? [{ text: 'Blog', href: getBlogPermalink() }] : []),
+  ...(isBlogListRouteEnabled ? [{ text: 'Guides', href: getBlogPermalink() }] : []),
   ...(post.category && isBlogCategoryRouteEnabled
     ? [{ text: post.category.title, href: getPermalink(post.category.slug, 'category') }]
     : []),

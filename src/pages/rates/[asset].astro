@@ -66,6 +66,7 @@ const sections = [
     id: 'new-users',
     title: `${asset.symbol} offers for new users`,
     note: 'New accounts or first deposits only, ranked by the most you can earn.',
+    guide: { text: 'What new-user offers really pay', href: getPermalink('/guides/new-user-crypto-earn-offers') },
     rows: newUser,
   },
 ].filter((section) => section.rows.length > 0);
@@ -127,7 +128,17 @@ const sections = [
           <h2 id={`${section.id}-heading`} class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">
             {section.title}
           </h2>
-          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{section.note}</p>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            {section.note}
+            {section.guide && (
+              <a
+                href={section.guide.href}
+                class="ml-1 font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+              >
+                {section.guide.text} →
+              </a>
+            )}
+          </p>
           <div class="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
             <div class="overflow-x-auto">
               <table class="w-full min-w-[820px] border-collapse text-left">
