@@ -95,7 +95,7 @@ export const assetFaq = (
   items.push({
     title: 'What is the difference between APR and APY?',
     description:
-      'APR is the simple yearly rate. APY includes compounding, the interest earned on your interest, so the same number quoted as APY pays slightly less than the same number as APR. Most exchanges quote APR; DeFi protocols such as Aave usually quote APY.',
+      'APR is the simple yearly rate. APY includes compounding, the interest earned on your interest, so the same number quoted as APY pays slightly less than the same number as APR. Most exchanges quote APR; DeFi protocols such as Aave usually quote APY. Convert between them with our <a href="/apr-to-apy-calculator">APR to APY calculator</a>.',
   });
   return items;
 };
