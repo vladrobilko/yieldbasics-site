@@ -4,6 +4,7 @@ export const headerData = {
   links: [
     { text: 'Rates', href: getPermalink('/'), icon: 'tabler:table' },
     { text: 'Guides', href: getPermalink('/guides'), icon: 'tabler:book' },
+    { text: 'Calculator', href: getPermalink('/apr-to-apy-calculator'), icon: 'tabler:calculator' },
     { text: 'About', href: getPermalink('/about'), icon: 'tabler:info-circle' },
     { text: 'Contact', href: getPermalink('/contact'), icon: 'tabler:mail' },
   ],
@@ -17,6 +18,7 @@ export const footerData = {
       links: [
         { text: 'Home', href: getPermalink('/') },
         { text: 'Guides', href: getPermalink('/guides') },
+        { text: 'APR to APY calculator', href: getPermalink('/apr-to-apy-calculator') },
         { text: 'About', href: getPermalink('/about') },
         { text: 'Contact', href: getPermalink('/contact') },
       ],

@@ -1,0 +1,142 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '~/layouts/PageLayout.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import AprApyCalculator from '~/components/widgets/AprApyCalculator.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import { aprToApy } from '~/utils/compounding';
+import { getCanonical, getPermalink } from '~/utils/permalinks';
+
+// Standalone APR ⇄ APY calculator, linked from the header, the guides and the
+// FAQs that mention APR / APY.
+
+const path = '/apr-to-apy-calculator';
+const guideHref = getPermalink('/guides/apr-vs-apy-crypto');
+
+const metadata = {
+  title: 'APR to APY Calculator for Crypto Savings',
+  description:
+    'Free APR to APY calculator: convert between APR and APY with daily, weekly or monthly compounding and see what you earn on any amount and term.',
+};
+
+const conversions = [3, 5, 10, 20, 50, 100].map((apr) => ({
+  apr,
+  monthly: aprToApy(apr, 12),
+  daily: aprToApy(apr, 365),
+}));
+
+const pct = (value: number) => `${value.toFixed(2)}%`;
+
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'APR to APY Calculator',
+  url: String(getCanonical(getPermalink(path))),
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+
+const faq = [
+  {
+    title: 'How do I convert APR to APY?',
+    description:
+      'APY = (1 + APR ÷ n)<sup>n</sup> − 1, where n is the number of times interest is added per year: 365 for daily, 52 for weekly, 12 for monthly. For example, 10% APR compounded daily is 10.52% APY.',
+  },
+  {
+    title: 'How do I convert APY to APR?',
+    description:
+      'Reverse the formula: APR = n × ((1 + APY)<sup>1/n</sup> − 1). Choose "APY" under "The rate is quoted as" and the calculator does it for you. For example, 5% APY compounded daily is 4.88% APR.',
+  },
+  {
+    title: 'Which compounding should I choose?',
+    description:
+      'Use how often rewards are added to your earning balance. Many crypto savings products pay daily, and DeFi protocols add interest continuously, which is very close to daily. If rewards go to your spot wallet and are not reinvested, choose "None".',
+  },
+  {
+    title: 'Why is my actual payout different?',
+    description:
+      'The calculator assumes the rate stays the same for the whole period and applies to your whole amount. In practice flexible rates change, often daily, and many platforms pay the headline rate only on the first part of a deposit.',
+  },
+  {
+    title: 'Is APY always higher than APR?',
+    description: `For the same rate, yes, unless nothing compounds, in which case they are equal. Read more in our guide to <a href="${guideHref}">APR vs APY in crypto</a>.`,
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={appSchema} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: getPermalink('/') }, { text: 'APR to APY calculator' }]} />
+
+  <div class="mx-auto w-full max-w-3xl px-4 pb-12 pt-8 sm:px-6">
+    <h1 class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
+      APR to APY calculator
+    </h1>
+    <p class="mt-3 text-base text-slate-600 dark:text-slate-400">
+      Convert a crypto savings or staking rate between APR and APY, and see what you would earn on any amount and term.
+      Enter the rate, say whether it's quoted as APR or APY, and pick how often interest compounds.
+    </p>
+
+    <AprApyCalculator />
+
+    <section aria-labelledby="formula" class="mt-10">
+      <h2 id="formula" class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">The formula</h2>
+      <p class="mt-3 text-slate-700 dark:text-slate-300">
+        <strong>APY = (1 + APR ÷ n)<sup>n</sup> − 1</strong>, where <em>n</em> is how many times a year interest is added
+        to your balance. APR is the simple yearly rate; APY includes the interest you earn on your interest.
+      </p>
+    </section>
+
+    <section aria-labelledby="table" class="mt-10">
+      <h2 id="table" class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">APR to APY table</h2>
+      <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+        <table class="w-full border-collapse text-left text-sm">
+          <thead class="bg-slate-50 text-slate-600 dark:bg-slate-800/50 dark:text-slate-400">
+            <tr>
+              <th scope="col" class="px-4 py-3 font-semibold">APR</th>
+              <th scope="col" class="px-4 py-3 font-semibold">APY, compounded monthly</th>
+              <th scope="col" class="px-4 py-3 font-semibold">APY, compounded daily</th>
+            </tr>
+          </thead>
+          <tbody
+            class="divide-y divide-slate-100 tabular-nums text-slate-800 dark:divide-slate-800 dark:text-slate-200"
+          >
+            {
+              conversions.map((row) => (
+                <tr>
+                  <th scope="row" class="px-4 py-3 font-semibold">
+                    {pct(row.apr)}
+                  </th>
+                  <td class="px-4 py-3">{pct(row.monthly)}</td>
+                  <td class="px-4 py-3">{pct(row.daily)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">
+        At typical savings rates the gap is small; at high rates it grows fast.
+      </p>
+    </section>
+
+    <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <a
+        href={guideHref}
+        class="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+      >
+        <Icon name="tabler:book" class="h-4 w-4" /> APR vs APY in crypto, explained
+      </a>
+      <a
+        href={getPermalink('/')}
+        class="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 hover:underline dark:text-emerald-400 sm:ml-6"
+      >
+        <Icon name="tabler:table" class="h-4 w-4" /> Compare today's earn rates
+      </a>
+    </div>
+  </div>
+
+  <FAQs id="faq" title="APR and APY: common questions" items={faq} schema />
+</Layout>

@@ -1,0 +1,137 @@
+---
+import { COMPOUNDING } from '~/utils/compounding';
+
+// APR ⇄ APY calculator, the main part of /apr-to-apy-calculator. Works entirely
+// in the browser; the defaults are rendered so it reads sensibly before the
+// script runs.
+
+const field =
+  'mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-700 dark:bg-slate-950 dark:text-white';
+const label = 'block text-sm font-semibold text-slate-700 dark:text-slate-300';
+---
+
+<yb-apr-calculator class="not-prose my-8 block">
+  <form
+    class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900"
+    aria-label="APR and APY calculator"
+    onsubmit="return false"
+  >
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div>
+        <label for="calc-rate" class={label}>Rate (%)</label>
+        <input
+          id="calc-rate"
+          name="rate"
+          type="number"
+          inputmode="decimal"
+          min="0"
+          step="any"
+          value="10"
+          class={field}
+        />
+      </div>
+      <div>
+        <label for="calc-type" class={label}>The rate is quoted as</label>
+        <select id="calc-type" name="type" class={field}>
+          <option value="APR" selected>APR</option>
+          <option value="APY">APY</option>
+        </select>
+      </div>
+      <div>
+        <label for="calc-periods" class={label}>Compounding</label>
+        <select id="calc-periods" name="periods" class={field}>
+          {COMPOUNDING.map((option) => <option value={option.periods}>{option.label}</option>)}
+        </select>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="calc-amount" class={label}>Amount</label>
+          <input
+            id="calc-amount"
+            name="amount"
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="any"
+            value="1000"
+            class={field}
+          />
+        </div>
+        <div>
+          <label for="calc-days" class={label}>Days</label>
+          <input
+            id="calc-days"
+            name="days"
+            type="number"
+            inputmode="numeric"
+            min="0"
+            step="1"
+            value="365"
+            class={field}
+          />
+        </div>
+      </div>
+    </div>
+
+    <output
+      for="calc-rate calc-type calc-periods calc-amount calc-days"
+      aria-live="polite"
+      class="mt-6 grid gap-3 border-t border-slate-200 pt-5 sm:grid-cols-3 dark:border-slate-800"
+    >
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">APR</p>
+        <p class="mt-1 text-2xl font-extrabold tabular-nums text-slate-900 dark:text-white" data-apr>10.00%</p>
+      </div>
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">APY</p>
+        <p class="mt-1 text-2xl font-extrabold tabular-nums text-slate-900 dark:text-white" data-apy>10.52%</p>
+      </div>
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">You earn</p>
+        <p class="mt-1 text-2xl font-extrabold tabular-nums text-emerald-700 dark:text-emerald-400" data-earned>
+          105.16
+        </p>
+      </div>
+    </output>
+    <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">
+      Assumes the rate stays the same for the whole period. Earnings are in the same coin as the amount.
+    </p>
+  </form>
+</yb-apr-calculator>
+
+<script>
+  import { calculate } from '~/utils/compounding';
+
+  const formatRate = (value: number) => `${value.toFixed(2)}%`;
+  const formatAmount = (value: number) =>
+    value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  class YbAprCalculator extends HTMLElement {
+    connectedCallback() {
+      const form = this.querySelector('form');
+      const apr = this.querySelector('[data-apr]');
+      const apy = this.querySelector('[data-apy]');
+      const earned = this.querySelector('[data-earned]');
+      if (!form || !apr || !apy || !earned) return;
+
+      const update = () => {
+        const data = new FormData(form);
+        const result = calculate({
+          rate: Number(data.get('rate')),
+          type: data.get('type') === 'APY' ? 'APY' : 'APR',
+          periods: Number(data.get('periods')),
+          amount: Number(data.get('amount')),
+          days: Number(data.get('days')),
+        });
+        apr.textContent = result ? formatRate(result.apr) : '–';
+        apy.textContent = result ? formatRate(result.apy) : '–';
+        earned.textContent = result ? formatAmount(result.earned) : '–';
+      };
+
+      form.addEventListener('input', update);
+      update();
+    }
+  }
+
+  customElements.define('yb-apr-calculator', YbAprCalculator);
+</script>
