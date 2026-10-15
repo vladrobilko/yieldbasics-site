@@ -18,7 +18,17 @@ const { row, showAsset = true, ...attrs } = Astro.props;
 
 <tr class="group transition-colors hover:bg-emerald-50/30 dark:hover:bg-emerald-950/20" {...attrs}>
   <th scope="row" class="px-5 py-5 font-normal">
-    <div class="flex items-center gap-3">
+    {
+      /* Same referral link as "View offer". Out of the tab order so keyboard users
+        stop once per row; not aria-hidden, since the name labels the row. */
+    }
+    <a
+      href={row.platform.referralUrl}
+      target="_blank"
+      rel="sponsored nofollow noopener"
+      tabindex="-1"
+      class="group/brand flex w-fit items-center gap-3"
+    >
       {
         row.platform.logo ? (
           <span
@@ -39,8 +49,12 @@ const { row, showAsset = true, ...attrs } = Astro.props;
           </span>
         )
       }
-      <span class="font-bold text-slate-900 dark:text-white">{row.platform.name}</span>
-    </div>
+      <span
+        class="font-bold text-slate-900 decoration-2 underline-offset-4 group-hover/brand:underline dark:text-white"
+      >
+        {row.platform.name}
+      </span>
+    </a>
   </th>
   {
     showAsset && (
