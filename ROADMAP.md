@@ -1,6 +1,12 @@
 # Roadmap
 
-Planned work that isn't done yet. Remove an item once its PR is merged.
+Planned work that isn't done yet, in priority order. Remove an item once its PR is merged.
+
+1. [Fix the Bybit fetch on GitHub runners](#fix-the-bybit-fetch-on-github-runners): waiting on the owner's choice of proxy.
+2. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
+3. [Trust lines on the About page](#trust-lines-on-the-about-page)
+4. [More evergreen guides](#more-evergreen-guides)
+5. [Watch the daily schedule](#watch-the-daily-schedule)
 
 ## Fix the Bybit fetch on GitHub runners
 
@@ -20,3 +26,33 @@ Planned work that isn't done yet. Remove an item once its PR is merged.
 5. Add a unit test for the host order (proxy used only when the variable is set). Update AGENTS.md.
 
 **Decision needed from the owner:** which proxy and account to use. Don't create one without asking.
+
+## Beginner help on the rates table
+
+Visitors new to earn products land on the home table without context.
+
+- Add a short "How to read this table" note near the home table (`src/pages/index.astro`) and on `/rates/<coin>` pages. It covers rate vs. type (APR/APY), flexible vs. fixed term, tiered conditions and the "Checked <date>" hint.
+- Move the "New to earning?" box (now below the table in `src/pages/index.astro`) above it, with links to the guides (`/guides`, APR vs APY, the risks guide).
+- UI change: review locally before pushing.
+
+## Trust lines on the About page
+
+`src/pages/about.astro` should say plainly:
+
+- that the site is independent, and how referral links work: they never change the ranking, which is by rate
+- how platforms are picked, and how rates are collected (daily, from public APIs and pages; manual for WEEX and Walt)
+
+Keep it brand-only, with no personal names.
+
+## More evergreen guides
+
+New posts in `src/data/post/`, in the same style as the existing ones: no rate snapshots or tables, and they link to the `/rates/<coin>` pages instead. Planned:
+
+- Flexible vs fixed-term earn
+- CeFi vs DeFi earn (exchanges vs Aave-style protocols)
+- How tiered rates work (why "up to X%" applies only to the first amount)
+- How we collect rates (sources, daily updates, stale and manual rates)
+
+## Watch the daily schedule
+
+The daily rates workflow moved to `17 5 * * *` on 2026-10-16, because runs scheduled on the hour started about 4 hours late. Check the start times of the next few runs (`gh run list --workflow update-rates.yaml`). If they still slip a lot, try another minute or hour.
