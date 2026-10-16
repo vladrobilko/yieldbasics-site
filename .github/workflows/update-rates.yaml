@@ -5,11 +5,19 @@ name: Update rates
 # Needs Settings → Actions → General → "Allow GitHub Actions to create and
 # approve pull requests". PRs opened with GITHUB_TOKEN don't trigger the CI
 # workflow, so this job runs the tests and the build itself.
+# Run it by hand with open_pr=false (e.g. on a branch, to test a source fix)
+# to fetch and build without touching the rates PR; the summary is in the log.
 
 on:
   schedule:
-    - cron: '0 6 * * *' # 06:00 UTC
+    # Off the hour: runs scheduled on the hour start hours late at peak load.
+    - cron: '17 5 * * *' # 05:17 UTC
   workflow_dispatch:
+    inputs:
+      open_pr:
+        description: Open or update the rates PR
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -53,6 +61,7 @@ jobs:
         run: echo "today=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
 
       - name: Open or update the rates PR
+        if: github.event_name == 'schedule' || inputs.open_pr
         uses: peter-evans/create-pull-request@v7
         with:
           branch: feature/bot/daily-rates-update

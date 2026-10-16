@@ -4,8 +4,9 @@ import type { Source } from '../types';
 
 // Official public API: https://bybit-exchange.github.io/docs/v5/earn/product-info
 // api.bybit.com answers 403 to some regions (e.g. GitHub's US runners), so
-// Bybit's alternate domain is tried next.
-const HOSTS = ['https://api.bybit.com', 'https://api.bytick.com'];
+// Bybit's alternate global domains are tried next. Regional hosts (bybit.eu,
+// bybit.nl, bybit.kz…) list other products, so they are not used.
+const HOSTS = ['https://api.bybit.com', 'https://api.bytick.com', 'https://api.bybitglobal.com'];
 const PATH = '/v5/earn/product';
 
 interface BybitProduct {

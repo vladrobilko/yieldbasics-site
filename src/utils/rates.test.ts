@@ -195,10 +195,47 @@ describe('mergeRates', () => {
 
   it('summarises changes and failures', () => {
     const summary = summarizeChanges(previous, merged);
-    expect(summary).toContain('New: `bybit-usdt-flexible-savings-flexible` 6.9% APR');
-    expect(summary).toContain('New: `mexc-usdt-savings-flexible` 3% APR');
-    expect(summary).toContain('- gate: HTTP 503 (kept 1 previous offers)');
-    expect(summary).not.toContain('Removed');
+    expect(summary).toContain('### New offers (2)');
+    expect(summary).toContain('- `bybit-usdt-flexible-savings-flexible` 6.9% APR');
+    expect(summary).toContain('- `mexc-usdt-savings-flexible` 3% APR');
+    expect(summary).toContain('- gate: HTTP 503 (kept 1 previous offers, last success Oct 13, 2026)');
+    expect(summary).toContain('### Removed offers (0)\nNone.');
+  });
+
+  it('flags big moves and explains removals', () => {
+    const stored = (id: string, platformId: string, rate: number) => ({
+      ...offer({ platformId, rate }),
+      id,
+      source: 'api' as const,
+      updatedAt: now.toISOString(),
+    });
+    const sources = {
+      gate: { status: 'ok' as const, checkedAt: now.toISOString(), offers: 2 },
+      weex: { status: 'manual' as const, checkedAt: now.toISOString(), offers: 0 },
+    };
+    const before: RatesFile = {
+      generatedAt: now.toISOString(),
+      sources,
+      offers: [
+        stored('gate-trx', 'gate', 8.17),
+        stored('gate-usdt', 'gate', 2.46),
+        stored('gate-usds', 'gate', 5),
+        stored('weex-usdt', 'weex', 10),
+        stored('old-usdt', 'old', 4),
+      ],
+    };
+    const after: RatesFile = {
+      ...before,
+      offers: [stored('gate-trx', 'gate', 1.3), stored('gate-usdt', 'gate', 2.43)],
+    };
+
+    const summary = summarizeChanges(before, after);
+    expect(summary).toContain('### Big moves (1)\n- `gate-trx`: 8.17% → 1.3% APR');
+    expect(summary).toContain('### Rate changes (1)\n- `gate-usdt`: 2.46% → 2.43% APR');
+    expect(summary).toContain('- `gate-usds`: no longer listed by gate');
+    expect(summary).toContain('- `weex-usdt`: removed from manual-rates.json or verified more than 30 days ago');
+    expect(summary).toContain('- `old-usdt`: old has no source any more');
+    expect(summary).toContain('### Failed sources (0)\nNone.');
   });
 });
 

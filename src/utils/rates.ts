@@ -339,26 +339,53 @@ export const formatRateDate = (iso: string): string =>
 export const summarizeChanges = (previous: RatesFile | null, next: RatesFile): string => {
   const before = new Map(previous?.offers.map((offer) => [offer.id, offer]) ?? []);
   const after = new Map(next.offers.map((offer) => [offer.id, offer]));
-  const lines: string[] = [];
+  const bigMoves: string[] = [];
+  const changes: string[] = [];
+  const added: string[] = [];
+  const removed: string[] = [];
 
   for (const [id, offer] of after) {
     const old = before.get(id);
-    if (!old) lines.push(`- New: \`${id}\` ${offer.rate}% ${offer.type}`);
-    else if (old.rate !== offer.rate) lines.push(`- \`${id}\`: ${old.rate}% → ${offer.rate}% ${offer.type}`);
+    if (!old) added.push(`- \`${id}\` ${offer.rate}% ${offer.type}`);
+    else if (old.rate !== offer.rate) {
+      const line = `- \`${id}\`: ${old.rate}% → ${offer.rate}% ${offer.type}`;
+      (isBigMove(old.rate, offer.rate) ? bigMoves : changes).push(line);
+    }
   }
-  for (const id of before.keys()) {
-    if (!after.has(id)) lines.push(`- Removed: \`${id}\``);
+  for (const [id, offer] of before) {
+    if (!after.has(id)) removed.push(`- \`${id}\`: ${removalReason(offer.platformId, next.sources[offer.platformId])}`);
   }
 
   const failed = Object.entries(next.sources)
     .filter(([, status]) => status.status === 'failed')
-    .map(([platformId, status]) => `- ${platformId}: ${status.error} (kept ${status.offers} previous offers)`);
+    .map(([platformId, status]) => {
+      const since = status.updatedAt ? `, last success ${formatRateDate(status.updatedAt)}` : '';
+      return `- ${platformId}: ${status.error} (kept ${status.offers} previous offers${since})`;
+    });
 
-  return [
-    `### Rate changes (${lines.length})`,
-    lines.length ? lines.join('\n') : 'No rate changes.',
+  const section = (title: string, lines: string[], empty: string) => [
+    `### ${title} (${lines.length})`,
+    lines.length ? lines.join('\n') : empty,
     '',
-    `### Failed sources (${failed.length})`,
-    failed.length ? failed.join('\n') : 'None.',
-  ].join('\n');
+  ];
+  return [
+    ...section('Big moves', bigMoves, 'None.'),
+    ...section('Rate changes', changes, 'No rate changes.'),
+    ...section('New offers', added, 'None.'),
+    ...section('Removed offers', removed, 'None.'),
+    ...section('Failed sources', failed, 'None.'),
+  ]
+    .join('\n')
+    .trimEnd();
+};
+
+/** A change worth a second look in the daily PR: at least 1 point and at least 30% of the old rate. */
+const isBigMove = (from: number, to: number): boolean =>
+  Math.abs(to - from) >= 1 && Math.abs(to - from) >= Math.abs(from) * 0.3;
+
+const removalReason = (platformId: string, status: SourceStatus | undefined): string => {
+  if (!status) return `${platformId} has no source any more`;
+  if (status.status === 'manual')
+    return `removed from manual-rates.json or verified more than ${MANUAL_MAX_AGE_DAYS} days ago`;
+  return `no longer listed by ${platformId}`;
 };
