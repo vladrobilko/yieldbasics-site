@@ -19,6 +19,7 @@ It is a fully static site built on the open-source **AstroWind** template (Astro
 5. **The user sees the UI before every push.** Start `npm run dev` (or `npm run build && npm run preview`), give the user the local URL and the list of pages affected, and push only after the user explicitly approves.
 6. **The repo is public — no sensitive data.** Never commit `.env*` files (only a value-free `.env.example`), API keys, tokens, passwords, private keys or seed phrases, wallet/account details, personal information, or local machine paths. Secrets go in GitHub Actions secrets. Review `git diff --staged` before every commit.
 7. Keep commits focused with a short imperative message.
+8. **Never force-push** (`--force`, `--force-with-lease`, `+refspec`), and never rewrite history that is already pushed (no rebase, amend or squash of pushed commits). To bring a branch up to date with `master`, merge `master` into it (`git merge origin/master`) and push normally. The only exception is the bot branch `feature/bot/daily-rates-update`, which its workflow recreates.
 
 ## Contact Form
 
