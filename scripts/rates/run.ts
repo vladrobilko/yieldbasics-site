@@ -23,7 +23,6 @@ import {
 import { createFetchJson } from './http';
 import { aave } from './sources/aave';
 import { binance } from './sources/binance';
-import { bitget } from './sources/bitget';
 import { bybit } from './sources/bybit';
 import { coinw } from './sources/coinw';
 import { gate } from './sources/gate';
@@ -32,7 +31,7 @@ import { mexc } from './sources/mexc';
 import { okx } from './sources/okx';
 import type { Source } from './types';
 
-const SOURCES: Source[] = [binance, bybit, okx, gate, bitget, kucoin, mexc, coinw, aave];
+const SOURCES: Source[] = [binance, bybit, okx, gate, kucoin, mexc, coinw, aave];
 
 const dataPath = (name: string) => fileURLToPath(new URL(`../../src/data/${name}`, import.meta.url));
 const RATES_PATH = dataPath('rates.json');
