@@ -7,6 +7,8 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 3. [Trust lines on the About page](#trust-lines-on-the-about-page)
 4. [More evergreen guides](#more-evergreen-guides)
 5. [Watch the daily schedule](#watch-the-daily-schedule)
+6. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+7. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 ## Fix the Bybit fetch on GitHub runners
 
@@ -56,3 +58,51 @@ New posts in `src/data/post/`, in the same style as the existing ones: no rate s
 ## Watch the daily schedule
 
 The daily rates workflow moved to `17 5 * * *` on 2026-10-16, because runs scheduled on the hour started about 4 hours late. Check the start times of the next few runs (`gh run list --workflow update-rates.yaml`). If they still slip a lot, try another minute or hour.
+
+## Add more platforms
+
+**Status:** waiting for the site owner to register and send referral links. Research from 2026-10-17. Country lists come from third-party trackers, so confirm each platform's own terms and KYC when registering.
+
+**For each platform, once its referral link arrives:**
+
+1. Add it to `src/data/platforms.json` (name, kind, website, `referralUrl`, logo).
+2. Find a rates source: an official public API first, then a public web JSON endpoint, then `scripts/rates/browser.ts` (as for MEXC). If none works, use `src/data/manual-rates.json`.
+3. Add a parser in `scripts/rates/sources/<id>.ts` with a trimmed real response in `fixtures/` and tests. One PR per platform.
+
+### To-do: register
+
+Exchanges (CEX). None of these could fetch rates from a plain page request on 2026-10-17, so each needs its earn endpoint found.
+
+- [ ] **Phemex**: flexible savings. Open to the EU; not to the US, UK or Australia. Widest reach of this group.
+- [ ] **CoinEx**: earn products, many coins. Not for the US, Canada, EEA, UK or Switzerland.
+- [ ] **BingX**: Wealth (flexible, 30 and 90 days). Not for the EEA, US or Canada.
+- [ ] **XT.com**: earn products, affiliate program. Not for the EU/EEA, US or Canada.
+- [ ] **HTX**: large earn range. Not for the EU, UK or US. The EU put HTX under transaction restrictions; decide whether to list it.
+
+DeFi (no KYC, open in every country, wallet only). Rates are in the DefiLlama yields API that the Aave source already uses.
+
+- [ ] **Kamino** (Solana lending): referrers earn a share of protocol fees through a referral link. Set it up from a wallet.
+- [ ] **Hyperliquid** (HLP vault): referral code pays 10% of referred users' trading fees and needs $10,000 of own trading volume first. The HLP rate comes from the public `api.hyperliquid.xyz/info` API (`vaultDetails`).
+- [ ] **Aster** (USDF and Earn): referral program of about 10% of fees. Confirm the terms and a rates source on the official site.
+
+DeFi without a referral program. Add for completeness, all from DefiLlama in one PR: Jupiter Lend, Morpho, Compound v3, Spark and Sky (sUSDS), Ethena (sUSDe), Fluid, Maple, Lido (stETH).
+
+Wallets.
+
+- [ ] **Tangem**: Yield Mode supplies USDT/USDC to Aave. Its referral program only pays per hardware wallet sold (5 USDT), so it is a weak fit.
+
+**Not suitable for the owner:** LBank, Toobit and Bitget (owner can't register). YouHodler and Nexo look unlikely; check before spending time on them.
+
+## Russian version of the site (later)
+
+Start only once the English site has steady traffic. The Russian-speaking audience (Russia, Belarus, Kazakhstan, Uzbekistan, the Caucasus, emigrants) is large and active in crypto, and Russian-language search has few comparisons of daily-updated earn rates. Income would come from the platforms already listed, many of which are popular with this audience.
+
+**Plan, in steps:**
+
+1. Add Russian versions of the home page and the `/rates/<coin>` pages only, under `/ru/`, with `hreflang` links between languages. The page text, FAQ answers (`src/utils/assetPages.ts`) and the table UI need translating; the rates data is shared.
+2. Mark offers that aren't available to people in Russia or Belarus (for example, platforms that block those countries). This needs a per-platform list of restricted countries in `src/data/platforms.json`, kept up to date.
+3. Measure traffic for a few months. Only then translate guides and other pages.
+
+**Keep out:** Belarusian and Russian venues have no earn products (BYNEX, Whitebird, the Moscow and SPB stock exchanges), and some Russian exchanges are sanctioned or high-risk (Grinex, Rapira, ABCEX). Don't list them.
+
+**Decision needed from the owner first:** check the advertising rules for crypto services in Russia and Belarus (Belarus blocked several exchange sites over advertising in December 2025), and whether the Russian pages could get the site blocked there.
