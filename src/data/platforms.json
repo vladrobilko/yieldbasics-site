@@ -40,16 +40,6 @@
     "markClass": "bg-[#B6509E] text-white"
   },
   {
-    "id": "bitget",
-    "name": "Bitget",
-    "kind": "cex",
-    "website": "https://www.bitget.com/",
-    "referralUrl": "https://share.bitget.com/u/E6TVWZT1?clacCode=AL3DGX2A",
-    "logo": "token-branded:bitget-background",
-    "mark": "BG",
-    "markClass": "bg-[#00F0FF] text-slate-900"
-  },
-  {
     "id": "gate",
     "name": "Gate",
     "kind": "cex",

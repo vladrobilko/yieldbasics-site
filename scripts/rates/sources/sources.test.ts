@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 
 import { parseAave } from './aave';
 import { parseBinance } from './binance';
-import { parseBitget } from './bitget';
 import { parseBybit } from './bybit';
 import { parseCoinw } from './coinw';
 import { parseGateFixed, parseGateFlexible } from './gate';
@@ -96,34 +95,6 @@ describe('Gate', () => {
       [30, 3.2],
       [14, 2.8],
     ]);
-  });
-});
-
-describe('parseBitget', () => {
-  const offers = parseBitget(fixture('bitget.json'), ASSETS);
-
-  it('reads flexible and fixed savings with their bands', () => {
-    expect(offers[0]).toEqual({
-      platformId: 'bitget',
-      asset: 'USDT',
-      product: 'Savings',
-      termDays: 0,
-      rate: 8,
-      type: 'APR',
-      tiers: [
-        { min: 0, max: 300000, rate: 8 },
-        { min: 300000, max: null, rate: 4 },
-      ],
-    });
-    expect(offers.filter((o) => o.termDays > 0).map((o) => o.termDays)).toEqual([7, 7, 14]);
-  });
-
-  it('keeps the cap of a single-band product', () => {
-    expect(offers.find((o) => o.termDays === 14)?.tiers).toEqual([{ min: 0, max: 3_000_000, rate: 3.2 }]);
-  });
-
-  it('treats an unlisted coin as no offers', () => {
-    expect(parseBitget({ code: '52041', msg: 'Parameter error: coin', data: null }, ASSETS)).toEqual([]);
   });
 });
 
