@@ -2,11 +2,14 @@
  * Contact form → Web3Forms (https://web3forms.com), which emails each message
  * to the inbox the access key was created with. The key is public by design
  * (it only allows sending to that inbox), so it is safe in this public repo;
- * the email address itself never appears here.
+ * that inbox's address itself never appears here.
  */
 export const WEB3FORMS_ACCESS_KEY = '63a488eb-ed04-4d48-a324-848a38e5d118';
 
 export const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+
+/** Public address shown on the site; Cloudflare Email Routing forwards it to our inbox. */
+export const CONTACT_EMAIL = 'contact@yieldbasics.com';
 
 /** Every message's subject starts with this, so one mail filter can file them all. */
 export const CONTACT_SUBJECT_TAG = '[YieldBasics]';

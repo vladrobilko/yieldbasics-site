@@ -9,6 +9,7 @@ import { assets, rateRows, ratesUpdatedAt } from '~/data/yields';
 import { assetSlug, assetsWithOffers } from '~/utils/assetPages';
 import { getPermalink } from '~/utils/permalinks';
 import { formatRateDate } from '~/utils/rates';
+import { CONTACT_EMAIL } from '~/utils/contact';
 import StructuredData from '~/components/common/StructuredData.astro';
 import { SITE, METADATA, I18N } from 'astrowind:config';
 
@@ -19,7 +20,8 @@ const metadata = {
 };
 
 // Structured data for the site and its publisher, built only from
-// `src/config.yaml` (`site.name`, `site.site`, `metadata.twitter.handle`).
+// `src/config.yaml` (`site.name`, `site.site`, `metadata.twitter.handle`) and
+// the public contact address.
 // Blog posts add BlogPosting on their own; the FAQs widget adds FAQPage.
 const organizationId = `${SITE?.site}/#organization`;
 const structuredData = [
@@ -38,6 +40,7 @@ const structuredData = [
     '@id': organizationId,
     name: SITE?.name,
     url: SITE?.site,
+    email: CONTACT_EMAIL,
     // Raster logo (Google prefers PNG/JPG, at least 112×112), from public/.
     logo: new URL('/icon-512.png', SITE?.site).toString(),
     ...(METADATA?.twitter?.handle ? { sameAs: [`https://x.com/${METADATA.twitter.handle.replace(/^@/, '')}`] } : {}),

@@ -3,13 +3,15 @@ title: 'Privacy Policy'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Last updated_: October 14, 2026
+_Last updated_: October 17, 2026
 
-This page explains what information YieldBasics ("we", "us") handles when you use yieldbasics.com (the "Site"). In short: we don't have accounts, we don't use cookies or analytics, and we only see the information you choose to send us through the contact form.
+This page explains what information YieldBasics ("we", "us") handles when you use yieldbasics.com (the "Site"). In short: we don't have accounts, we don't use cookies or analytics, and we only see the information you choose to send us through the contact form or by email.
 
 ## Information we collect
 
 **Contact form.** If you send us a message, we receive the topic, your name (optional), your email address and your message. We use them only to read and answer your message. The form is delivered by [Web3Forms](https://web3forms.com), a form-to-email service, which passes the message to our inbox; Web3Forms processes it under its own privacy policy. We keep messages in our mailbox only as long as needed to reply and follow up, and we never sell or share them for marketing.
+
+**Email.** If you write to [contact@yieldbasics.com](mailto:contact@yieldbasics.com), we receive your email address and whatever your message contains, and use them the same way. Mail to this address is forwarded to our inbox by Cloudflare Email Routing, which handles it under the [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
 
 **No accounts, cookies or tracking.** The Site has no sign-up or login, sets no cookies and runs no analytics or advertising trackers. Fonts and icons are served from the Site itself, not from third-party font services.
 
@@ -23,7 +25,7 @@ The rates table links to exchanges, wallets and DeFi platforms, often through re
 
 ## Your choices and rights
 
-You can ask us to see, correct or delete any message you sent us. Depending on where you live (for example in the EU or UK), you may also have rights to object to or restrict processing and to complain to your local data-protection authority. To make a request, use the [contact form](/contact).
+You can ask us to see, correct or delete any message you sent us. Depending on where you live (for example in the EU or UK), you may also have rights to object to or restrict processing and to complain to your local data-protection authority. To make a request, email [contact@yieldbasics.com](mailto:contact@yieldbasics.com) or use the [contact form](/contact).
 
 ## Children
 
@@ -35,4 +37,4 @@ If we change how we handle information (for example by adding analytics), we wil
 
 ## Contact
 
-Questions about this policy? Write to us through the [contact form](/contact).
+Questions about this policy? Email [contact@yieldbasics.com](mailto:contact@yieldbasics.com) or use the [contact form](/contact).

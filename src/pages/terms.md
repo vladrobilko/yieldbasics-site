@@ -3,7 +3,7 @@ title: 'Terms of Use'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Last updated_: October 14, 2026
+_Last updated_: October 17, 2026
 
 These terms apply to your use of yieldbasics.com (the "Site"), run by YieldBasics ("we", "us"). By using the Site you agree to them. If you don't agree, please don't use the Site.
 
@@ -45,4 +45,4 @@ We may update these terms from time to time. The date above shows the latest ver
 
 ## Contact
 
-Questions about these terms? Write to us through the [contact form](/contact).
+Questions about these terms? Email [contact@yieldbasics.com](mailto:contact@yieldbasics.com) or use the [contact form](/contact).

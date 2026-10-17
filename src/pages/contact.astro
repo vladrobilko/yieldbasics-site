@@ -2,7 +2,13 @@
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
-import { CONTACT_TOPICS, contactSubject, WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '~/utils/contact';
+import {
+  CONTACT_EMAIL,
+  CONTACT_TOPICS,
+  contactSubject,
+  WEB3FORMS_ACCESS_KEY,
+  WEB3FORMS_ENDPOINT,
+} from '~/utils/contact';
 
 // Messages go to Web3Forms, which emails them with a "[YieldBasics] Contact: <topic>"
 // subject (see ~/utils/contact). The script below sends them without leaving the
@@ -42,6 +48,14 @@ const metadata = {
       description="We only use your email address to reply to your message."
     />
   </yb-contact-form>
+
+  <!-- `relative` keeps the link above the form section, which this overlaps. -->
+  <p class="relative -mt-8 mb-16 px-4 text-center text-muted md:-mt-12">
+    Prefer email? Write to{' '}
+    <a href={`mailto:${CONTACT_EMAIL}`} class="font-medium text-primary underline underline-offset-2 hover:no-underline"
+      >{CONTACT_EMAIL}</a
+    >
+  </p>
 </Layout>
 
 <style>
