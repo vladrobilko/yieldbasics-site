@@ -15,6 +15,7 @@ import type { AstroIntegration } from 'astro';
 
 import astrowind from './vendor/integration';
 import { ratesUpdatedAt, tokenBrandedLogoNames } from './src/data/yields';
+import { dealsUpdatedAt } from './src/data/deals';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
@@ -63,7 +64,10 @@ export default defineConfig({
       // The home page and the /rates/<coin> pages change with every daily rates update.
       serialize: (item) => {
         const path = new URL(item.url).pathname;
-        return path === '/' || path.startsWith('/rates/') ? { ...item, lastmod: ratesUpdatedAt } : item;
+        if (path === '/' || path.startsWith('/rates/')) return { ...item, lastmod: ratesUpdatedAt };
+        // /deals changes when a deal is added or re-checked.
+        if (path === '/deals' && dealsUpdatedAt) return { ...item, lastmod: dealsUpdatedAt };
+        return item;
       },
     }),
     mdx(),
