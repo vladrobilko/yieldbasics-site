@@ -13,6 +13,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "rates": "tsx scripts/rates/run.ts",
+    "deals:post": "tsx scripts/deal-post.ts",
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",

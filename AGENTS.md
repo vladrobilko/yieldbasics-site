@@ -103,6 +103,15 @@ The home page rates table is built from `src/data/rates.json`, which `npm run ra
 - Shared types and helpers are in `src/utils/rates.ts`.
 - Every coin with offers gets a server-rendered page, `/rates/<coin>` (`src/pages/rates/[asset].astro`): title, description and FAQ answers come from the day's rates (`src/utils/assetPages.ts`), with `FAQPage` + `BreadcrumbList` structured data. The home page links to all of them, and their sitemap `lastmod` is the rates' `generatedAt`. The table row markup is shared in `src/components/ui/RateTableRow.astro`.
 
+## Deals
+
+`/deals` (`src/pages/deals.astro`) lists short-lived offers that aren't earn rates: launchpad sales, airdrops and sign-up bonuses. They are entered by hand in `src/data/deals.json`, never scraped. Types and helpers are in `src/utils/deals.ts`.
+
+- One entry per deal: `id` (kebab-case, also the card's `#anchor`), `platformId` (from `platforms.json`), `kind` (`launchpad | airdrop | bonus`), `title`, `asset`, `headline` (e.g. "Up to 70% off"), `audience` (`new-user | all`), `stats` (optional, up to 3 key numbers shown on the card), `conditions` (short plain-language list), `startsAt` / `endsAt` (ISO date-times in UTC), `verifiedAt` (YYYY-MM-DD), and optional `url` (defaults to the platform's `referralUrl`) and `xPost` (custom post text).
+- `npm test` validates the file (`validateDeals`), so a bad id, platform or date fails the build.
+- Ended deals are dropped at build time, and the page script hides any that end between rebuilds. Remove ended entries from the file now and then.
+- `npm run deals:post <id>` prints the X post text for a deal, for the owner to paste by hand. Nothing is posted automatically (see ROADMAP.md).
+
 ## Tailwind CSS v4
 
 Configuration is CSS-first in `src/assets/styles/tailwind.css`:

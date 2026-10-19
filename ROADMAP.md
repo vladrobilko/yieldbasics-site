@@ -20,3 +20,13 @@ Planned work that isn't done yet. Remove an item once its PR is merged.
 5. Add a unit test for the host order (proxy used only when the variable is set). Update AGENTS.md.
 
 **Decision needed from the owner:** which proxy and account to use. Don't create one without asking.
+
+## Automatic X posts for new deals
+
+**Today.** `npm run deals:post <id>` prints the post text and the owner posts it on X by hand.
+
+**Idea.** A GitHub Action that posts each new entry in `src/data/deals.json` to X after the PR is merged.
+
+**Cost and setup.** It needs a paid X API plan with write access. The API keys go in GitHub Actions secrets and are never committed. Only worth it once deals are added often.
+
+**Decision needed from the owner:** whether the volume of deals justifies the X API cost.

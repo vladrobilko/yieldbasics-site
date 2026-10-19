@@ -1,0 +1,29 @@
+{
+  "deals": [
+    {
+      "id": "mexc-zec-launchpad",
+      "platformId": "mexc",
+      "kind": "launchpad",
+      "title": "Buy ZEC at 70% off",
+      "asset": "ZEC",
+      "headline": "70% off",
+      "audience": "new-user",
+      "stats": [
+        { "label": "Your price", "value": "367.8 USDT" },
+        { "label": "Regular pool", "value": "980.8 USDT" },
+        { "label": "Max per user", "value": "50 USDT" }
+      ],
+      "conditions": [
+        "New users: accounts with under $100 deposited before the event",
+        "Advanced KYC before the event ends",
+        "Deposit 100 USDT worth of any token",
+        "Trade 2,000 USDT of futures (any pair)",
+        "Tokens are shared out if the pool is oversubscribed"
+      ],
+      "startsAt": "2026-10-19T10:00:00Z",
+      "endsAt": "2026-11-02T08:00:00Z",
+      "verifiedAt": "2026-10-19",
+      "xPost": "MEXC Launchpad: buy ZEC at 70% off (new users)\n\n367.8 USDT per ZEC vs 980.8 in the regular pool, up to 50 USDT each\n\nTo unlock: KYC, deposit 100 USDT, trade 2,000 USDT of futures\n\nEnds Nov 2, 08:00 UTC\nhttps://yieldbasics.com/deals#mexc-zec-launchpad\n\nReferral link. Not financial advice."
+    }
+  ]
+}
