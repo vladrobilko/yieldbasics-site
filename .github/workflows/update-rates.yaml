@@ -11,7 +11,9 @@ name: Update rates
 on:
   schedule:
     # Off the hour: runs scheduled on the hour start hours late at peak load.
-    - cron: '17 5 * * *' # 05:17 UTC
+    # Even scheduled runs start up to ~5.5 hours late, so it is set late in the
+    # evening for the PR to be ready before 05:00 UTC.
+    - cron: '17 23 * * *' # 23:17 UTC
   workflow_dispatch:
     inputs:
       open_pr:
@@ -57,7 +59,9 @@ jobs:
 
       - name: Date
         id: date
-        run: echo "today=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+        # Named after the morning the PR is reviewed: a run that starts before
+        # midnight UTC still gets the next day's date.
+        run: echo "today=$(date -u -d '+6 hours' +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
 
       - name: Open or update the rates PR
         if: github.event_name == 'schedule' || inputs.open_pr
