@@ -2,21 +2,13 @@
 
 Planned work that isn't done yet, in priority order. Remove an item once its PR is merged. The [growth strategy](#growth-strategy) below explains why the work is in this order.
 
-**Week 1**
-
 1. [Launch quick wins](#launch-quick-wins): cursor fix, shorter hero, offer count, analytics, Search Console, X link, mobile pass.
-
-**Week 2**
-
 2. [Fix the Bybit fetch on GitHub runners](#fix-the-bybit-fetch-on-github-runners): Cloudflare Worker (owner approved).
 3. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
 4. [Logo and brand](#logo-and-brand)
 5. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
 6. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
 7. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
-
-**Weeks 3–4**
-
 8. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
 9. [Trust lines on the About page](#trust-lines-on-the-about-page)
 10. [Countries and platform pages](#countries-and-platform-pages)
@@ -24,32 +16,17 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 12. [Growth chart on the calculator](#growth-chart-on-the-calculator)
 13. [Top promo bar](#top-promo-bar)
 14. [Where to buy pages](#where-to-buy-pages)
-
-**Weeks 4–6**
-
 15. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
 16. [Rate history](#rate-history)
 17. [Email newsletter](#email-newsletter)
-
-**Month 2**
-
 18. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
 19. [Country pages](#country-pages)
 20. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
 21. [Affiliate programs](#affiliate-programs)
-
-**Months 3–4**
-
 22. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
 23. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-
-**Ongoing**
-
 24. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
 25. [Watch the daily schedule](#watch-the-daily-schedule)
-
-**Later**
-
 26. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
 27. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
@@ -63,7 +40,7 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 2. **Move from referral to affiliate programs.** Exchange affiliate programs pay a much higher share than plain referral links, but they want proof of an audience (traffic, X followers).
 3. **Add income that doesn't depend on signups:** a promo bar, ad networks, hardware-wallet affiliates, sponsored slots and newsletter sponsors.
 
-**Ways to earn, in order:** exchange referrals (now) → own promo in a top bar (weeks 3–4) → hardware-wallet affiliates and exchange affiliate programs (month 2–3) → crypto ad networks (A-Ads has no traffic minimum; Coinzilla/Bitmedia later) → sponsored "Featured" slot, always labeled and separate from the ranking → newsletter sponsors → broker/bond affiliates for the traditional-yields section. Sponsorship never changes the ranking, as the Terms promise.
+**Ways to earn, in order:** exchange referrals (now) → own promo in a top bar → hardware-wallet affiliates and exchange affiliate programs → crypto ad networks (A-Ads has no traffic minimum; Coinzilla/Bitmedia later) → sponsored "Featured" slot, always labeled and separate from the ranking → newsletter sponsors → broker/bond affiliates for the traditional-yields section. Sponsorship never changes the ranking, as the Terms promise.
 
 **Traffic.** Search is the main engine. Build page types from data, so one template makes many pages: coin pages (exist), platform pages, where-to-buy pages, country pages, exchange comparisons, rate history, calculators and traditional-yield pages. Each page must carry its own data, not a swapped name; Google penalizes thin copy-paste pages. Guides stay evergreen and link to the live pages. X, Reddit/Quora and a newsletter bring the first visitors while search grows.
 
@@ -246,7 +223,7 @@ New posts in `src/data/post/`, in the same style as the existing ones: no rate s
 
 ## Watch the daily schedule
 
-The daily rates workflow moved to `17 5 * * *` on 2026-10-16, because runs scheduled on the hour started about 4 hours late. It still starts late: the runs from 2026-10-17 to 2026-10-21 began between 09:19 and 10:43 UTC (`gh run list --workflow update-rates.yaml`). GitHub delays scheduled runs when its queue is busy. Options: accept the delay, or schedule earlier (e.g. `17 1 * * *`) so the rates PR is ready by morning. **Decision needed from the owner.**
+The daily rates workflow moved to `17 5 * * *` on 2026-10-16, because runs scheduled on the hour started about 4 hours late. It still started late: the runs from 2026-10-17 to 2026-10-21 began between 09:19 and 10:43 UTC (`gh run list --workflow update-rates.yaml`). On 2026-10-21 the owner asked for the rates PR to be ready before 05:00 UTC, so the schedule moved to `17 23 * * *`. Check that the next runs finish before 05:00 UTC; if they don't, move it earlier.
 
 ## Add more platforms
 
