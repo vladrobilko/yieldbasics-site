@@ -9,6 +9,23 @@ import type { Source } from '../types';
 const HOSTS = ['https://api.bybit.com', 'https://api.bytick.com', 'https://api.bybitglobal.com'];
 const PATH = '/v5/earn/product';
 
+/**
+ * Hosts to try in order. All of them block GitHub's runners, so the daily job
+ * sets BYBIT_PROXY_URL to our Cloudflare Worker (scripts/rates/proxy/bybit-worker.js),
+ * tried last. Local runs don't need it.
+ */
+export const bybitHosts = (proxyUrl?: string): string[] => {
+  const proxy = proxyUrl?.trim().replace(/\/+$/, '');
+  return proxy ? [...HOSTS, proxy] : [...HOSTS];
+};
+
+/** Keeps the proxy address (a secret) out of error messages and the public PR summary. */
+export const hideProxy = (error: unknown, proxyUrl?: string): Error => {
+  const message = error instanceof Error ? error.message : String(error);
+  const host = proxyUrl && URL.canParse(proxyUrl) ? new URL(proxyUrl).host : '';
+  return new Error(host ? message.replaceAll(host, 'bybit-proxy') : message);
+};
+
 interface BybitProduct {
   category: string;
   coin: string;
@@ -64,10 +81,14 @@ export const bybit: Source = {
   platformId: 'bybit',
   kind: 'api',
   fetch: async (fetchJson, assets) => {
+    const proxyUrl = process.env.BYBIT_PROXY_URL;
+    const hosts = bybitHosts(proxyUrl);
     const categories = Object.keys(PRODUCT_NAMES);
     const responses = await Promise.all(
-      categories.map((category) => fetchJsonWithFallback(fetchJson, HOSTS, `${PATH}?category=${category}`))
-    );
+      categories.map((category) => fetchJsonWithFallback(fetchJson, hosts, `${PATH}?category=${category}`))
+    ).catch((error: unknown) => {
+      throw hideProxy(error, proxyUrl);
+    });
     return responses.flatMap((response) => parseBybit(response as BybitResponse, assets));
   },
 };
