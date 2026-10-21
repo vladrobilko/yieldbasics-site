@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { parseAave } from './aave';
 import { parseBinance } from './binance';
-import { bybitHosts, hideProxy, parseBybit } from './bybit';
+import { bybitHosts, hideProxy, parseBybit, PROXY_ATTEMPTS } from './bybit';
 import { parseCoinw } from './coinw';
 import { parseGateFixed, parseGateFlexible } from './gate';
 import { kucoinNewUserProductIds, parseKucoin, parseKucoinCap } from './kucoin';
@@ -51,11 +51,12 @@ describe('bybitHosts', () => {
     expect(bybitHosts('  ')).toEqual(direct);
   });
 
-  it('tries the proxy last, without a trailing slash', () => {
+  it('tries the proxy last, several times, without a trailing slash', () => {
     expect(bybitHosts('https://bybit-proxy.example.workers.dev/')).toEqual([
       ...direct,
-      'https://bybit-proxy.example.workers.dev',
+      ...Array<string>(PROXY_ATTEMPTS).fill('https://bybit-proxy.example.workers.dev'),
     ]);
+    expect(PROXY_ATTEMPTS).toBeGreaterThan(1);
   });
 });
 
@@ -66,6 +67,13 @@ describe('hideProxy', () => {
       'HTTP 403 from api.bybit.com; HTTP 403 from bybit-proxy'
     );
     expect(hideProxy(error).message).toBe(error.message);
+  });
+
+  it('lists a repeated error once', () => {
+    const error = new Error('HTTP 403 from api.bybit.com; HTTP 403 from p.example.dev; HTTP 403 from p.example.dev');
+    expect(hideProxy(error, 'https://p.example.dev').message).toBe(
+      'HTTP 403 from api.bybit.com; HTTP 403 from bybit-proxy'
+    );
   });
 });
 
