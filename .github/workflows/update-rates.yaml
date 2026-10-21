@@ -48,6 +48,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Debug Bybit proxy (temporary)
+        env:
+          P: ${{ secrets.BYBIT_PROXY_URL }}
+        run: |
+          curl -s -D - -A 'Mozilla/5.0 (compatible; YieldBasicsRatesBot/1.0; +https://yieldbasics.com)' "$P/v5/earn/product?category=OnChain" | head -c 1500 || true
+          echo; echo ---
+          curl -s -D - "https://api.bybit.com/v5/earn/product?category=OnChain" | head -c 800 || true
+
       - name: Fetch rates
         env:
           # Bybit blocks GitHub's runners; this is our Cloudflare Worker (see AGENTS.md).
