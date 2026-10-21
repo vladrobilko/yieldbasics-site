@@ -5,7 +5,9 @@
  * hand-maintained src/data/manual-rates.json and writes src/data/rates.json.
  * A failed source keeps its previous offers (see mergeRates). A Markdown
  * summary of the changes is printed, and also written to the path given with
- * `--summary <file>` (used as the body of the daily PR).
+ * `--summary <file>` (used as the body of the daily PR). `--hold <file>` gets the
+ * reasons the PR needs review (one per line, empty on a quiet day, when the
+ * daily workflow merges it by itself).
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -13,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import { platforms } from '../../src/data/platforms';
 import { assets } from '../../src/data/yields';
 import {
+  holdReasons,
   mergeRates,
   offerProblem,
   summarizeChanges,
@@ -85,6 +88,11 @@ const main = async () => {
   console.log(`\n${summary}`);
   const summaryFlag = process.argv.indexOf('--summary');
   if (summaryFlag !== -1 && process.argv[summaryFlag + 1]) writeFileSync(process.argv[summaryFlag + 1], `${summary}\n`);
+  const holdFlag = process.argv.indexOf('--hold');
+  if (holdFlag !== -1 && process.argv[holdFlag + 1]) {
+    const reasons = holdReasons(previous, next);
+    writeFileSync(process.argv[holdFlag + 1], reasons.map((reason) => `${reason}\n`).join(''));
+  }
 
   if (Object.values(results).every((result) => !result.ok)) {
     console.error('Every source failed.');

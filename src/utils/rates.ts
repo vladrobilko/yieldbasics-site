@@ -335,8 +335,8 @@ export const toRateRow = (offer: StoredOffer, now: Date): RateRow => {
 export const formatRateDate = (iso: string): string =>
   new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
-/** Markdown summary of what changed between two rates files, for the daily PR body. */
-export const summarizeChanges = (previous: RatesFile | null, next: RatesFile): string => {
+/** What changed between two rates files, as Markdown list lines per group. */
+const diffRates = (previous: RatesFile | null, next: RatesFile) => {
   const before = new Map(previous?.offers.map((offer) => [offer.id, offer]) ?? []);
   const after = new Map(next.offers.map((offer) => [offer.id, offer]));
   const bigMoves: string[] = [];
@@ -363,12 +363,38 @@ export const summarizeChanges = (previous: RatesFile | null, next: RatesFile): s
       return `- ${platformId}: ${status.error} (kept ${status.offers} previous offers${since})`;
     });
 
+  return { bigMoves, changes, added, removed, failed };
+};
+
+const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`;
+
+/**
+ * Why the daily rates PR needs a person to look at it: big moves, removed
+ * offers or failed sources. Empty on a quiet day, when it merges itself.
+ */
+export const holdReasons = (previous: RatesFile | null, next: RatesFile): string[] => {
+  const { bigMoves, removed, failed } = diffRates(previous, next);
+  return [
+    ...(bigMoves.length ? [plural(bigMoves.length, 'big move')] : []),
+    ...(removed.length ? [plural(removed.length, 'removed offer')] : []),
+    ...(failed.length ? [plural(failed.length, 'failed source')] : []),
+  ];
+};
+
+/** Markdown summary of what changed between two rates files, for the daily PR body. */
+export const summarizeChanges = (previous: RatesFile | null, next: RatesFile): string => {
+  const { bigMoves, changes, added, removed, failed } = diffRates(previous, next);
+  const reasons = holdReasons(previous, next);
   const section = (title: string, lines: string[], empty: string) => [
     `### ${title} (${lines.length})`,
     lines.length ? lines.join('\n') : empty,
     '',
   ];
   return [
+    reasons.length
+      ? `**Needs review:** ${reasons.join(', ')}. Merge it by hand once checked.`
+      : '**Quiet day:** this PR merges itself once the checks pass.',
+    '',
     ...section('Big moves', bigMoves, 'None.'),
     ...section('Rate changes', changes, 'No rate changes.'),
     ...section('New offers', added, 'None.'),
