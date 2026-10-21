@@ -14,6 +14,7 @@ import {
   offerId,
   offerProblem,
   parsePercent,
+  holdReasons,
   summarizeChanges,
   termLabel,
   toRateRow,
@@ -200,6 +201,7 @@ describe('mergeRates', () => {
     expect(summary).toContain('- `weex-usdt-savings-flexible` 3% APR');
     expect(summary).toContain('- gate: HTTP 503 (kept 1 previous offers, last success Oct 13, 2026)');
     expect(summary).toContain('### Removed offers (0)\nNone.');
+    expect(summary.startsWith('**Needs review:** 1 failed source.')).toBe(true);
   });
 
   it('flags big moves and explains removals', () => {
@@ -236,6 +238,22 @@ describe('mergeRates', () => {
     expect(summary).toContain('- `weex-usdt`: removed from manual-rates.json or verified more than 30 days ago');
     expect(summary).toContain('- `old-usdt`: old has no source any more');
     expect(summary).toContain('### Failed sources (0)\nNone.');
+    expect(holdReasons(before, after)).toEqual(['1 big move', '3 removed offers']);
+  });
+
+  it('lets a quiet day through: only small rate changes and new offers', () => {
+    const stored = (id: string, rate: number) => ({
+      ...offer({ platformId: 'gate', rate }),
+      id,
+      source: 'api' as const,
+      updatedAt: now.toISOString(),
+    });
+    const sources = { gate: { status: 'ok' as const, checkedAt: now.toISOString(), offers: 2 } };
+    const before: RatesFile = { generatedAt: now.toISOString(), sources, offers: [stored('gate-usdt', 2.46)] };
+    const after: RatesFile = { ...before, offers: [stored('gate-usdt', 2.43), stored('gate-btc', 1)] };
+
+    expect(holdReasons(before, after)).toEqual([]);
+    expect(summarizeChanges(before, after).startsWith('**Quiet day:**')).toBe(true);
   });
 });
 
