@@ -149,7 +149,7 @@ describe('mergeRates', () => {
     ],
   };
   const manual: ManualOffer[] = [
-    { ...offer({ platformId: 'mexc', product: 'Savings', rate: 3 }), verifiedAt: '2026-10-12' },
+    { ...offer({ platformId: 'weex', product: 'Savings', rate: 3 }), verifiedAt: '2026-10-12' },
     // Ignored: bybit has an automatic source.
     { ...offer({ rate: 99 }), verifiedAt: '2026-10-12' },
   ];
@@ -181,11 +181,11 @@ describe('mergeRates', () => {
   });
 
   it('adds manual offers only for platforms without a source', () => {
-    const mexc = merged.offers.find((o) => o.platformId === 'mexc');
-    expect(mexc).toMatchObject({ rate: 3, source: 'manual', updatedAt: '2026-10-12T00:00:00.000Z' });
-    expect(mexc).not.toHaveProperty('verifiedAt');
+    const weex = merged.offers.find((o) => o.platformId === 'weex');
+    expect(weex).toMatchObject({ rate: 3, source: 'manual', updatedAt: '2026-10-12T00:00:00.000Z' });
+    expect(weex).not.toHaveProperty('verifiedAt');
     expect(merged.offers.filter((o) => o.platformId === 'bybit')).toHaveLength(1);
-    expect(merged.sources.mexc).toMatchObject({ status: 'manual', offers: 1 });
+    expect(merged.sources.weex).toMatchObject({ status: 'manual', offers: 1 });
   });
 
   it('sorts offers by id for stable diffs', () => {
@@ -197,7 +197,7 @@ describe('mergeRates', () => {
     const summary = summarizeChanges(previous, merged);
     expect(summary).toContain('### New offers (2)');
     expect(summary).toContain('- `bybit-usdt-flexible-savings-flexible` 6.9% APR');
-    expect(summary).toContain('- `mexc-usdt-savings-flexible` 3% APR');
+    expect(summary).toContain('- `weex-usdt-savings-flexible` 3% APR');
     expect(summary).toContain('- gate: HTTP 503 (kept 1 previous offers, last success Oct 13, 2026)');
     expect(summary).toContain('### Removed offers (0)\nNone.');
   });
@@ -286,8 +286,8 @@ describe('formatRateDate', () => {
 });
 
 describe('new-user offers', () => {
-  const mexc = offer({
-    platformId: 'mexc',
+  const weex = offer({
+    platformId: 'weex',
     product: 'Fixed Savings',
     termDays: 2,
     rate: 600,
@@ -296,13 +296,13 @@ describe('new-user offers', () => {
   });
 
   it('estimates the most a new user can earn', () => {
-    expect(estimatedReward(mexc)).toBe(6.58);
+    expect(estimatedReward(weex)).toBe(6.58);
     expect(estimatedReward(offer({ audience: 'new-user', rate: 100 }))).toBeNull();
     expect(estimatedReward(offer({ audience: 'new-user', termDays: 7, rate: 100 }))).toBeNull();
   });
 
   it('describes the cap and the reward', () => {
-    expect(conditionLines(mexc)).toEqual(['New users · max 200 USDT', '2 days · ≈ $6.58 total']);
+    expect(conditionLines(weex)).toEqual(['New users · max 200 USDT', '2 days · ≈ $6.58 total']);
     expect(conditionLines(offer({ audience: 'new-user', termDays: 7, rate: 100 }))).toEqual([
       'New users only',
       '7 days',
@@ -310,10 +310,10 @@ describe('new-user offers', () => {
   });
 
   it('gets its own id and is never marked as a promo', () => {
-    expect(offerId(mexc)).toBe('mexc-usdt-fixed-savings-2d-new-user');
+    expect(offerId(weex)).toBe('weex-usdt-fixed-savings-2d-new-user');
     expect(
       isBoosted({
-        ...mexc,
+        ...weex,
         tiers: [
           { min: 0, max: 100, rate: 600 },
           { min: 100, max: null, rate: 1 },
@@ -324,15 +324,15 @@ describe('new-user offers', () => {
 
   it('allows high rates for USDT/USDC only', () => {
     const assets = ['USDT', 'BTC'];
-    expect(offerProblem(mexc, assets, ['mexc'])).toBeNull();
-    expect(offerProblem({ ...mexc, rate: 1500 }, assets, ['mexc'])).toMatch(/rate out of range/);
-    expect(offerProblem({ ...mexc, asset: 'BTC' }, assets, ['mexc'])).toMatch('USDT/USDC only');
-    expect(offerProblem({ ...mexc, audience: undefined }, assets, ['mexc'])).toMatch(/rate out of range/);
+    expect(offerProblem(weex, assets, ['weex'])).toBeNull();
+    expect(offerProblem({ ...weex, rate: 1500 }, assets, ['weex'])).toMatch(/rate out of range/);
+    expect(offerProblem({ ...weex, asset: 'BTC' }, assets, ['weex'])).toMatch('USDT/USDC only');
+    expect(offerProblem({ ...weex, audience: undefined }, assets, ['weex'])).toMatch(/rate out of range/);
   });
 
   it('turns into a new-user row with its reward', () => {
     const row = toRateRow(
-      { ...mexc, id: offerId(mexc), source: 'web', updatedAt: '2026-10-14T06:00:00.000Z' },
+      { ...weex, id: offerId(weex), source: 'web', updatedAt: '2026-10-14T06:00:00.000Z' },
       new Date('2026-10-14T07:00:00Z')
     );
     expect(row).toMatchObject({ audience: 'new-user', maxReward: 6.58, promotional: false, term: '2-day' });

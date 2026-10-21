@@ -110,6 +110,7 @@ The home page rates table is built from `src/data/rates.json`, which `npm run ra
 - One entry per deal: `id` (kebab-case, also the card's `#anchor`), `platformId` (from `platforms.json`), `kind` (`launchpad | airdrop | bonus`), `title`, `asset`, `headline` (e.g. "Up to 70% off"), `audience` (`new-user | all`), `stats` (optional, up to 3 key numbers shown on the card), `conditions` (short plain-language list), `startsAt` / `endsAt` (ISO date-times in UTC), `verifiedAt` (YYYY-MM-DD), and optional `url` (defaults to the platform's `referralUrl`) and `xPost` (custom post text).
 - `npm test` validates the file (`validateDeals`), so a bad id, platform or date fails the build.
 - Ended deals are dropped at build time, and the page script hides any that end between rebuilds. Remove ended entries from the file now and then.
+- While no deal is live at build time (`hasLiveDeals`), the header and footer Deals links are hidden and /deals gets `noindex` and is left out of the sitemap. The page itself stays up with its "No live deals right now" message.
 - `npm run deals:post <id>` prints the X post text for a deal, for the owner to paste by hand. Nothing is posted automatically (see ROADMAP.md).
 
 ## Tailwind CSS v4

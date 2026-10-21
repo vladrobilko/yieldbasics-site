@@ -27,11 +27,10 @@ import { bybit } from './sources/bybit';
 import { coinw } from './sources/coinw';
 import { gate } from './sources/gate';
 import { kucoin } from './sources/kucoin';
-import { mexc } from './sources/mexc';
 import { okx } from './sources/okx';
 import type { Source } from './types';
 
-const SOURCES: Source[] = [binance, bybit, okx, gate, kucoin, mexc, coinw, aave];
+const SOURCES: Source[] = [binance, bybit, okx, gate, kucoin, coinw, aave];
 
 const dataPath = (name: string) => fileURLToPath(new URL(`../../src/data/${name}`, import.meta.url));
 const RATES_PATH = dataPath('rates.json');

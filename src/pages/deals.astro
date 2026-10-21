@@ -31,6 +31,8 @@ const metadata = {
     cards.length > 0
       ? `Live crypto deals: ${cards.map((c) => `${c.platform.name} ${c.asset} ${c.headline}`).join(', ')}. Conditions, end dates and links.`
       : 'Limited-time crypto deals, such as discounted launchpad sales, airdrops and sign-up bonuses, with their conditions and end dates.',
+  // An empty page isn't worth indexing; it comes back with the next live deal.
+  ...(cards.length === 0 ? { robots: { index: false } } : {}),
 };
 
 const schema = cards.map((card) => ({
