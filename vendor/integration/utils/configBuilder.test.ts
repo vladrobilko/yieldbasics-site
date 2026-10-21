@@ -27,6 +27,14 @@ describe('configBuilder', () => {
     expect(config.APP_BLOG.category.pathname).toBe('category');
   });
 
+  it('leaves the Cloudflare analytics token unset by default and passes a given one through', () => {
+    expect(buildConfig({}).ANALYTICS.vendors.cloudflare.token).toBeUndefined();
+
+    const config = buildConfig({ analytics: { vendors: { cloudflare: { token: 'abc123' } } } });
+    expect(config.ANALYTICS.vendors.cloudflare.token).toBe('abc123');
+    expect(config.ANALYTICS.vendors.googleAnalytics.partytown).toBe(true);
+  });
+
   it('does not mutate the input config', () => {
     const input = { site: { name: 'A' } };
     buildConfig(input);
