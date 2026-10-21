@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { parseAave } from './aave';
 import { parseBinance } from './binance';
-import { parseBybit } from './bybit';
+import { bybitHosts, hideProxy, parseBybit } from './bybit';
 import { parseCoinw } from './coinw';
 import { parseGateFixed, parseGateFlexible } from './gate';
 import { kucoinNewUserProductIds, parseKucoin, parseKucoinCap } from './kucoin';
@@ -40,6 +40,32 @@ describe('parseBybit', () => {
 
   it('throws on an API error', () => {
     expect(() => parseBybit({ retCode: 10001, retMsg: 'bad', result: { list: [] } }, ASSETS)).toThrow(/10001/);
+  });
+});
+
+describe('bybitHosts', () => {
+  const direct = ['https://api.bybit.com', 'https://api.bytick.com', 'https://api.bybitglobal.com'];
+
+  it('uses only the direct hosts without a proxy', () => {
+    expect(bybitHosts()).toEqual(direct);
+    expect(bybitHosts('  ')).toEqual(direct);
+  });
+
+  it('tries the proxy last, without a trailing slash', () => {
+    expect(bybitHosts('https://bybit-proxy.example.workers.dev/')).toEqual([
+      ...direct,
+      'https://bybit-proxy.example.workers.dev',
+    ]);
+  });
+});
+
+describe('hideProxy', () => {
+  it('replaces the proxy host in error messages', () => {
+    const error = new Error('HTTP 403 from api.bybit.com; HTTP 403 from secret-name.example.workers.dev');
+    expect(hideProxy(error, 'https://secret-name.example.workers.dev').message).toBe(
+      'HTTP 403 from api.bybit.com; HTTP 403 from bybit-proxy'
+    );
+    expect(hideProxy(error).message).toBe(error.message);
   });
 });
 
