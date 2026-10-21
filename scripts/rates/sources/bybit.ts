@@ -13,17 +13,24 @@ const PATH = '/v5/earn/product';
  * Hosts to try in order. All of them block GitHub's runners, so the daily job
  * sets BYBIT_PROXY_URL to our Cloudflare Worker (scripts/rates/proxy/bybit-worker.js),
  * tried last. Local runs don't need it.
+ *
+ * The Worker is tried several times: Cloudflare sends each request from a
+ * different shared address, and Bybit geo-blocks about a third of them
+ * (measured 2026-10-21), so a retry usually gets through.
  */
+export const PROXY_ATTEMPTS = 6;
+
 export const bybitHosts = (proxyUrl?: string): string[] => {
   const proxy = proxyUrl?.trim().replace(/\/+$/, '');
-  return proxy ? [...HOSTS, proxy] : [...HOSTS];
+  return proxy ? [...HOSTS, ...Array<string>(PROXY_ATTEMPTS).fill(proxy)] : [...HOSTS];
 };
 
 /** Keeps the proxy address (a secret) out of error messages and the public PR summary. */
 export const hideProxy = (error: unknown, proxyUrl?: string): Error => {
   const message = error instanceof Error ? error.message : String(error);
   const host = proxyUrl && URL.canParse(proxyUrl) ? new URL(proxyUrl).host : '';
-  return new Error(host ? message.replaceAll(host, 'bybit-proxy') : message);
+  const hidden = host ? message.replaceAll(host, 'bybit-proxy') : message;
+  return new Error([...new Set(hidden.split('; '))].join('; '));
 };
 
 interface BybitProduct {
