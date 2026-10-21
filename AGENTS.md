@@ -91,7 +91,7 @@ Site config lives in `src/config.yaml` and is loaded as a Vite virtual module `a
 
 The home page rates table is built from `src/data/rates.json`, which `npm run rates` (`scripts/rates/run.ts`) regenerates; never edit it by hand.
 
-- `.github/workflows/update-rates.yaml` runs `npm run rates` daily at 05:17 UTC (or on demand: `gh workflow run update-rates.yaml`) and opens or updates one PR, `feature/bot/daily-rates-update`, with the new `rates.json` and a summary: big moves (at least 1 point and 30%), other rate changes, new offers, removed offers with the reason, and failed sources with their last success. Merging it publishes the rates.
+- `.github/workflows/update-rates.yaml` runs `npm run rates` daily at 23:17 UTC (or on demand: `gh workflow run update-rates.yaml`) and opens or updates one PR, `feature/bot/daily-rates-update`, with the new `rates.json` and a summary: big moves (at least 1 point and 30%), other rate changes, new offers, removed offers with the reason, and failed sources with their last success. Merging it publishes the rates. GitHub often starts scheduled runs hours late, so the time is set for the PR to be ready before 05:00 UTC; the PR is named after that morning's date.
 - Bybit currently answers 403 to GitHub's runners, so its offers are only refreshed by local `npm run rates` runs; the fix is planned in [ROADMAP.md](./ROADMAP.md).
 - The bot recreates that branch on every run, so never push code to it; fixes go in their own PR. To test a source fix on a runner without touching the rates PR: `gh workflow run update-rates.yaml --ref <branch> -f open_pr=false`, then read the summary in the run log.
 
