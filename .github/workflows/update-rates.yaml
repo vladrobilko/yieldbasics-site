@@ -88,9 +88,14 @@ jobs:
           PR: ${{ steps.pr.outputs.pull-request-number }}
           SHA: ${{ steps.pr.outputs.pull-request-head-sha }}
           BRANCH: feature/bot/daily-rates-update
+          OWNER: ${{ github.repository_owner }}
         run: |
           if [ -s "$RUNNER_TEMP/rates-hold.txt" ]; then
-            echo "Held for review: $(paste -sd ',' "$RUNNER_TEMP/rates-hold.txt")"
+            reasons=$(paste -sd ',' "$RUNNER_TEMP/rates-hold.txt" | sed 's/,/, /g')
+            echo "Held for review: $reasons"
+            # The review request and the @mention make GitHub email the owner.
+            gh pr edit "$PR" --add-reviewer "$OWNER" || true
+            gh pr comment "$PR" --body "@$OWNER this rates update needs a look before it goes live: $reasons. Merge it once checked."
             exit 0
           fi
           gh workflow run actions.yaml --ref "$BRANCH"
