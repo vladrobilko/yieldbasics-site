@@ -1,5 +1,6 @@
 ---
 title: 'Terms of Use'
+description: 'Terms for using YieldBasics: rates are for information only, not financial advice, how referral links work and the limits of our liability.'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 

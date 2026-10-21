@@ -118,3 +118,10 @@ export const emptyMessage = (asset: string, term: TermFilter, newUserAssets: rea
   term === 'new-user' && !newUserAssets.includes(asset)
     ? `New-user offers are tracked for ${newUserAssets.join(' and ')} only.`
     : `No matching ${asset} offers right now — try another term or asset.`;
+
+/** Live counts for the home page: offers, platforms and coins that have at least one offer. */
+export const siteStats = (rows: readonly { platformId: string; asset: string }[]) => ({
+  offers: rows.length,
+  platforms: new Set(rows.map((row) => row.platformId)).size,
+  coins: new Set(rows.map((row) => row.asset)).size,
+});

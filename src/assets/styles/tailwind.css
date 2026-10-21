@@ -168,3 +168,12 @@ tr[id^='offer-']:target {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
 }
+
+/* Tailwind v4 gives buttons the default arrow cursor; show they are clickable. */
+@layer base {
+  button:not(:disabled),
+  [role='button'],
+  summary {
+    cursor: pointer;
+  }
+}

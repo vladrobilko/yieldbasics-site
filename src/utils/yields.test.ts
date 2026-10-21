@@ -23,6 +23,7 @@ import {
   sortByRate,
   sortByReward,
   sortLabel,
+  siteStats,
 } from '~/utils/yields';
 
 describe('formatRate', () => {
@@ -272,5 +273,20 @@ describe('placePopover', () => {
         anchor: { top: 480, bottom: 541, right: 500 },
       }).left
     ).toBe(16);
+  });
+});
+
+describe('siteStats', () => {
+  it('counts offers and the platforms and coins that have them', () => {
+    const rows = [
+      { platformId: 'bybit', asset: 'USDT' },
+      { platformId: 'bybit', asset: 'BTC' },
+      { platformId: 'okx', asset: 'USDT' },
+    ];
+    expect(siteStats(rows)).toEqual({ offers: 3, platforms: 2, coins: 2 });
+  });
+
+  it('is all zeros with no offers', () => {
+    expect(siteStats([])).toEqual({ offers: 0, platforms: 0, coins: 0 });
   });
 });

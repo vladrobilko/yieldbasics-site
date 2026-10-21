@@ -1,11 +1,12 @@
 ---
 title: 'Privacy Policy'
+description: 'What YieldBasics does with your data: no accounts or cookies, cookie-free visit counts, contact form messages and your rights. Plain-language policy.'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Last updated_: October 17, 2026
+_Last updated_: October 21, 2026
 
-This page explains what information YieldBasics ("we", "us") handles when you use yieldbasics.com (the "Site"). In short: we don't have accounts, we don't use cookies or analytics, and we only see the information you choose to send us through the contact form or by email.
+This page explains what information YieldBasics ("we", "us") handles when you use yieldbasics.com (the "Site"). In short: we don't have accounts or cookies, we count visits with a privacy-first tool that doesn't identify you, and we only see personal information you choose to send us through the contact form or by email.
 
 ## Information we collect
 
@@ -13,7 +14,9 @@ This page explains what information YieldBasics ("we", "us") handles when you us
 
 **Email.** If you write to [contact@yieldbasics.com](mailto:contact@yieldbasics.com), we receive your email address and whatever your message contains, and use them the same way. Mail to this address is forwarded to our inbox by Cloudflare Email Routing, which handles it under the [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
 
-**No accounts, cookies or tracking.** The Site has no sign-up or login, sets no cookies and runs no analytics or advertising trackers. Fonts and icons are served from the Site itself, not from third-party font services.
+**No accounts, cookies or ad trackers.** The Site has no sign-up or login, sets no cookies and runs no advertising trackers. Fonts and icons are served from the Site itself, not from third-party font services.
+
+**Visit statistics.** We use [Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics/) to count page views and see which pages are read, which country visits come from, and how fast pages load. It sets no cookies, doesn't use your IP address to identify you or follow you across other websites, and gives us only totals, never data about you as a person. Cloudflare handles this data under the [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
 
 **Your theme preference.** If you switch between light and dark mode, your browser remembers the choice in its local storage. It stays on your device and is never sent to us.
 
@@ -33,7 +36,7 @@ The Site is not intended for children under 16, and we don't knowingly collect t
 
 ## Changes
 
-If we change how we handle information (for example by adding analytics), we will update this page and the date above.
+If we change how we handle information (for example by adding a new service), we will update this page and the date above.
 
 ## Contact
 

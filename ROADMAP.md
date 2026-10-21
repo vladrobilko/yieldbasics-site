@@ -2,33 +2,32 @@
 
 Planned work that isn't done yet, in priority order. Remove an item once its PR is merged. The [growth strategy](#growth-strategy) below explains why the work is in this order.
 
-1. [Launch quick wins](#launch-quick-wins): cursor fix, shorter hero, offer count, analytics, Search Console, X link, mobile pass.
-2. [Fix the Bybit fetch on GitHub runners](#fix-the-bybit-fetch-on-github-runners): Cloudflare Worker (owner approved).
-3. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
-4. [Logo and brand](#logo-and-brand)
-5. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
-6. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
-7. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
-8. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
-9. [Trust lines on the About page](#trust-lines-on-the-about-page)
-10. [Countries and platform pages](#countries-and-platform-pages)
-11. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
-12. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-13. [Top promo bar](#top-promo-bar)
-14. [Where to buy pages](#where-to-buy-pages)
-15. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-16. [Rate history](#rate-history)
-17. [Email newsletter](#email-newsletter)
-18. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-19. [Country pages](#country-pages)
-20. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-21. [Affiliate programs](#affiliate-programs)
-22. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-23. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-24. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-25. [Watch the daily schedule](#watch-the-daily-schedule)
-26. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-27. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+1. [Fix the Bybit fetch on GitHub runners](#fix-the-bybit-fetch-on-github-runners): Cloudflare Worker (owner approved).
+2. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
+3. [Logo and brand](#logo-and-brand)
+4. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
+5. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
+6. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
+7. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
+8. [Trust lines on the About page](#trust-lines-on-the-about-page)
+9. [Countries and platform pages](#countries-and-platform-pages)
+10. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
+11. [Growth chart on the calculator](#growth-chart-on-the-calculator)
+12. [Top promo bar](#top-promo-bar)
+13. [Where to buy pages](#where-to-buy-pages)
+14. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
+15. [Rate history](#rate-history)
+16. [Email newsletter](#email-newsletter)
+17. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+18. [Country pages](#country-pages)
+19. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+20. [Affiliate programs](#affiliate-programs)
+21. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+22. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+23. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+24. [Watch the daily schedule](#watch-the-daily-schedule)
+25. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
+26. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 ## Growth strategy
 
@@ -53,23 +52,7 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 | Month 6  | ~50k visits/month, 1k+ email subscribers                       |
 | Month 12 | ~250k visits/month; re-check the $1M math against real numbers |
 
-**Owner tasks outside the repo:** a separate brand Gmail (not a work account) that owns Search Console, analytics, the X developer app, ad networks and affiliate accounts; Google Search Console + Bing Webmaster Tools with the sitemap; the Cloudflare Web Analytics token; registering on new platforms.
-
-## Launch quick wins
-
-One PR, `feature/claude/launch-quick-wins`:
-
-- **Pointer cursor.** Tailwind v4 changed the default cursor of `<button>` to the arrow, so coin chips, term tabs, "···", the theme and menu buttons look unclickable. Add one base rule in `src/assets/styles/tailwind.css`: `button:not(:disabled), [role='button'], summary { cursor: pointer; }`.
-- **Shorter hero.** `heroIntro` in `src/pages/index.astro` should fit one line on desktop, e.g. "Daily savings and staking rates for 23 coins on 10 platforms." Keep the counts computed.
-- **Offer count** on the home page: "263 offers · 10 platforms · 23 coins", computed from `rates.json`.
-- **Cloudflare Web Analytics.** It sets no cookies and shows nothing to visitors. Add `analytics.vendors.cloudflare.token` to `src/config.yaml` (the token is public by design) and the beacon to `src/components/common/Analytics.astro`, only when the token is set. Test the config handling.
-- **Search Console** `googleSiteVerificationId` in `src/config.yaml`.
-- **X account:** `metadata.twitter.handle` (also fills `sameAs` in the home page structured data) and an X icon in `footerData.socialLinks` (`src/navigation.ts`).
-- **SEO metadata:** review every page's title and description, and a branded OG image (`src/assets/images/default.png`).
-- **Privacy page:** replace "no analytics" with a Cloudflare Web Analytics paragraph and update the date.
-- **Mobile pass** at 375px and 414px on every page; fix what breaks in the same PR.
-
-Needs from the owner: the Cloudflare analytics token, the Search Console ID and the X handle.
+**Owner tasks outside the repo:** a separate brand Gmail (not a work account) that owns Search Console, analytics, the X developer app, ad networks and affiliate accounts; Bing Webmaster Tools with the sitemap (Search Console and Cloudflare Web Analytics are set up); registering on new platforms.
 
 ## Daily posts on X
 

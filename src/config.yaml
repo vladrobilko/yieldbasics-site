@@ -11,7 +11,7 @@ metadata:
   title:
     default: YieldBasics
     template: '%s — YieldBasics'
-  description: 'Compare crypto earn rates (APR / APY) across 11 exchanges and DeFi platforms, updated daily.'
+  description: 'Compare crypto earn rates (APR / APY) across exchanges, DeFi and wallets, updated daily.'
   robots:
     index: true
     follow: true
@@ -67,6 +67,8 @@ analytics:
   vendors:
     googleAnalytics:
       id: null # or "G-XXXXXXXXXX"
+    cloudflare:
+      token: 'dd133a058b1449ebb085ded5391ec3c7' # Cloudflare Web Analytics (public, safe to commit)
 
 ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
