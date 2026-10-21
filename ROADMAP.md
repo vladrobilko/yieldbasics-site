@@ -2,31 +2,32 @@
 
 Planned work that isn't done yet, in priority order. Remove an item once its PR is merged. The [growth strategy](#growth-strategy) below explains why the work is in this order.
 
-1. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
-2. [Logo and brand](#logo-and-brand)
-3. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
-4. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
-5. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
-6. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
-7. [Trust lines on the About page](#trust-lines-on-the-about-page)
-8. [Countries and platform pages](#countries-and-platform-pages)
-9. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
-10. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-11. [Top promo bar](#top-promo-bar)
-12. [Where to buy pages](#where-to-buy-pages)
-13. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-14. [Rate history](#rate-history)
-15. [Email newsletter](#email-newsletter)
-16. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-17. [Country pages](#country-pages)
-18. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-19. [Affiliate programs](#affiliate-programs)
-20. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-21. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-22. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-23. [Watch the daily schedule](#watch-the-daily-schedule)
-24. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-25. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+1. [AI search visibility](#ai-search-visibility): ChatGPT, Claude, Perplexity and Google AI answers.
+2. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
+3. [Logo and brand](#logo-and-brand)
+4. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
+5. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
+6. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
+7. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
+8. [Trust lines on the About page](#trust-lines-on-the-about-page)
+9. [Countries and platform pages](#countries-and-platform-pages)
+10. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
+11. [Growth chart on the calculator](#growth-chart-on-the-calculator)
+12. [Top promo bar](#top-promo-bar)
+13. [Where to buy pages](#where-to-buy-pages)
+14. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
+15. [Rate history](#rate-history)
+16. [Email newsletter](#email-newsletter)
+17. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+18. [Country pages](#country-pages)
+19. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+20. [Affiliate programs](#affiliate-programs)
+21. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+22. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+23. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+24. [Watch the daily schedule](#watch-the-daily-schedule)
+25. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
+26. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 ## Growth strategy
 
@@ -51,7 +52,19 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 | Month 6  | ~50k visits/month, 1k+ email subscribers                       |
 | Month 12 | ~250k visits/month; re-check the $1M math against real numbers |
 
-**Owner tasks outside the repo:** a separate brand Gmail (not a work account) that owns Search Console, analytics, the X developer app, ad networks and affiliate accounts; Bing Webmaster Tools with the sitemap (Search Console and Cloudflare Web Analytics are set up); registering on new platforms.
+**Owner tasks outside the repo:** a separate brand Gmail (not a work account) that owns Search Console, analytics, the X developer app, ad networks and affiliate accounts (Search Console and Cloudflare Web Analytics are set up); registering on new platforms. Bing Webmaster Tools is part of [AI search visibility](#ai-search-visibility).
+
+## AI search visibility
+
+ChatGPT, Claude, Perplexity and Google AI answers search the web live and cite the pages they read. Nobody can pay to be included. What we can do is let their crawlers in, get indexed, and write pages that are easy to quote. A daily-updated, dated rate page is the kind of source they like to cite. This doesn't wait for Google: ChatGPT search relies mostly on Bing's index, and Claude and Perplexity run their own crawlers.
+
+1. **Cloudflare (owner, first):** check that AI Crawl Control / "Block AI bots" and Bot Fight Mode don't block the bots below. Cloudflare blocks AI crawlers by default on new zones, which would keep the site out of every AI answer.
+2. **robots.txt:** allow `OAI-SearchBot`, `ChatGPT-User`, `GPTBot`, `Claude-SearchBot`, `Claude-User`, `ClaudeBot`, `PerplexityBot`, `Perplexity-User`, `Google-Extended` and `Bingbot` by name, and add `Sitemap: https://yieldbasics.com/sitemap-index.xml`.
+3. **Bing:** the owner adds the site to Bing Webmaster Tools with the sitemap. The daily rates workflow sends an IndexNow ping for the changed pages after the rates PR is merged (the key file lives in `public/`).
+4. **Answer line** at the top of each `/rates/<coin>` page, built from `rates.json`, for example "Updated 2026-10-21: the best flexible USDT rate is X% on Y." Logic goes in `src/utils/assetPages.ts` with tests. The rate pages also get `dateModified` in the structured data (`src/components/common/StructuredData.astro`).
+5. **`/llms.txt` (optional):** generated at build time from data: what the site is, plus links to the rate pages, calculator and guides. Cheap, but no major AI company has said it uses this file.
+6. **Mentions:** AI answers cite Reddit and Quora a lot, so [Community answers](#community-answers) also helps here.
+7. **Measure (after 4–6 weeks):** track visits from chatgpt.com, perplexity.ai, claude.ai and copilot in Cloudflare Web Analytics. Once a month the owner asks the same 5 questions (for example "best USDT savings rate") in ChatGPT, Claude and Perplexity and notes whether YieldBasics is cited.
 
 ## Daily posts on X
 
