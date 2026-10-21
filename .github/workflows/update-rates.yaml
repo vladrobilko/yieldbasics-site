@@ -49,6 +49,9 @@ jobs:
         run: npm ci
 
       - name: Fetch rates
+        env:
+          # Bybit blocks GitHub's runners; this is our Cloudflare Worker (see AGENTS.md).
+          BYBIT_PROXY_URL: ${{ secrets.BYBIT_PROXY_URL }}
         run: npm run rates -- --summary "$RUNNER_TEMP/rates-summary.md"
 
       - name: Run tests

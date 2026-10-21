@@ -2,32 +2,31 @@
 
 Planned work that isn't done yet, in priority order. Remove an item once its PR is merged. The [growth strategy](#growth-strategy) below explains why the work is in this order.
 
-1. [Fix the Bybit fetch on GitHub runners](#fix-the-bybit-fetch-on-github-runners): Cloudflare Worker (owner approved).
-2. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
-3. [Logo and brand](#logo-and-brand)
-4. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
-5. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
-6. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
-7. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
-8. [Trust lines on the About page](#trust-lines-on-the-about-page)
-9. [Countries and platform pages](#countries-and-platform-pages)
-10. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
-11. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-12. [Top promo bar](#top-promo-bar)
-13. [Where to buy pages](#where-to-buy-pages)
-14. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-15. [Rate history](#rate-history)
-16. [Email newsletter](#email-newsletter)
-17. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-18. [Country pages](#country-pages)
-19. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-20. [Affiliate programs](#affiliate-programs)
-21. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-22. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-23. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-24. [Watch the daily schedule](#watch-the-daily-schedule)
-25. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-26. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+1. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
+2. [Logo and brand](#logo-and-brand)
+3. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
+4. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
+5. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
+6. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
+7. [Trust lines on the About page](#trust-lines-on-the-about-page)
+8. [Countries and platform pages](#countries-and-platform-pages)
+9. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
+10. [Growth chart on the calculator](#growth-chart-on-the-calculator)
+11. [Top promo bar](#top-promo-bar)
+12. [Where to buy pages](#where-to-buy-pages)
+13. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
+14. [Rate history](#rate-history)
+15. [Email newsletter](#email-newsletter)
+16. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+17. [Country pages](#country-pages)
+18. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+19. [Affiliate programs](#affiliate-programs)
+20. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+21. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+22. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+23. [Watch the daily schedule](#watch-the-daily-schedule)
+24. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
+25. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 ## Growth strategy
 
@@ -157,25 +156,6 @@ When the first ad network is added: GA4 (the existing `analytics.vendors.googleA
 ## Sponsored slots and newsletter sponsors
 
 A clearly labeled "Featured" slot sold to platforms, kept separate from the ranking, which stays by rate. Newsletter sponsors once the list has about 2k subscribers.
-
-## Fix the Bybit fetch on GitHub runners
-
-**Problem.** Since 2026-10-14, every Bybit API host returns HTTP 403 to GitHub's US runners. That includes `api.bybit.com`, `api.bytick.com` and `api.bybitglobal.com`; the last was tested in a runner job on 2026-10-16 with `open_pr=false`. The daily job keeps Bybit's previous offers, so they slowly go stale. After 3 days they show a "Checked <date>" hint. A run from a non-US machine works (`npm run rates`).
-
-**Workaround until it's fixed.** Run `npm run rates` locally from time to time and put the refreshed `src/data/rates.json` in a PR.
-
-**Plan.**
-
-1. Send Bybit requests from a non-US location. Preferred: a small Cloudflare Worker on the site owner's account.
-   - It only forwards `GET /v5/earn/product?category=…` to `api.bybit.com`; any other path gets 403.
-   - Its URL goes in a GitHub Actions secret, e.g. `BYBIT_PROXY_URL`. It is never committed.
-   - Check first that the Worker's outbound IP isn't blocked as well. Cloudflare usually egresses near the caller, which may also be the US. If it is blocked, use a proxy in a fixed non-US region instead (a small cloud function in an EU or Asia region).
-2. In `scripts/rates/sources/bybit.ts`, try the proxy last, after the direct hosts, when `process.env.BYBIT_PROXY_URL` is set. Reuse `fetchJsonWithFallback`. Local runs keep working without the variable.
-3. Pass the secret to the "Fetch rates" step in `.github/workflows/update-rates.yaml`.
-4. Verify: `gh workflow run update-rates.yaml --ref <branch> -f open_pr=false`, then check that the log shows `✓ bybit`.
-5. Add a unit test for the host order (proxy used only when the variable is set). Update AGENTS.md.
-
-**Decision (2026-10-18):** the owner approved a Cloudflare Worker on the site's Cloudflare account. The owner deploys it from the dashboard with an agent's guidance. If Bybit blocks it too, ask before setting up an EU cloud function.
 
 ## Beginner help on the rates table
 
