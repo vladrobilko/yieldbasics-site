@@ -6,7 +6,9 @@
 // be used as an open proxy. It holds no keys: the endpoint is public.
 //
 // Deploy: Cloudflare dashboard → Compute → Workers & Pages → the Worker →
-// Edit code → paste this whole file → Deploy. See AGENTS.md.
+// Edit code → paste this whole file → Deploy. Keep Settings → Runtime →
+// Placement on Region aws:me-central-1: by default the Worker runs next to the
+// caller, and from a US runner Bybit blocks it too. See AGENTS.md.
 
 const UPSTREAM = 'https://api.bybit.com';
 const PATH = '/v5/earn/product';
