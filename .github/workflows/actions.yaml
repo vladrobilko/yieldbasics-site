@@ -9,9 +9,6 @@ on:
     branches:
       - master
 
-  # Started by the daily rates job for its own PR (see update-rates.yaml).
-  workflow_dispatch:
-
 permissions:
   contents: read
 
