@@ -370,7 +370,7 @@ const plural = (count: number, word: string) => `${count} ${word}${count === 1 ?
 
 /**
  * Why the daily rates PR needs a person to look at it: big moves, removed
- * offers or failed sources. Empty on a quiet day, when it merges itself.
+ * offers or failed sources. Empty on a quiet day.
  */
 export const holdReasons = (previous: RatesFile | null, next: RatesFile): string[] => {
   const { bigMoves, removed, failed } = diffRates(previous, next);
@@ -392,8 +392,8 @@ export const summarizeChanges = (previous: RatesFile | null, next: RatesFile): s
   ];
   return [
     reasons.length
-      ? `**Needs review:** ${reasons.join(', ')}. Merge it by hand once checked.`
-      : '**Quiet day:** this PR merges itself once the checks pass.',
+      ? `**Needs review:** ${reasons.join(', ')}. Check them before merging.`
+      : '**Quiet day:** no big moves, removed offers or failed sources. Safe to merge.',
     '',
     ...section('Big moves', bigMoves, 'None.'),
     ...section('Rate changes', changes, 'No rate changes.'),

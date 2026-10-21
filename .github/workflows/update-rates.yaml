@@ -1,8 +1,7 @@
 name: Update rates
 
 # Once a day: fetch earn rates (npm run rates) and open or refresh one PR with
-# the new src/data/rates.json. On a quiet day it merges itself and deploys;
-# otherwise it waits for review, and merging it publishes the new rates.
+# the new src/data/rates.json for review. Merging it publishes the new rates.
 # Needs Settings → Actions → General → "Allow GitHub Actions to create and
 # approve pull requests". PRs opened with GITHUB_TOKEN don't trigger the CI
 # workflow, so this job runs the tests and the build itself.
@@ -23,7 +22,6 @@ on:
         default: true
 
 permissions:
-  actions: write # start CI and Deploy for the auto-merge
   contents: write
   pull-requests: write
 
@@ -80,35 +78,19 @@ jobs:
           title: Daily earn rates update (${{ steps.date.outputs.today }})
           body-path: ${{ runner.temp }}/rates-summary.md
 
-      # On a quiet day (no big moves, removed offers or failed sources) the PR
-      # merges itself; otherwise it waits for a person. GITHUB_TOKEN can't
-      # trigger workflows through events, so this starts the required CI checks
-      # and, after the merge, the deploy by hand.
-      - name: Merge on a quiet day
+      # GitHub emails the owner about the review request every day, and about
+      # the @mention when the update needs a closer look (big moves, removed
+      # offers or failed sources).
+      - name: Ask the owner to review
         if: steps.pr.outputs.pull-request-number != '' && steps.pr.outputs.pull-request-operation != 'closed'
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ steps.pr.outputs.pull-request-number }}
-          SHA: ${{ steps.pr.outputs.pull-request-head-sha }}
-          BRANCH: feature/bot/daily-rates-update
           OWNER: ${{ github.repository_owner }}
         run: |
+          gh pr edit "$PR" --add-reviewer "$OWNER" || true
           if [ -s "$RUNNER_TEMP/rates-hold.txt" ]; then
             reasons=$(paste -sd ',' "$RUNNER_TEMP/rates-hold.txt" | sed 's/,/, /g')
-            echo "Held for review: $reasons"
-            # The review request and the @mention make GitHub email the owner.
-            gh pr edit "$PR" --add-reviewer "$OWNER" || true
-            gh pr comment "$PR" --body "@$OWNER this rates update needs a look before it goes live: $reasons. Merge it once checked."
-            exit 0
+            echo "Needs review: $reasons"
+            gh pr comment "$PR" --body "@$OWNER this rates update needs a look before it goes live: $reasons."
           fi
-          gh workflow run actions.yaml --ref "$BRANCH"
-          run=''
-          for _ in $(seq 1 30); do
-            sleep 10
-            run=$(gh run list --workflow actions.yaml --event workflow_dispatch --commit "$SHA" --limit 1 --json databaseId --jq '.[0].databaseId // empty')
-            [ -n "$run" ] && break
-          done
-          [ -n "$run" ] || { echo "CI did not start"; exit 1; }
-          gh run watch "$run" --exit-status
-          gh pr merge "$PR" --squash --delete-branch
-          gh workflow run deploy.yaml --ref master

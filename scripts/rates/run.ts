@@ -6,8 +6,7 @@
  * A failed source keeps its previous offers (see mergeRates). A Markdown
  * summary of the changes is printed, and also written to the path given with
  * `--summary <file>` (used as the body of the daily PR). `--hold <file>` gets the
- * reasons the PR needs review (one per line, empty on a quiet day, when the
- * daily workflow merges it by itself).
+ * reasons the PR needs a closer look (one per line, empty on a quiet day).
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
