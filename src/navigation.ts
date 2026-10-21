@@ -1,9 +1,10 @@
+import { dealsLive } from './data/deals';
 import { getPermalink } from './utils/permalinks';
 
 export const headerData = {
   links: [
     { text: 'Rates', href: getPermalink('/'), icon: 'tabler:table' },
-    { text: 'Deals', href: getPermalink('/deals'), icon: 'tabler:flame' },
+    ...(dealsLive ? [{ text: 'Deals', href: getPermalink('/deals'), icon: 'tabler:flame' }] : []),
     { text: 'Guides', href: getPermalink('/guides'), icon: 'tabler:book' },
     { text: 'Calculator', href: getPermalink('/apr-to-apy-calculator'), icon: 'tabler:calculator' },
     { text: 'About', href: getPermalink('/about'), icon: 'tabler:info-circle' },
@@ -22,7 +23,7 @@ export const footerData = {
         { text: 'USDC rates', href: getPermalink('/rates/usdc') },
         { text: 'BTC rates', href: getPermalink('/rates/btc') },
         { text: 'ETH rates', href: getPermalink('/rates/eth') },
-        { text: 'Crypto deals', href: getPermalink('/deals') },
+        ...(dealsLive ? [{ text: 'Crypto deals', href: getPermalink('/deals') }] : []),
       ],
     },
     {

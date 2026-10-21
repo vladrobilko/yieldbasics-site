@@ -7,7 +7,6 @@ import { parseBybit } from './bybit';
 import { parseCoinw } from './coinw';
 import { parseGateFixed, parseGateFlexible } from './gate';
 import { kucoinNewUserProductIds, parseKucoin, parseKucoinCap } from './kucoin';
-import { parseMexc } from './mexc';
 import { parseOkx } from './okx';
 
 // Fixtures are trimmed real responses saved on 2026-10-14.
@@ -154,35 +153,6 @@ describe('parseKucoin', () => {
         maxAmount: 100,
       },
     ]);
-  });
-});
-
-describe('parseMexc', () => {
-  const offers = parseMexc(fixture('mexc.json'), ASSETS);
-
-  it('adds each band subsidy to the base APR', () => {
-    expect(offers.find((o) => o.asset === 'USDT' && o.rate === 6)?.tiers).toEqual([
-      { min: 0, max: 200, rate: 6 },
-      { min: 200, max: 500, rate: 2.5 },
-      { min: 500, max: null, rate: 0.3 },
-    ]);
-  });
-
-  it('keeps first-deposit (EFTD) offers as new-user offers for USDT/USDC only', () => {
-    // The fixture also has EFTD offers for BTC and MOVE.
-    expect(offers.filter((o) => o.audience)).toEqual([
-      {
-        platformId: 'mexc',
-        asset: 'USDT',
-        product: 'Fixed Savings',
-        termDays: 2,
-        rate: 600,
-        type: 'APR',
-        audience: 'new-user',
-        maxAmount: 200,
-      },
-    ]);
-    expect(offers.filter((o) => !o.audience).every((o) => o.termDays === 0 && o.rate <= 10)).toBe(true);
   });
 });
 

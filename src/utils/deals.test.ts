@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import { deals } from '~/data/deals';
-import { platforms } from '~/data/platforms';
+import { getPlatform, platforms } from '~/data/platforms';
 import {
   formatDealTime,
   xLength,
   hasEnded,
+  hasLiveDeals,
   isUpcoming,
   platformHighlights,
   timeLeftLabel,
@@ -16,8 +17,8 @@ import {
 } from '~/utils/deals';
 
 const deal = (overrides: Partial<Deal> = {}): Deal => ({
-  id: 'mexc-zec-launchpad',
-  platformId: 'mexc',
+  id: 'weex-zec-launchpad',
+  platformId: 'weex',
   kind: 'launchpad',
   title: 'ZEC Launchpad',
   asset: 'ZEC',
@@ -40,7 +41,10 @@ describe('deals file', () => {
 
   it('has X posts that fit in one post', () => {
     for (const d of deals) {
-      expect(xLength(xPostText(d, 'MEXC', 'https://yieldbasics.com')), d.id).toBeLessThanOrEqual(280);
+      expect(
+        xLength(xPostText(d, getPlatform(d.platformId).name, 'https://yieldbasics.com')),
+        d.id
+      ).toBeLessThanOrEqual(280);
     }
   });
 });
@@ -70,6 +74,20 @@ describe('visibleDeals', () => {
   });
 });
 
+describe('hasLiveDeals', () => {
+  it('is false with no deals or only ended ones', () => {
+    expect(hasLiveDeals([], at('2026-10-21T00:00:00Z'))).toBe(false);
+    expect(hasLiveDeals([deal()], at('2026-10-26T00:00:00Z'))).toBe(false);
+  });
+
+  it('is true while a deal is upcoming or running', () => {
+    expect(hasLiveDeals([deal()], at('2026-10-19T00:00:00Z'))).toBe(true);
+    expect(
+      hasLiveDeals([deal({ id: 'over', endsAt: '2026-10-21T00:00:00Z' }), deal()], at('2026-10-22T00:00:00Z'))
+    ).toBe(true);
+  });
+});
+
 describe('timeLeftLabel', () => {
   it('counts down to the start, then to the end', () => {
     expect(timeLeftLabel(deal(), at('2026-10-19T08:00:00Z'))).toBe('Starts in 1d 2h');
@@ -87,21 +105,21 @@ describe('formatDealTime', () => {
 
 describe('xPostText', () => {
   it('builds the post from the deal', () => {
-    expect(xPostText(deal(), 'MEXC', 'https://yieldbasics.com/')).toBe(
+    expect(xPostText(deal(), 'WEEX', 'https://yieldbasics.com/')).toBe(
       [
-        'MEXC Launchpad: ZEC, Up to 70% off for new users',
+        'WEEX Launchpad: ZEC, Up to 70% off for new users',
         '• KYC required',
         '• Trade $100 in the first 7 days',
         '• Max 200 USDT per user',
         'Ends Oct 25, 2026, 10:00 UTC',
-        'https://yieldbasics.com/deals#mexc-zec-launchpad',
+        'https://yieldbasics.com/deals#weex-zec-launchpad',
         'Referral link. Not financial advice.',
       ].join('\n')
     );
   });
 
   it('uses the custom text when given', () => {
-    expect(xPostText(deal({ xPost: 'Custom' }), 'MEXC', 'https://yieldbasics.com')).toBe('Custom');
+    expect(xPostText(deal({ xPost: 'Custom' }), 'WEEX', 'https://yieldbasics.com')).toBe('Custom');
   });
 
   it('adds the stats and drops conditions that would not fit in one post', () => {
@@ -109,7 +127,7 @@ describe('xPostText', () => {
       stats: [{ label: 'Your price', value: '367.8 USDT' }],
       conditions: Array.from({ length: 12 }, (_, i) => `Condition number ${i + 1} with some extra words`),
     });
-    const text = xPostText(long, 'MEXC', 'https://yieldbasics.com');
+    const text = xPostText(long, 'WEEX', 'https://yieldbasics.com');
     expect(text).toContain('Your price: 367.8 USDT');
     expect(text).toContain('• Condition number 1 ');
     expect(text).not.toContain('Condition number 12');
@@ -160,17 +178,17 @@ describe('platformHighlights', () => {
 
   it('picks the best new-user and the best everyday offer of the platform', () => {
     const rows = [
-      row('a', 'mexc', 'all', 6),
-      row('b', 'mexc', 'all', 10),
-      row('c', 'mexc', 'new-user', 600),
-      row('d', 'mexc', 'new-user', 100),
+      row('a', 'weex', 'all', 6),
+      row('b', 'weex', 'all', 10),
+      row('c', 'weex', 'new-user', 600),
+      row('d', 'weex', 'new-user', 100),
       row('e', 'okx', 'all', 50),
     ];
-    expect(platformHighlights(rows, 'mexc').map((r) => r.id)).toEqual(['c', 'b']);
+    expect(platformHighlights(rows, 'weex').map((r) => r.id)).toEqual(['c', 'b']);
   });
 
   it('skips a group the platform has no offer in', () => {
-    expect(platformHighlights([row('a', 'mexc', 'all', 6)], 'mexc').map((r) => r.id)).toEqual(['a']);
-    expect(platformHighlights([row('a', 'okx', 'all', 6)], 'mexc')).toEqual([]);
+    expect(platformHighlights([row('a', 'weex', 'all', 6)], 'weex').map((r) => r.id)).toEqual(['a']);
+    expect(platformHighlights([row('a', 'okx', 'all', 6)], 'weex')).toEqual([]);
   });
 });

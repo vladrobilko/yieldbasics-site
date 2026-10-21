@@ -47,6 +47,9 @@ export const isUpcoming = (deal: Pick<Deal, 'startsAt'>, now: Date): boolean => 
 export const visibleDeals = <T extends Pick<Deal, 'endsAt'>>(deals: T[], now: Date): T[] =>
   deals.filter((deal) => !hasEnded(deal, now)).sort((a, b) => time(a.endsAt) - time(b.endsAt));
 
+/** True when at least one deal hasn't ended; the Deals link and indexing depend on it. */
+export const hasLiveDeals = (deals: Pick<Deal, 'endsAt'>[], now: Date): boolean => visibleDeals(deals, now).length > 0;
+
 const span = (ms: number): string => {
   const minutes = Math.max(1, Math.floor(ms / 60_000));
   const days = Math.floor(minutes / 1440);
