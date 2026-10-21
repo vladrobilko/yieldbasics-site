@@ -15,6 +15,7 @@ import type { AstroIntegration } from 'astro';
 
 import astrowind from './vendor/integration';
 import { ratesUpdatedAt, tokenBrandedLogoNames } from './src/data/yields';
+import { dealsLive, dealsUpdatedAt } from './src/data/deals';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
@@ -58,12 +59,18 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      // The 404 page is not content.
-      filter: (page) => !page.endsWith('/404') && !page.endsWith('/404.html'),
+      // The 404 page is not content, and /deals is left out while no deal is live.
+      filter: (page) =>
+        !page.endsWith('/404') &&
+        !page.endsWith('/404.html') &&
+        (dealsLive || !(page.endsWith('/deals') || page.endsWith('/deals.html'))),
       // The home page and the /rates/<coin> pages change with every daily rates update.
       serialize: (item) => {
         const path = new URL(item.url).pathname;
-        return path === '/' || path.startsWith('/rates/') ? { ...item, lastmod: ratesUpdatedAt } : item;
+        if (path === '/' || path.startsWith('/rates/')) return { ...item, lastmod: ratesUpdatedAt };
+        // /deals changes when a deal is added or re-checked.
+        if (path === '/deals' && dealsUpdatedAt) return { ...item, lastmod: dealsUpdatedAt };
+        return item;
       },
     }),
     mdx(),

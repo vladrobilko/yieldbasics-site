@@ -23,6 +23,8 @@ metadata:
         height: 630
     type: website
   twitter:
+    handle: '@Yield_Basics'
+    site: '@Yield_Basics'
     cardType: summary_large_image
 
 i18n:

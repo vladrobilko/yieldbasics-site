@@ -60,16 +60,6 @@
     "markClass": "bg-[#01BC8D] text-white"
   },
   {
-    "id": "mexc",
-    "name": "MEXC",
-    "kind": "cex",
-    "website": "https://www.mexc.com/",
-    "referralUrl": "https://s.mexc.com/referral/pmUXXJxVcq",
-    "logo": "platform-mexc",
-    "mark": "MX",
-    "markClass": "bg-[#1972F5] text-white"
-  },
-  {
     "id": "telegram-wallet",
     "name": "Walt",
     "kind": "wallet",

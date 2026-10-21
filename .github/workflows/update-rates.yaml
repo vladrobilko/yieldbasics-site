@@ -46,7 +46,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # MEXC is read through the runner's preinstalled Google Chrome (playwright-core, channel "chrome").
       - name: Fetch rates
         run: npm run rates -- --summary "$RUNNER_TEMP/rates-summary.md"
 

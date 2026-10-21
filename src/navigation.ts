@@ -1,8 +1,10 @@
+import { dealsLive } from './data/deals';
 import { getPermalink } from './utils/permalinks';
 
 export const headerData = {
   links: [
     { text: 'Rates', href: getPermalink('/'), icon: 'tabler:table' },
+    ...(dealsLive ? [{ text: 'Deals', href: getPermalink('/deals'), icon: 'tabler:flame' }] : []),
     { text: 'Guides', href: getPermalink('/guides'), icon: 'tabler:book' },
     { text: 'Calculator', href: getPermalink('/apr-to-apy-calculator'), icon: 'tabler:calculator' },
     { text: 'About', href: getPermalink('/about'), icon: 'tabler:info-circle' },
@@ -21,6 +23,7 @@ export const footerData = {
         { text: 'USDC rates', href: getPermalink('/rates/usdc') },
         { text: 'BTC rates', href: getPermalink('/rates/btc') },
         { text: 'ETH rates', href: getPermalink('/rates/eth') },
+        ...(dealsLive ? [{ text: 'Crypto deals', href: getPermalink('/deals') }] : []),
       ],
     },
     {
@@ -44,7 +47,7 @@ export const footerData = {
     { text: 'Terms', href: getPermalink('/terms') },
     { text: 'Privacy Policy', href: getPermalink('/privacy') },
   ],
-  socialLinks: [],
+  socialLinks: [{ ariaLabel: 'YieldBasics on X', icon: 'tabler:brand-x', href: 'https://x.com/Yield_Basics' }],
   footNote: `
     © ${new Date().getFullYear()} YieldBasics · Educational content, not financial advice. Some links are referral links: we may earn a commission, which never changes the ranking.
   `,

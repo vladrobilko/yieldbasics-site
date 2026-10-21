@@ -103,6 +103,7 @@ The X API is pay-per-use: about $0.015 per post without a link and about $0.20 w
 3. Secrets: `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET`. The owner creates the app on developer.x.com with the brand account. The keys are never committed.
 4. Tests: at most 280 characters, no link, numbers match the input, and no post when nothing changed. `DRY_RUN=1` prints the text instead of posting; use it for the first run on a branch.
 5. Later: a weekly "biggest moves" post, and a post for each new guide (from `rss.xml`).
+6. New deals: the same workflow posts each new entry in `src/data/deals.json` once its PR is merged, using the text from `npm run deals:post <id>` (today the owner pastes it by hand).
 
 ## Logo and brand
 
@@ -112,7 +113,8 @@ Before the X account grows, use one logo mark everywhere: header (`src/assets/im
 
 WEEX and Walt show rates only to signed-in users, so they stay manual. Never automate a signed-in session.
 
-- The owner saves screenshots of the earn screens to a local folder outside the repo, every 2–3 days (manual rates are dropped 30 days after `verifiedAt`).
+- The owner saves screenshots of the earn screens to a local folder outside the repo (one folder per date, a subfolder per platform), every 2–3 days. Manual rates are dropped 30 days after `verifiedAt`; the last check was 2026-10-21, so the next deadline is 2026-11-20.
+- Re-date only what the screenshots show. Fixed-term rates and tiers need their own screenshots; skip coins that aren't in `src/data/yields.ts`.
 - An agent reads them, updates `src/data/manual-rates.json` (rates and `verifiedAt`) and opens a PR.
 - Write this down as a skill in `.agents/skills/manual-rates/` so any agent follows the same steps.
 
@@ -179,7 +181,7 @@ Once Search Console has 3–4 weeks of data: fix indexing errors, Core Web Vital
 
 ## Affiliate programs
 
-When traffic reaches about 10k visits a month and the X account is active, apply to the exchanges' affiliate programs (Binance, OKX, Bybit, KuCoin, MEXC and others) and to hardware-wallet affiliates (Ledger, Trezor), and swap the links in `platforms.json`. Check that each program accepts the owner's country first.
+When traffic reaches about 10k visits a month and the X account is active, apply to the exchanges' affiliate programs (Binance, OKX, Bybit, KuCoin and others) and to hardware-wallet affiliates (Ledger, Trezor), and swap the links in `platforms.json`. Check that each program accepts the owner's country first.
 
 ## Traditional yields
 
@@ -244,7 +246,7 @@ New posts in `src/data/post/`, in the same style as the existing ones: no rate s
 
 ## Watch the daily schedule
 
-The daily rates workflow moved to `17 5 * * *` on 2026-10-16, because runs scheduled on the hour started about 4 hours late. Check the start times of the next few runs (`gh run list --workflow update-rates.yaml`). If they still slip a lot, try another minute or hour.
+The daily rates workflow moved to `17 5 * * *` on 2026-10-16, because runs scheduled on the hour started about 4 hours late. It still starts late: the runs from 2026-10-17 to 2026-10-21 began between 09:19 and 10:43 UTC (`gh run list --workflow update-rates.yaml`). GitHub delays scheduled runs when its queue is busy. Options: accept the delay, or schedule earlier (e.g. `17 1 * * *`) so the rates PR is ready by morning. **Decision needed from the owner.**
 
 ## Add more platforms
 
@@ -253,7 +255,7 @@ The daily rates workflow moved to `17 5 * * *` on 2026-10-16, because runs sched
 **For each platform, once its referral link arrives:**
 
 1. Add it to `src/data/platforms.json` (name, kind, website, `referralUrl`, logo).
-2. Find a rates source: an official public API first, then a public web JSON endpoint, then `scripts/rates/browser.ts` (as for MEXC). If none works, use `src/data/manual-rates.json`.
+2. Find a rates source: an official public API first, then a public web JSON endpoint, then a headless browser (MEXC used one through `playwright-core`; both were removed with MEXC on 2026-10-21, so restore them from git history if needed). If none works, use `src/data/manual-rates.json`.
 3. Add a parser in `scripts/rates/sources/<id>.ts` with a trimmed real response in `fixtures/` and tests. One PR per platform.
 
 ### To-do: register
@@ -278,7 +280,7 @@ Wallets.
 
 - [ ] **Tangem**: Yield Mode supplies USDT/USDC to Aave. Its referral program only pays per hardware wallet sold (5 USDT), so it is a weak fit.
 
-**Not suitable for the owner:** LBank, Toobit and Bitget (owner can't register). YouHodler and Nexo look unlikely; check before spending time on them.
+**Not suitable for the owner:** LBank, Toobit and Bitget (owner can't register). MEXC was removed on 2026-10-21 after it left Russia and Belarus. YouHodler and Nexo look unlikely; check before spending time on them.
 
 ## Russian version of the site (later)
 

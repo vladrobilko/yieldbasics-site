@@ -30,14 +30,14 @@ const row = (overrides: Partial<RateRow>): RateRow => ({
   ...overrides,
 });
 
-const names: Record<string, string> = { bybit: 'Bybit', okx: 'OKX', mexc: 'MEXC', kucoin: 'KuCoin' };
+const names: Record<string, string> = { bybit: 'Bybit', okx: 'OKX', weex: 'WEEX', kucoin: 'KuCoin' };
 const platformName = (id: string) => names[id] ?? id;
 
 const rows = [
   row({ platformId: 'bybit', rate: 6.93 }),
   row({ platformId: 'okx', rate: 3.5 }),
   row({ platformId: 'kucoin', rate: 4.1, termDays: 365, term: '365-day' }),
-  row({ platformId: 'mexc', rate: 600, termDays: 2, term: '2-day', audience: 'new-user', maxReward: 6.58 }),
+  row({ platformId: 'weex', rate: 600, termDays: 2, term: '2-day', audience: 'new-user', maxReward: 6.58 }),
   row({ platformId: 'kucoin', rate: 100, termDays: 7, term: '7-day', audience: 'new-user', maxReward: 1.92 }),
 ];
 
@@ -59,7 +59,7 @@ describe('summarizeAsset', () => {
   it('picks the best flexible, fixed and new-user (by reward) offers', () => {
     expect(summary.bestFlexible?.platformId).toBe('bybit');
     expect(summary.bestFixed?.platformId).toBe('kucoin');
-    expect(summary.bestNewUser?.platformId).toBe('mexc');
+    expect(summary.bestNewUser?.platformId).toBe('weex');
   });
 
   it('handles a coin without fixed or new-user offers', () => {
@@ -95,7 +95,7 @@ describe('page text', () => {
     ]);
     expect(faq[0].description).toContain('the best flexible USDT rate is 6.93% APR on Bybit');
     expect(faq[0].description).toContain('4.10% APR on KuCoin for 365-day');
-    expect(faq[2].description).toContain('600.00% APR on MEXC, worth about $6.58 in total');
+    expect(faq[2].description).toContain('600.00% APR on WEEX, worth about $6.58 in total');
   });
 
   it('skips the new-user question when there are none', () => {
