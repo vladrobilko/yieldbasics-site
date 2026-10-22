@@ -14,6 +14,7 @@
     "preview": "astro preview",
     "rates": "tsx scripts/rates/run.ts",
     "deals:post": "tsx scripts/deal-post.ts",
+    "indexnow": "tsx scripts/indexnow.ts",
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",

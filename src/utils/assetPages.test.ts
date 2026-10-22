@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  assetAnswerLine,
   assetFaq,
+  assetPageSchema,
   assetsWithOffers,
   assetPageDescription,
   assetPageTitle,
@@ -96,6 +98,45 @@ describe('page text', () => {
     expect(faq[0].description).toContain('the best flexible USDT rate is 6.93% APR on Bybit');
     expect(faq[0].description).toContain('4.10% APR on KuCoin for 365-day');
     expect(faq[2].description).toContain('600.00% APR on WEEX, worth about $6.58 in total');
+  });
+
+  it('writes a dated answer line with the best flexible and fixed rates', () => {
+    expect(assetAnswerLine('USDT', summary, platformName, 'Oct 14, 2026')).toBe(
+      'Updated Oct 14, 2026: the best flexible USDT rate is 6.93% APR on Bybit, and the best fixed-term rate is 4.10% APR on KuCoin for 365-day.'
+    );
+  });
+
+  it('writes the answer line with only the products the coin has', () => {
+    const flexibleOnly = summarizeAsset([row({ asset: 'BTC', rate: 1.2 })]);
+    expect(assetAnswerLine('BTC', flexibleOnly, platformName, 'Oct 14, 2026')).toBe(
+      'Updated Oct 14, 2026: the best flexible BTC rate is 1.20% APR on Bybit.'
+    );
+  });
+
+  it('has no answer line when there are only new-user offers', () => {
+    const newUserOnly = summarizeAsset([row({ audience: 'new-user', maxReward: 1 })]);
+    expect(assetAnswerLine('USDT', newUserOnly, platformName, 'Oct 14, 2026')).toBeUndefined();
+  });
+
+  it('builds WebPage structured data with the rates date as dateModified', () => {
+    expect(
+      assetPageSchema({
+        title: 'USDT Earn Rates Today',
+        description: 'Compare USDT offers.',
+        url: 'https://yieldbasics.com/rates/usdt',
+        dateModified: '2026-10-22T01:30:00.000Z',
+        siteName: 'YieldBasics',
+        siteUrl: 'https://yieldbasics.com',
+      })
+    ).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'USDT Earn Rates Today',
+      description: 'Compare USDT offers.',
+      url: 'https://yieldbasics.com/rates/usdt',
+      dateModified: '2026-10-22T01:30:00.000Z',
+      isPartOf: { '@type': 'WebSite', name: 'YieldBasics', url: 'https://yieldbasics.com' },
+    });
   });
 
   it('skips the new-user question when there are none', () => {

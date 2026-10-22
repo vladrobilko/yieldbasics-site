@@ -58,13 +58,12 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 
 ChatGPT, Claude, Perplexity and Google AI answers search the web live and cite the pages they read. Nobody can pay to be included. What we can do is let their crawlers in, get indexed, and write pages that are easy to quote. A daily-updated, dated rate page is the kind of source they like to cite. This doesn't wait for Google: ChatGPT search relies mostly on Bing's index, and Claude and Perplexity run their own crawlers.
 
-1. **Cloudflare (owner, first):** check that AI Crawl Control / "Block AI bots" and Bot Fight Mode don't block the bots below. Cloudflare blocks AI crawlers by default on new zones, which would keep the site out of every AI answer.
-2. **robots.txt:** allow `OAI-SearchBot`, `ChatGPT-User`, `GPTBot`, `Claude-SearchBot`, `Claude-User`, `ClaudeBot`, `PerplexityBot`, `Perplexity-User`, `Google-Extended` and `Bingbot` by name. The build already adds the `Sitemap:` line.
-3. **Bing:** the owner adds the site to Bing Webmaster Tools with the sitemap. The daily rates workflow sends an IndexNow ping for the changed pages after the rates PR is merged (the key file lives in `public/`).
-4. **Answer line** at the top of each `/rates/<coin>` page, built from `rates.json`, for example "Updated 2026-10-21: the best flexible USDT rate is X% on Y." Logic goes in `src/utils/assetPages.ts` with tests. The rate pages also get `dateModified` in the structured data (`src/components/common/StructuredData.astro`).
-5. **`/llms.txt` (optional):** generated at build time from data: what the site is, plus links to the rate pages, calculator and guides. Cheap, but no major AI company has said it uses this file.
-6. **Mentions:** AI answers cite Reddit and Quora a lot, so [Community answers](#community-answers) also helps here.
-7. **Measure (after 4–6 weeks):** track visits from chatgpt.com, perplexity.ai, claude.ai and copilot in Cloudflare Web Analytics. Once a month the owner asks the same 5 questions (for example "best USDT savings rate") in ChatGPT, Claude and Perplexity and notes whether YieldBasics is cited.
+Done (2026-10-22): Cloudflare only serves DNS (grey cloud), so its bot blocking does not apply; robots.txt names the AI crawlers; coin pages have an answer line and `dateModified`; the deploy workflow sends an IndexNow ping when the rates change. If the Cloudflare proxy (orange cloud) is ever turned on, check AI Crawl Control and Bot Fight Mode first.
+
+1. **Bing (owner):** add the site to Bing Webmaster Tools and submit `https://yieldbasics.com/sitemap-index.xml`.
+2. **`/llms.txt` (optional):** generated at build time from data: what the site is, plus links to the rate pages, calculator and guides. Cheap, but no major AI company has said it uses this file.
+3. **Mentions:** AI answers cite Reddit and Quora a lot, so [Community answers](#community-answers) also helps here.
+4. **Measure (after 4–6 weeks):** track visits from chatgpt.com, perplexity.ai, claude.ai and copilot in Cloudflare Web Analytics. Once a month the owner asks the same 5 questions (for example "best USDT savings rate") in ChatGPT, Claude and Perplexity and notes whether YieldBasics is cited.
 
 ## Daily posts on X
 
