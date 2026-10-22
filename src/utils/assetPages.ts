@@ -54,6 +54,43 @@ export const assetPageDescription = (
   return full.length <= 160 ? full : lead;
 };
 
+const bestRatesText = (symbol: string, summary: AssetSummary, platformName: (id: string) => string) => {
+  const { bestFlexible, bestFixed } = summary;
+  const parts = [
+    bestFlexible && `the best flexible ${symbol} rate is ${offerText(bestFlexible, platformName)}`,
+    bestFixed && `the best fixed-term rate is ${offerText(bestFixed, platformName)} for ${bestFixed.term}`,
+  ].filter(Boolean);
+  return parts.length > 0 ? parts.join(', and ') : undefined;
+};
+
+/** One quotable sentence for the top of the page: "Updated Oct 22, 2026: the best flexible USDT rate is …". */
+export const assetAnswerLine = (
+  symbol: string,
+  summary: AssetSummary,
+  platformName: (id: string) => string,
+  updated: string
+): string | undefined => {
+  const bestRates = bestRatesText(symbol, summary, platformName);
+  return bestRates ? `Updated ${updated}: ${bestRates}.` : undefined;
+};
+
+export const assetPageSchema = (page: {
+  title: string;
+  description: string;
+  url: string;
+  dateModified: string;
+  siteName: string;
+  siteUrl: string;
+}) => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: page.title,
+  description: page.description,
+  url: page.url,
+  dateModified: page.dateModified,
+  isPartOf: { '@type': 'WebSite', name: page.siteName, url: page.siteUrl },
+});
+
 export interface FaqItem {
   title: string;
   description: string;
@@ -67,15 +104,12 @@ export const assetFaq = (
   updated: string
 ): FaqItem[] => {
   const items: FaqItem[] = [];
-  const { bestFlexible, bestFixed, bestNewUser } = summary;
-  if (bestFlexible || bestFixed) {
-    const parts = [
-      bestFlexible && `the best flexible ${symbol} rate is ${offerText(bestFlexible, platformName)}`,
-      bestFixed && `the best fixed-term rate is ${offerText(bestFixed, platformName)} for ${bestFixed.term}`,
-    ].filter(Boolean);
+  const { bestNewUser } = summary;
+  const bestRates = bestRatesText(symbol, summary, platformName);
+  if (bestRates) {
     items.push({
       title: `What is the best ${symbol} earn rate today?`,
-      description: `As of ${updated}, ${parts.join(', and ')}. Boosted rates often apply only to a limited amount, so check the conditions column before depositing.`,
+      description: `As of ${updated}, ${bestRates}. Boosted rates often apply only to a limited amount, so check the conditions column before depositing.`,
     });
   }
   items.push({

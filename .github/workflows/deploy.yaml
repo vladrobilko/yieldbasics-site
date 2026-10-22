@@ -58,3 +58,41 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+  indexnow:
+    name: Notify search engines
+    needs: deploy
+    runs-on: ubuntu-latest
+    # A failed ping must not mark the deploy as failed.
+    continue-on-error: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check whether the rates changed
+        id: changed
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT" != push ] || git diff --name-only "$BEFORE" HEAD | grep -qx 'src/data/rates.json'; then
+            echo "ping=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node.js
+        if: steps.changed.outputs.ping == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.changed.outputs.ping == 'true'
+        run: npm ci
+
+      - name: Send IndexNow ping
+        if: steps.changed.outputs.ping == 'true'
+        run: npm run indexnow

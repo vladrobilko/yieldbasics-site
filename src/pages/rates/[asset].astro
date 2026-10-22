@@ -6,10 +6,14 @@ import FAQs from '~/components/widgets/FAQs.astro';
 import RateTableRow from '~/components/ui/RateTableRow.astro';
 import { getPlatform } from '~/data/platforms';
 import { assets, rateRows, ratesUpdatedAt, type Asset } from '~/data/yields';
+import { SITE } from 'astrowind:config';
+import StructuredData from '~/components/common/StructuredData.astro';
 import {
+  assetAnswerLine,
   assetFaq,
   assetsWithOffers,
   assetPageDescription,
+  assetPageSchema,
   assetPageTitle,
   assetSlug,
   summarizeAsset,
@@ -53,6 +57,16 @@ const metadata = {
   description: assetPageDescription(asset.symbol, asset.name, summary, platformName),
 };
 
+const answerLine = assetAnswerLine(asset.symbol, summary, platformName, updated);
+const pagePath = getPermalink(`/rates/${assetSlug(asset.symbol)}`);
+const pageSchema = assetPageSchema({
+  ...metadata,
+  url: new URL(pagePath, SITE.site).href,
+  dateModified: ratesUpdatedAt,
+  siteName: SITE.name,
+  siteUrl: SITE.site ?? '',
+});
+
 const highlights = [
   { label: 'Best flexible', row: summary.bestFlexible },
   { label: 'Best fixed term', row: summary.bestFixed },
@@ -73,6 +87,7 @@ const sections = [
 ---
 
 <Layout metadata={metadata}>
+  <StructuredData slot="head" schema={pageSchema} />
   <Breadcrumbs
     bar
     items={[
@@ -94,11 +109,20 @@ const sections = [
         <h1 class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
           Best {asset.symbol} earn rates today
         </h1>
+        {
+          answerLine ? (
+            <p class="mt-3 flex max-w-3xl items-start gap-2 text-base font-semibold text-slate-800 dark:text-slate-200">
+              <Icon name="tabler:clock-check" class="mt-1 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              {answerLine}
+            </p>
+          ) : (
+            <p class="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400">
+              <Icon name="tabler:clock-check" class="h-4 w-4" /> Updated {updated}
+            </p>
+          )
+        }
         <p class="mt-2 max-w-3xl text-base text-slate-600 dark:text-slate-400">
           {intro}
-        </p>
-        <p class="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400">
-          <Icon name="tabler:clock-check" class="h-4 w-4" /> Updated {updated}
         </p>
       </div>
     </header>
