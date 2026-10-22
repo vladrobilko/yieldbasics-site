@@ -10,16 +10,17 @@ It is a fully static site built on the open-source **AstroWind** template (Astro
 
 ## Workflow Rules (mandatory for every agent)
 
-1. **Pull requests only.** Never commit or push directly to `master` (the default branch). Every change goes on its own branch and is merged through a pull request (`gh pr create`).
+1. **Pull requests only.** Never commit or push directly to `master` (the default branch). Every change goes on its own branch and is merged through a pull request (`gh pr create`). The agent that opened the PR merges it once rule 5 is met. The daily rates PR (`feature/bot/daily-rates-update`) is merged only by the owner.
 2. **Branch naming:** `<bugfix|feature>/<agent>/<kebab-case-summary>`, where `<agent>` is who implements it (`claude`, `codex`, `human`, …).
    - `feature/claude/change-design-for-home-page`
    - `bugfix/claude/fix-mobile-menu-overlap`
 3. **Logic is covered by tests.** Any logic (utils, data transforms, calculators, config handling) gets Vitest unit tests in the same PR, next to the code as `*.test.ts`. Pure markup/copy changes don't need tests.
 4. **Run everything locally before pushing:** `npm test`, `npm run check`, `npm run build` must all pass. The `.githooks/pre-push` hook runs them automatically; never bypass it with `--no-verify`.
-5. **The user sees the UI before every push.** Start `npm run dev` (or `npm run build && npm run preview`), give the user the local URL and the list of pages affected, and push only after the user explicitly approves.
+5. **The user sees the UI before every merge.** Start `npm run dev` (or `npm run build && npm run preview`), give the user the local URL and the list of pages affected, and wait for explicit approval. For changes with no visible effect (docs, config, CI), show the diff instead. After approval, push, open the PR, wait for CI to pass, and merge it yourself with `gh pr merge <number> --squash --delete-branch`. The user next sees the change on the live site.
 6. **The repo is public — no sensitive data.** Never commit `.env*` files (only a value-free `.env.example`), API keys, tokens, passwords, private keys or seed phrases, wallet/account details, personal information, or local machine paths. Secrets go in GitHub Actions secrets. Review `git diff --staged` before every commit.
 7. Keep commits focused with a short imperative message.
 8. **Never force-push** (`--force`, `--force-with-lease`, `+refspec`), and never rewrite history that is already pushed (no rebase, amend or squash of pushed commits). To bring a branch up to date with `master`, merge `master` into it (`git merge origin/master`) and push normally. The only exception is the bot branch `feature/bot/daily-rates-update`, which its workflow recreates.
+9. **Comments only when needed.** Code should explain itself through clear names and small functions. Add a comment only for a non-obvious reason (a workaround, an external limit, surprising behaviour), in one or two lines. When you change code, update or delete the comments next to it: AI models trust comments over code, so a wrong comment is worse than none. Never add comments that restate the code, log changes or narrate ("now we…"). Don't mass-remove existing comments.
 
 ## Contact Form
 
@@ -174,5 +175,5 @@ After changes, always verify:
 1. `npm test` passes (Vitest)
 2. `npm run build` succeeds
 3. `npm run check` passes (astro check + ESLint + Prettier)
-4. The user has reviewed the UI locally: homepage (rates table), guides, about, contact, dark mode, mobile menu, plus every page you changed
+4. Before merging, the user has reviewed the UI locally: homepage (rates table), guides, about, contact, dark mode, mobile menu, plus every page you changed
 5. Structured data describes the site it is on: the `WebSite` / `Organization` block in `src/pages/index.astro` is built only from `config.yaml`; anything you add there must be true for your site
