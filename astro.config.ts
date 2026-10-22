@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -16,10 +17,22 @@ import type { AstroIntegration } from 'astro';
 import astrowind from './vendor/integration';
 import { ratesUpdatedAt, tokenBrandedLogoNames } from './src/data/yields';
 import { dealsLive, dealsUpdatedAt } from './src/data/deals';
+import { guideLastmods } from './src/utils/guideDates';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const postDir = path.join(__dirname, 'src/data/post');
+const guideDates = guideLastmods(
+  fs
+    .readdirSync(postDir)
+    .filter((file) => /\.mdx?$/.test(file))
+    .map((file) => ({
+      slug: file.replace(/\.mdx?$/, ''),
+      source: fs.readFileSync(path.join(postDir, file), 'utf8'),
+    }))
+);
 
 const hasExternalScripts = false;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
@@ -70,7 +83,8 @@ export default defineConfig({
         if (path === '/' || path.startsWith('/rates/')) return { ...item, lastmod: ratesUpdatedAt };
         // /deals changes when a deal is added or re-checked.
         if (path === '/deals' && dealsUpdatedAt) return { ...item, lastmod: dealsUpdatedAt };
-        return item;
+        const guideDate = guideDates.get(path);
+        return guideDate ? { ...item, lastmod: guideDate } : item;
       },
     }),
     mdx(),
