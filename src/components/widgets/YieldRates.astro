@@ -38,6 +38,7 @@ const platformCount = (rows: { platformId: string }[]) => new Set(rows.map((row)
 const allRows = sortByRate(rateRows).map((row) => ({ ...row, platform: getPlatform(row.platformId) }));
 const moreAssets = [...stablecoinAssets, ...coinAssets];
 const moreGroups = [
+  { id: 'main', title: 'Popular', items: mainAssets },
   { id: 'stablecoin', title: 'Stablecoins', items: stablecoinAssets },
   { id: 'coin', title: 'Other coins', items: coinAssets },
 ];
@@ -54,50 +55,55 @@ const termOptions: { id: TermFilter; label: string }[] = [
     /*
       astro-icon defines each icon once (<symbol>) and reuses it with <use>.
       Several coin logos use gradients, which browsers don't paint when that
-      first definition sits inside hidden content (the hidden extra chips or
+      first definition sits inside hidden content (such as
       the closed popover). Define every logo here first: off-screen, but rendered.
     */
   }
   <div class="sr-only" aria-hidden="true">
     {allLogoNames.map((name) => <Icon name={name} />)}
   </div>
-  <section class="mt-10" aria-labelledby="asset-heading">
+  <section class="mt-5" aria-labelledby="asset-heading">
     <div class="flex items-center justify-between gap-4">
       <div>
-        <h2 id="asset-heading" class="text-sm font-bold text-slate-900 dark:text-white">Choose a coin</h2>
+        <h2 id="asset-heading" class="text-lg font-bold text-slate-900 dark:text-white">Choose a coin</h2>
         <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Ranked by rate, highest first</p>
       </div>
     </div>
 
-    <div class="w-full overflow-x-auto py-4 [scrollbar-width:none]">
-      <div class="flex min-w-max items-center gap-3">
+    {
+      /*
+        One row of equal cards as wide as the table: cards that don't fit wrap
+        onto a second line, which the fixed-height box clips. "···" opens the
+        full list, so hidden coins stay reachable.
+      */
+    }
+    <div class="flex items-center gap-2.5 py-4">
+      <div
+        data-asset-row
+        class="-mx-2 -my-3 flex h-[116px] min-w-0 flex-1 flex-wrap gap-x-2.5 gap-y-2 overflow-hidden px-2 py-3 sm:h-[78px] sm:gap-y-10"
+      >
         {
-          mainAssets.map((asset) => (
+          [...mainAssets, ...moreAssets].map((asset) => (
             <AssetChip
               asset={asset}
               pressed={asset.symbol === defaultAsset.symbol}
               data-asset-button
               data-symbol={asset.symbol}
+              class="h-[46px] min-w-[90px] flex-[1_1_90px] justify-center sm:h-[54px] sm:min-w-[136px] sm:flex-[1_1_136px]"
             />
           ))
         }
-        {
-          /* One pre-rendered chip per popover asset; the picked one is shown as the 6th chip. */
-          moreAssets.map((asset) => (
-            <AssetChip asset={asset} data-asset-button data-extra data-symbol={asset.symbol} hidden />
-          ))
-        }
-        <button
-          type="button"
-          popovertarget="more-assets"
-          data-more-button
-          class="flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-500 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
-          aria-label="More coins"
-          title="More coins"
-        >
-          <span aria-hidden="true" class="text-lg leading-8 tracking-[0.16em]">···</span>
-        </button>
       </div>
+      <button
+        type="button"
+        popovertarget="more-assets"
+        data-more-button
+        class="flex h-[46px] w-12 shrink-0 sm:h-[54px] sm:w-14 items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-500 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:focus-visible:ring-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
+        aria-label="More coins"
+        title="More coins"
+      >
+        <span aria-hidden="true" class="text-lg leading-8 tracking-[0.16em]">···</span>
+      </button>
     </div>
 
     <div
@@ -168,7 +174,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
         <div
           role="group"
           aria-label="Term"
-          class="inline-flex rounded-lg border border-slate-200 bg-white p-0.5 shadow-sm dark:border-slate-700 dark:bg-slate-900"
+          class="grid grid-cols-4 rounded-lg border border-slate-200 bg-white p-0.5 dark:border-slate-700 dark:bg-slate-900"
         >
           {
             termOptions.map((option) => (
@@ -177,7 +183,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
                 data-term-button
                 data-term={option.id}
                 aria-pressed={option.id === 'all' ? 'true' : 'false'}
-                class="rounded-md px-3 py-1.5 text-sm font-semibold text-slate-500 transition hover:text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 aria-pressed:bg-slate-900 aria-pressed:text-white dark:text-slate-400 dark:hover:text-slate-100 dark:aria-pressed:bg-white dark:aria-pressed:text-slate-900"
+                class="min-w-[5.5rem] whitespace-nowrap rounded-md px-3 py-1.5 text-center text-sm font-semibold text-slate-500 transition hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:focus-visible:ring-slate-600 aria-pressed:bg-slate-900 aria-pressed:text-white dark:text-slate-400 dark:hover:text-slate-100 dark:aria-pressed:bg-white dark:aria-pressed:text-slate-900"
               >
                 {option.label}
               </button>
@@ -187,7 +193,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
         <button
           type="button"
           data-sort-button
-          class="inline-flex w-fit items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+          class="inline-flex w-40 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:focus-visible:ring-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
           aria-label="Toggle rate sort order"
         >
           <Icon name="tabler:arrows-sort" class="h-4 w-4" />
@@ -200,7 +206,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
       class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.04)] dark:border-slate-800 dark:bg-slate-900"
     >
       <div class="overflow-x-auto">
-        <table class="block w-full border-collapse text-left lg:table lg:min-w-[860px]">
+        <table class="block w-full border-collapse text-left lg:table lg:min-w-[960px] lg:table-fixed">
           <caption class="sr-only">
             Crypto earn rates for <span data-asset-label>{defaultAsset.symbol}</span>, sorted by yield
           </caption>
@@ -213,7 +219,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
               <th scope="col" class="px-4 py-4">Product</th>
               <th scope="col" class="px-4 py-4">Term</th>
               <th scope="col" class="px-4 py-4">Conditions</th>
-              <th scope="col" class="px-5 py-4 text-right">Action</th>
+              <th scope="col" class="px-5 py-4">Action</th>
             </tr>
           </thead>
           <tbody class="block divide-y divide-slate-100 lg:table-row-group dark:divide-slate-800">
@@ -265,9 +271,10 @@ const termOptions: { id: TermFilter; label: string }[] = [
         <Icon name="tabler:info-circle" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-400" />
         <p>
           Rates are collected once a day from each platform's public data and can change at any time. They may vary by
-          region, account tier and platform terms, and boosted rates usually apply to a limited amount. Offers in the
-          "New users" tab are only for new accounts or first deposits, and their reward is an estimate for the maximum
-          amount. Always review the offer details before depositing. Not financial advice.
+          region, account tier and platform terms, and boosted rates usually apply to a limited amount.
+          <br />
+          Offers in the "New users" tab are only for new accounts or first deposits, and their reward is an estimate for the
+          maximum amount. Always review the offer details before depositing. Not financial advice.
         </p>
       </div>
       <div
@@ -389,9 +396,22 @@ const termOptions: { id: TermFilter; label: string }[] = [
       });
 
       this.setupMoreAssets(select);
+
+      const assetRow = this.querySelector<HTMLElement>('[data-asset-row]');
+      if (assetRow) {
+        markClipped(assetRow);
+        this.rowObserver = new ResizeObserver(() => markClipped(assetRow));
+        this.rowObserver.observe(assetRow);
+      }
     }
 
-    /** "···" popover: search, pick an asset, show it as the extra chip after the main row. */
+    private rowObserver?: ResizeObserver;
+
+    disconnectedCallback() {
+      this.rowObserver?.disconnect();
+    }
+
+    /** "···" popover: search, pick an asset, and make sure its card is visible in the row. */
     private setupMoreAssets(select: (symbol: string) => void) {
       const popover = this.querySelector<HTMLElement>('#more-assets');
       const trigger = this.querySelector<HTMLButtonElement>('[data-more-button]');
@@ -400,7 +420,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
 
       const picks = Array.from(popover.querySelectorAll<HTMLButtonElement>('[data-asset-pick]'));
       const items = picks.map((el) => ({ el, symbol: el.dataset.symbol ?? '', name: el.dataset.name ?? '' }));
-      const extras = Array.from(this.querySelectorAll<HTMLButtonElement>('[data-extra]'));
+      const row = this.querySelector<HTMLElement>('[data-asset-row]');
       const groups = Array.from(popover.querySelectorAll<HTMLElement>('[data-asset-group]'));
       const none = popover.querySelector<HTMLElement>('[data-asset-none]');
 
@@ -466,13 +486,39 @@ const termOptions: { id: TermFilter; label: string }[] = [
       picks.forEach((pick) =>
         pick.addEventListener('click', () => {
           const symbol = pick.dataset.symbol ?? '';
-          extras.forEach((chip) => (chip.hidden = chip.dataset.symbol !== symbol));
           select(symbol);
           popover.hidePopover();
-          extras.find((chip) => !chip.hidden)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          if (row) showInRow(row, symbol);
         })
       );
     }
+  }
+
+  /**
+   * Cards past the visible lines (one on wider screens, two on phones) are clipped.
+   * If the picked coin's card is hidden, move it into the last visible slot (the
+   * card there wraps out of view).
+   */
+  function showInRow(row: HTMLElement, symbol: string) {
+    const chips = Array.from(row.querySelectorAll<HTMLElement>('[data-asset-button]'));
+    const isVisible = visibleIn(row);
+    const chip = chips.find((el) => el.dataset.symbol === symbol);
+    if (!chip || isVisible(chip)) return;
+    const lastVisible = chips.filter(isVisible).at(-1);
+    if (lastVisible) row.insertBefore(chip, lastVisible);
+    markClipped(row);
+  }
+
+  /** True when a card sits inside the row's visible box (1 px slack for rounding). */
+  function visibleIn(row: HTMLElement) {
+    const bottom = row.getBoundingClientRect().bottom + 1;
+    return (el: HTMLElement) => el.getBoundingClientRect().bottom <= bottom;
+  }
+
+  /** Clipped cards are made inert, so Tab and screen readers skip them; "···" still lists every coin. */
+  function markClipped(row: HTMLElement) {
+    const isVisible = visibleIn(row);
+    row.querySelectorAll<HTMLElement>('[data-asset-button]').forEach((el) => (el.inert = !isVisible(el)));
   }
 
   if (!customElements.get('yb-yield-rates')) {

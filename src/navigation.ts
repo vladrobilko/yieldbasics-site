@@ -3,12 +3,12 @@ import { getPermalink } from './utils/permalinks';
 
 export const headerData = {
   links: [
-    { text: 'Rates', href: getPermalink('/'), icon: 'tabler:table' },
-    ...(dealsLive ? [{ text: 'Deals', href: getPermalink('/deals'), icon: 'tabler:flame' }] : []),
-    { text: 'Guides', href: getPermalink('/guides'), icon: 'tabler:book' },
-    { text: 'Calculator', href: getPermalink('/apr-to-apy-calculator'), icon: 'tabler:calculator' },
-    { text: 'About', href: getPermalink('/about'), icon: 'tabler:info-circle' },
-    { text: 'Contact', href: getPermalink('/contact'), icon: 'tabler:mail' },
+    { text: 'Rates', href: getPermalink('/'), section: '/rates' },
+    ...(dealsLive ? [{ text: 'Deals', href: getPermalink('/deals') }] : []),
+    { text: 'Guides', href: getPermalink('/guides') },
+    { text: 'Calculator', href: getPermalink('/apr-to-apy-calculator') },
+    { text: 'About', href: getPermalink('/about') },
+    { text: 'Contact', href: getPermalink('/contact') },
   ],
   actions: [],
 };
@@ -49,6 +49,6 @@ export const footerData = {
   ],
   socialLinks: [{ ariaLabel: 'YieldBasics on X', icon: 'tabler:brand-x', href: 'https://x.com/Yield_Basics' }],
   footNote: `
-    © ${new Date().getFullYear()} YieldBasics · Educational content, not financial advice. Some links are referral links: we may earn a commission, which never changes the ranking.
+    Educational content, not financial advice. Some links are referral links: we may earn a commission, which never changes the ranking.
   `,
 };

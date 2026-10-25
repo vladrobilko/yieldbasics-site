@@ -47,6 +47,10 @@ describe('number helpers', () => {
     expect(formatAmount(300000)).toBe('300K');
     expect(formatAmount(2_000_000)).toBe('2M');
     expect(formatAmount(0.5)).toBe('0.5');
+    expect(formatAmount(0.003)).toBe('0.003');
+    expect(formatAmount(0.005)).toBe('0.005');
+    expect(formatAmount(0.0125)).toBe('0.0125');
+    expect(formatAmount(0.12345)).toBe('0.123');
   });
 
   it('labels terms', () => {

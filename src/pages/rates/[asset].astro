@@ -181,7 +181,7 @@ const sections = [
           </p>
           <div class="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
             <div class="overflow-x-auto">
-              <table class="block w-full border-collapse text-left lg:table lg:min-w-[820px]">
+              <table class="block w-full border-collapse text-left lg:table lg:min-w-[960px] lg:table-fixed">
                 <thead class="hidden border-b border-slate-200 bg-slate-50/80 lg:table-header-group dark:border-slate-800 dark:bg-slate-800/50">
                   <tr class="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
                     <th scope="col" class="px-5 py-4">
@@ -199,7 +199,7 @@ const sections = [
                     <th scope="col" class="px-4 py-4">
                       Conditions
                     </th>
-                    <th scope="col" class="px-5 py-4 text-right">
+                    <th scope="col" class="px-5 py-4">
                       Action
                     </th>
                   </tr>
@@ -223,7 +223,13 @@ const sections = [
     </p>
   </div>
 
-  <FAQs id="faq" title={`${asset.symbol} earn rates: common questions`} items={faq} schema />
+  <FAQs
+    id="faq"
+    title={`${asset.symbol} earn rates: common questions`}
+    subtitle={`Plain answers about earning on ${asset.symbol}: rates, terms and risks.`}
+    items={faq}
+    schema
+  />
 
   <section class="mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 lg:px-8" aria-labelledby="other-coins">
     <h2 id="other-coins" class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">
