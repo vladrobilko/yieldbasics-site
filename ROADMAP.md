@@ -4,30 +4,29 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 
 1. [AI search visibility](#ai-search-visibility): ChatGPT, Claude, Perplexity and Google AI answers.
 2. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
-3. [Logo and brand](#logo-and-brand): OG image and X avatar.
-4. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
-5. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
-6. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
-7. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
-8. [Trust lines on the About page](#trust-lines-on-the-about-page)
-9. [Countries and platform pages](#countries-and-platform-pages)
-10. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
-11. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-12. [Top promo bar](#top-promo-bar)
-13. [Where to buy pages](#where-to-buy-pages)
-14. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-15. [Rate history](#rate-history)
-16. [Email newsletter](#email-newsletter)
-17. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-18. [Country pages](#country-pages)
-19. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-20. [Affiliate programs](#affiliate-programs)
-21. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-22. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-23. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-24. [Watch the daily schedule](#watch-the-daily-schedule)
-25. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-26. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+3. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
+4. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
+5. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
+6. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
+7. [Trust lines on the About page](#trust-lines-on-the-about-page)
+8. [Countries and platform pages](#countries-and-platform-pages)
+9. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
+10. [Growth chart on the calculator](#growth-chart-on-the-calculator)
+11. [Top promo bar](#top-promo-bar)
+12. [Where to buy pages](#where-to-buy-pages)
+13. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
+14. [Rate history](#rate-history)
+15. [Email newsletter](#email-newsletter)
+16. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+17. [Country pages](#country-pages)
+18. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+19. [Affiliate programs](#affiliate-programs)
+20. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+21. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+22. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+23. [Watch the daily schedule](#watch-the-daily-schedule)
+24. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
+25. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 ## Growth strategy
 
@@ -75,10 +74,6 @@ The X API is pay-per-use: about $0.015 per post without a link and about $0.20 w
 4. Tests: at most 280 characters, no link, numbers match the input, and no post when nothing changed. `DRY_RUN=1` prints the text instead of posting; use it for the first run on a branch.
 5. Later: a weekly "biggest moves" post, and a post for each new guide (from `rss.xml`).
 6. New deals: the same workflow posts each new entry in `src/data/deals.json` once its PR is merged, using the text from `npm run deals:post <id>` (today the owner pastes it by hand).
-
-## Logo and brand
-
-The new "Y" logo from the Figma design is in the header, footer and favicons (`src/components/Logo.astro`, `src/assets/images/logo.svg`, done 2026-10-25). Left: make the default OG image (`src/assets/images/default.png`) and the X avatar from the same mark, in brand green `#16a36a`.
 
 ## Manual rates routine
 
