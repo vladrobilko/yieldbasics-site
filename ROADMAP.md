@@ -51,7 +51,7 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 | Month 6  | ~50k visits/month, 1k+ email subscribers                       |
 | Month 12 | ~250k visits/month; re-check the $1M math against real numbers |
 
-**Owner tasks outside the repo:** a separate brand Gmail (not a work account) that owns Search Console, analytics, the X developer app, ad networks and affiliate accounts (Search Console and Cloudflare Web Analytics are set up); registering on new platforms. Bing Webmaster Tools is part of [AI search visibility](#ai-search-visibility).
+**Owner tasks outside the repo:** a separate brand Gmail (not a work account) that owns Search Console, analytics, the X developer app, ad networks and affiliate accounts (Search Console, Bing Webmaster Tools and Cloudflare Web Analytics are set up); registering on new platforms.
 
 ## AI search visibility
 
@@ -59,10 +59,10 @@ ChatGPT, Claude, Perplexity and Google AI answers search the web live and cite t
 
 Done (2026-10-22): Cloudflare only serves DNS (grey cloud), so its bot blocking does not apply; robots.txt names the AI crawlers; coin pages have an answer line and `dateModified`; the deploy workflow sends an IndexNow ping when the rates change. If the Cloudflare proxy (orange cloud) is ever turned on, check AI Crawl Control and Bot Fight Mode first.
 
-1. **Bing (owner):** add the site to Bing Webmaster Tools and submit `https://yieldbasics.com/sitemap-index.xml`.
-2. **`/llms.txt` (optional):** generated at build time from data: what the site is, plus links to the rate pages, calculator and guides. Cheap, but no major AI company has said it uses this file.
-3. **Mentions:** AI answers cite Reddit and Quora a lot, so [Community answers](#community-answers) also helps here.
-4. **Measure (after 4–6 weeks):** track visits from chatgpt.com, perplexity.ai, claude.ai and copilot in Cloudflare Web Analytics. Once a month the owner asks the same 5 questions (for example "best USDT savings rate") in ChatGPT, Claude and Perplexity and notes whether YieldBasics is cited.
+Done (2026-10-25): the site is in Bing Webmaster Tools (imported from Search Console); `/llms.txt` is generated at build time from data (`src/pages/llms.txt.ts`): what the site is, every coin page with its best rates, the calculator and the guides.
+
+1. **Mentions:** AI answers cite Reddit and Quora a lot, so [Community answers](#community-answers) also helps here.
+2. **Measure (from early December 2026):** track visits from chatgpt.com, perplexity.ai, claude.ai and copilot in Cloudflare Web Analytics. Once a month the owner asks the same 5 questions (for example "best USDT savings rate") in ChatGPT, Claude and Perplexity and notes whether YieldBasics is cited.
 
 ## Daily posts on X
 

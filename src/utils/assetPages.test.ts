@@ -96,13 +96,13 @@ describe('page text', () => {
       'What is the difference between APR and APY?',
     ]);
     expect(faq[0].description).toContain('the best flexible USDT rate is 6.93% APR on Bybit');
-    expect(faq[0].description).toContain('4.10% APR on KuCoin for 365-day');
+    expect(faq[0].description).toContain('4.10% APR on KuCoin for 365 days');
     expect(faq[2].description).toContain('600.00% APR on WEEX, worth about $6.58 in total');
   });
 
   it('writes a dated answer line with the best flexible and fixed rates', () => {
     expect(assetAnswerLine('USDT', summary, platformName, 'Oct 14, 2026')).toBe(
-      'Updated Oct 14, 2026: the best flexible USDT rate is 6.93% APR on Bybit, and the best fixed-term rate is 4.10% APR on KuCoin for 365-day.'
+      'Updated Oct 14, 2026: the best flexible USDT rate is 6.93% APR on Bybit, and the best fixed-term rate is 4.10% APR on KuCoin for 365 days.'
     );
   });
 

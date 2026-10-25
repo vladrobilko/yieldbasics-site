@@ -54,11 +54,13 @@ export const assetPageDescription = (
   return full.length <= 160 ? full : lead;
 };
 
-const bestRatesText = (symbol: string, summary: AssetSummary, platformName: (id: string) => string) => {
+/** "the best flexible USDT rate is 10.00% APR on WEEX, and the best fixed-term rate is …", or undefined. */
+export const bestRatesText = (symbol: string, summary: AssetSummary, platformName: (id: string) => string) => {
   const { bestFlexible, bestFixed } = summary;
   const parts = [
     bestFlexible && `the best flexible ${symbol} rate is ${offerText(bestFlexible, platformName)}`,
-    bestFixed && `the best fixed-term rate is ${offerText(bestFixed, platformName)} for ${bestFixed.term}`,
+    bestFixed &&
+      `the best fixed-term rate is ${offerText(bestFixed, platformName)} for ${bestFixed.termDays} ${bestFixed.termDays === 1 ? 'day' : 'days'}`,
   ].filter(Boolean);
   return parts.length > 0 ? parts.join(', and ') : undefined;
 };
