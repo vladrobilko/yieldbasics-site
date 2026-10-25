@@ -242,6 +242,12 @@ const persistKey = `header-${Array.from(
       toggle?.addEventListener('click', () => {
         const expanded = toggle.classList.toggle('expanded');
         toggle.setAttribute('aria-expanded', String(expanded));
+        // The open menu is fixed to the screen; start it under the header pill,
+        // which sits lower while the ad bar above it is visible.
+        const pill = header?.querySelector<HTMLElement>(':scope > div');
+        if (expanded && pill) {
+          header?.style.setProperty('--aw-menu-top', `${Math.round(pill.getBoundingClientRect().bottom) + 10}px`);
+        }
         document.body.classList.toggle('overflow-hidden');
         header?.classList.toggle('h-screen');
         header?.classList.toggle('expanded');
