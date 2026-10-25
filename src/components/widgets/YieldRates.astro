@@ -72,15 +72,15 @@ const termOptions: { id: TermFilter; label: string }[] = [
 
     {
       /*
-        One row of equal cards as wide as the table: cards that don't fit wrap
-        onto a second line, which the fixed-height box clips. "···" opens the
-        full list, so hidden coins stay reachable.
+        A grid of equal cards as wide as the table (two lines on phones, one on
+        wider screens); the fixed-height box clips the rest. "···" holds the last
+        visible cell and opens the full list, so hidden coins stay reachable.
       */
     }
-    <div class="flex items-center gap-2.5 py-4">
+    <div class="py-4">
       <div
         data-asset-row
-        class="-mx-2 -my-3 flex h-[116px] min-w-0 flex-1 flex-wrap gap-x-2.5 gap-y-2 overflow-hidden px-2 py-3 sm:h-[78px] sm:gap-y-10"
+        class="-mx-2 -my-3 grid h-[116px] auto-rows-[46px] grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-x-2.5 gap-y-2 overflow-hidden px-2 py-3 sm:h-[78px] sm:auto-rows-[54px] sm:grid-cols-[repeat(auto-fill,minmax(136px,1fr))_56px] sm:gap-y-10"
       >
         {
           [...mainAssets, ...moreAssets].map((asset) => (
@@ -89,21 +89,21 @@ const termOptions: { id: TermFilter; label: string }[] = [
               pressed={asset.symbol === defaultAsset.symbol}
               data-asset-button
               data-symbol={asset.symbol}
-              class="h-[46px] min-w-[90px] flex-[1_1_90px] justify-center sm:h-[54px] sm:min-w-[136px] sm:flex-[1_1_136px]"
+              class="min-w-0 justify-center"
             />
           ))
         }
+        <button
+          type="button"
+          popovertarget="more-assets"
+          data-more-button
+          class="col-[-2/-1] row-start-2 flex items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-500 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 sm:row-start-1 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800 dark:focus-visible:ring-slate-600"
+          aria-label="More coins"
+          title="More coins"
+        >
+          <span aria-hidden="true" class="text-lg leading-8 tracking-[0.16em]">···</span>
+        </button>
       </div>
-      <button
-        type="button"
-        popovertarget="more-assets"
-        data-more-button
-        class="flex h-[46px] w-12 shrink-0 sm:h-[54px] sm:w-14 items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-500 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:focus-visible:ring-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
-        aria-label="More coins"
-        title="More coins"
-      >
-        <span aria-hidden="true" class="text-lg leading-8 tracking-[0.16em]">···</span>
-      </button>
     </div>
 
     <div
