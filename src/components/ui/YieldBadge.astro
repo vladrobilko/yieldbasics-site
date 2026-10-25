@@ -10,9 +10,11 @@ export interface Props {
   /** Text under a promotional badge. */
   promoLabel?: string;
   size?: 'sm' | 'md' | 'lg';
+  /** Text only, without the coloured box (rates table). */
+  plain?: boolean;
 }
 
-const { rate, type = 'APR', isPromotional = false, promoLabel = 'Promo', size = 'md' } = Astro.props;
+const { rate, type = 'APR', isPromotional = false, promoLabel = 'Promo', size = 'md', plain = false } = Astro.props;
 
 const sizeClasses = {
   sm: 'text-sm py-0.5 px-2',
@@ -25,10 +27,12 @@ const sizeClasses = {
   <div
     class:list={[
       'inline-flex items-center rounded-lg font-bold transition-all',
-      isPromotional
-        ? 'border border-amber-200 bg-amber-50 text-amber-700 shadow-sm dark:border-amber-800/60 dark:bg-amber-950/40 dark:text-amber-300'
-        : 'border border-emerald-100 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300',
-      sizeClasses[size],
+      isPromotional ? 'text-amber-700 dark:text-amber-300' : 'text-emerald-700 dark:text-emerald-300',
+      !plain &&
+        (isPromotional
+          ? 'border border-amber-200 bg-amber-50 shadow-sm dark:border-amber-800/60 dark:bg-amber-950/40'
+          : 'border border-emerald-100 bg-emerald-50 dark:border-emerald-900/60 dark:bg-emerald-950/40'),
+      plain ? 'text-lg' : sizeClasses[size],
     ]}
   >
     <span class="tabular-nums">{formatRate(rate)}</span>

@@ -1,10 +1,18 @@
 ---
-import logo from '~/assets/images/logo.svg';
+// Logo from the Figma design: the "Y" stroke follows the text colour, so it
+// turns white in dark mode; the three bars stay brand green.
 ---
 
-<span class="flex items-center gap-2 self-center">
-  <img src={logo.src} width="32" height="32" alt="" aria-hidden="true" class="h-8 w-8" />
-  <span class="text-xl font-bold tracking-tight text-slate-900 whitespace-nowrap dark:text-white">
-    Yield<span class="text-emerald-600 dark:text-emerald-400">Basics</span>
+<span class="flex items-center gap-1.5 self-center">
+  <svg viewBox="0 0 26.25 24.21" width="26" height="24" aria-hidden="true" class="h-6 w-[26px] shrink-0">
+    <path
+      d="M1.47 4.41h5.94l5.6 5.55 6.2-4.45v5.18l-5.07 3.9-.11 8.6H9.67l-.05-9.33-8.15-9.11Z"
+      class="fill-[#191919] dark:fill-white"></path>
+    <path
+      d="M24.95 1.19v5.43l-4.13 2.89V4.19ZM24.95 9.05v8.37l-4.13 2.72v-8.15ZM19.29 13.29v7.81l-3.56 2.1v-7.25Z"
+      fill="#16A36A"></path>
+  </svg>
+  <span class="text-xl font-bold tracking-tight whitespace-nowrap text-[#191919] dark:text-white">
+    Yield<span class="text-brand">Basics</span>
   </span>
 </span>

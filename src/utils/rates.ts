@@ -94,12 +94,16 @@ export const parsePercent = (value: string): number => roundRate(Number(value.re
 
 export const termLabel = (termDays: number): string => (termDays === 0 ? 'Flexible' : `${termDays}-day`);
 
-/** Compact amount for condition text: 500 → "500", 1500 → "1.5K", 300000 → "300K", 2000000 → "2M". */
+/**
+ * Compact amount for condition text: 500 → "500", 1500 → "1.5K", 300000 → "300K", 2000000 → "2M".
+ * Amounts under 1 (BTC tiers) keep three significant digits: 0.003 → "0.003", not "0".
+ */
 export const formatAmount = (amount: number): string => {
   const compact = (value: number, suffix: string) => `${roundRate(value)}${suffix}`;
   if (amount >= 1e9) return compact(amount / 1e9, 'B');
   if (amount >= 1e6) return compact(amount / 1e6, 'M');
   if (amount >= 1e3) return compact(amount / 1e3, 'K');
+  if (amount > 0 && amount < 1) return String(Number(amount.toPrecision(3)));
   return String(roundRate(amount));
 };
 

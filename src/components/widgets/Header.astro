@@ -7,6 +7,7 @@ import Button from '~/components/ui/Button.astro';
 
 import { getHomePermalink } from '~/utils/permalinks';
 import { trimSlash, getAsset } from '~/utils/permalinks';
+import { isActiveLink } from '~/utils/navigation';
 import type { CallToAction } from '~/types';
 
 interface Link {
@@ -16,6 +17,8 @@ interface Link {
   icon?: string;
   /** Small pill after the text, e.g. "soon". */
   badge?: string;
+  /** Extra path whose pages also mark this link as current ("/rates" for the home page's Rates link). */
+  section?: string;
 }
 
 interface MenuLink extends Link {
@@ -28,7 +31,6 @@ export interface Props {
   actions?: Array<CallToAction>;
   isSticky?: boolean;
   isDark?: boolean;
-  isFullWidth?: boolean;
   showToggleTheme?: boolean;
   showRssFeed?: boolean;
   position?: string;
@@ -40,7 +42,6 @@ const {
   actions = [],
   isSticky = false,
   isDark = false,
-  isFullWidth = false,
   showToggleTheme = false,
   showRssFeed = false,
   position = 'center',
@@ -48,10 +49,10 @@ const {
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 
-// Compare paths without trailing slashes so the active link is detected
-// regardless of the `trailingSlash` setting (`getPermalink()` emits `/contact/`
-// when it is enabled, while `currentPath` above never has one, see #557).
-const isActive = (href?: string) => typeof href === 'string' && `/${trimSlash(href)}` === currentPath;
+// isActiveLink compares paths without trailing slashes, so the active link is
+// detected regardless of the `trailingSlash` setting (see #557).
+const isActive = (href?: string, section?: string) =>
+  typeof href === 'string' && isActiveLink(href, currentPath, section);
 
 // The header is kept across view transitions (transition:persist) so its state
 // survives client-side navigations. Astro matches persisted elements by name,
@@ -59,7 +60,7 @@ const isActive = (href?: string) => typeof href === 'string' && `/${trimSlash(hr
 // with its own menu (the demo homes, the landing pages) would keep showing the
 // header of the page the visitor came from. Hash the props that shape the markup.
 const persistKey = `header-${Array.from(
-  JSON.stringify({ links, actions, isSticky, isDark, isFullWidth, showToggleTheme, showRssFeed, position })
+  JSON.stringify({ links, actions, isSticky, isDark, showToggleTheme, showRssFeed, position })
 )
   .reduce((hash, char) => (hash * 31 + char.charCodeAt(0)) >>> 0, 7)
   .toString(36)}`;
@@ -69,23 +70,19 @@ const persistKey = `header-${Array.from(
   <header
     class:list={[
       { sticky: isSticky, relative: !isSticky, dark: isDark },
-      'top-0 z-40 flex-none mx-auto w-full border-b border-slate-200 bg-white shadow-sm transition-[opacity] ease-in-out dark:border-slate-800 dark:bg-slate-950',
+      'top-0 z-40 flex-none mx-auto w-full max-w-7xl px-4 pt-3 sm:px-6 lg:px-8 lg:pt-6 transition-[opacity] ease-in-out',
     ]}
     {...isSticky ? { 'data-aw-sticky-header': true } : {}}
     {...id ? { id } : {}}
   >
-    <div class="absolute inset-0"></div>
     <div
       class:list={[
-        'relative text-default py-3 px-4 sm:px-6 lg:px-8 mx-auto w-full',
+        'relative text-default py-2 px-5 mx-auto w-full rounded-[30px] border border-slate-200 bg-white shadow-none dark:border-slate-800 dark:bg-slate-950',
         {
           'lg:flex lg:justify-between': position !== 'center',
         },
         {
           'lg:grid lg:grid-cols-3 lg:items-center': position === 'center',
-        },
-        {
-          'max-w-7xl': !isFullWidth,
         },
       ]}
     >
@@ -102,10 +99,10 @@ const persistKey = `header-${Array.from(
         aria-label="Main navigation"
       >
         <ul
-          class="flex flex-col lg:flex-row lg:self-center w-full lg:w-auto text-xl lg:text-sm font-medium lg:justify-center lg:gap-1"
+          class="flex flex-col lg:flex-row lg:self-center w-full lg:w-auto text-xl lg:text-base font-semibold lg:justify-center lg:gap-6 xl:gap-10"
         >
           {
-            links.map(({ text, href, icon, badge, links }) => (
+            links.map(({ text, href, badge, section, links }) => (
               <li class={links?.length ? 'dropdown' : ''}>
                 {links?.length ? (
                   <>
@@ -138,12 +135,12 @@ const persistKey = `header-${Array.from(
                 ) : (
                   <a
                     class:list={[
-                      'flex items-center gap-2 whitespace-nowrap rounded-md px-4 py-3 lg:py-2 text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white',
-                      { 'aw-link-active': isActive(href) },
+                      'flex items-center justify-center lg:justify-start gap-2 whitespace-nowrap rounded-md px-4 py-3 lg:px-2 lg:py-2 tracking-[-0.025em] text-[#3f454e] transition-colors hover:text-emerald-700 dark:text-slate-300 dark:hover:text-emerald-400',
+                      { 'aw-link-active': isActive(href, section) },
                     ]}
                     href={href}
+                    data-section={section}
                   >
-                    {icon && <Icon name={icon} class="h-5 w-5 lg:h-4 lg:w-4" />}
                     {text}
                     {badge && (
                       <span class="rounded-full bg-emerald-100 px-1.5 py-px text-[10px] font-bold uppercase tracking-wide text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
@@ -209,6 +206,8 @@ const persistKey = `header-${Array.from(
 </style>
 
 <script>
+  import { isActiveLink } from '~/utils/navigation';
+
   class AwHeader extends HTMLElement {
     private onScroll?: () => void;
     private mql?: MediaQueryList;
@@ -305,15 +304,16 @@ const persistKey = `header-${Array.from(
     }
 
     private updateActiveLinks() {
-      const norm = (p: string) => '/' + p.replace(/^\/+|\/+$/g, '');
-      const current = norm(window.location.pathname);
       this.querySelectorAll<HTMLAnchorElement>('nav a[href]').forEach((a) => {
         const url = new URL(a.href, window.location.href);
         // Anchor-only links (`#`, `/#features`) resolve to the current page and
         // would light up everywhere; only path links can be "the current page".
         const isPathLink =
           url.origin === window.location.origin && !url.hash && !a.getAttribute('href')?.startsWith('#');
-        a.classList.toggle('aw-link-active', isPathLink && norm(url.pathname) === current);
+        a.classList.toggle(
+          'aw-link-active',
+          isPathLink && isActiveLink(url.pathname, window.location.pathname, a.dataset.section)
+        );
       });
     }
   }

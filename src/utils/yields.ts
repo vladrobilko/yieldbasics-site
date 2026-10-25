@@ -113,6 +113,12 @@ export const filterByTerm = <T extends { termDays: number; audience: string }>(
     return term === 'all' || (term === 'flexible') === (item.termDays === 0);
   });
 
+/** Highest regular offer for one coin (new-user offers left out), or undefined if it has none. */
+export const bestOffer = <T extends { asset: string; rate: number; termDays: number; audience: string }>(
+  items: readonly T[],
+  symbol: string
+): T | undefined => filterByTerm(ratesForAsset(items, symbol), 'all')[0];
+
 /** Text for an empty table. */
 export const emptyMessage = (asset: string, term: TermFilter, newUserAssets: readonly string[]): string =>
   term === 'new-user' && !newUserAssets.includes(asset)

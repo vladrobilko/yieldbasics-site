@@ -4,7 +4,7 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 
 1. [AI search visibility](#ai-search-visibility): ChatGPT, Claude, Perplexity and Google AI answers.
 2. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
-3. [Logo and brand](#logo-and-brand)
+3. [Logo and brand](#logo-and-brand): OG image and X avatar.
 4. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
 5. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
 6. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
@@ -78,7 +78,7 @@ The X API is pay-per-use: about $0.015 per post without a link and about $0.20 w
 
 ## Logo and brand
 
-Before the X account grows, use one logo mark everywhere: header (`src/assets/images/logo.svg`), favicons (`public/icon-*.png`), the OG image and the X avatar. Keep the current green unless the owner picks otherwise. Show 2–3 options locally before choosing.
+The new "Y" logo from the Figma design is in the header, footer and favicons (`src/components/Logo.astro`, `src/assets/images/logo.svg`, done 2026-10-25). Left: make the default OG image (`src/assets/images/default.png`) and the X avatar from the same mark, in brand green `#16a36a`.
 
 ## Manual rates routine
 

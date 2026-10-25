@@ -1,17 +1,17 @@
 ---
 // Font family is provided by Astro's native Fonts API (see `fonts` in
-// astro.config.ts and <Font /> in Layout.astro), exposed as `--font-inter`.
+// astro.config.ts and <Font /> in Layout.astro), exposed as `--font-plex`.
 // To switch typefaces, change the `fonts` entry and repoint `--aw-font-*` below.
 //
-// Colours follow the YieldBasics design from MagicPath: slate neutrals with an
+// Colours follow the YieldBasics design from Figma: slate neutrals with an
 // emerald accent (Tailwind emerald-500/600/700, slate-50…950).
 ---
 
 <style is:inline>
   :root {
-    --aw-font-sans: var(--font-inter);
-    --aw-font-serif: var(--font-inter);
-    --aw-font-heading: var(--font-inter);
+    --aw-font-sans: var(--font-plex);
+    --aw-font-serif: var(--font-plex);
+    --aw-font-heading: var(--font-plex);
 
     /* emerald-700 / -800: white text on primary buttons meets WCAG AA (5.5:1). */
     --aw-color-primary: rgb(4 120 87);
@@ -31,9 +31,9 @@
   }
 
   .dark {
-    --aw-font-sans: var(--font-inter);
-    --aw-font-serif: var(--font-inter);
-    --aw-font-heading: var(--font-inter);
+    --aw-font-sans: var(--font-plex);
+    --aw-font-serif: var(--font-plex);
+    --aw-font-heading: var(--font-plex);
 
     --aw-color-primary: rgb(16 185 129);
     --aw-color-secondary: rgb(5 150 105);

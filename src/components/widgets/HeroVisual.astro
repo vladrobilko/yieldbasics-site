@@ -1,0 +1,192 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import background from '~/assets/images/hero/background.webp';
+import coinBtc from '~/assets/images/hero/coin-btc.webp';
+import coinEth from '~/assets/images/hero/coin-eth.webp';
+import coinUsdt from '~/assets/images/hero/coin-usdt.webp';
+import { getPlatform } from '~/data/platforms';
+import { assets, rateRows } from '~/data/yields';
+import { bestOffer, formatRate } from '~/utils/yields';
+
+// Hero picture from the designer, in layers: the background (phone and green
+// shapes), three 3D coins that float up and down, and the phone screen and cards
+// drawn over the background from today's rates, so every number is real.
+// Positions are in pixels of the 1038 × 812 background and scale with the box
+// (container query units).
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const SOURCE_WIDTH = 1038;
+const SOURCE_HEIGHT = 812;
+// Text and spacing sizes were set on a larger draft; 0.72 maps them to this background.
+const SCALE = 0.72;
+const u = (px: number) => `calc(${px * SCALE} * 100cqw / ${SOURCE_WIDTH})`;
+const box = (left: number, top: number, width: number, height: number) =>
+  `left:${(left / SOURCE_WIDTH) * 100}%;top:${(top / SOURCE_HEIGHT) * 100}%;width:${(width / SOURCE_WIDTH) * 100}%;height:${(height / SOURCE_HEIGHT) * 100}%`;
+
+const offerFor = (symbol: string) => {
+  const asset = assets.find((a) => a.symbol === symbol);
+  const row = bestOffer(rateRows, symbol);
+  return asset && row ? { asset, row, platform: getPlatform(row.platformId).name } : undefined;
+};
+
+const screenOffers = ['USDT', 'BTC', 'ETH'].map(offerFor).filter((o) => o !== undefined);
+
+// Display width of each coin in background pixels (the USDT file is drawn smaller).
+const coins = [
+  { src: coinBtc, size: 203, left: 135, top: 48, duration: '4.2s', delay: '0s' },
+  { src: coinEth, size: 182, left: 140, top: 468, duration: '5s', delay: '-1.6s' },
+  { src: coinUsdt, size: 196, left: 752, top: 318, duration: '4.6s', delay: '-3s' },
+];
+
+// The background already shows these cards with sample numbers; ours cover them exactly.
+const cards = [
+  { symbol: 'BTC', rect: box(79, 265, 306, 174) },
+  { symbol: 'USDT', rect: box(703, 122, 252, 189) },
+  { symbol: 'ETH', rect: box(674, 524, 285, 191) },
+].flatMap((card) => {
+  const offer = offerFor(card.symbol);
+  return offer ? [{ rect: card.rect, offer }] : [];
+});
+---
+
+<div class:list={['relative aspect-[1038/812] select-none [container-type:inline-size]', className]} aria-hidden="true">
+  <Image
+    src={background}
+    alt=""
+    widths={[460, 1038]}
+    sizes="460px"
+    loading="eager"
+    fetchpriority="high"
+    class="absolute inset-0 h-full w-full"
+  />
+  {
+    coins.map((coin) => (
+      <Image
+        src={coin.src}
+        alt=""
+        loading="eager"
+        class="yb-coin absolute"
+        style={`${box(coin.left, coin.top, coin.size, (coin.size * coin.src.height) / coin.src.width)};animation-duration:${coin.duration};animation-delay:${coin.delay}`}
+      />
+    ))
+  }
+
+  <div
+    class="absolute flex flex-col bg-[#f4f8f7] font-sans text-slate-900"
+    style={`${box(373, 84, 309, 628)};padding:${u(26)};gap:${u(24)};border-radius:0 0 ${u(44)} ${u(44)}`}
+  >
+    <div class="flex items-center" style={`gap:${u(10)}`}>
+      <svg viewBox="0 0 26.25 24.21" style={`width:${u(40)};height:${u(37)}`}>
+        <path d="M1.47 4.41h5.94l5.6 5.55 6.2-4.45v5.18l-5.07 3.9-.11 8.6H9.67l-.05-9.33-8.15-9.11Z" fill="#191919"
+        ></path>
+        <path
+          d="M24.95 1.19v5.43l-4.13 2.89V4.19ZM24.95 9.05v8.37l-4.13 2.72v-8.15ZM19.29 13.29v7.81l-3.56 2.1v-7.25Z"
+          fill="#16A36A"></path>
+      </svg>
+      <span class="font-bold tracking-tight text-[#191919]" style={`font-size:${u(32)}`}
+        >Yield<span class="text-brand">Basics</span></span
+      >
+    </div>
+    <p class="font-bold uppercase tracking-[0.12em] text-brand" style={`font-size:${u(18)};margin-top:${u(10)}`}>
+      Best rates today
+    </p>
+    {
+      screenOffers.map(({ asset, row, platform }) => (
+        <div
+          class="flex items-center justify-between bg-white shadow-sm"
+          style={`padding:${u(30)} ${u(22)};border-radius:${u(22)};gap:${u(12)}`}
+        >
+          <div class="flex min-w-0 items-center" style={`gap:${u(14)}`}>
+            {asset.logo && (
+              <Icon name={asset.logo} style={`width:${u(60)};height:${u(60)}`} class="shrink-0 rounded-full" />
+            )}
+            <div class="flex min-w-0 flex-col">
+              <span class="font-bold leading-tight" style={`font-size:${u(31)}`}>
+                {asset.symbol}
+              </span>
+              <span class="truncate leading-tight text-slate-500" style={`font-size:${u(19)}`}>
+                {platform}
+              </span>
+            </div>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="font-bold leading-tight text-emerald-700 tabular-nums" style={`font-size:${u(30)}`}>
+              {formatRate(row.rate)}
+            </span>
+            <span class="leading-tight text-slate-500" style={`font-size:${u(18)}`}>
+              {row.type} · {row.term}
+            </span>
+          </div>
+        </div>
+      ))
+    }
+    <div
+      class="mt-auto flex items-center justify-center bg-brand font-semibold text-white"
+      style={`height:${u(76)};border-radius:${u(20)};font-size:${u(25)};margin-bottom:${u(40)}`}
+    >
+      Compare all rates
+    </div>
+  </div>
+
+  {
+    cards.map(({ rect, offer }) => (
+      <div
+        class="absolute flex flex-col justify-between bg-white text-slate-900 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
+        style={`${rect};padding:${u(24)};border-radius:${u(26)}`}
+      >
+        <div class="flex items-center" style={`gap:${u(14)}`}>
+          {offer.asset.logo && (
+            <Icon name={offer.asset.logo} style={`width:${u(54)};height:${u(54)}`} class="shrink-0 rounded-full" />
+          )}
+          <span class="font-semibold leading-tight" style={`font-size:${u(28)}`}>
+            {offer.asset.name} <span class="font-normal text-slate-500">({offer.asset.symbol})</span>
+          </span>
+        </div>
+        <div>
+          <span class="block text-slate-500" style={`font-size:${u(20)}`}>
+            Best rate · {offer.platform}
+          </span>
+          <div class="flex items-end justify-between" style={`gap:${u(10)}`}>
+            <span class="font-bold leading-none text-emerald-700 tabular-nums" style={`font-size:${u(48)}`}>
+              {formatRate(offer.row.rate)}
+              <span class="font-semibold text-slate-500" style={`font-size:${u(20)}`}>
+                {offer.row.type}
+              </span>
+            </span>
+            <span
+              class="rounded-full bg-emerald-50 font-medium text-emerald-700"
+              style={`font-size:${u(20)};padding:${u(6)} ${u(16)}`}
+            >
+              {offer.row.term}
+            </span>
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style is:global>
+  /* Gentle float; off for visitors who ask for less motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .yb-coin {
+      animation-name: yb-coin-float;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+  }
+  @keyframes yb-coin-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6%);
+    }
+  }
+</style>

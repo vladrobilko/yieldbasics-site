@@ -13,6 +13,7 @@ import {
   stablecoinAssets,
 } from '~/data/yields';
 import {
+  bestOffer,
   filterAssets,
   emptyMessage,
   filterByTerm,
@@ -86,6 +87,24 @@ describe('filterByTerm', () => {
 
   it('shows only new-user rows in the New users tab', () => {
     expect(filterByTerm(rows, 'new-user')).toEqual([{ termDays: 2, audience: 'new-user' }]);
+  });
+});
+
+describe('bestOffer', () => {
+  const rows = [
+    { id: 'btc-low', asset: 'BTC', rate: 1, termDays: 0, audience: 'all' },
+    { id: 'btc-top', asset: 'btc', rate: 3, termDays: 30, audience: 'all' },
+    { id: 'btc-promo', asset: 'BTC', rate: 300, termDays: 3, audience: 'new-user' },
+    { id: 'eth', asset: 'ETH', rate: 9, termDays: 0, audience: 'all' },
+  ];
+
+  it('picks the highest regular rate for the coin, ignoring new-user offers', () => {
+    expect(bestOffer(rows, 'BTC')?.id).toBe('btc-top');
+  });
+
+  it('returns undefined when the coin has no regular offer', () => {
+    expect(bestOffer(rows, 'SOL')).toBeUndefined();
+    expect(bestOffer([rows[2]], 'BTC')).toBeUndefined();
   });
 });
 
