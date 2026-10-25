@@ -1,12 +1,12 @@
 ---
 title: 'Privacy Policy'
-description: 'What YieldBasics does with your data: no accounts or cookies, cookie-free visit counts, contact form messages and your rights. Plain-language policy.'
+description: 'What YieldBasics does with your data: no accounts or own cookies, the ad network, cookie-free visit counts, contact form messages and your rights. Plain-language policy.'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Last updated_: October 21, 2026
+_Last updated_: October 25, 2026
 
-This page explains what information YieldBasics ("we", "us") handles when you use yieldbasics.com (the "Site"). In short: we don't have accounts or cookies, we count visits with a privacy-first tool that doesn't identify you, and we only see personal information you choose to send us through the contact form or by email.
+This page explains what information YieldBasics ("we", "us") handles when you use yieldbasics.com (the "Site"). In short: we don't have accounts and set no cookies ourselves, the ad at the top of the page comes from an ad network that may use cookies, we count visits with a privacy-first tool that doesn't identify you, and we only see personal information you choose to send us through the contact form or by email.
 
 ## Information we collect
 
@@ -14,7 +14,9 @@ This page explains what information YieldBasics ("we", "us") handles when you us
 
 **Email.** If you write to [contact@yieldbasics.com](mailto:contact@yieldbasics.com), we receive your email address and whatever your message contains, and use them the same way. Mail to this address is forwarded to our inbox by Cloudflare Email Routing, which handles it under the [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
 
-**No accounts, cookies or ad trackers.** The Site has no sign-up or login, sets no cookies and runs no advertising trackers. Fonts and icons are served from the Site itself, not from third-party font services.
+**No accounts, and no cookies of our own.** The Site has no sign-up or login and sets no cookies itself. Fonts and icons are served from the Site itself, not from third-party font services.
+
+**Ads.** The bar at the top of the page shows an ad from [AADS](https://aads.com) (formerly A-Ads), a crypto ad network. The ad loads from AADS's servers, which receive your IP address and browser details to show and count it, and AADS may use cookies or similar technologies. We don't receive this data; AADS handles it under the [AADS Privacy Policy](https://aads.com/privacy_policy). If you close the bar, your browser remembers that until you close the tab, on your device only.
 
 **Visit statistics.** We use [Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics/) to count page views and see which pages are read, which country visits come from, and how fast pages load. It sets no cookies, doesn't use your IP address to identify you or follow you across other websites, and gives us only totals, never data about you as a person. Cloudflare handles this data under the [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
 

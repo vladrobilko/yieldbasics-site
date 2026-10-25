@@ -4,7 +4,7 @@ description: 'Terms for using YieldBasics: rates are for information only, not f
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Last updated_: October 17, 2026
+_Last updated_: October 25, 2026
 
 These terms apply to your use of yieldbasics.com (the "Site"), run by YieldBasics ("we", "us"). By using the Site you agree to them. If you don't agree, please don't use the Site.
 
@@ -23,6 +23,10 @@ Rates are collected automatically once a day from each platform's public data, a
 ## Referral links
 
 Some links on the Site, including the "View offer" buttons in the rates table, are referral links to third-party exchanges, wallets and protocols. If you sign up through one of them, we may earn a commission at no extra cost to you. Referral arrangements never affect how offers are ordered: the table is sorted by rate (or, in the "New users" tab, by estimated reward) only.
+
+## Ads
+
+The Site shows ads from a third-party ad network in a bar labeled "Ad" at the top of the page. We don't choose or endorse the individual advertisers, an ad is not a recommendation, and ads never affect how offers are ordered.
 
 ## Third-party sites
 

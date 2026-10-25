@@ -12,21 +12,20 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 8. [Countries and platform pages](#countries-and-platform-pages)
 9. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
 10. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-11. [Top promo bar](#top-promo-bar)
-12. [Where to buy pages](#where-to-buy-pages)
-13. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-14. [Rate history](#rate-history)
-15. [Email newsletter](#email-newsletter)
-16. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-17. [Country pages](#country-pages)
-18. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-19. [Affiliate programs](#affiliate-programs)
-20. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-21. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-22. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-23. [Watch the daily schedule](#watch-the-daily-schedule)
-24. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-25. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+11. [Where to buy pages](#where-to-buy-pages)
+12. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
+13. [Rate history](#rate-history)
+14. [Email newsletter](#email-newsletter)
+15. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+16. [Country pages](#country-pages)
+17. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+18. [Affiliate programs](#affiliate-programs)
+19. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+20. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+21. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+22. [Watch the daily schedule](#watch-the-daily-schedule)
+23. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
+24. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 ## Growth strategy
 
@@ -36,9 +35,9 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 
 1. **Attract traders, not only savers.** Referral commissions are a share of the trading fees referred users pay, and savers pay almost none. "Where to buy", fees and exchange comparison pages bring people who trade.
 2. **Move from referral to affiliate programs.** Exchange affiliate programs pay a much higher share than plain referral links, but they want proof of an audience (traffic, X followers).
-3. **Add income that doesn't depend on signups:** a promo bar, ad networks, hardware-wallet affiliates, sponsored slots and newsletter sponsors.
+3. **Add income that doesn't depend on signups:** ad networks in the top bar, hardware-wallet affiliates, sponsored slots and newsletter sponsors.
 
-**Ways to earn, in order:** exchange referrals (now) → own promo in a top bar → hardware-wallet affiliates and exchange affiliate programs → crypto ad networks (A-Ads has no traffic minimum; Coinzilla/Bitmedia later) → sponsored "Featured" slot, always labeled and separate from the ranking → newsletter sponsors → broker/bond affiliates for the traditional-yields section. Sponsorship never changes the ranking, as the Terms promise.
+**Ways to earn, in order:** exchange referrals (now) → AADS ad bar (live) → hardware-wallet affiliates and exchange affiliate programs → better crypto ad networks in the same bar (Bitmedia/Coinzilla) → sponsored "Featured" slot, always labeled and separate from the ranking → newsletter sponsors → broker/bond affiliates for the traditional-yields section. Sponsorship never changes the ranking, as the Terms promise.
 
 **Traffic.** Search is the main engine. Build page types from data, so one template makes many pages: coin pages (exist), platform pages, where-to-buy pages, country pages, exchange comparisons, rate history, calculators and traditional-yield pages. Each page must carry its own data, not a swapped name; Google penalizes thin copy-paste pages. Guides stay evergreen and link to the live pages. X, Reddit/Quora and a newsletter bring the first visitors while search grows.
 
@@ -109,10 +108,6 @@ Put the filter logic in `src/utils/yields.ts` with tests.
 
 On `/apr-to-apy-calculator`, under the result, add a chart of the balance over 1–10 years: no compounding vs the chosen compounding. Use inline SVG, no chart library, working in both themes. Put the series maths in `src/utils/compounding.ts` with tests. Later reuse it on the coin pages.
 
-## Top promo bar
-
-A thin bar above the header, like CoinGecko's. Start with our own promo (the best-paying referral bonus), labeled "Ad", closable (remember the choice in `localStorage`), with no layout shift. Ad networks use the same slot later.
-
 ## Where to buy pages
 
 Start with keyword research using Google Trends, Keyword Planner and "People also ask", plus Search Console once it has data. Then build `/buy/<coin>` pages for the listed coins: exchanges that sell the coin, payment methods, trading fees (once the fees data exists) and countries. These pages bring buyers and traders, who earn the most commission.
@@ -159,7 +154,7 @@ When traffic reaches about 10k visits a month and the X account is active, apply
 
 ## Google Analytics, consent banner and ads
 
-When the first ad network is added: GA4 (the existing `analytics.vendors.googleAnalytics.id` and `Analytics.astro`) with click events on "View offer", plus a cookie consent banner for EU/UK visitors, plus the ad network itself. Update the privacy page and the terms.
+Done (2026-10-25): an AADS (A-Ads) ad bar sits above the header on every page (see AGENTS.md). The owner chose no consent banner for now; the Privacy page says AADS may set cookies. Next, when traffic grows: GA4 (the existing `analytics.vendors.googleAnalytics.id` and `Analytics.astro`) with click events on "View offer", a cookie consent banner for EU/UK visitors, and a better-paying network in the same bar (Bitmedia or Coinzilla, around 5–10k visits a month). Update the privacy page and the terms with each change.
 
 ## Sponsored slots and newsletter sponsors
 

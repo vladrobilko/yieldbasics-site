@@ -117,6 +117,10 @@ The home page rates table is built from `src/data/rates.json`, which `npm run ra
 - While no deal is live at build time (`hasLiveDeals`), the header and footer Deals links are hidden and /deals gets `noindex` and is left out of the sitemap. The page itself stays up with its "No live deals right now" message.
 - `npm run deals:post <id>` prints the X post text for a deal, for the owner to paste by hand. Nothing is posted automatically (see ROADMAP.md).
 
+## Ad bar
+
+Every page that uses `PageLayout` shows a thin ad bar above the header (`src/components/widgets/AdBar.astro`), unless the page fills the `announcement` slot itself. The ad is an adaptive [AADS](https://aads.com) (formerly A-Ads) iframe; its unit ID is `A_ADS_UNIT_ID` in `src/utils/ads.ts` (public, safe to commit). An empty ID hides the bar everywhere. The bar is labeled "Ad" and has a fixed height, so it causes no layout shift. Visitors can close it for the rest of their visit (stored in `sessionStorage`, so it returns in a new tab or visit), and the bar is removed before first paint while it's closed. Keep the iframe `src` in the HTML: AADS verifies the unit by reading the page. The owner chose no cookie consent banner (2026-10-25); the Privacy page says AADS may set cookies. If the ad network changes, update `privacy.md` and `terms.md`.
+
 ## Tailwind CSS v4
 
 Configuration is CSS-first in `src/assets/styles/tailwind.css`:

@@ -1,0 +1,64 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import { A_ADS_UNIT_ID, AD_BAR_HIDDEN_KEY, aAdsUnitUrl } from '~/utils/ads';
+
+const adUrl = aAdsUnitUrl(A_ADS_UNIT_ID);
+---
+
+{
+  adUrl && (
+    <aside
+      id="ad-bar"
+      aria-label="Advertisement"
+      class="border-b border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900"
+    >
+      <div class="mx-auto flex h-[50px] max-w-7xl items-center gap-2 px-4 sm:h-[60px] sm:gap-3 sm:px-6 lg:px-8">
+        <span class="shrink-0 rounded border border-slate-300 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:text-slate-400">
+          Ad
+        </span>
+        <iframe
+          data-aa={A_ADS_UNIT_ID}
+          src={adUrl}
+          title="Advertisement"
+          class="h-full min-w-0 flex-1 overflow-hidden border-0 bg-transparent"
+        />
+        <button
+          type="button"
+          data-ad-bar-close
+          aria-label="Hide ad"
+          class="shrink-0 rounded p-1 text-slate-400 transition hover:bg-slate-200 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+        >
+          <Icon name="tabler:x" class="h-4 w-4" />
+        </button>
+      </div>
+    </aside>
+  )
+}
+<script is:inline define:vars={{ key: AD_BAR_HIDDEN_KEY }}>
+  // Inline so a closed bar is removed before first paint (no layout jump).
+  // The iframe src stays in the HTML because AADS verifies the unit by reading the page.
+  (() => {
+    const bar = document.getElementById('ad-bar');
+    if (!bar) return;
+    const isHidden = () => {
+      try {
+        return sessionStorage.getItem(key) === '1';
+      } catch {
+        return false;
+      }
+    };
+    if (isHidden()) {
+      bar.remove();
+      return;
+    }
+    bar.querySelector('[data-ad-bar-close]').addEventListener('click', () => {
+      try {
+        sessionStorage.setItem(key, '1');
+      } catch {
+        // Storage blocked (private mode): the bar just comes back on the next page.
+      }
+      bar.remove();
+    });
+  })();
+</script>
