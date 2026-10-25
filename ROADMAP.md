@@ -3,7 +3,7 @@
 Planned work that isn't done yet, in priority order. Remove an item once its PR is merged. The [growth strategy](#growth-strategy) below explains why the work is in this order.
 
 1. [AI search visibility](#ai-search-visibility): ChatGPT, Claude, Perplexity and Google AI answers.
-2. [Daily posts on X](#daily-posts-on-x): automatic, after the daily rates PR is merged.
+2. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
 3. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
 4. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
 5. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
@@ -66,14 +66,15 @@ Done (2026-10-25): the site is in Bing Webmaster Tools (imported from Search Con
 
 ## Daily posts on X
 
-The X API is pay-per-use: about $0.015 per post without a link and about $0.20 with one (2026 prices; check docs.x.com). One text post a day costs about $0.50/month. The link lives in the X bio.
+X API prices (official docs, checked 2026-10-25; prices can change, see docs.x.com): $0.015 per post, $0.20 per post with a link, $0.010 per reply to a mention, $0.010 per DM read, $0.015 per DM sent, $0.001 per read of the account's own mentions, $0.010 per user profile. Repeat reads within one UTC day are free. $20 of credit after the first purchase. One text post a day is about $0.45/month; the link lives in the X bio.
 
-1. `scripts/social/dailyPost.ts` builds the post from `rates.json` with a few rotating templates (top USDT/USDC flexible rate, BTC/ETH, offer count). It returns nothing when the rates didn't change.
-2. `.github/workflows/post-to-x.yaml` runs when the daily rates PR is merged into `master` and posts through the X API (OAuth 1.0a user context).
-3. Secrets: `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET`. The owner creates the app on developer.x.com with the brand account. The keys are never committed.
-4. Tests: at most 280 characters, no link, numbers match the input, and no post when nothing changed. `DRY_RUN=1` prints the text instead of posting; use it for the first run on a branch.
-5. Later: a weekly "biggest moves" post, and a post for each new guide (from `rss.xml`).
-6. New deals: the same workflow posts each new entry in `src/data/deals.json` once its PR is merged, using the text from `npm run deals:post <id>` (today the owner pastes it by hand).
+Done (2026-10-25): the daily rates PR description has a "Post for X" block (one post a day, three rotating templates) that the owner copies into X by hand. The posting code (`npm run x:daily`, `src/utils/xApi.ts`) is ready and tested (see AGENTS.md).
+
+1. **Image (optional):** a daily "today's best rates" card in the site's style, attached to the PR for the owner to download with the text. Posts with an image usually get more views.
+2. **Automatic posting (when the owner wants it):** on developer.x.com, signed in as @Yield_Basics, create an app with "Read and write and Direct message" permission. Add `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN` and `X_ACCESS_SECRET` as repository secrets (never committed) and set a monthly spending cap (about $15). Then add a workflow that runs `npm run x:daily -- --previous <old rates.json>` after the rates PR is merged, and test it once with `DRY_RUN=1`.
+3. **Inbox (after the keys):** `npm run x:inbox` downloads new DMs and mentions since the last check to a private file outside the repo; an agent summarizes offers, flags scams and drafts replies; `npm run x:reply` sends a reply only after the owner approves it. Light use is about $7.50/month.
+4. Later: a weekly "biggest moves" post, and a post for each new guide (from `rss.xml`).
+5. New deals: the same workflow posts each new entry in `src/data/deals.json` once its PR is merged, using the text from `npm run deals:post <id>` (today the owner pastes it by hand).
 
 ## Manual rates routine
 

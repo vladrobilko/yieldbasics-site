@@ -48,6 +48,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Keep the current rates
+        # For the X post below: it is skipped when no rate changed.
+        run: cp src/data/rates.json "$RUNNER_TEMP/previous-rates.json"
+
       - name: Fetch rates
         env:
           # Bybit blocks GitHub's runners; this is our Cloudflare Worker (see AGENTS.md).
@@ -59,6 +63,19 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # The owner copies this post into X by hand (GitHub shows a copy button on
+      # the code block). The same text can be posted automatically later; see
+      # ROADMAP.md, "Daily posts on X".
+      - name: Add the X post to the PR description
+        run: |
+          text=$(npm run -s x:daily -- --previous "$RUNNER_TEMP/previous-rates.json" --text-only)
+          if [ -n "$text" ]; then
+            {
+              printf '\n## Post for X\n\nCopy with the button at the top right of the box, then paste into X.\n\n'
+              printf '```text\n%s\n```\n' "$text"
+            } >> "$RUNNER_TEMP/rates-summary.md"
+          fi
 
       - name: Date
         id: date
