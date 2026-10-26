@@ -65,9 +65,9 @@ Done (2026-10-25): the site is in Bing Webmaster Tools (imported from Search Con
 
 ## Daily posts on X
 
-X API prices (official docs, checked 2026-10-25; prices can change, see docs.x.com): $0.015 per post, $0.20 per post with a link, $0.010 per reply to a mention, $0.010 per DM read, $0.015 per DM sent, $0.001 per read of the account's own mentions, $0.010 per user profile. Repeat reads within one UTC day are free. $20 of credit after the first purchase. One text post a day is about $0.45/month; the link lives in the X bio.
+X API prices (official docs, checked 2026-10-25; prices can change, see docs.x.com): $0.015 per post, $0.20 per post with a link, $0.010 per reply to a mention, $0.010 per DM read, $0.015 per DM sent, $0.001 per read of the account's own mentions, $0.010 per user profile. Repeat reads within one UTC day are free. $20 of credit after the first purchase. One text post a day is about $0.45/month; its reply with the link adds about $6/month (post the reply by hand to skip that).
 
-Done (2026-10-25): the daily rates PR description has a "Post for X" block (one post a day, three rotating templates) that the owner copies into X by hand. The posting code (`npm run x:daily`, `src/utils/xApi.ts`) is ready and tested (see AGENTS.md).
+Done (2026-10-25): the daily rates PR description has a "Post for X" block (one post a day, three rotating templates) and a reply with the links, which the owner copies into X by hand. The posting code (`npm run x:daily`, `src/utils/xApi.ts`) is ready and tested (see AGENTS.md).
 
 1. **Image (optional):** a daily "today's best rates" card in the site's style, attached to the PR for the owner to download with the text. Posts with an image usually get more views.
 2. **Automatic posting (when the owner wants it):** on developer.x.com, signed in as @Yield_Basics, create an app with "Read and write and Direct message" permission. Add `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN` and `X_ACCESS_SECRET` as repository secrets (never committed) and set a monthly spending cap (about $15). Then add a workflow that runs `npm run x:daily -- --previous <old rates.json>` after the rates PR is merged, and test it once with `DRY_RUN=1`.
