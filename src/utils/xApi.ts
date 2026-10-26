@@ -55,15 +55,18 @@ export const oauthHeader = (
   );
 };
 
-/** Posts `text` and returns the new post's id. Throws with X's error on failure. */
-export const createPost = async (text: string, credentials: XCredentials): Promise<string> => {
+/**
+ * Posts `text` (as a reply to the post `replyTo`, when given) and returns the
+ * new post's id. Throws with X's error on failure.
+ */
+export const createPost = async (text: string, credentials: XCredentials, replyTo?: string): Promise<string> => {
   const response = await fetch(X_POST_URL, {
     method: 'POST',
     headers: {
       Authorization: oauthHeader('POST', X_POST_URL, credentials),
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ text }),
+    body: JSON.stringify(replyTo ? { text, reply: { in_reply_to_tweet_id: replyTo } } : { text }),
   });
   const body = (await response.json().catch(() => ({}))) as { data?: { id?: string } };
   if (!response.ok || !body.data?.id) {

@@ -1,8 +1,9 @@
 /**
  * Posts the daily rates summary to X: `npm run x:daily -- [--previous <rates.json>]`.
  * With --previous (the rates file before this update), nothing is posted when no
- * rate changed. DRY_RUN=1, or missing X_* secrets, prints the text instead.
- * --text-only prints just the post text (or nothing), for the daily rates PR.
+ * rate changed. Posts the text, then a reply with the links. DRY_RUN=1, or
+ * missing X_* secrets, prints both instead. --text-only and --reply-only print
+ * just the post text or just the reply (or nothing), for the daily rates PR.
  */
 import { readFileSync } from 'node:fs';
 import { getPlatform } from '../../src/data/platforms';
@@ -19,6 +20,7 @@ const readRows = (path: string) => {
 const previousIndex = process.argv.indexOf('--previous');
 const previousPath = previousIndex > 0 ? process.argv[previousIndex + 1] : undefined;
 const textOnly = process.argv.includes('--text-only');
+const replyOnly = process.argv.includes('--reply-only');
 
 let previousRows = null;
 if (previousPath) {
@@ -29,14 +31,14 @@ if (previousPath) {
   }
 }
 
-const text = dailyPostText(readRows('src/data/rates.json'), previousRows, new Date(), (id) => getPlatform(id).name);
+const post = dailyPostText(readRows('src/data/rates.json'), previousRows, new Date(), (id) => getPlatform(id).name);
 
-if (textOnly) {
-  if (text) console.log(text);
+if (textOnly || replyOnly) {
+  if (post) console.log(textOnly ? post.text : post.reply);
   process.exit(0);
 }
 
-if (!text) {
+if (!post) {
   console.log('No rate changed since the previous update (or no offers): nothing to post.');
   process.exit(0);
 }
@@ -51,8 +53,10 @@ const hasCredentials = Object.values(credentials).every(Boolean);
 
 if (process.env.DRY_RUN || !hasCredentials) {
   console.log(hasCredentials ? 'DRY_RUN: not posting.' : 'No X_* secrets set: not posting.');
-  console.log(`--- ${text.length} characters ---\n${text}`);
+  console.log(`--- ${post.text.length} characters ---\n${post.text}\n--- reply ---\n${post.reply}`);
 } else {
-  const id = await createPost(text, credentials);
+  const id = await createPost(post.text, credentials);
   console.log(`Posted to X: https://x.com/i/web/status/${id}`);
+  const replyId = await createPost(post.reply, credentials, id);
+  console.log(`Posted the reply: https://x.com/i/web/status/${replyId}`);
 }

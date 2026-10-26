@@ -36,7 +36,9 @@ const name = (id: string) => names[id] ?? id;
 const day = (n: number) => new Date(n * 86_400_000 + 12 * 3_600_000);
 
 describe('dailyPostText', () => {
-  const posts = [0, 1, 2].map((n) => dailyPostText(rows, null, day(n), name) ?? '');
+  const results = [0, 1, 2].map((n) => dailyPostText(rows, null, day(n), name));
+  const posts = results.map((result) => result?.text ?? '');
+  const replies = results.map((result) => result?.reply ?? '');
 
   it('rotates through three templates by day', () => {
     expect(new Set(posts).size).toBe(3);
@@ -47,12 +49,30 @@ describe('dailyPostText', () => {
     ).toBe(true);
   });
 
-  it('stays within 280 characters and has no link', () => {
+  it('stays within 280 characters, has no link and points to the reply', () => {
     for (const post of posts) {
       expect(post.length).toBeGreaterThan(0);
       expect(post.length).toBeLessThanOrEqual(X_MAX_LENGTH);
       expect(post).not.toMatch(/https?:|www\.|\.com/);
+      expect(post).toContain('in the reply 👇');
     }
+  });
+
+  it('puts the matching links in the reply', () => {
+    const replyFor = (start: string) => replies[posts.findIndex((post) => post.startsWith(start))];
+    expect(replyFor('Best flexible stablecoin')).toBe(
+      'All USDT rates: https://yieldbasics.com/rates/usdt\nAll USDC rates: https://yieldbasics.com/rates/usdc'
+    );
+    expect(replyFor('Best earn rates for Bitcoin')).toBe(
+      'All BTC rates: https://yieldbasics.com/rates/btc\nAll ETH rates: https://yieldbasics.com/rates/eth'
+    );
+    expect(replyFor('Today we track')).toBe('Full table: https://yieldbasics.com');
+  });
+
+  it('links only the coins that have offers', () => {
+    const noEth = rows.filter((r) => r.asset !== 'ETH');
+    const replies = [0, 1, 2].map((n) => dailyPostText(noEth, null, day(n), name)?.reply ?? '');
+    expect(replies).toContain('All BTC rates: https://yieldbasics.com/rates/btc');
   });
 
   it('uses the numbers from the rates, and never a new-user rate', () => {
@@ -73,7 +93,7 @@ describe('dailyPostText', () => {
   it('skips a template whose coins have no offers', () => {
     const noStables = rows.filter((r) => r.asset !== 'USDT' && r.asset !== 'USDC');
     for (const n of [0, 1, 2]) {
-      expect(dailyPostText(noStables, null, day(n), name)).not.toMatch(/stablecoin/);
+      expect(dailyPostText(noStables, null, day(n), name)?.text).not.toMatch(/stablecoin/);
     }
   });
 
