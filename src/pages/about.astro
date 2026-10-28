@@ -5,12 +5,16 @@ import Features2 from '~/components/widgets/Features2.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import { platforms } from '~/data/platforms';
 import { assets } from '~/data/yields';
+import manualRates from '~/data/manual-rates.json';
 import { getPermalink } from '~/utils/permalinks';
 
-// Counts come from the data so this page stays accurate as platforms and assets are added.
+// Counts and names come from the data so this page stays accurate as platforms and assets are added.
 const platformCount = platforms.length;
 const assetCount = assets.length;
-const exchangeNames = platforms.filter((p) => p.kind === 'cex').map((p) => p.name);
+const list = (names: string[]) => new Intl.ListFormat('en', { type: 'conjunction' }).format(names);
+const manualIds = new Set(manualRates.offers.map((o) => o.platformId));
+const manualNames = platforms.filter((p) => manualIds.has(p.id)).map((p) => p.name);
+const exchangeNames = platforms.filter((p) => p.kind === 'cex' && !manualIds.has(p.id)).map((p) => p.name);
 
 const metadata = {
   title: 'About',
@@ -30,15 +34,15 @@ const metadata = {
     columns={3}
     items={[
       {
-        title: 'Rates from the source',
-        description: `Every day we read the earn rates each platform publishes — ${exchangeNames.join(', ')}, plus Aave (DeFi) and Walt, the wallet in Telegram.`,
-        icon: 'tabler:database',
+        title: 'Rates from the source, daily',
+        description: `Once a day we read the rates that ${list(exchangeNames)} publish through their public APIs, and Aave's rates from DefiLlama's public DeFi data. ${list(manualNames)} only show rates to signed-in users, so we check those by hand and show the date we checked.`,
+        icon: 'tabler:clock-check',
       },
       {
-        title: 'Updated daily',
+        title: 'How we pick platforms',
         description:
-          'Rates are refreshed once a day. A few platforms only show their rates to signed-in users; we check those by hand and mark them with the date we checked.',
-        icon: 'tabler:clock-check',
+          'We list exchanges, DeFi protocols and wallets that offer earn products to a wide audience and whose rates we can check reliably. Most have a referral program; that never moves them up the table.',
+        icon: 'tabler:list-check',
       },
       {
         title: 'Flexible, fixed and new-user offers',

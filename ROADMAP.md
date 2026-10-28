@@ -8,24 +8,22 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 4. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
 5. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
 6. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
-7. [Trust lines on the About page](#trust-lines-on-the-about-page)
+7. [Rate history](#rate-history): start saving the daily snapshot early; the chart can wait.
 8. [Countries and platform pages](#countries-and-platform-pages)
 9. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
 10. [Growth chart on the calculator](#growth-chart-on-the-calculator)
 11. [Where to buy pages](#where-to-buy-pages)
 12. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-13. [Rate history](#rate-history)
-14. [Email newsletter](#email-newsletter)
-15. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-16. [Country pages](#country-pages)
-17. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-18. [Affiliate programs](#affiliate-programs)
-19. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-20. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-21. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-22. [Watch the daily schedule](#watch-the-daily-schedule)
-23. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-24. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+13. [Email newsletter](#email-newsletter)
+14. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+15. [Country pages](#country-pages)
+16. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+17. [Affiliate programs](#affiliate-programs)
+18. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+19. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+20. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+21. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
+22. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 ## Growth strategy
 
@@ -122,7 +120,7 @@ A small strip under the header with BTC, ETH and a few top coin prices, the Cryp
 
 ## Rate history
 
-Each daily run also saves a compact snapshot of the best rate per coin and product type (e.g. `src/data/history/<yyyy-mm>.json`). Coin pages show a 90-day chart. Nobody else publishes this history, so other sites have a reason to link here; it also powers the monthly report. Test the snapshot and aggregation logic.
+Start the snapshot soon, before the chart: a day that isn't saved can't be recovered later. Each daily run also saves a compact snapshot of the best rate per coin and product type (e.g. `src/data/history/<yyyy-mm>.json`). Coin pages show a 90-day chart. Nobody else publishes this history, so other sites have a reason to link here; it also powers the monthly report. Test the snapshot and aggregation logic.
 
 ## Email newsletter
 
@@ -168,15 +166,6 @@ Visitors new to earn products land on the home table without context.
 - Move the "New to earning?" box (now below the table in `src/pages/index.astro`) above it, with links to the guides (`/guides`, APR vs APY, the risks guide).
 - UI change: review locally before pushing.
 
-## Trust lines on the About page
-
-`src/pages/about.astro` should say plainly:
-
-- that the site is independent, and how referral links work: they never change the ranking, which is by rate
-- how platforms are picked, and how rates are collected (daily, from public APIs and pages; manual for WEEX and Walt)
-
-Keep it brand-only, with no personal names.
-
 ## More evergreen guides
 
 New posts in `src/data/post/`, in the same style as the existing ones: no rate snapshots or tables, and they link to the `/rates/<coin>` pages instead. Planned:
@@ -186,10 +175,6 @@ New posts in `src/data/post/`, in the same style as the existing ones: no rate s
 - CeFi vs DeFi earn (exchanges vs Aave-style protocols)
 - How tiered rates work (why "up to X%" applies only to the first amount)
 - How we collect rates (sources, daily updates, stale and manual rates)
-
-## Watch the daily schedule
-
-The daily rates workflow moved to `17 5 * * *` on 2026-10-16, because runs scheduled on the hour started about 4 hours late. It still started late: the runs from 2026-10-17 to 2026-10-21 began between 09:19 and 10:43 UTC (`gh run list --workflow update-rates.yaml`). On 2026-10-21 the owner asked for the rates PR to be ready before 05:00 UTC, so the schedule moved to `17 23 * * *`. Check that the next runs finish before 05:00 UTC; if they don't, move it earlier.
 
 ## Add more platforms
 
