@@ -5,7 +5,7 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 1. [AI search visibility](#ai-search-visibility): ChatGPT, Claude, Perplexity and Google AI answers.
 2. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
 3. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
-4. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
+4. [More evergreen guides](#more-evergreen-guides), next: flexible vs fixed-term earn.
 5. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
 6. [Rate history](#rate-history): start saving the daily snapshot early; the chart can wait.
 7. [Countries and platform pages](#countries-and-platform-pages)
@@ -161,7 +161,6 @@ A clearly labeled "Featured" slot sold to platforms, kept separate from the rank
 
 New posts in `src/data/post/`, in the same style as the existing ones: no rate snapshots or tables, and they link to the `/rates/<coin>` pages instead. Planned:
 
-- USD inflation and real yield: what inflation does to cash, rate minus inflation, stablecoin earn vs savings vs T-bills, and the risks (first; links to the calculator)
 - Flexible vs fixed-term earn
 - CeFi vs DeFi earn (exchanges vs Aave-style protocols)
 - How tiered rates work (why "up to X%" applies only to the first amount)
