@@ -7,23 +7,22 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 3. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
 4. [More evergreen guides](#more-evergreen-guides), starting with inflation and real yield.
 5. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
-6. [Beginner help on the rates table](#beginner-help-on-the-rates-table)
-7. [Rate history](#rate-history): start saving the daily snapshot early; the chart can wait.
-8. [Countries and platform pages](#countries-and-platform-pages)
-9. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
-10. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-11. [Where to buy pages](#where-to-buy-pages)
-12. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-13. [Email newsletter](#email-newsletter)
-14. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-15. [Country pages](#country-pages)
-16. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-17. [Affiliate programs](#affiliate-programs)
-18. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-19. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-20. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-21. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-22. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+6. [Rate history](#rate-history): start saving the daily snapshot early; the chart can wait.
+7. [Countries and platform pages](#countries-and-platform-pages)
+8. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
+9. [Growth chart on the calculator](#growth-chart-on-the-calculator)
+10. [Where to buy pages](#where-to-buy-pages)
+11. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
+12. [Email newsletter](#email-newsletter)
+13. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+14. [Country pages](#country-pages)
+15. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+16. [Affiliate programs](#affiliate-programs)
+17. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+18. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+19. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+20. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
+21. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 ## Growth strategy
 
@@ -157,14 +156,6 @@ Done (2026-10-25): an AADS (A-Ads) ad bar sits above the header on every page (s
 ## Sponsored slots and newsletter sponsors
 
 A clearly labeled "Featured" slot sold to platforms, kept separate from the ranking, which stays by rate. Newsletter sponsors once the list has about 2k subscribers.
-
-## Beginner help on the rates table
-
-Visitors new to earn products land on the home table without context.
-
-- Add a short "How to read this table" note near the home table (`src/pages/index.astro`) and on `/rates/<coin>` pages. It covers rate vs. type (APR/APY), flexible vs. fixed term, tiered conditions and the "Checked <date>" hint.
-- Move the "New to earning?" box (now below the table in `src/pages/index.astro`) above it, with links to the guides (`/guides`, APR vs APY, the risks guide).
-- UI change: review locally before pushing.
 
 ## More evergreen guides
 

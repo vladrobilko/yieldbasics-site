@@ -4,6 +4,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import RateTableRow from '~/components/ui/RateTableRow.astro';
+import TableHelp from '~/components/widgets/TableHelp.astro';
 import { getPlatform } from '~/data/platforms';
 import { assets, rateRows, ratesUpdatedAt, type Asset } from '~/data/yields';
 import { SITE } from 'astrowind:config';
@@ -161,6 +162,8 @@ const sections = [
         </section>
       )
     }
+
+    <TableHelp class="mt-8" />
 
     {
       sections.map((section) => (
