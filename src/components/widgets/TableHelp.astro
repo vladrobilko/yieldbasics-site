@@ -1,0 +1,71 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getPermalink } from '~/utils/permalinks';
+
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+const points = [
+  {
+    title: 'Rate and type',
+    text: 'The yearly rate you earn. APR is the simple rate; APY includes compounding, so the same number pays a little more as APY.',
+  },
+  {
+    title: 'Flexible or fixed',
+    text: 'Flexible means you can withdraw at any time and the rate can change daily. A fixed term locks your coins for the days shown, often for a higher rate.',
+  },
+  {
+    title: 'Conditions',
+    text: 'Many rates apply only up to a set amount. Above it, the platform pays a lower rate, so a high "up to" rate may cover only a small deposit.',
+  },
+  {
+    title: '"Checked" date',
+    text: 'Most rates refresh daily. A "Checked" date means we read that rate by hand, or could not refresh it recently.',
+  },
+];
+
+const guides = [
+  { text: 'APR vs APY', href: getPermalink('/guides/apr-vs-apy-crypto') },
+  { text: 'Is crypto earn safe?', href: getPermalink('/guides/is-crypto-earn-safe') },
+  { text: 'All guides', href: getPermalink('/guides') },
+];
+---
+
+<details
+  class={`group rounded-xl border border-emerald-100 bg-emerald-50/70 text-sm text-emerald-950 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-100 ${className}`}
+>
+  <summary
+    class="flex cursor-pointer list-none items-center gap-3 px-5 py-4 [&::-webkit-details-marker]:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 rounded-xl"
+  >
+    <Icon name="tabler:sparkles" class="h-5 w-5 shrink-0 text-emerald-600" />
+    <span class="flex flex-1 flex-wrap gap-x-2">
+      <strong>New to earning?</strong>
+      <span class="text-emerald-800 dark:text-emerald-200">How to read this table</span>
+    </span>
+    <Icon name="tabler:chevron-down" class="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" />
+  </summary>
+  <div class="px-5 pb-5">
+    <dl class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        points.map((point) => (
+          <div>
+            <dt class="font-semibold">{point.title}</dt>
+            <dd class="mt-1 text-emerald-900/80 dark:text-emerald-100/80">{point.text}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-semibold">
+      {
+        guides.map((guide) => (
+          <a href={guide.href} class="text-emerald-700 hover:underline dark:text-emerald-400">
+            {guide.text} →
+          </a>
+        ))
+      }
+    </p>
+  </div>
+</details>

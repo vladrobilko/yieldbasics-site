@@ -4,6 +4,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import { Icon } from 'astro-icon/components';
 import YieldRates from '~/components/widgets/YieldRates.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
+import TableHelp from '~/components/widgets/TableHelp.astro';
 import HeroVisual from '~/components/widgets/HeroVisual.astro';
 import { assets, rateRows, ratesUpdatedAt } from '~/data/yields';
 import { assetSlug, assetsWithOffers } from '~/utils/assetPages';
@@ -124,6 +125,8 @@ const faq = [
       </div>
     </section>
 
+    <TableHelp class="mt-8" />
+
     <YieldRates />
 
     <section class="mt-12" aria-labelledby="coins-heading">
@@ -146,16 +149,6 @@ const faq = [
         }
       </ul>
     </section>
-
-    <aside
-      class="mt-8 flex items-center gap-3 rounded-xl border border-emerald-100 bg-emerald-50/70 px-5 py-4 text-sm text-emerald-950 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-100"
-    >
-      <Icon name="tabler:sparkles" class="h-5 w-5 shrink-0 text-emerald-600" />
-      <p>
-        <strong>New to earning?</strong> Flexible products let you withdraw at any time, while fixed terms may offer a higher
-        rate.
-      </p>
-    </aside>
   </div>
 
   <FAQs
