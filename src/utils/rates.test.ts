@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  applyManualOffers,
   canonicalAsset,
   conditionLines,
   dedupeOffers,
@@ -10,6 +11,7 @@ import {
   estimatedReward,
   isBoosted,
   isStale,
+  manualExpiries,
   mergeRates,
   offerId,
   offerProblem,
@@ -373,5 +375,97 @@ describe('manual offer age', () => {
       mergeRates({ previous: null, results: {}, manual: [manual(verifiedAt)], now });
     expect(merged('2026-09-15T06:00:00Z').offers).toHaveLength(1);
     expect(merged('2026-09-13T06:00:00Z').offers).toHaveLength(0);
+  });
+});
+
+describe('applyManualOffers', () => {
+  const now = new Date('2026-10-30T12:00:00Z');
+  const stored = (platformId: string, source: 'api' | 'manual', rate: number, updatedAt: string) => ({
+    ...offer({ platformId, rate }),
+    id: `${platformId}-usdt`,
+    source,
+    updatedAt,
+  });
+  const file: RatesFile = {
+    generatedAt: '2026-10-30T02:00:00.000Z',
+    sources: {
+      bybit: { status: 'ok', checkedAt: '2026-10-30T02:00:00.000Z', offers: 1 },
+      gate: { status: 'failed', checkedAt: '2026-10-30T02:00:00.000Z', error: 'HTTP 503', offers: 1 },
+      weex: { status: 'manual', checkedAt: '2026-10-30T02:00:00.000Z', offers: 1 },
+      walt: { status: 'manual', checkedAt: '2026-10-30T02:00:00.000Z', offers: 1 },
+    },
+    offers: [
+      stored('bybit', 'api', 6, '2026-10-30T02:00:00.000Z'),
+      stored('gate', 'api', 2, '2026-10-28T02:00:00.000Z'),
+      stored('walt', 'manual', 4, '2026-10-21T00:00:00.000Z'),
+      stored('weex', 'manual', 10, '2026-10-21T00:00:00.000Z'),
+    ],
+  };
+  const manual = (platformId: string, rate: number, verifiedAt: string): ManualOffer => ({
+    ...offer({ platformId, rate }),
+    verifiedAt,
+  });
+
+  it('replaces manual offers and keeps fetched ones and generatedAt', () => {
+    const next = applyManualOffers(
+      file,
+      [manual('weex', 12, '2026-10-30'), manual('bybit', 99, '2026-10-30'), manual('walt', 4, '2026-09-20')],
+      now
+    );
+    expect(next.generatedAt).toBe(file.generatedAt);
+    expect(next.offers.filter((o) => o.source === 'api')).toEqual(file.offers.slice(0, 2));
+    expect(next.offers.find((o) => o.platformId === 'weex')).toMatchObject({
+      rate: 12,
+      source: 'manual',
+      updatedAt: '2026-10-30T00:00:00.000Z',
+    });
+    // Too old: Walt is dropped along with its source entry.
+    expect(next.offers.some((o) => o.platformId === 'walt')).toBe(false);
+    expect(Object.keys(next.sources)).toEqual(['bybit', 'gate', 'weex']);
+    expect(next.sources.gate).toEqual(file.sources.gate);
+    expect(next.sources.weex).toMatchObject({ status: 'manual', offers: 1, checkedAt: now.toISOString() });
+  });
+
+  it('gives mergeRates the same manual offers', () => {
+    const manualList = [manual('weex', 12, '2026-10-30')];
+    const merged = mergeRates({ previous: null, results: {}, manual: manualList, now });
+    expect(applyManualOffers({ ...merged, offers: [], sources: {} }, manualList, now)).toEqual(merged);
+  });
+});
+
+describe('manual rates expiry warning', () => {
+  const withManual = (generatedAt: string, ...verified: [string, string][]): RatesFile => ({
+    generatedAt,
+    sources: {},
+    offers: verified.map(([platformId, updatedAt], index) => ({
+      ...offer({ platformId }),
+      id: `${platformId}-${index}`,
+      source: 'manual' as const,
+      updatedAt,
+    })),
+  });
+
+  it('warns from 7 days before the oldest offer of a platform drops off', () => {
+    const at = (generatedAt: string) =>
+      manualExpiries(
+        withManual(generatedAt, ['walt', '2026-10-21T00:00:00.000Z'], ['walt', '2026-10-30T00:00:00.000Z'])
+      );
+    expect(at('2026-11-12T00:00:00.000Z')).toEqual([]); // 8 days left
+    expect(at('2026-11-13T00:00:00.000Z')).toEqual([{ platformId: 'walt', dropsOn: '2026-11-20', daysLeft: 7 }]);
+    expect(at('2026-11-19T02:00:00.000Z')).toEqual([{ platformId: 'walt', dropsOn: '2026-11-20', daysLeft: 1 }]);
+    expect(at('2026-11-20T00:00:00.000Z')[0].daysLeft).toBe(0);
+  });
+
+  it('puts the warning in the PR summary and asks for review', () => {
+    const next = withManual(
+      '2026-11-16T02:00:00.000Z',
+      ['weex', '2026-10-30T00:00:00.000Z'],
+      ['walt', '2026-10-21T00:00:00.000Z']
+    );
+    expect(holdReasons(next, next)).toEqual(['manual rates expiring (walt)']);
+    const summary = summarizeChanges(next, next);
+    expect(summary.startsWith('**Needs review:** manual rates expiring (walt).')).toBe(true);
+    expect(summary).toContain('### Manual rates to re-check (1)\n- walt: drops off on Nov 20, 2026 (4 days left)');
+    expect(summarizeChanges(next, withManual('2026-11-01T00:00:00.000Z'))).not.toContain('Manual rates to re-check');
   });
 });

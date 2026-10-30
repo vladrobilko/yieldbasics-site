@@ -270,8 +270,26 @@ export const mergeRates = ({ previous, results, manual, now }: MergeInput): Rate
     }
   }
 
+  return applyManualOffers({ generatedAt: nowIso, sources, offers }, manual, now);
+};
+
+/**
+ * Replaces the manual offers of a rates file with the current ones from
+ * manual-rates.json (dropping those verified more than MANUAL_MAX_AGE_DAYS
+ * ago). Fetched offers and `generatedAt` are kept, so `npm run rates:manual`
+ * can publish a manual check without fetching every source again.
+ */
+export const applyManualOffers = (file: RatesFile, manual: readonly ManualOffer[], now: Date): RatesFile => {
+  const fetched = new Set(
+    Object.entries(file.sources)
+      .filter(([, status]) => status.status !== 'manual')
+      .map(([platformId]) => platformId)
+  );
+  const sources = Object.fromEntries(Object.entries(file.sources).filter(([platformId]) => fetched.has(platformId)));
+  const offers = file.offers.filter((offer) => offer.source !== 'manual');
+
   const manualOffers = dedupeOffers(
-    manual.filter((offer) => !(offer.platformId in results) && !isStale(offer.verifiedAt, now, MANUAL_MAX_AGE_DAYS))
+    manual.filter((offer) => !fetched.has(offer.platformId) && !isStale(offer.verifiedAt, now, MANUAL_MAX_AGE_DAYS))
   );
   for (const { verifiedAt, ...offer } of manualOffers) {
     offers.push({ ...offer, id: offerId(offer), source: 'manual', updatedAt: new Date(verifiedAt).toISOString() });
@@ -279,13 +297,13 @@ export const mergeRates = ({ previous, results, manual, now }: MergeInput): Rate
   for (const platformId of new Set(manualOffers.map((offer) => offer.platformId))) {
     sources[platformId] = {
       status: 'manual',
-      checkedAt: nowIso,
+      checkedAt: now.toISOString(),
       offers: manualOffers.filter((offer) => offer.platformId === platformId).length,
     };
   }
 
   offers.sort((a, b) => a.id.localeCompare(b.id));
-  return { generatedAt: nowIso, sources, offers };
+  return { generatedAt: file.generatedAt, sources, offers };
 };
 
 /** A row of the rates table on the home page. */
@@ -372,16 +390,54 @@ const diffRates = (previous: RatesFile | null, next: RatesFile) => {
 
 const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`;
 
+/** Warn this many days before manual offers are dropped. */
+export const MANUAL_WARN_DAYS = 7;
+
+export interface ManualExpiry {
+  platformId: string;
+  /** ISO date the oldest manual offer of the platform drops off the site. */
+  dropsOn: string;
+  daysLeft: number;
+}
+
+/**
+ * Manual platforms whose oldest offer drops off within MANUAL_WARN_DAYS of the
+ * file's `generatedAt`, soonest first. Manual offers carry their `verifiedAt`
+ * as `updatedAt`.
+ */
+export const manualExpiries = (rates: RatesFile): ManualExpiry[] => {
+  const oldest = new Map<string, number>();
+  for (const offer of rates.offers) {
+    if (offer.source !== 'manual') continue;
+    const time = new Date(offer.updatedAt).getTime();
+    oldest.set(offer.platformId, Math.min(time, oldest.get(offer.platformId) ?? time));
+  }
+  const now = new Date(rates.generatedAt).getTime();
+  return [...oldest]
+    .map(([platformId, verified]) => {
+      const drops = verified + MANUAL_MAX_AGE_DAYS * DAY_MS;
+      return {
+        platformId,
+        dropsOn: new Date(drops).toISOString().slice(0, 10),
+        daysLeft: Math.ceil((drops - now) / DAY_MS),
+      };
+    })
+    .filter((expiry) => expiry.daysLeft <= MANUAL_WARN_DAYS)
+    .sort((x, y) => x.daysLeft - y.daysLeft);
+};
+
 /**
  * Why the daily rates PR needs a person to look at it: big moves, removed
- * offers or failed sources. Empty on a quiet day.
+ * offers, failed sources or manual rates about to drop off. Empty on a quiet day.
  */
 export const holdReasons = (previous: RatesFile | null, next: RatesFile): string[] => {
   const { bigMoves, removed, failed } = diffRates(previous, next);
+  const expiring = manualExpiries(next);
   return [
     ...(bigMoves.length ? [plural(bigMoves.length, 'big move')] : []),
     ...(removed.length ? [plural(removed.length, 'removed offer')] : []),
     ...(failed.length ? [plural(failed.length, 'failed source')] : []),
+    ...(expiring.length ? [`manual rates expiring (${expiring.map((e) => e.platformId).join(', ')})`] : []),
   ];
 };
 
@@ -389,6 +445,11 @@ export const holdReasons = (previous: RatesFile | null, next: RatesFile): string
 export const summarizeChanges = (previous: RatesFile | null, next: RatesFile): string => {
   const { bigMoves, changes, added, removed, failed } = diffRates(previous, next);
   const reasons = holdReasons(previous, next);
+  const expiring = manualExpiries(next).map(({ platformId, dropsOn, daysLeft }) =>
+    daysLeft <= 0
+      ? `- ${platformId}: drops off today (${formatRateDate(dropsOn)})`
+      : `- ${platformId}: drops off on ${formatRateDate(dropsOn)} (${plural(daysLeft, 'day')} left)`
+  );
   const section = (title: string, lines: string[], empty: string) => [
     `### ${title} (${lines.length})`,
     lines.length ? lines.join('\n') : empty,
@@ -397,13 +458,14 @@ export const summarizeChanges = (previous: RatesFile | null, next: RatesFile): s
   return [
     reasons.length
       ? `**Needs review:** ${reasons.join(', ')}. Check them before merging.`
-      : '**Quiet day:** no big moves, removed offers or failed sources. Safe to merge.',
+      : '**Quiet day:** no big moves, removed offers, failed sources or expiring manual rates. Safe to merge.',
     '',
     ...section('Big moves', bigMoves, 'None.'),
     ...section('Rate changes', changes, 'No rate changes.'),
     ...section('New offers', added, 'None.'),
     ...section('Removed offers', removed, 'None.'),
     ...section('Failed sources', failed, 'None.'),
+    ...(expiring.length ? section('Manual rates to re-check', expiring, '') : []),
   ]
     .join('\n')
     .trimEnd();
