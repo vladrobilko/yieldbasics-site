@@ -7,3 +7,4 @@ skills-lock.json
 
 # written by `npm run rates`
 src/data/rates.json
+src/data/history

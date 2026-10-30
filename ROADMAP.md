@@ -2,27 +2,31 @@
 
 Planned work that isn't done yet, in priority order. Remove an item once its PR is merged. The [growth strategy](#growth-strategy) below explains why the work is in this order.
 
-1. [AI search visibility](#ai-search-visibility): ChatGPT, Claude, Perplexity and Google AI answers.
-2. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
-3. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
-4. [More evergreen guides](#more-evergreen-guides), next: flexible vs fixed-term earn.
-5. [Community answers](#community-answers): Reddit, Quora, X replies (owner posts).
-6. [Rate history](#rate-history): start saving the daily snapshot early; the chart can wait.
-7. [Countries and platform pages](#countries-and-platform-pages)
-8. [Table filters and platform type switch](#table-filters-and-platform-type-switch)
-9. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-10. [Where to buy pages](#where-to-buy-pages)
-11. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-12. [Email newsletter](#email-newsletter)
-13. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-14. [Country pages](#country-pages)
-15. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-16. [Affiliate programs](#affiliate-programs)
+1. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
+2. [Platform pages](#platform-pages): `/platforms/<id>` from the data we already have.
+3. [More evergreen guides](#more-evergreen-guides), about one a week alongside the rest; next: flexible vs fixed-term earn.
+4. [Email signup and weekly digest](#email-signup-and-weekly-digest): start collecting subscribers early.
+5. [First Search Console check](#first-search-console-check): around mid-November 2026.
+6. [Growth chart on the calculator](#growth-chart-on-the-calculator)
+7. [Table filters and platform type switch](#table-filters-and-platform-type-switch): the type switch first.
+8. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
+9. [Rate history chart](#rate-history-chart): the daily data is already saved; the chart once there are about 30 days.
+10. [Countries data](#countries-data)
+11. [Where to buy pages](#where-to-buy-pages)
+12. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+13. [Country pages](#country-pages)
+14. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+15. [Affiliate programs](#affiliate-programs)
+16. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
 17. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
 18. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
 19. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
 20. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
 21. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+
+**Ongoing, not in the queue:** [AI search visibility](#ai-search-visibility) (monthly check from December 2026) and [Community answers](#community-answers) (owner posts by hand).
+
+Order reviewed 2026-10-30: rate history moved first and was built (the daily data can't be recovered later), platform pages split from the slower countries data, the email signup moved up so subscribers start adding up, and the market strip moved down (little search value).
 
 ## Growth strategy
 
@@ -76,7 +80,7 @@ Done (2026-10-25): the daily rates PR description has a "Post for X" block (one 
 
 WEEX and Walt show rates only to signed-in users, so they stay manual. Never automate a signed-in session.
 
-- The owner saves screenshots of the earn screens to a local folder outside the repo (one folder per date, a subfolder per platform), every 2–3 days. Manual rates are dropped 30 days after `verifiedAt`; the last check was 2026-10-21, so the next deadline is 2026-11-20.
+- The owner saves screenshots of the earn screens to a local folder outside the repo (one folder per date, a subfolder per platform), every 2–3 days. Manual rates are dropped 30 days after `verifiedAt`. WEEX was last checked 2026-10-30 (deadline 2026-11-29); Walt 2026-10-21 (deadline 2026-11-20).
 - Re-date only what the screenshots show. Fixed-term rates and tiers need their own screenshots; skip coins that aren't in `src/data/yields.ts`.
 - An agent reads them, updates `src/data/manual-rates.json` (rates and `verifiedAt`) and opens a PR.
 - Write this down as a skill in `.agents/skills/manual-rates/` so any agent follows the same steps.
@@ -85,19 +89,22 @@ WEEX and Walt show rates only to signed-in users, so they stay manual. Never aut
 
 Answer real questions on Reddit (r/CryptoCurrency, r/stablecoins, r/personalfinance), Quora and X, linking to a rate page or the calculator only when it answers the question. The owner posts by hand, about 20 minutes a day; agents can draft answers. Automating posts breaks these sites' rules.
 
-## Countries and platform pages
+## Platform pages
+
+New pages `/platforms/<id>`: every offer on that platform (reuse `RateTableRow.astro`), its earn product types, the referral bonus and a short evergreen overview (regulation, proof of reserves). Title, description and FAQ come from data, as in `src/utils/assetPages.ts`. Link them from the table rows and the footer. They match searches like "Bybit earn rates" and are easy for AI answers to quote. The countries section is added once the [countries data](#countries-data) exists, and a rate history chart once that exists.
+
+## Countries data
 
 - Add a `countries` block to each platform in `src/data/platforms.json`: the restricted countries, a link to the platform's terms, and the date it was checked. Tested helpers in `src/data/platforms.ts`.
-- New pages `/platforms/<id>`: every offer on that platform (reuse `RateTableRow.astro`), the countries it serves, its earn product types, the referral bonus and a short evergreen overview (regulation, proof of reserves). Title, description and FAQ come from data, as in `src/utils/assetPages.ts`. Link them from the table rows and the footer.
-- This data is also needed for the country pages, the "available in my country" filter and the Russian version.
+- Show it on the platform pages. It is also needed for the country pages, the "available in my country" filter and the Russian version.
 
 ## Table filters and platform type switch
 
-The table already filters by coin and term and sorts by rate. Add:
+The table already filters by coin and term and sorts by rate. Add, in this order:
 
-- a type switch: All · Exchanges · DeFi · Wallets (from `kind` in `platforms.json`)
-- a platform picker and "available in my country" (from the countries data)
+- a type switch: All · Exchanges · DeFi · Wallets (from `kind` in `platforms.json`; needs nothing new)
 - a minimum lock period filter for fixed terms
+- a platform picker and "available in my country" (after the [countries data](#countries-data))
 
 Put the filter logic in `src/utils/yields.ts` with tests.
 
@@ -117,13 +124,19 @@ A small strip under the header with BTC, ETH and a few top coin prices, the Cryp
 - Fear & Greed comes from `api.alternative.me/fng/`. Its terms require its name shown right next to the number.
 - If a request fails, the strip hides that item. Add both services to the privacy page.
 
-## Rate history
+## Rate history chart
 
-Start the snapshot soon, before the chart: a day that isn't saved can't be recovered later. Each daily run also saves a compact snapshot of the best rate per coin and product type (e.g. `src/data/history/<yyyy-mm>.json`). Coin pages show a 90-day chart. Nobody else publishes this history, so other sites have a reason to link here; it also powers the monthly report. Test the snapshot and aggregation logic.
+Done (2026-10-30): every daily run saves each offer's rate to `src/data/history/<yyyy-mm>.json` (see AGENTS.md), starting from 2026-10-14.
 
-## Email newsletter
+Next, once there are about 30 days: coin pages show a chart of the best flexible and best fixed rate over the last 90 days (inline SVG, both themes; the series maths in `src/utils/rateHistory.ts` with tests), and the platform pages a chart of their own offers. Nobody else publishes this history, so other sites have a reason to link here; it also powers the monthly report.
 
-A weekly rates digest generated from `rates.json` and the history data, through a free tier (Buttondown or Beehiiv). Add a signup form on the home page and the coin pages, and update the privacy page.
+## Email signup and weekly digest
+
+Start collecting subscribers early; the list grows like the history does. A signup form on the home page and the coin pages through a free tier (Buttondown, a hosted newsletter service: we embed its form, it stores the emails and sends the mail). The owner creates the account. A weekly digest generated from `rates.json` and the history data, sent by hand at first. Update the privacy page.
+
+## First Search Console check
+
+Around mid-November 2026, once Search Console has 3–4 weeks of data: check which pages are indexed, fix indexing errors, and note the first queries. A small PR, unlike the [full audit](#full-seo-audit-and-backlinks) later.
 
 ## Fees and exchange comparisons
 

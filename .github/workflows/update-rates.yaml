@@ -52,11 +52,23 @@ jobs:
         # For the X post below: it is skipped when no rate changed.
         run: cp src/data/rates.json "$RUNNER_TEMP/previous-rates.json"
 
+      # The PR branch is rebuilt from master on every run, so the history days
+      # of a PR that wasn't merged yet are copied out first and added back.
+      - name: Keep the history of the open rates PR
+        run: |
+          mkdir -p "$RUNNER_TEMP/pending-history"
+          if git fetch --depth=1 origin feature/bot/daily-rates-update 2>/dev/null; then
+            git archive FETCH_HEAD src/data/history | tar -x -C "$RUNNER_TEMP/pending-history" --strip-components=3 || true
+          fi
+          ls "$RUNNER_TEMP/pending-history"
+
       - name: Fetch rates
         env:
           # Bybit blocks GitHub's runners; this is our Cloudflare Worker (see AGENTS.md).
           BYBIT_PROXY_URL: ${{ secrets.BYBIT_PROXY_URL }}
-        run: npm run rates -- --summary "$RUNNER_TEMP/rates-summary.md" --hold "$RUNNER_TEMP/rates-hold.txt"
+        run: >-
+          npm run rates -- --summary "$RUNNER_TEMP/rates-summary.md" --hold "$RUNNER_TEMP/rates-hold.txt"
+          --pending-history "$RUNNER_TEMP/pending-history"
 
       - name: Run tests
         run: npm test
@@ -94,7 +106,9 @@ jobs:
         with:
           branch: feature/bot/daily-rates-update
           delete-branch: true
-          add-paths: src/data/rates.json
+          add-paths: |
+            src/data/rates.json
+            src/data/history
           commit-message: Update earn rates (${{ steps.date.outputs.today }})
           title: Daily earn rates update (${{ steps.date.outputs.today }})
           body-path: ${{ runner.temp }}/rates-summary.md

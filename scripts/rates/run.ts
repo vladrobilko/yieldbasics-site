@@ -7,6 +7,8 @@
  * summary of the changes is printed, and also written to the path given with
  * `--summary <file>` (used as the body of the daily PR). `--hold <file>` gets the
  * reasons the PR needs a closer look (one per line, empty on a quiet day).
+ * The day is also saved to src/data/history/<yyyy-mm>.json; `--pending-history
+ * <dir>` adds the days of the open rates PR first (see updateHistory).
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -22,6 +24,7 @@ import {
   type RatesFile,
   type SourceResult,
 } from '../../src/utils/rates';
+import { updateHistory } from './history';
 import { createFetchJson } from './http';
 import { aave } from './sources/aave';
 import { binance } from './sources/binance';
@@ -37,6 +40,12 @@ const SOURCES: Source[] = [binance, bybit, okx, gate, kucoin, coinw, aave];
 const dataPath = (name: string) => fileURLToPath(new URL(`../../src/data/${name}`, import.meta.url));
 const RATES_PATH = dataPath('rates.json');
 const MANUAL_PATH = dataPath('manual-rates.json');
+const HISTORY_DIR = dataPath('history');
+
+const flagValue = (name: string): string | undefined => {
+  const index = process.argv.indexOf(name);
+  return index === -1 ? undefined : process.argv[index + 1];
+};
 
 const readJson = <T>(path: string): T | null => {
   try {
@@ -85,18 +94,21 @@ const main = async () => {
 
   const summary = summarizeChanges(previous, next);
   console.log(`\n${summary}`);
-  const summaryFlag = process.argv.indexOf('--summary');
-  if (summaryFlag !== -1 && process.argv[summaryFlag + 1]) writeFileSync(process.argv[summaryFlag + 1], `${summary}\n`);
-  const holdFlag = process.argv.indexOf('--hold');
-  if (holdFlag !== -1 && process.argv[holdFlag + 1]) {
+  const summaryPath = flagValue('--summary');
+  if (summaryPath) writeFileSync(summaryPath, `${summary}\n`);
+  const holdPath = flagValue('--hold');
+  if (holdPath) {
     const reasons = holdReasons(previous, next);
-    writeFileSync(process.argv[holdFlag + 1], reasons.map((reason) => `${reason}\n`).join(''));
+    writeFileSync(holdPath, reasons.map((reason) => `${reason}\n`).join(''));
   }
 
   if (Object.values(results).every((result) => !result.ok)) {
     console.error('Every source failed.');
     process.exitCode = 1;
+    return;
   }
+  const day = updateHistory({ historyDir: HISTORY_DIR, pendingDir: flagValue('--pending-history'), rates: next });
+  console.log(`History saved for ${day}.`);
 };
 
 await main();
