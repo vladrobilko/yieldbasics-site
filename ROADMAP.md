@@ -2,27 +2,26 @@
 
 Planned work that isn't done yet, in priority order. Remove an item once its PR is merged. The [growth strategy](#growth-strategy) below explains why the work is in this order.
 
-1. [Manual rates routine](#manual-rates-routine): WEEX and Walt from screenshots.
-2. [Platform pages](#platform-pages): `/platforms/<id>` from the data we already have.
-3. [More evergreen guides](#more-evergreen-guides), about one a week alongside the rest; next: flexible vs fixed-term earn.
-4. [Email signup and weekly digest](#email-signup-and-weekly-digest): start collecting subscribers early.
-5. [First Search Console check](#first-search-console-check): around mid-November 2026.
-6. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-7. [Table filters and platform type switch](#table-filters-and-platform-type-switch): the type switch first.
-8. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
-9. [Rate history chart](#rate-history-chart): the daily data is already saved; the chart once there are about 30 days.
-10. [Countries data](#countries-data)
-11. [Where to buy pages](#where-to-buy-pages)
-12. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-13. [Country pages](#country-pages)
-14. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-15. [Affiliate programs](#affiliate-programs)
-16. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-17. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-18. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-19. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-20. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-21. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+1. [Platform pages](#platform-pages): `/platforms/<id>` from the data we already have.
+2. [More evergreen guides](#more-evergreen-guides), about one a week alongside the rest; next: flexible vs fixed-term earn.
+3. [Email signup and weekly digest](#email-signup-and-weekly-digest): start collecting subscribers early.
+4. [First Search Console check](#first-search-console-check): around mid-November 2026.
+5. [Growth chart on the calculator](#growth-chart-on-the-calculator)
+6. [Table filters and platform type switch](#table-filters-and-platform-type-switch): the type switch first.
+7. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
+8. [Rate history chart](#rate-history-chart): the daily data is already saved; the chart once there are about 30 days.
+9. [Countries data](#countries-data)
+10. [Where to buy pages](#where-to-buy-pages)
+11. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+12. [Country pages](#country-pages)
+13. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+14. [Affiliate programs](#affiliate-programs)
+15. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
+16. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+17. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+18. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+19. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
+20. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 **Ongoing, not in the queue:** [AI search visibility](#ai-search-visibility) (monthly check from December 2026) and [Community answers](#community-answers) (owner posts by hand).
 
@@ -75,15 +74,6 @@ Done (2026-10-25): the daily rates PR description has a "Post for X" block (one 
 3. **Inbox (after the keys):** `npm run x:inbox` downloads new DMs and mentions since the last check to a private file outside the repo; an agent summarizes offers, flags scams and drafts replies; `npm run x:reply` sends a reply only after the owner approves it. Light use is about $7.50/month.
 4. Later: a weekly "biggest moves" post, and a post for each new guide (from `rss.xml`).
 5. New deals: the same workflow posts each new entry in `src/data/deals.json` once its PR is merged, using the text from `npm run deals:post <id>` (today the owner pastes it by hand).
-
-## Manual rates routine
-
-WEEX and Walt show rates only to signed-in users, so they stay manual. Never automate a signed-in session.
-
-- The owner saves screenshots of the earn screens to a local folder outside the repo (one folder per date, a subfolder per platform), every 2–3 days. Manual rates are dropped 30 days after `verifiedAt`. WEEX was last checked 2026-10-30 (deadline 2026-11-29); Walt 2026-10-21 (deadline 2026-11-20).
-- Re-date only what the screenshots show. Fixed-term rates and tiers need their own screenshots; skip coins that aren't in `src/data/yields.ts`.
-- An agent reads them, updates `src/data/manual-rates.json` (rates and `verifiedAt`) and opens a PR.
-- Write this down as a skill in `.agents/skills/manual-rates/` so any agent follows the same steps.
 
 ## Community answers
 
