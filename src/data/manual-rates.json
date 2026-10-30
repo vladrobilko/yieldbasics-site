@@ -19,7 +19,7 @@
           "rate": 3
         }
       ],
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -31,7 +31,7 @@
       "audience": "new-user",
       "maxAmount": 200,
       "note": "Then 3% APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -52,7 +52,7 @@
           "rate": 3
         }
       ],
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -74,7 +74,7 @@
         }
       ],
       "note": "Limited-time rate",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -83,7 +83,7 @@
       "termDays": 30,
       "rate": 2,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -104,7 +104,7 @@
           "rate": 2
         }
       ],
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -113,7 +113,7 @@
       "termDays": 7,
       "rate": 2.3,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -122,7 +122,7 @@
       "termDays": 14,
       "rate": 2.5,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -131,7 +131,7 @@
       "termDays": 30,
       "rate": 3,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -152,7 +152,7 @@
           "rate": 4
         }
       ],
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -161,7 +161,7 @@
       "termDays": 7,
       "rate": 4.2,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -170,7 +170,7 @@
       "termDays": 14,
       "rate": 4.5,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -179,7 +179,7 @@
       "termDays": 30,
       "rate": 5,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -200,7 +200,7 @@
           "rate": 2
         }
       ],
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -209,7 +209,7 @@
       "termDays": 0,
       "rate": 2,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -218,7 +218,7 @@
       "termDays": 0,
       "rate": 2,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -227,7 +227,7 @@
       "termDays": 0,
       "rate": 2,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -236,7 +236,7 @@
       "termDays": 0,
       "rate": 3,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "weex",
@@ -245,7 +245,7 @@
       "termDays": 0,
       "rate": 0.5,
       "type": "APR",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-10-30"
     },
     {
       "platformId": "telegram-wallet",

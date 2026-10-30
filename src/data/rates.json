@@ -2894,7 +2894,7 @@
       "type": "APR",
       "id": "weex-ada-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -2905,7 +2905,7 @@
       "type": "APR",
       "id": "weex-btc-earn-30d",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -2929,7 +2929,7 @@
       "note": "Limited-time rate",
       "id": "weex-btc-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -2952,7 +2952,7 @@
       ],
       "id": "weex-doge-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -2963,7 +2963,7 @@
       "type": "APR",
       "id": "weex-eth-earn-14d",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -2974,7 +2974,7 @@
       "type": "APR",
       "id": "weex-eth-earn-30d",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -2985,7 +2985,7 @@
       "type": "APR",
       "id": "weex-eth-earn-7d",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3008,7 +3008,7 @@
       ],
       "id": "weex-eth-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3019,7 +3019,7 @@
       "type": "APR",
       "id": "weex-hype-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3030,7 +3030,7 @@
       "type": "APR",
       "id": "weex-link-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3041,7 +3041,7 @@
       "type": "APR",
       "id": "weex-sol-earn-14d",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3052,7 +3052,7 @@
       "type": "APR",
       "id": "weex-sol-earn-30d",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3063,7 +3063,7 @@
       "type": "APR",
       "id": "weex-sol-earn-7d",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3086,7 +3086,7 @@
       ],
       "id": "weex-sol-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3097,7 +3097,7 @@
       "type": "APR",
       "id": "weex-trx-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3120,7 +3120,7 @@
       ],
       "id": "weex-usdc-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3134,7 +3134,7 @@
       "note": "Then 3% APR",
       "id": "weex-usdt-auto-earn-7d-new-user",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3157,7 +3157,7 @@
       ],
       "id": "weex-usdt-auto-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     },
     {
       "platformId": "weex",
@@ -3168,7 +3168,7 @@
       "type": "APR",
       "id": "weex-xrp-earn-flexible",
       "source": "manual",
-      "updatedAt": "2026-10-21T00:00:00.000Z"
+      "updatedAt": "2026-10-30T00:00:00.000Z"
     }
   ]
 }
