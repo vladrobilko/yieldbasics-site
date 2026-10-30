@@ -7,7 +7,44 @@
     "referralUrl": "https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_3JK5B",
     "logo": "token-branded:binance-background",
     "mark": "B",
-    "markClass": "bg-[#F0B90B] text-[#17191C]"
+    "markClass": "bg-[#F0B90B] text-[#17191C]",
+    "profile": {
+      "summary": "Binance is a crypto exchange founded in 2017 by Changpeng Zhao and Yi He. Its Simple Earn product pays a variable rate on flexible balances and a set rate on locked terms. In November 2023 Binance pleaded guilty in the US to anti-money-laundering violations and agreed to pay about $4.3 billion, and its founder stepped down as CEO. It has no official headquarters and works through regional companies, some of them licensed, such as its entities in Abu Dhabi.",
+      "facts": [
+        {
+          "label": "Founded",
+          "value": "2017"
+        },
+        {
+          "label": "Headquarters",
+          "value": "No official headquarters"
+        },
+        {
+          "label": "Regulation",
+          "value": "Regional entities, e.g. Abu Dhabi (ADGM, regulated by the FSRA)"
+        },
+        {
+          "label": "Proof of reserves",
+          "value": "Yes: check your own balance against a Merkle tree, with zk-SNARK proofs"
+        }
+      ],
+      "proofOfReserves": "https://www.binance.com/en/proof-of-reserves",
+      "sources": [
+        {
+          "title": "Binance (Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/Binance"
+        },
+        {
+          "title": "Binance licences",
+          "url": "https://www.binance.com/en/legal/licenses"
+        },
+        {
+          "title": "Binance proof of reserves",
+          "url": "https://www.binance.com/en/proof-of-reserves"
+        }
+      ],
+      "checkedAt": "2026-10-30"
+    }
   },
   {
     "id": "bybit",
@@ -17,7 +54,40 @@
     "referralUrl": "https://www.bybit.com/invite?ref=7JY8Q8",
     "logo": "token-branded:bybit-background",
     "mark": "BY",
-    "markClass": "bg-[#17181E] text-[#F7A600] dark:bg-slate-700"
+    "markClass": "bg-[#17181E] text-[#F7A600] dark:bg-slate-700",
+    "profile": {
+      "summary": "Bybit is a crypto exchange founded in 2018 by Ben Zhou and based in Dubai. It offers Flexible Savings and On-Chain Earn, where coins are staked on their own networks. In February 2025 hackers that the FBI linked to North Korea stole about $1.4 billion in ETH from one of Bybit's wallets. Its European arm has been authorised under the EU's MiCA rules in Austria since 2025.",
+      "facts": [
+        {
+          "label": "Founded",
+          "value": "2018"
+        },
+        {
+          "label": "Headquarters",
+          "value": "Dubai, UAE"
+        },
+        {
+          "label": "Regulation",
+          "value": "EU: MiCA licence (Austria, 2025); UAE: SCA licence (2025)"
+        },
+        {
+          "label": "Proof of reserves",
+          "value": "Yes: regular reports with a Merkle tree check"
+        }
+      ],
+      "proofOfReserves": "https://www.bybit.com/app/user/proof-of-reserve",
+      "sources": [
+        {
+          "title": "Bybit (Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/Bybit"
+        },
+        {
+          "title": "Bybit proof of reserves",
+          "url": "https://www.bybit.com/app/user/proof-of-reserve"
+        }
+      ],
+      "checkedAt": "2026-10-30"
+    }
   },
   {
     "id": "okx",
@@ -27,7 +97,36 @@
     "referralUrl": "https://okx.com/join/2PGXPZ2P",
     "logo": "token-branded:okx-background",
     "mark": "OK",
-    "markClass": "bg-[#111827] text-white dark:bg-slate-700"
+    "markClass": "bg-[#111827] text-white dark:bg-slate-700",
+    "profile": {
+      "summary": "OKX traces back to OKCoin, started in 2013 by Star Xu, and has run under the OKX name (first OKEx) since 2017. It moved its headquarters to San Jose, California, in 2025. Simple Earn pays a variable rate on flexible balances. OKX publishes monthly proof-of-reserves reports that use zero-knowledge proofs (zk-STARK).",
+      "facts": [
+        {
+          "label": "Founded",
+          "value": "2013 (as OKCoin)"
+        },
+        {
+          "label": "Headquarters",
+          "value": "San Jose, California, US"
+        },
+        {
+          "label": "Proof of reserves",
+          "value": "Yes: monthly reports with zk-STARK proofs"
+        }
+      ],
+      "proofOfReserves": "https://www.okx.com/proof-of-reserves",
+      "sources": [
+        {
+          "title": "OKX (Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/OKX"
+        },
+        {
+          "title": "OKX proof of reserves",
+          "url": "https://www.okx.com/proof-of-reserves"
+        }
+      ],
+      "checkedAt": "2026-10-30"
+    }
   },
   {
     "id": "aave",
@@ -37,7 +136,35 @@
     "referralUrl": "https://aave.com/r/18497A",
     "logo": "token-branded:aave-background",
     "mark": "A",
-    "markClass": "bg-[#B6509E] text-white"
+    "markClass": "bg-[#B6509E] text-white",
+    "profile": {
+      "summary": "Aave is a decentralised lending protocol, not an exchange account. It started as ETHLend in 2017, founded by Stani Kulechov, and relaunched as Aave in 2020. You deposit coins from your own wallet into a pool, and borrowers pay interest to the pool, so the rate moves with demand. The pools are on-chain and anyone can check them; the main risks are bugs in the smart contracts and loans that go bad. Changes are voted on by AAVE token holders.",
+      "facts": [
+        {
+          "label": "Launched",
+          "value": "2017 as ETHLend, 2020 as Aave"
+        },
+        {
+          "label": "Custody",
+          "value": "Your own wallet (non-custodial)"
+        },
+        {
+          "label": "Governance",
+          "value": "Aave DAO (AAVE token holders)"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Aave (Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/Aave"
+        },
+        {
+          "title": "Aave documentation",
+          "url": "https://aave.com/docs"
+        }
+      ],
+      "checkedAt": "2026-10-30"
+    }
   },
   {
     "id": "gate",
@@ -47,7 +174,36 @@
     "referralUrl": "https://www.gate.com/rewards_hub?ch=RewardsHub&ref=VLMVUVSKCA&ref_type=145",
     "logo": "token-branded:gate-io-background",
     "mark": "G",
-    "markClass": "bg-[#2354E6] text-white"
+    "markClass": "bg-[#2354E6] text-white",
+    "profile": {
+      "summary": "Gate started in 2013 as Bter.com, founded by Lin Han. It became Gate.io in 2017 and Gate.com in 2025. It lists a very wide range of coins, and its Simple Earn and fixed-term products cover many of them. Gate has published proof-of-reserves reports since 2020.",
+      "facts": [
+        {
+          "label": "Founded",
+          "value": "2013 (as Bter.com)"
+        },
+        {
+          "label": "Proof of reserves",
+          "value": "Yes: published since 2020"
+        }
+      ],
+      "proofOfReserves": "https://www.gate.com/proof-of-reserves",
+      "sources": [
+        {
+          "title": "Gate marks 12 years in crypto (Decrypt)",
+          "url": "https://decrypt.co/324658/gate-marks-12-years-in-crypto-with-evolving-vision"
+        },
+        {
+          "title": "Gate May 2025 transparency report (brand revamp)",
+          "url": "https://www.globenewswire.com/news-release/2025/06/20/3102581/0/en/Gate-Releases-May-2025-Transparency-Report-Brand-Revamp-Ignites-Strategic-Acceleration.html"
+        },
+        {
+          "title": "Gate proof of reserves",
+          "url": "https://www.gate.com/proof-of-reserves"
+        }
+      ],
+      "checkedAt": "2026-10-30"
+    }
   },
   {
     "id": "kucoin",
@@ -57,17 +213,83 @@
     "referralUrl": "https://link.kucoin.com/iqEP/alk9lpk6?rcode=5XVM8KJK",
     "logo": "token-branded:kucoin-background",
     "mark": "KC",
-    "markClass": "bg-[#01BC8D] text-white"
+    "markClass": "bg-[#01BC8D] text-white",
+    "profile": {
+      "summary": "KuCoin is a crypto exchange founded in 2017 and based in Seychelles. In 2020 hackers took about $281 million from its hot wallets; the company said users' losses were covered. In January 2025 it pleaded guilty in the US to running an unlicensed money-transmitting business, agreed to pay nearly $300 million and has no US operations. Its European arm was authorised under the EU's MiCA rules in Austria in November 2025.",
+      "facts": [
+        {
+          "label": "Founded",
+          "value": "2017"
+        },
+        {
+          "label": "Headquarters",
+          "value": "Seychelles"
+        },
+        {
+          "label": "Regulation",
+          "value": "EU: MiCA licence (Austria, 2025); Australia: AUSTRAC registration (2025); not available in the US"
+        },
+        {
+          "label": "Proof of reserves",
+          "value": "Yes: published on its site"
+        }
+      ],
+      "proofOfReserves": "https://www.kucoin.com/proof-of-reserves",
+      "sources": [
+        {
+          "title": "KuCoin (Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/KuCoin"
+        },
+        {
+          "title": "KuCoin proof of reserves",
+          "url": "https://www.kucoin.com/proof-of-reserves"
+        }
+      ],
+      "checkedAt": "2026-10-30"
+    }
   },
   {
     "id": "telegram-wallet",
+    "slug": "walt",
     "name": "Walt",
     "kind": "wallet",
     "website": "https://walt.io/",
     "referralUrl": "https://telegram.me/walt/start?startapp=ref-3-Eaf_7ElBp0A",
     "logo": "platform-walt",
     "mark": "W",
-    "markClass": "bg-[#2AABEE] text-white"
+    "markClass": "bg-[#2AABEE] text-white",
+    "profile": {
+      "summary": "Walt is a crypto app inside Telegram, called Wallet in Telegram until September 2026. It is run by TG Wallet Inc., registered in Panama, and the standard account is custodial: Walt holds the keys and can help you recover the account. Walt says it operates from a jurisdiction that doesn't require authorisation or give statutory consumer protection, and it isn't available in the US or the UK. Its earn rates are shown only inside the app, so we check them by hand.",
+      "facts": [
+        {
+          "label": "Operator",
+          "value": "TG Wallet Inc. (Panama)"
+        },
+        {
+          "label": "Custody",
+          "value": "Custodial by default; an optional self-custody DeFi account"
+        },
+        {
+          "label": "Formerly",
+          "value": "Wallet in Telegram (renamed September 2026)"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Walt",
+          "url": "https://walt.io/"
+        },
+        {
+          "title": "Walt risk warning",
+          "url": "https://walt.io/docs/walt_risk_warning_en"
+        },
+        {
+          "title": "Wallet in Telegram rebrands as Walt (crypto.news)",
+          "url": "https://crypto.news/wallet-in-telegram-rebrands-as-walt/"
+        }
+      ],
+      "checkedAt": "2026-10-30"
+    }
   },
   {
     "id": "coinw",
@@ -77,7 +299,35 @@
     "referralUrl": "https://www.coinw.com/en_US/register?r=26756348",
     "logo": "platform-coinw",
     "mark": "CW",
-    "markClass": "bg-[#3A6FF8] text-white"
+    "markClass": "bg-[#3A6FF8] text-white",
+    "profile": {
+      "summary": "CoinW is a crypto exchange founded in 2017 and based in the UAE. Its offers on this site are mainly fixed-term savings, some at high rates for a limited amount. CoinW publishes its own reserve figures; we found no independent audit of them.",
+      "facts": [
+        {
+          "label": "Founded",
+          "value": "2017"
+        },
+        {
+          "label": "Headquarters",
+          "value": "UAE"
+        },
+        {
+          "label": "Proof of reserves",
+          "value": "Self-reported reserve figures"
+        }
+      ],
+      "sources": [
+        {
+          "title": "CoinW (CoinGecko)",
+          "url": "https://www.coingecko.com/en/exchanges/coinw"
+        },
+        {
+          "title": "CoinW review (Incrypted)",
+          "url": "https://incrypted.com/en/coinw-crypto-exchange-review/"
+        }
+      ],
+      "checkedAt": "2026-10-30"
+    }
   },
   {
     "id": "weex",
@@ -87,6 +337,35 @@
     "referralUrl": "https://weex.com/register?vipCode=0h7ra",
     "logo": "platform-weex",
     "mark": "WX",
-    "markClass": "bg-[#0B0B0B] text-[#FFD600] dark:bg-slate-700"
+    "markClass": "bg-[#0B0B0B] text-[#FFD600] dark:bg-slate-700",
+    "profile": {
+      "summary": "WEEX is a crypto exchange founded in 2018, mostly used for futures trading. It publishes a proof-of-reserves page with a reserve ratio for each main coin and keeps a protection fund of 1,000 BTC. Its earn rates are shown only to signed-in users, so we check them by hand.",
+      "facts": [
+        {
+          "label": "Founded",
+          "value": "2018"
+        },
+        {
+          "label": "Protection fund",
+          "value": "1,000 BTC"
+        },
+        {
+          "label": "Proof of reserves",
+          "value": "Yes: reserve ratios per coin on its site"
+        }
+      ],
+      "proofOfReserves": "https://www.weex.com/proof-of-reserves",
+      "sources": [
+        {
+          "title": "WEEX proof of reserves",
+          "url": "https://www.weex.com/proof-of-reserves"
+        },
+        {
+          "title": "WEEX review (Coin Bureau)",
+          "url": "https://coinbureau.com/review/weex-review"
+        }
+      ],
+      "checkedAt": "2026-10-30"
+    }
   }
 ]

@@ -2,30 +2,29 @@
 
 Planned work that isn't done yet, in priority order. Remove an item once its PR is merged. The [growth strategy](#growth-strategy) below explains why the work is in this order.
 
-1. [Platform pages](#platform-pages): `/platforms/<id>` from the data we already have.
-2. [More evergreen guides](#more-evergreen-guides), about one a week alongside the rest; next: flexible vs fixed-term earn.
-3. [Email signup and weekly digest](#email-signup-and-weekly-digest): start collecting subscribers early.
-4. [First Search Console check](#first-search-console-check): around mid-November 2026.
-5. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-6. [Table filters and platform type switch](#table-filters-and-platform-type-switch): the type switch first.
-7. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
-8. [Rate history chart](#rate-history-chart): the daily data is already saved; the chart once there are about 30 days.
-9. [Countries data](#countries-data)
-10. [Where to buy pages](#where-to-buy-pages)
-11. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-12. [Country pages](#country-pages)
-13. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-14. [Affiliate programs](#affiliate-programs)
-15. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-16. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-17. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-18. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-19. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-20. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+1. [More evergreen guides](#more-evergreen-guides), about one a week alongside the rest; next: flexible vs fixed-term earn.
+2. [Email signup and weekly digest](#email-signup-and-weekly-digest): start collecting subscribers early.
+3. [First Search Console check](#first-search-console-check): around mid-November 2026.
+4. [Growth chart on the calculator](#growth-chart-on-the-calculator)
+5. [Table filters and platform type switch](#table-filters-and-platform-type-switch): the type switch first.
+6. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
+7. [Rate history chart](#rate-history-chart): the daily data is already saved; the chart once there are about 30 days.
+8. [Countries data](#countries-data)
+9. [Where to buy pages](#where-to-buy-pages)
+10. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+11. [Country pages](#country-pages)
+12. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+13. [Affiliate programs](#affiliate-programs)
+14. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
+15. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+16. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+17. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+18. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
+19. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
 
 **Ongoing, not in the queue:** [AI search visibility](#ai-search-visibility) (monthly check from December 2026) and [Community answers](#community-answers) (owner posts by hand).
 
-Order reviewed 2026-10-30: rate history moved first and was built (the daily data can't be recovered later), platform pages split from the slower countries data, the email signup moved up so subscribers start adding up, and the market strip moved down (little search value).
+Order reviewed 2026-10-30 (platform pages and the manual rates routine since done): rate history moved first and was built (the daily data can't be recovered later), platform pages split from the slower countries data, the email signup moved up so subscribers start adding up, and the market strip moved down (little search value).
 
 ## Growth strategy
 
@@ -79,14 +78,10 @@ Done (2026-10-25): the daily rates PR description has a "Post for X" block (one 
 
 Answer real questions on Reddit (r/CryptoCurrency, r/stablecoins, r/personalfinance), Quora and X, linking to a rate page or the calculator only when it answers the question. The owner posts by hand, about 20 minutes a day; agents can draft answers. Automating posts breaks these sites' rules.
 
-## Platform pages
-
-New pages `/platforms/<id>`: every offer on that platform (reuse `RateTableRow.astro`), its earn product types, the referral bonus and a short evergreen overview (regulation, proof of reserves). Title, description and FAQ come from data, as in `src/utils/assetPages.ts`. Link them from the table rows and the footer. They match searches like "Bybit earn rates" and are easy for AI answers to quote. The countries section is added once the [countries data](#countries-data) exists, and a rate history chart once that exists.
-
 ## Countries data
 
 - Add a `countries` block to each platform in `src/data/platforms.json`: the restricted countries, a link to the platform's terms, and the date it was checked. Tested helpers in `src/data/platforms.ts`.
-- Show it on the platform pages. It is also needed for the country pages, the "available in my country" filter and the Russian version.
+- Show it in a countries section on the platform pages (`/platforms/<slug>`). It is also needed for the country pages, the "available in my country" filter and the Russian version.
 
 ## Table filters and platform type switch
 

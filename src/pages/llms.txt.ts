@@ -1,9 +1,10 @@
 import { SITE, METADATA } from 'astrowind:config';
-import { getPlatform } from '~/data/platforms';
+import { getPlatform, platforms, platformSlug } from '~/data/platforms';
 import { assets, rateRows, ratesUpdatedAt } from '~/data/yields';
 import { assetSlug, assetsWithOffers, bestRatesText, summarizeAsset } from '~/utils/assetPages';
 import { fetchPosts } from '~/utils/blog';
 import { buildLlmsTxt } from '~/utils/llmsTxt';
+import { platformBestRatesText, platformsWithOffers } from '~/utils/platformPages';
 import { getPermalink } from '~/utils/permalinks';
 import { formatRateDate } from '~/utils/rates';
 import { siteStats } from '~/utils/yields';
@@ -29,6 +30,16 @@ export const GET = async () => {
     };
   });
 
+  const platformLinks = platformsWithOffers(platforms, rateRows).map((platform) => {
+    const summary = summarizeAsset(rateRows.filter((row) => row.platformId === platform.id));
+    const best = platformBestRatesText(platform.name, summary);
+    return {
+      title: `${platform.name} earn rates`,
+      url: url(`/platforms/${platformSlug(platform)}`),
+      note: best ? `${capitalize(best)}.` : `${summary.offerCount} offers.`,
+    };
+  });
+
   const text = buildLlmsTxt({
     siteName: SITE.name,
     summary: METADATA?.description ?? '',
@@ -49,6 +60,7 @@ export const GET = async () => {
           ...coinLinks,
         ],
       },
+      { title: 'Platform pages', links: platformLinks },
       {
         title: 'Tools',
         links: [

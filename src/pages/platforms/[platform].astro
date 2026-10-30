@@ -1,0 +1,375 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '~/layouts/PageLayout.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import RateTableRow from '~/components/ui/RateTableRow.astro';
+import TableHelp from '~/components/widgets/TableHelp.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import { platformKindLabels, platforms, platformSlug, type Platform } from '~/data/platforms';
+import { assets, rateRows, ratesUpdatedAt } from '~/data/yields';
+import { SITE } from 'astrowind:config';
+import { assetPageSchema, assetSlug, summarizeAsset } from '~/utils/assetPages';
+import {
+  platformAnswerLine,
+  platformAssets,
+  platformFaq,
+  platformPageDescription,
+  platformPageTitle,
+  platformsWithOffers,
+  sortByAssetThenRate,
+} from '~/utils/platformPages';
+import { formatRateDate } from '~/utils/rates';
+import { getPermalink } from '~/utils/permalinks';
+import { formatRate, sortByReward } from '~/utils/yields';
+
+// One page per platform (/platforms/bybit…), rebuilt with every rates update:
+// all its offers, its best rates and a short sourced profile from
+// src/data/platforms.json. Server-rendered like the coin pages.
+
+export const getStaticPaths = () =>
+  platformsWithOffers(platforms, rateRows).map((platform) => ({
+    params: { platform: platformSlug(platform) },
+    props: { platform },
+  }));
+
+const { platform } = Astro.props as { platform: Platform };
+
+const assetOrder = assets.map((asset) => asset.symbol);
+const rows = rateRows.filter((row) => row.platformId === platform.id).map((row) => ({ ...row, platform }));
+const regular = rows.filter((row) => row.audience !== 'new-user');
+const flexible = sortByAssetThenRate(
+  regular.filter((row) => row.termDays === 0),
+  assetOrder
+);
+const fixed = sortByAssetThenRate(
+  regular.filter((row) => row.termDays > 0),
+  assetOrder
+);
+const newUser = sortByReward(
+  rows.filter((row) => row.audience === 'new-user').map((row) => ({ ...row, reward: row.maxReward }))
+);
+
+const summary = summarizeAsset(rows);
+const coins = platformAssets(rows, assetOrder);
+const updated = formatRateDate(ratesUpdatedAt);
+const manual = rows.some((row) => row.source === 'manual');
+const checkedByHand = manual ? formatRateDate(rows.map((row) => row.updatedAt).sort()[0]) : undefined;
+const profile = platform.profile;
+const kindLabel = platformKindLabels[platform.kind];
+
+const faq = platformFaq({
+  name: platform.name,
+  summary,
+  coins,
+  updated,
+  manual,
+  hasFlexible: flexible.length > 0,
+  hasFixed: fixed.length > 0,
+  proofOfReserves: profile?.proofOfReserves,
+});
+
+const metadata = {
+  title: platformPageTitle(platform.name),
+  description: platformPageDescription(platform.name, summary, coins.length),
+};
+
+const answerLine = platformAnswerLine(platform.name, summary, updated);
+const intro = `${summary.offerCount} ${platform.name} savings and staking offers on ${coins.length} ${coins.length === 1 ? 'coin' : 'coins'}, grouped by coin. `;
+const pagePath = getPermalink(`/platforms/${platformSlug(platform)}`);
+const pageSchema = assetPageSchema({
+  ...metadata,
+  url: new URL(pagePath, SITE.site).href,
+  dateModified: ratesUpdatedAt,
+  siteName: SITE.name,
+  siteUrl: SITE.site ?? '',
+});
+
+const otherPlatforms = platformsWithOffers(platforms, rateRows).filter((other) => other.id !== platform.id);
+
+const highlights = [
+  { label: 'Best flexible', row: summary.bestFlexible },
+  { label: 'Best fixed term', row: summary.bestFixed },
+  { label: 'Best for new users', row: summary.bestNewUser },
+].filter((item) => item.row);
+
+const sections = [
+  { id: 'flexible', title: `Flexible savings on ${platform.name}`, note: 'Withdraw at any time.', rows: flexible },
+  { id: 'fixed', title: `Fixed-term savings on ${platform.name}`, note: 'Locked for the term shown.', rows: fixed },
+  {
+    id: 'new-users',
+    title: `${platform.name} offers for new users`,
+    note: 'New accounts or first deposits only, ranked by the most you can earn.',
+    guide: { text: 'What new-user offers really pay', href: getPermalink('/guides/new-user-crypto-earn-offers') },
+    rows: newUser,
+  },
+].filter((section) => section.rows.length > 0);
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={pageSchema} />
+  <Breadcrumbs
+    bar
+    items={[
+      { text: 'Rates', href: getPermalink('/') },
+      { text: `${platform.name} earn rates`, href: pagePath },
+    ]}
+  />
+
+  <div class="mx-auto w-full max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+    <header class="flex flex-col gap-5 sm:flex-row sm:items-center">
+      {
+        platform.logo ? (
+          <span
+            class="h-14 w-14 shrink-0 overflow-hidden rounded-full ring-1 ring-slate-200 dark:ring-slate-700"
+            aria-hidden="true"
+          >
+            <Icon name={platform.logo} class="h-full w-full" />
+          </span>
+        ) : (
+          <span
+            class:list={[
+              'flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-base font-extrabold',
+              platform.markClass,
+            ]}
+            aria-hidden="true"
+          >
+            {platform.mark}
+          </span>
+        )
+      }
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{kindLabel}</p>
+        <h1 class="mt-1 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
+          {platform.name} earn rates today
+        </h1>
+        {
+          answerLine ? (
+            <p class="mt-3 flex max-w-3xl items-start gap-2 text-base font-semibold text-slate-800 dark:text-slate-200">
+              <Icon name="tabler:clock-check" class="mt-1 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              {answerLine}
+            </p>
+          ) : (
+            <p class="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400">
+              <Icon name="tabler:clock-check" class="h-4 w-4" /> Updated {updated}
+            </p>
+          )
+        }
+        <p class="mt-2 max-w-3xl text-base text-slate-600 dark:text-slate-400">
+          {intro}
+          {
+            checkedByHand && (
+              <span class="inline-flex items-center gap-1 text-amber-700 dark:text-amber-400">
+                <Icon name="tabler:clock" class="h-3.5 w-3.5" /> Rates checked by hand on {checkedByHand}.
+              </span>
+            )
+          }
+        </p>
+      </div>
+    </header>
+
+    {
+      highlights.length > 0 && (
+        <section aria-label="Highlights" class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {highlights.map(({ label, row }) => (
+            <a
+              href={`#offer-${row!.id}`}
+              class="group block rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-emerald-500"
+            >
+              <p class="flex items-center justify-between gap-2 text-xs font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
+                {label}
+                {row!.promotional && (
+                  <span class="inline-flex items-center gap-1 rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] text-amber-800 ring-1 ring-inset ring-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:ring-amber-900">
+                    <Icon name="tabler:award" class="h-3 w-3" /> Promo
+                  </span>
+                )}
+              </p>
+              <p class="mt-2 text-3xl font-extrabold tabular-nums text-emerald-700 dark:text-emerald-400">
+                {formatRate(row!.rate)} <span class="text-base font-semibold">{row!.type}</span>
+              </p>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                {row!.asset} · {row!.product} · {row!.term}
+              </p>
+              <p class="mt-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
+                {row!.conditionTop}
+                {row!.audience === 'new-user' && row!.maxReward !== null && ` · ≈ $${row!.maxReward.toFixed(2)} total`}
+              </p>
+              <p class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 group-hover:underline dark:text-emerald-400">
+                See the offer <Icon name="tabler:arrow-down" class="h-3.5 w-3.5" />
+              </p>
+            </a>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      profile && (
+        <section
+          aria-labelledby="about-heading"
+          class="mt-8 rounded-xl border border-slate-200 bg-white p-5 sm:p-6 dark:border-slate-800 dark:bg-slate-900"
+        >
+          <h2 id="about-heading" class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">
+            About {platform.name}
+          </h2>
+          <div class="mt-3 grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+            <p class="text-base leading-7 text-slate-700 dark:text-slate-300">{profile.summary}</p>
+            <dl class="grid gap-3 text-sm">
+              <div class="flex flex-col gap-0.5">
+                <dt class="font-bold text-slate-500 dark:text-slate-400">Type</dt>
+                <dd class="text-slate-800 dark:text-slate-200">{kindLabel}</dd>
+              </div>
+              {profile.facts.map((fact) => (
+                <div class="flex flex-col gap-0.5">
+                  <dt class="font-bold text-slate-500 dark:text-slate-400">{fact.label}</dt>
+                  <dd class="text-slate-800 dark:text-slate-200">
+                    {fact.label === 'Proof of reserves' && profile.proofOfReserves ? (
+                      <a
+                        href={profile.proofOfReserves}
+                        target="_blank"
+                        rel="nofollow noopener"
+                        class="font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+                      >
+                        {fact.value}
+                      </a>
+                    ) : (
+                      fact.value
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <p class="mt-5 border-t border-slate-100 pt-4 text-xs leading-5 text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            Checked {formatRateDate(profile.checkedAt)}. Sources:{' '}
+            {profile.sources.map((source, index) => (
+              <>
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="nofollow noopener"
+                  class="underline decoration-slate-300 underline-offset-2 hover:text-emerald-700 dark:decoration-slate-600 dark:hover:text-emerald-400"
+                >
+                  {source.title}
+                </a>
+                {index < profile.sources.length - 1 ? ' · ' : '.'}
+              </>
+            ))}
+          </p>
+        </section>
+      )
+    }
+
+    <TableHelp class="mt-8" />
+
+    {
+      sections.map((section) => (
+        <section id={section.id} class="mt-12" aria-labelledby={`${section.id}-heading`}>
+          <h2 id={`${section.id}-heading`} class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">
+            {section.title}
+          </h2>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            {section.note}
+            {section.guide && (
+              <a
+                href={section.guide.href}
+                class="ml-1 font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+              >
+                {section.guide.text} →
+              </a>
+            )}
+          </p>
+          <div class="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+            <div class="overflow-x-auto">
+              <table class="block w-full border-collapse text-left lg:table lg:min-w-[960px] lg:table-fixed">
+                <thead class="hidden border-b border-slate-200 bg-slate-50/80 lg:table-header-group dark:border-slate-800 dark:bg-slate-800/50">
+                  <tr class="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
+                    <th scope="col" class="px-5 py-4">
+                      Coin
+                    </th>
+                    <th scope="col" class="px-4 py-4">
+                      APR / APY
+                    </th>
+                    <th scope="col" class="px-4 py-4">
+                      Product
+                    </th>
+                    <th scope="col" class="px-4 py-4">
+                      Term
+                    </th>
+                    <th scope="col" class="px-4 py-4">
+                      Conditions
+                    </th>
+                    <th scope="col" class="px-5 py-4">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="block divide-y divide-slate-100 lg:table-row-group dark:divide-slate-800">
+                  {section.rows.map((row) => (
+                    <RateTableRow row={row} id={`offer-${row.id}`} lead="coin" />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      ))
+    }
+
+    <p class="mt-6 text-xs leading-5 text-slate-500 dark:text-slate-400">
+      Rates are collected once a day from {platform.name}'s public data{manual ? ', or checked by hand' : ''} and can change
+      at any time; boosted rates usually apply to a limited amount. "View offer" buttons are referral links: we may earn a
+      commission, which never changes the ranking. Not financial advice.
+    </p>
+  </div>
+
+  <FAQs
+    id="faq"
+    title={`${platform.name} earn: common questions`}
+    subtitle={`Plain answers about earning on ${platform.name}: rates, coins and risks.`}
+    items={faq}
+    schema
+  />
+
+  <section class="mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 lg:px-8" aria-labelledby="coins-heading">
+    <h2 id="coins-heading" class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">
+      Compare {platform.name} with other platforms by coin
+    </h2>
+    <ul class="mt-4 flex flex-wrap gap-2">
+      {
+        coins.map((symbol) => (
+          <li>
+            <a
+              href={getPermalink(`/rates/${assetSlug(symbol)}`)}
+              class="inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:border-emerald-500 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:text-emerald-400"
+            >
+              {symbol} rates
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2 class="mt-10 text-xl font-bold tracking-tight text-slate-950 dark:text-white">Other platforms</h2>
+    <ul class="mt-4 flex flex-wrap gap-2">
+      {
+        otherPlatforms.map((other) => (
+          <li>
+            <a
+              href={getPermalink(`/platforms/${platformSlug(other)}`)}
+              class="inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:border-emerald-500 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:text-emerald-400"
+            >
+              {other.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a
+      href={getPermalink('/')}
+      class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+    >
+      <Icon name="tabler:table" class="h-4 w-4" /> Compare all platforms in one table
+    </a>
+  </section>
+</Layout>
