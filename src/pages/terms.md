@@ -18,7 +18,7 @@ Nothing on the Site is financial, investment, legal or tax advice, or a recommen
 
 ## Rates can be wrong or out of date
 
-Rates are collected automatically once a day from each platform's public data, and a few are checked by hand (those rows show the date we checked). Platforms change their rates, caps and conditions at any time, and rates may differ by region, account tier or verification level. We try to keep the table accurate but can't guarantee it is complete, correct or current. The platform's own site is always the authority. If you spot a mistake, please [tell us](/contact).
+Rates are collected automatically once a day from each platform's public data, and a few are checked by hand. Platforms change their rates, caps and conditions at any time, and rates may differ by region, account tier or verification level. We try to keep the table accurate but can't guarantee it is complete, correct or current. The platform's own site is always the authority. If you spot a mistake, please [tell us](/contact).
 
 ## Referral links
 

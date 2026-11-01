@@ -27,17 +27,34 @@ const row: RateRow & { platform: typeof platform } = {
   stale: false,
 };
 
-describe('RateTableRow', () => {
-  it('links the exchange logo and name to the referral URL, outside the tab order', async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(RateTableRow, { props: { row } });
-    const brandCell = html.match(/<th[^>]*>([\s\S]*?)<\/th>/)?.[1] ?? '';
-    const brand = brandCell.match(/<a\s[^>]*>/)?.[0] ?? '';
+const render = async (props: Record<string, unknown> = {}) => {
+  const container = await AstroContainer.create();
+  return container.renderToString(RateTableRow, { props: { row, ...props } });
+};
+const firstCell = (html: string) => html.match(/<th[^>]*>([\s\S]*?)<\/th>/)?.[1] ?? '';
 
-    expect(brand).toContain(`href="${platform.referralUrl.replaceAll('&', '&amp;')}"`);
-    expect(brand).toContain('rel="sponsored nofollow noopener"');
-    expect(brand).toContain('target="_blank"');
-    expect(brand).toContain('tabindex="-1"');
-    expect(brandCell).toContain(platform.name);
+describe('RateTableRow', () => {
+  it('links the platform logo and name to its page on the site', async () => {
+    const cell = firstCell(await render());
+    const brand = cell.match(/<a\s[^>]*>/)?.[0] ?? '';
+
+    expect(brand).toContain(`href="/platforms/${platform.id}"`);
+    expect(brand).not.toContain('sponsored');
+    expect(brand).not.toContain('target="_blank"');
+    expect(cell).toContain(platform.name);
+  });
+
+  it('keeps the referral link on the View offer button', async () => {
+    const html = await render();
+    const button = html.match(/<a\s[^>]*aria-label="View[^>]*>/)?.[0] ?? '';
+    expect(button).toContain(`href="${platform.referralUrl.replaceAll('&', '&amp;')}"`);
+    expect(button).toContain('rel="sponsored nofollow noopener"');
+  });
+
+  it('shows the coin instead of the platform on a platform page', async () => {
+    const cell = firstCell(await render({ lead: 'coin' }));
+    expect(cell).toContain('USDT');
+    expect(cell).not.toContain(platform.name);
+    expect(cell).not.toContain('<a');
   });
 });

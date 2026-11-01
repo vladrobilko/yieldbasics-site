@@ -301,6 +301,10 @@ describe('toRateRow', () => {
   it('marks old rates as stale', () => {
     expect(toRateRow(stored, new Date('2026-10-20T00:00:00Z')).stale).toBe(true);
   });
+
+  it('never marks manual rates as stale', () => {
+    expect(toRateRow({ ...stored, source: 'manual' }, new Date('2026-10-20T00:00:00Z')).stale).toBe(false);
+  });
 });
 
 describe('formatRateDate', () => {

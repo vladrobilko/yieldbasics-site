@@ -1,9 +1,10 @@
 import { SITE, METADATA } from 'astrowind:config';
-import { getPlatform } from '~/data/platforms';
+import { getPlatform, platforms, platformSlug } from '~/data/platforms';
 import { assets, rateRows, ratesUpdatedAt } from '~/data/yields';
 import { assetSlug, assetsWithOffers, bestRatesText, summarizeAsset } from '~/utils/assetPages';
 import { fetchPosts } from '~/utils/blog';
 import { buildLlmsTxt } from '~/utils/llmsTxt';
+import { platformBestRatesText, platformsWithOffers } from '~/utils/platformPages';
 import { getPermalink } from '~/utils/permalinks';
 import { formatRateDate } from '~/utils/rates';
 import { siteStats } from '~/utils/yields';
@@ -29,12 +30,22 @@ export const GET = async () => {
     };
   });
 
+  const platformLinks = platformsWithOffers(platforms, rateRows).map((platform) => {
+    const summary = summarizeAsset(rateRows.filter((row) => row.platformId === platform.id));
+    const best = platformBestRatesText(platform.name, summary);
+    return {
+      title: `${platform.name} earn rates`,
+      url: url(`/platforms/${platformSlug(platform)}`),
+      note: best ? `${capitalize(best)}.` : `${summary.offerCount} offers.`,
+    };
+  });
+
   const text = buildLlmsTxt({
     siteName: SITE.name,
     summary: METADATA?.description ?? '',
     details: [
       `Daily savings and staking rates (APR / APY) for ${stats.coins} coins from ${stats.platforms} exchanges, DeFi protocols and wallets: ${stats.offers} offers in total. Last update: ${updated}.`,
-      "Rates come from each platform's public API or web pages. A few platforms show rates only to signed-in users; those are checked by hand and marked with the check date. New-user offers are listed separately and ranked by the total reward.",
+      "Rates come from each platform's public API or web pages. A few platforms show rates only to signed-in users; those are checked by hand. New-user offers are listed separately and ranked by the total reward.",
       '"View offer" buttons are referral links. They never change the ranking, which is always by rate. Educational content, not financial advice.',
     ],
     sections: [
@@ -49,6 +60,7 @@ export const GET = async () => {
           ...coinLinks,
         ],
       },
+      { title: 'Platform pages', links: platformLinks },
       {
         title: 'Tools',
         links: [

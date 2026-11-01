@@ -126,7 +126,7 @@ export const assetFaq = (
   }
   items.push({
     title: 'How often are these rates updated?',
-    description: `Every day. We read each platform's published ${symbol} earn rates automatically; a few platforms that only show rates to signed-in users are checked by hand and marked with the date we checked them.`,
+    description: `Every day. We read each platform's published ${symbol} earn rates automatically; a few platforms that only show rates to signed-in users are checked by hand.`,
   });
   items.push({
     title: 'What is the difference between APR and APY?',

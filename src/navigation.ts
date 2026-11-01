@@ -1,4 +1,5 @@
 import { dealsLive } from './data/deals';
+import { platforms, platformSlug } from './data/platforms';
 import { getPermalink } from './utils/permalinks';
 
 export const headerData = {
@@ -25,6 +26,13 @@ export const footerData = {
         { text: 'ETH rates', href: getPermalink('/rates/eth') },
         ...(dealsLive ? [{ text: 'Crypto deals', href: getPermalink('/deals') }] : []),
       ],
+    },
+    {
+      title: 'Platforms',
+      links: platforms.map((platform) => ({
+        text: platform.name,
+        href: getPermalink(`/platforms/${platformSlug(platform)}`),
+      })),
     },
     {
       title: 'Learn',

@@ -2,10 +2,12 @@
 import type { HTMLAttributes } from 'astro/types';
 import { Icon } from 'astro-icon/components';
 import YieldBadge from '~/components/ui/YieldBadge.astro';
-import type { Platform } from '~/data/platforms';
+import { platformSlug, type Platform } from '~/data/platforms';
+import { getPermalink } from '~/utils/permalinks';
+import { assets } from '~/data/yields';
 import { formatRateDate, type RateRow } from '~/utils/rates';
 
-// One offer in a rates table (home page and /rates/<coin> pages). Extra
+// One offer in a rates table (home page, /rates/<coin> and /platforms/<slug>). Extra
 // attributes (data-*, hidden…) pass through to the <tr>. Below the lg
 // breakpoint the row is laid out as a card (a two-column grid: platform and
 // rate, product and term, then conditions and the button at full width), so
@@ -13,11 +15,15 @@ import { formatRateDate, type RateRow } from '~/utils/rates';
 // is hidden there to match.
 export interface Props extends HTMLAttributes<'tr'> {
   row: RateRow & { platform: Platform };
-  /** Hide the asset column on pages about a single coin. */
-  showAsset?: boolean;
+  /**
+   * What the first column shows: the platform, linked to its page (home and
+   * coin pages), or the coin (on a platform's own page).
+   */
+  lead?: 'platform' | 'coin';
 }
 
-const { row, showAsset = true, ...attrs } = Astro.props;
+const { row, lead = 'platform', ...attrs } = Astro.props;
+const coin = assets.find((asset) => asset.symbol === row.asset);
 ---
 
 <tr
@@ -26,52 +32,55 @@ const { row, showAsset = true, ...attrs } = Astro.props;
 >
   <th scope="row" class="font-normal lg:table-cell lg:px-5 lg:py-5">
     {
-      /* Same referral link as "View offer". Out of the tab order so keyboard users
-        stop once per row; not aria-hidden, since the name labels the row. */
-    }
-    <a
-      href={row.platform.referralUrl}
-      target="_blank"
-      rel="sponsored nofollow noopener"
-      tabindex="-1"
-      class="group/brand flex w-fit items-center gap-3"
-    >
-      {
-        row.platform.logo ? (
-          <span
-            class="h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-slate-200 dark:ring-slate-700"
-            aria-hidden="true"
-          >
-            <Icon name={row.platform.logo} class="h-full w-full" />
+      lead === 'platform' ? (
+        <a
+          href={getPermalink(`/platforms/${platformSlug(row.platform)}`)}
+          class="group/brand flex w-fit items-center gap-3"
+        >
+          {row.platform.logo ? (
+            <span
+              class="h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-slate-200 dark:ring-slate-700"
+              aria-hidden="true"
+            >
+              <Icon name={row.platform.logo} class="h-full w-full" />
+            </span>
+          ) : (
+            <span
+              class:list={[
+                'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-extrabold',
+                row.platform.markClass,
+              ]}
+              aria-hidden="true"
+            >
+              {row.platform.mark}
+            </span>
+          )}
+          <span class="text-lg font-bold text-slate-900 decoration-2 underline-offset-4 group-hover/brand:underline dark:text-white">
+            {row.platform.name}
           </span>
-        ) : (
-          <span
-            class:list={[
-              'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-extrabold',
-              row.platform.markClass,
-            ]}
-            aria-hidden="true"
-          >
-            {row.platform.mark}
-          </span>
-        )
-      }
-      <span
-        class="text-lg font-bold text-slate-900 decoration-2 underline-offset-4 group-hover/brand:underline dark:text-white"
-      >
-        {row.platform.name}
-      </span>
-    </a>
-  </th>
-  {
-    showAsset && (
-      <td class="hidden lg:table-cell lg:px-4 lg:py-5">
-        <span class="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-          {row.asset}
+        </a>
+      ) : (
+        <span class="flex w-fit items-center gap-3">
+          {coin?.logo ? (
+            <span class="h-9 w-9 shrink-0 overflow-hidden rounded-full" aria-hidden="true">
+              <Icon name={coin.logo} class="h-full w-full" />
+            </span>
+          ) : (
+            <span
+              class:list={[
+                'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white',
+                coin?.colorClass,
+              ]}
+              aria-hidden="true"
+            >
+              {coin?.icon}
+            </span>
+          )}
+          <span class="text-lg font-bold text-slate-900 dark:text-white">{row.asset}</span>
         </span>
-      </td>
-    )
-  }
+      )
+    }
+  </th>
   <td class="justify-self-end lg:table-cell lg:px-4 lg:py-5">
     <YieldBadge
       rate={row.rate}
@@ -85,10 +94,10 @@ const { row, showAsset = true, ...attrs } = Astro.props;
   <td class="min-w-0 lg:table-cell lg:px-4 lg:py-5">
     <span class="block font-semibold text-slate-800 dark:text-slate-200">{row.product}</span>
     {
-      (row.stale || row.source === 'manual') && (
+      row.stale && (
         <span
           class="mt-1 inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 dark:text-amber-400"
-          title={row.source === 'manual' ? 'Checked by hand on the platform' : 'Could not refresh this rate recently'}
+          title="Could not refresh this rate recently"
         >
           <Icon name="tabler:clock" class="h-3 w-3" />
           Checked {formatRateDate(row.updatedAt)}
