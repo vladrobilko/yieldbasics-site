@@ -13,7 +13,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { platforms } from '../../src/data/platforms';
+import { platforms, PROFILE_MAX_AGE_DAYS, staleProfiles } from '../../src/data/platforms';
 import { assets } from '../../src/data/yields';
 import {
   holdReasons,
@@ -92,13 +92,24 @@ const main = async () => {
   const next = mergeRates({ previous, results, manual, now: new Date() });
   writeFileSync(RATES_PATH, `${JSON.stringify(next, null, 2)}\n`);
 
-  const summary = summarizeChanges(previous, next);
+  const oldProfiles = staleProfiles(platforms, new Date());
+  const profileSection = oldProfiles.length
+    ? [
+        '',
+        `### Platform facts to re-check (${oldProfiles.length})`,
+        ...oldProfiles.map((p) => `- ${p.name}: About box last checked ${p.checkedAt} (${p.daysOld} days ago)`),
+      ].join('\n')
+    : '';
+  const summary = summarizeChanges(previous, next) + profileSection;
   console.log(`\n${summary}`);
   const summaryPath = flagValue('--summary');
   if (summaryPath) writeFileSync(summaryPath, `${summary}\n`);
   const holdPath = flagValue('--hold');
   if (holdPath) {
-    const reasons = holdReasons(previous, next);
+    const reasons = [
+      ...holdReasons(previous, next),
+      ...(oldProfiles.length ? [`platform facts older than ${PROFILE_MAX_AGE_DAYS} days`] : []),
+    ];
     writeFileSync(holdPath, reasons.map((reason) => `${reason}\n`).join(''));
   }
 

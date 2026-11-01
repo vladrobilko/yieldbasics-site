@@ -327,7 +327,7 @@ export interface RateRow {
   maxReward: number | null;
   source: SourceKind;
   updatedAt: string;
-  /** Fetched more than STALE_AFTER_DAYS ago (or a manual rate verified that long ago). */
+  /** Fetched more than STALE_AFTER_DAYS ago. Manual rates are never stale; they expire after MANUAL_MAX_AGE_DAYS. */
   stale: boolean;
 }
 
@@ -349,7 +349,7 @@ export const toRateRow = (offer: StoredOffer, now: Date): RateRow => {
     maxReward: offer.audience === 'new-user' ? estimatedReward(offer) : null,
     source: offer.source,
     updatedAt: offer.updatedAt,
-    stale: isStale(offer.updatedAt, now),
+    stale: offer.source !== 'manual' && isStale(offer.updatedAt, now),
   };
 };
 

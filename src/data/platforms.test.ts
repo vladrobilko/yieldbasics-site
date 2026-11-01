@@ -1,7 +1,14 @@
 import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-import { getPlatform, platformKindLabels, platformSlug, platforms } from '~/data/platforms';
+import {
+  getPlatform,
+  platformKindLabels,
+  platformSlug,
+  platforms,
+  PROFILE_MAX_AGE_DAYS,
+  staleProfiles,
+} from '~/data/platforms';
 
 describe('platforms', () => {
   it('has unique ids', () => {
@@ -64,5 +71,24 @@ describe('platform profiles', () => {
     expect(new Set(slugs).size).toBe(slugs.length);
     expect(slugs.every((slug) => /^[a-z0-9-]+$/.test(slug))).toBe(true);
     expect(platformSlug(getPlatform('telegram-wallet'))).toBe('walt');
+  });
+});
+
+describe('staleProfiles', () => {
+  const profile = { summary: '', facts: [], sources: [] };
+  const list = [
+    { ...platforms[0], name: 'Fresh', profile: { ...profile, checkedAt: '2026-10-01' } },
+    { ...platforms[0], name: 'Old', profile: { ...profile, checkedAt: '2026-06-01' } },
+    { ...platforms[0], name: 'Older', profile: { ...profile, checkedAt: '2026-01-01' } },
+    { ...platforms[0], name: 'None', profile: undefined },
+  ];
+
+  it('lists profiles older than the limit, oldest first', () => {
+    expect(staleProfiles(list, new Date('2026-11-01T00:00:00Z')).map((p) => p.name)).toEqual(['Older', 'Old']);
+  });
+
+  it('keeps a profile exactly at the limit', () => {
+    const now = new Date(Date.parse('2026-10-01') + PROFILE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000);
+    expect(staleProfiles(list, now).map((p) => p.name)).toEqual(['Older', 'Old']);
   });
 });

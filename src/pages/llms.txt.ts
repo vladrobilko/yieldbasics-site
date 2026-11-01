@@ -45,7 +45,7 @@ export const GET = async () => {
     summary: METADATA?.description ?? '',
     details: [
       `Daily savings and staking rates (APR / APY) for ${stats.coins} coins from ${stats.platforms} exchanges, DeFi protocols and wallets: ${stats.offers} offers in total. Last update: ${updated}.`,
-      "Rates come from each platform's public API or web pages. A few platforms show rates only to signed-in users; those are checked by hand and marked with the check date. New-user offers are listed separately and ranked by the total reward.",
+      "Rates come from each platform's public API or web pages. A few platforms show rates only to signed-in users; those are checked by hand. New-user offers are listed separately and ranked by the total reward.",
       '"View offer" buttons are referral links. They never change the ranking, which is always by rate. Educational content, not financial advice.',
     ],
     sections: [

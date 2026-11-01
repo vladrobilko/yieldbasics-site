@@ -68,3 +68,16 @@ export const getPlatform = (id: string): Platform => {
   if (!platform) throw new Error(`Unknown platform id: ${id}`);
   return platform;
 };
+
+/** The "About" box facts are re-checked by hand this often; the daily rates PR flags older ones. */
+export const PROFILE_MAX_AGE_DAYS = 90;
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/** Platforms whose profile was checked more than PROFILE_MAX_AGE_DAYS before `now`, oldest first. */
+export const staleProfiles = (list: Platform[], now: Date): { name: string; checkedAt: string; daysOld: number }[] =>
+  list
+    .flatMap((platform) => (platform.profile ? [{ name: platform.name, checkedAt: platform.profile.checkedAt }] : []))
+    .map((item) => ({ ...item, daysOld: Math.floor((now.getTime() - Date.parse(item.checkedAt)) / DAY_MS) }))
+    .filter((item) => item.daysOld > PROFILE_MAX_AGE_DAYS)
+    .sort((a, b) => b.daysOld - a.daysOld);
