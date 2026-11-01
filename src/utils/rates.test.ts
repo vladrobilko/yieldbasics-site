@@ -157,7 +157,7 @@ describe('mergeRates', () => {
   };
   const manual: ManualOffer[] = [
     { ...offer({ platformId: 'weex', product: 'Savings', rate: 3 }), verifiedAt: '2026-10-12' },
-    // Ignored: bybit has an automatic source.
+    // Ignored: the fetched bybit offer has the same id.
     { ...offer({ rate: 99 }), verifiedAt: '2026-10-12' },
   ];
 
@@ -187,12 +187,40 @@ describe('mergeRates', () => {
     });
   });
 
-  it('adds manual offers only for platforms without a source', () => {
+  it('adds manual offers, marking the source manual only for platforms without a fetch', () => {
     const weex = merged.offers.find((o) => o.platformId === 'weex');
     expect(weex).toMatchObject({ rate: 3, source: 'manual', updatedAt: '2026-10-12T00:00:00.000Z' });
     expect(weex).not.toHaveProperty('verifiedAt');
-    expect(merged.offers.filter((o) => o.platformId === 'bybit')).toHaveLength(1);
     expect(merged.sources.weex).toMatchObject({ status: 'manual', offers: 1 });
+    expect(merged.sources.bybit).toMatchObject({ status: 'ok', offers: 1 });
+  });
+
+  const withApp = mergeRates({
+    previous: null,
+    results: { bybit: { ok: true, source: 'api', offers: [offer({ rate: 6.9 })] } },
+    manual: [...manual, { ...offer({ product: 'App Savings', rate: 6, type: 'APY' }), verifiedAt: '2026-10-12' }],
+    now,
+  });
+
+  it('keeps a manual offer next to fetched ones unless the fetched offer has its id', () => {
+    const bybit = withApp.offers.filter((o) => o.platformId === 'bybit');
+    expect(bybit.map((o) => [o.product, o.rate, o.source])).toEqual([
+      ['App Savings', 6, 'manual'],
+      ['Flexible Savings', 6.9, 'api'],
+    ]);
+  });
+
+  it('explains a removed manual offer on a platform that is also fetched', () => {
+    expect(withApp.sources.bybit).toMatchObject({ status: 'ok', offers: 1 });
+    const next = mergeRates({
+      previous: withApp,
+      results: { bybit: { ok: true, source: 'api', offers: [offer({ rate: 6.9 })] } },
+      manual: [],
+      now,
+    });
+    expect(summarizeChanges(withApp, next)).toContain(
+      '- `bybit-usdt-app-savings-flexible`: removed from manual-rates.json or verified more than 30 days ago'
+    );
   });
 
   it('sorts offers by id for stable diffs', () => {
@@ -386,7 +414,7 @@ describe('applyManualOffers', () => {
   const now = new Date('2026-10-30T12:00:00Z');
   const stored = (platformId: string, source: 'api' | 'manual', rate: number, updatedAt: string) => ({
     ...offer({ platformId, rate }),
-    id: `${platformId}-usdt`,
+    id: offerId(offer({ platformId })),
     source,
     updatedAt,
   });

@@ -138,7 +138,7 @@
     "mark": "A",
     "markClass": "bg-[#B6509E] text-white",
     "profile": {
-      "summary": "Aave is a decentralised lending protocol, not an exchange account. It started as ETHLend in 2017, founded by Stani Kulechov, and relaunched as Aave in 2020. You deposit coins from your own wallet into a pool, and borrowers pay interest to the pool, so the rate moves with demand. The pools are on-chain and anyone can check them; the main risks are bugs in the smart contracts and loans that go bad. Changes are voted on by AAVE token holders.",
+      "summary": "Aave is a decentralised lending protocol, not an exchange account. It started as ETHLend in 2017, founded by Stani Kulechov, and relaunched as Aave in 2020. You deposit coins from your own wallet into a pool, and borrowers pay interest to the pool, so the rate moves with demand. The pools are on-chain and anyone can check them; the main risks are bugs in the smart contracts and loans that go bad. Changes are voted on by AAVE token holders. Aave Labs also runs the Aave App, a mobile savings app launched in November 2025: it is self-custodial (a smart account you control) and puts stablecoin deposits into an Aave vault, mostly staked GHO. Its rates are shown only in the app, so we check them by hand.",
       "facts": [
         {
           "label": "Launched",
@@ -151,6 +151,10 @@
         {
           "label": "Governance",
           "value": "Aave DAO (AAVE token holders)"
+        },
+        {
+          "label": "Mobile app",
+          "value": "Aave App by Aave Labs (November 2025), self-custodial"
         }
       ],
       "sources": [
@@ -161,9 +165,17 @@
         {
           "title": "Aave documentation",
           "url": "https://aave.com/docs"
+        },
+        {
+          "title": "Introducing Aave App (Aave blog)",
+          "url": "https://aave.com/blog/introducing-aave-app-smarter-way-to-save"
+        },
+        {
+          "title": "Aave App launch proposal (Aave governance)",
+          "url": "https://governance.aave.com/t/arfc-aave-app-launch/25307"
         }
       ],
-      "checkedAt": "2026-10-30"
+      "checkedAt": "2026-11-01"
     }
   },
   {
