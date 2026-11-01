@@ -17,7 +17,7 @@ import {
 const metadata = {
   title: 'Contact',
   description:
-    'Contact YieldBasics: questions, rate corrections, platforms to add or partnership ideas — we read every message.',
+    'Contact YieldBasics: questions, rate corrections, platforms to add or partnership ideas. We read every message.',
 };
 ---
 
@@ -124,7 +124,7 @@ const metadata = {
           if (!response.ok || !result.success) throw new Error(`HTTP ${response.status}`);
           form.reset();
           if (subject) subject.value = contactSubject(topic?.value);
-          show("Thanks! Your message is on its way — we'll reply by email.", 'ok');
+          show("Thanks! Your message is sent. We'll reply by email.", 'ok');
         } catch {
           show('Something went wrong and your message was not sent. Please try again in a minute.', 'error');
         } finally {

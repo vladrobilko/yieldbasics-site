@@ -18,7 +18,7 @@ const exchangeNames = platforms.filter((p) => p.kind === 'cex' && !manualIds.has
 
 const metadata = {
   title: 'About',
-  description: `YieldBasics compares crypto earn rates (APR / APY) across ${platformCount} exchanges, DeFi and wallets — updated daily, ranked by rate.`,
+  description: `YieldBasics compares crypto earn rates (APR / APY) across ${platformCount} exchanges, DeFi and wallets. Updated daily, ranked by rate.`,
 };
 ---
 
@@ -73,7 +73,7 @@ const metadata = {
 
   <CallToAction
     title="Spotted a wrong rate or a missing platform?"
-    subtitle="Tell us — corrections and suggestions make the table better for everyone."
+    subtitle="Send us a note. We check every report and fix the table."
     actions={[
       { variant: 'primary', text: 'Compare rates', href: getPermalink('/'), icon: 'tabler:table' },
       { variant: 'secondary', text: 'Contact us', href: getPermalink('/contact') },
