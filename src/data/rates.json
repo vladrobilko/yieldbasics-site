@@ -45,12 +45,12 @@
     },
     "weex": {
       "status": "manual",
-      "checkedAt": "2026-11-01T11:44:06.060Z",
+      "checkedAt": "2026-11-01T13:08:16.744Z",
       "offers": 19
     },
     "telegram-wallet": {
       "status": "manual",
-      "checkedAt": "2026-11-01T11:44:06.060Z",
+      "checkedAt": "2026-11-01T13:08:16.744Z",
       "offers": 5
     }
   },
@@ -105,6 +105,18 @@
     },
     {
       "platformId": "aave",
+      "asset": "GHO",
+      "product": "Aave App",
+      "termDays": 0,
+      "rate": 6,
+      "type": "APY",
+      "note": "+0.25% if your balance grows by $1,000 a month",
+      "id": "aave-gho-aave-app-flexible",
+      "source": "manual",
+      "updatedAt": "2026-11-01T00:00:00.000Z"
+    },
+    {
+      "platformId": "aave",
       "asset": "LINK",
       "product": "Supply",
       "termDays": 0,
@@ -114,6 +126,18 @@
       "id": "aave-link-supply-flexible",
       "source": "api",
       "updatedAt": "2026-11-01T11:44:06.060Z"
+    },
+    {
+      "platformId": "aave",
+      "asset": "USDC",
+      "product": "Aave App",
+      "termDays": 0,
+      "rate": 6,
+      "type": "APY",
+      "note": "+0.25% if your balance grows by $1,000 a month",
+      "id": "aave-usdc-aave-app-flexible",
+      "source": "manual",
+      "updatedAt": "2026-11-01T00:00:00.000Z"
     },
     {
       "platformId": "aave",
@@ -138,6 +162,18 @@
       "id": "aave-usde-supply-flexible",
       "source": "api",
       "updatedAt": "2026-11-01T11:44:06.060Z"
+    },
+    {
+      "platformId": "aave",
+      "asset": "USDT",
+      "product": "Aave App",
+      "termDays": 0,
+      "rate": 6,
+      "type": "APY",
+      "note": "+0.25% if your balance grows by $1,000 a month",
+      "id": "aave-usdt-aave-app-flexible",
+      "source": "manual",
+      "updatedAt": "2026-11-01T00:00:00.000Z"
     },
     {
       "platformId": "aave",

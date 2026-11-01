@@ -147,6 +147,13 @@ describe('parseAave', () => {
     expect(offers.find((o) => o.asset === 'USDT')).toMatchObject({ rate: 3.28, note: 'USDT on Ethereum' });
     expect(offers.find((o) => o.asset === 'USDC')?.rate).toBe(5.81);
   });
+
+  it('reads plain GHO supply and skips sGHO', () => {
+    // GHO pools added 2026-11-01: sGHO pays 4.5% but is a staked savings product, not a supply market.
+    const gho = parseAave(fixture('defillama.json'), [...ASSETS, 'GHO']).filter((o) => o.asset === 'GHO');
+    expect(gho).toHaveLength(1);
+    expect(gho[0]).toMatchObject({ rate: 1.86, note: 'GHO on Ethereum (Prime Instance)' });
+  });
 });
 
 describe('parseKucoin', () => {

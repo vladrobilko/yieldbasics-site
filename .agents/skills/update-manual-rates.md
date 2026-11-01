@@ -1,6 +1,6 @@
-# Update Manual Rates (WEEX, Walt)
+# Update Manual Rates (WEEX, Walt, Aave App)
 
-WEEX and Walt (`telegram-wallet`) show earn rates only to signed-in users, so the owner takes screenshots and an agent copies the rates into `src/data/manual-rates.json`. Manual offers drop off the site 30 days after their `verifiedAt`; the daily rates PR warns 7 days before ("Manual rates to re-check"). Aim to re-check every 2–3 days.
+WEEX and Walt (`telegram-wallet`) show earn rates only to signed-in users, and the Aave App only inside its mobile app (entries use `platformId: "aave"`, `product: "Aave App"`, next to the fetched Aave protocol rates), so the owner takes screenshots and an agent copies the rates into `src/data/manual-rates.json`. Manual offers drop off the site 30 days after their `verifiedAt`; the daily rates PR warns 7 days before ("Manual rates to re-check"). Aim to re-check every 2–3 days.
 
 **Never** sign in to these platforms or automate a browser session on them. **Never** commit the screenshots (the repo is public).
 
@@ -13,6 +13,7 @@ C:\Users\vladr\Documents\YieldBasics\manual-rates\
   2026-11-02\
     weex\      *.png / *.jpg
     walt\
+    aave-app\
 ```
 
 Use the newest date folder unless the owner names another. The folder date is the check date. Read every image (image files open like any other file). Fixed-term rates and amount tiers usually sit on their own screens, so a flexible-list screenshot does not re-date them.

@@ -106,6 +106,15 @@ export const assets: Asset[] = [
     icon: '€',
     colorClass: 'bg-blue-600',
   },
+  {
+    id: 'gho',
+    symbol: 'GHO',
+    name: 'GHO',
+    group: 'stablecoin',
+    logo: 'token-branded:gho-background',
+    icon: 'G',
+    colorClass: 'bg-emerald-500',
+  },
 
   // "···" popover: other coins
   {

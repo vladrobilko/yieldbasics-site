@@ -195,7 +195,7 @@ describe('asset groups', () => {
   });
 
   it('lists the popover stablecoins and coins', () => {
-    expect(stablecoinAssets.map((a) => a.symbol)).toEqual(['USDS', 'USDe', 'EURC']);
+    expect(stablecoinAssets.map((a) => a.symbol)).toEqual(['USDS', 'USDe', 'EURC', 'GHO']);
     expect(coinAssets.map((a) => a.symbol)).toEqual(
       expect.arrayContaining([
         'SOL',

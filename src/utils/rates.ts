@@ -238,8 +238,8 @@ export interface MergeInput {
 /**
  * Builds the new rates file. Fresh results replace a platform's offers; when a
  * platform fails, its previous offers are kept (with their old `updatedAt`) so
- * one broken source never empties the table. Manual offers fill platforms that
- * have no automatic source, until MANUAL_MAX_AGE_DAYS after they were verified.
+ * one broken source never empties the table. Manual offers are added until
+ * MANUAL_MAX_AGE_DAYS after they were verified, unless a fetched offer has the same id.
  */
 export const mergeRates = ({ previous, results, manual, now }: MergeInput): RatesFile => {
   const nowIso = now.toISOString();
@@ -276,7 +276,8 @@ export const mergeRates = ({ previous, results, manual, now }: MergeInput): Rate
 /**
  * Replaces the manual offers of a rates file with the current ones from
  * manual-rates.json (dropping those verified more than MANUAL_MAX_AGE_DAYS
- * ago). Fetched offers and `generatedAt` are kept, so `npm run rates:manual`
+ * ago, and those whose id a fetched offer already has: the fetched one wins).
+ * Fetched offers and `generatedAt` are kept, so `npm run rates:manual`
  * can publish a manual check without fetching every source again.
  */
 export const applyManualOffers = (file: RatesFile, manual: readonly ManualOffer[], now: Date): RatesFile => {
@@ -287,18 +288,21 @@ export const applyManualOffers = (file: RatesFile, manual: readonly ManualOffer[
   );
   const sources = Object.fromEntries(Object.entries(file.sources).filter(([platformId]) => fetched.has(platformId)));
   const offers = file.offers.filter((offer) => offer.source !== 'manual');
+  const fetchedIds = new Set(offers.map((offer) => offer.id));
 
   const manualOffers = dedupeOffers(
-    manual.filter((offer) => !fetched.has(offer.platformId) && !isStale(offer.verifiedAt, now, MANUAL_MAX_AGE_DAYS))
+    manual.filter((offer) => !fetchedIds.has(offerId(offer)) && !isStale(offer.verifiedAt, now, MANUAL_MAX_AGE_DAYS))
   );
   for (const { verifiedAt, ...offer } of manualOffers) {
     offers.push({ ...offer, id: offerId(offer), source: 'manual', updatedAt: new Date(verifiedAt).toISOString() });
   }
-  for (const platformId of new Set(manualOffers.map((offer) => offer.platformId))) {
+  // A platform with an automatic source keeps its own status (Aave's app offers sit next to its fetched ones).
+  const manualOnly = manualOffers.filter((offer) => !fetched.has(offer.platformId));
+  for (const platformId of new Set(manualOnly.map((offer) => offer.platformId))) {
     sources[platformId] = {
       status: 'manual',
       checkedAt: now.toISOString(),
-      offers: manualOffers.filter((offer) => offer.platformId === platformId).length,
+      offers: manualOnly.filter((offer) => offer.platformId === platformId).length,
     };
   }
 
@@ -375,7 +379,7 @@ const diffRates = (previous: RatesFile | null, next: RatesFile) => {
     }
   }
   for (const [id, offer] of before) {
-    if (!after.has(id)) removed.push(`- \`${id}\`: ${removalReason(offer.platformId, next.sources[offer.platformId])}`);
+    if (!after.has(id)) removed.push(`- \`${id}\`: ${removalReason(offer, next.sources[offer.platformId])}`);
   }
 
   const failed = Object.entries(next.sources)
@@ -475,9 +479,9 @@ export const summarizeChanges = (previous: RatesFile | null, next: RatesFile): s
 const isBigMove = (from: number, to: number): boolean =>
   Math.abs(to - from) >= 1 && Math.abs(to - from) >= Math.abs(from) * 0.3;
 
-const removalReason = (platformId: string, status: SourceStatus | undefined): string => {
-  if (!status) return `${platformId} has no source any more`;
-  if (status.status === 'manual')
+const removalReason = ({ platformId, source }: StoredOffer, status: SourceStatus | undefined): string => {
+  if (source === 'manual' || status?.status === 'manual')
     return `removed from manual-rates.json or verified more than ${MANUAL_MAX_AGE_DAYS} days ago`;
+  if (!status) return `${platformId} has no source any more`;
   return `no longer listed by ${platformId}`;
 };

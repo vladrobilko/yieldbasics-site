@@ -20,6 +20,8 @@ const SYMBOLS: Record<string, string> = {
   WETH: 'ETH',
   WBTC: 'BTC',
   EURC: 'EURC',
+  // Plain GHO supply only; sGHO (staked GHO) is a separate savings product.
+  GHO: 'GHO',
   USDS: 'USDS',
   USDE: 'USDe',
   XAUT: 'XAUT',

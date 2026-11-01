@@ -1,6 +1,36 @@
 {
   "offers": [
     {
+      "platformId": "aave",
+      "asset": "GHO",
+      "product": "Aave App",
+      "termDays": 0,
+      "rate": 6,
+      "type": "APY",
+      "note": "+0.25% if your balance grows by $1,000 a month",
+      "verifiedAt": "2026-11-01"
+    },
+    {
+      "platformId": "aave",
+      "asset": "USDC",
+      "product": "Aave App",
+      "termDays": 0,
+      "rate": 6,
+      "type": "APY",
+      "note": "+0.25% if your balance grows by $1,000 a month",
+      "verifiedAt": "2026-11-01"
+    },
+    {
+      "platformId": "aave",
+      "asset": "USDT",
+      "product": "Aave App",
+      "termDays": 0,
+      "rate": 6,
+      "type": "APY",
+      "note": "+0.25% if your balance grows by $1,000 a month",
+      "verifiedAt": "2026-11-01"
+    },
+    {
       "platformId": "weex",
       "asset": "USDT",
       "product": "Auto Earn",

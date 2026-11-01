@@ -160,6 +160,46 @@
       "apy": 9,
       "apyBase": 9,
       "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "SGHO",
+      "poolMeta": null,
+      "tvlUsd": 200759529,
+      "apy": 4.5,
+      "apyBase": 4.5,
+      "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "GHO",
+      "poolMeta": "Aave Horizon Market",
+      "tvlUsd": 49709706,
+      "apy": 0.50341,
+      "apyBase": 0.50341,
+      "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "GHO",
+      "poolMeta": "Prime Instance",
+      "tvlUsd": 23484275,
+      "apy": 1.86328,
+      "apyBase": 1.86328,
+      "apyReward": null
+    },
+    {
+      "chain": "Ethereum",
+      "project": "aave-v3",
+      "symbol": "SGHO",
+      "poolMeta": "Legacy",
+      "tvlUsd": 11941453,
+      "apy": 0,
+      "apyBase": null,
+      "apyReward": 0
     }
   ]
 }
