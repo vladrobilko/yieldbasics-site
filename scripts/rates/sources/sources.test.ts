@@ -9,7 +9,7 @@ import { parseGateFixed, parseGateFlexible } from './gate';
 import { kucoinNewUserProductIds, parseKucoin, parseKucoinCap } from './kucoin';
 import { parseOkx, parseOkxProducts } from './okx';
 
-// Fixtures are trimmed real responses saved on 2026-10-14 (okx*.json on 2026-11-02).
+// Fixtures are trimmed real responses saved on 2026-10-14 (okx*.json, binance-extras.json and gate-fixed.json on 2026-11-02).
 const fixture = (name: string) => JSON.parse(readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8'));
 
 const ASSETS = ['USDT', 'USDC', 'BTC', 'ETH', 'BNB', 'DOGE', 'XAUT'];
@@ -189,12 +189,14 @@ describe('Gate', () => {
     ]);
   });
 
-  it('keeps only fixed products open to everyone and on sale', () => {
+  it('keeps only fixed products listed for everyone and on sale, plus the new-user one', () => {
     const offers = parseGateFixed(fixture('gate-fixed.json'), ASSETS);
-    // The fixture also holds VIP-only, invited-group and sold-out USDT products.
-    expect(offers.map((o) => [o.termDays, o.rate])).toEqual([
-      [30, 3.2],
-      [14, 2.8],
+    // The fixture also holds sold-out, hidden (3 days 6%), VIP-only, invited-group, hidden new-user
+    // and "Crazy Wednesday" (needs a 1,000 USDT net deposit) products.
+    expect(offers.map((o) => [o.termDays, o.rate, o.audience, o.maxAmount])).toEqual([
+      [30, 3.2, undefined, undefined],
+      [14, 2.8, undefined, undefined],
+      [3, 100, 'new-user', 500],
     ]);
   });
 });
