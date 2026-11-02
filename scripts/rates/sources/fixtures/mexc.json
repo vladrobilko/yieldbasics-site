@@ -1,0 +1,228 @@
+{
+  "data": [
+    {
+      "currency": "USDT",
+      "financialProductList": [
+        {
+          "currency": "USDT",
+          "financialType": "FLEXIBLE",
+          "fixedInvestPeriodCount": null,
+          "showApr": "10",
+          "baseApr": "0.1",
+          "tieredSubsidyApr": [
+            {
+              "startQuantity": "0",
+              "endQuantity": "1000",
+              "apr": "3.9"
+            },
+            {
+              "startQuantity": "1000",
+              "endQuantity": "10000",
+              "apr": "4.9"
+            },
+            {
+              "startQuantity": "10000",
+              "endQuantity": "50000",
+              "apr": "5.2"
+            },
+            {
+              "startQuantity": "50000",
+              "endQuantity": "100000",
+              "apr": "5.9"
+            },
+            {
+              "startQuantity": "100000",
+              "endQuantity": "110000",
+              "apr": "9.9"
+            },
+            {
+              "startQuantity": "110000",
+              "endQuantity": null,
+              "apr": "1.5"
+            }
+          ],
+          "financialState": 2,
+          "startTime": 1787198400000,
+          "soldOut": false,
+          "memberType": "NORMAL",
+          "perPledgeMaxQuantity": "-1"
+        },
+        {
+          "currency": "USDT",
+          "financialType": "FLEXIBLE",
+          "fixedInvestPeriodCount": null,
+          "showApr": "6",
+          "baseApr": "0.1",
+          "tieredSubsidyApr": [
+            {
+              "startQuantity": "0",
+              "endQuantity": "200",
+              "apr": "5.9"
+            },
+            {
+              "startQuantity": "200",
+              "endQuantity": "500",
+              "apr": "2.4"
+            },
+            {
+              "startQuantity": "500",
+              "endQuantity": null,
+              "apr": "0.2"
+            }
+          ],
+          "financialState": 2,
+          "startTime": 1758603900000,
+          "soldOut": false,
+          "memberType": "NORMAL",
+          "perPledgeMaxQuantity": "20000000"
+        },
+        {
+          "currency": "USDT",
+          "financialType": "FIXED",
+          "fixedInvestPeriodCount": 2,
+          "showApr": "600",
+          "baseApr": "600",
+          "tieredSubsidyApr": null,
+          "financialState": 2,
+          "startTime": 1758621600000,
+          "soldOut": false,
+          "memberType": "EFTD",
+          "perPledgeMaxQuantity": "200"
+        }
+      ]
+    },
+    {
+      "currency": "BTC",
+      "financialProductList": [
+        {
+          "currency": "BTC",
+          "financialType": "FLEXIBLE",
+          "fixedInvestPeriodCount": null,
+          "showApr": "7",
+          "baseApr": "0.01",
+          "tieredSubsidyApr": [
+            {
+              "startQuantity": "0",
+              "endQuantity": "0.002",
+              "apr": "6.99"
+            },
+            {
+              "startQuantity": "0.002",
+              "endQuantity": "0.03",
+              "apr": "0.29"
+            },
+            {
+              "startQuantity": "0.03",
+              "endQuantity": null,
+              "apr": "0.09"
+            }
+          ],
+          "financialState": 2,
+          "startTime": 1758603600000,
+          "soldOut": false,
+          "memberType": "NORMAL",
+          "perPledgeMaxQuantity": "100"
+        },
+        {
+          "currency": "BTC",
+          "financialType": "FIXED",
+          "fixedInvestPeriodCount": 1,
+          "showApr": "600",
+          "baseApr": "600",
+          "tieredSubsidyApr": null,
+          "financialState": 2,
+          "startTime": 1784866500000,
+          "soldOut": false,
+          "memberType": "EFTD",
+          "perPledgeMaxQuantity": "0.005"
+        }
+      ]
+    },
+    {
+      "currency": "ETH",
+      "financialProductList": [
+        {
+          "currency": "ETH",
+          "financialType": "FLEXIBLE",
+          "fixedInvestPeriodCount": null,
+          "showApr": "7",
+          "baseApr": "0.1",
+          "tieredSubsidyApr": [
+            {
+              "startQuantity": "0",
+              "endQuantity": "0.05",
+              "apr": "6.9"
+            },
+            {
+              "startQuantity": "0.05",
+              "endQuantity": "0.3",
+              "apr": "1.9"
+            },
+            {
+              "startQuantity": "0.3",
+              "endQuantity": null,
+              "apr": "0.9"
+            }
+          ],
+          "financialState": 2,
+          "startTime": 1758602100000,
+          "soldOut": false,
+          "memberType": "NORMAL",
+          "perPledgeMaxQuantity": "-1"
+        },
+        {
+          "currency": "ETH",
+          "financialType": "FIXED",
+          "fixedInvestPeriodCount": 1,
+          "showApr": "200",
+          "baseApr": "200",
+          "tieredSubsidyApr": null,
+          "financialState": 2,
+          "startTime": 1785151800000,
+          "soldOut": false,
+          "memberType": "EFTD",
+          "perPledgeMaxQuantity": "0.1"
+        }
+      ]
+    },
+    {
+      "currency": "TRX",
+      "financialProductList": [
+        {
+          "currency": "TRX",
+          "financialType": "FLEXIBLE",
+          "fixedInvestPeriodCount": null,
+          "showApr": "10",
+          "baseApr": "10",
+          "tieredSubsidyApr": null,
+          "financialState": 2,
+          "startTime": 1758603600000,
+          "soldOut": false,
+          "memberType": "NORMAL",
+          "perPledgeMaxQuantity": "2800000"
+        }
+      ]
+    },
+    {
+      "currency": "SOL",
+      "financialProductList": [
+        {
+          "currency": "SOL",
+          "financialType": "FIXED",
+          "fixedInvestPeriodCount": 1,
+          "showApr": "600",
+          "baseApr": "600",
+          "tieredSubsidyApr": null,
+          "financialState": 3,
+          "startTime": 1784866500000,
+          "soldOut": false,
+          "memberType": "EFTD",
+          "perPledgeMaxQuantity": "0.005"
+        }
+      ]
+    }
+  ],
+  "code": 0,
+  "msg": "success",
+  "timestamp": 1793616785328
+}
