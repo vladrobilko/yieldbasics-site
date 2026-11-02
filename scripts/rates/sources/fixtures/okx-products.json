@@ -1,0 +1,118 @@
+{
+  "code": 0,
+  "msg": "",
+  "data": {
+    "allProducts": {
+      "currencies": [
+        {
+          "investCurrency": {
+            "currencyName": "USDT"
+          },
+          "products": [
+            {
+              "productsType": 1,
+              "purchaseStatus": 1,
+              "bonusDescription": "10% bonus for 180 days | New users only",
+              "rate": {
+                "rateNum": {
+                  "value": ["10.000000"],
+                  "type": "1"
+                },
+                "rateType": "SINGLE_RATE"
+              },
+              "term": {
+                "type": "DAY",
+                "value": 1
+              }
+            },
+            {
+              "productsType": 66,
+              "purchaseStatus": 2,
+              "bonusDescription": "",
+              "rate": {
+                "rateNum": {
+                  "value": ["4.00"],
+                  "type": "1"
+                },
+                "rateType": "SINGLE_RATE"
+              },
+              "term": {
+                "type": "DAY",
+                "value": 90
+              }
+            }
+          ]
+        },
+        {
+          "investCurrency": {
+            "currencyName": "USDC"
+          },
+          "products": [
+            {
+              "productsType": 1,
+              "purchaseStatus": 1,
+              "bonusDescription": "10% bonus for 180 days | New users only",
+              "rate": {
+                "rateNum": {
+                  "value": ["10.000000"],
+                  "type": "1"
+                },
+                "rateType": "SINGLE_RATE"
+              },
+              "term": {
+                "type": "DAY",
+                "value": 1
+              }
+            }
+          ]
+        },
+        {
+          "investCurrency": {
+            "currencyName": "XAUT"
+          },
+          "products": [
+            {
+              "productsType": 1,
+              "purchaseStatus": 1,
+              "bonusDescription": "13% bonus for 90 days | New users only",
+              "rate": {
+                "rateNum": {
+                  "value": ["13.000000"],
+                  "type": "1"
+                },
+                "rateType": "SINGLE_RATE"
+              },
+              "term": {
+                "type": "DAY",
+                "value": 1
+              }
+            }
+          ]
+        },
+        {
+          "investCurrency": {
+            "currencyName": "DOGE"
+          },
+          "products": [
+            {
+              "productsType": 1,
+              "purchaseStatus": 1,
+              "bonusDescription": "",
+              "rate": {
+                "rateNum": {
+                  "value": ["0.050000"],
+                  "type": "1"
+                },
+                "rateType": "SINGLE_RATE"
+              },
+              "term": {
+                "type": "DAY",
+                "value": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

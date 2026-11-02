@@ -7,9 +7,9 @@ import { bybitHosts, hideProxy, parseBybit, PROXY_ATTEMPTS } from './bybit';
 import { mergeCoinwResponses, parseCoinw } from './coinw';
 import { parseGateFixed, parseGateFlexible } from './gate';
 import { kucoinNewUserProductIds, parseKucoin, parseKucoinCap } from './kucoin';
-import { parseOkx } from './okx';
+import { parseOkx, parseOkxProducts } from './okx';
 
-// Fixtures are trimmed real responses saved on 2026-10-14 (okx.json on 2026-11-02).
+// Fixtures are trimmed real responses saved on 2026-10-14 (okx*.json on 2026-11-02).
 const fixture = (name: string) => JSON.parse(readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8'));
 
 const ASSETS = ['USDT', 'USDC', 'BTC', 'ETH', 'BNB', 'DOGE', 'XAUT'];
@@ -116,6 +116,56 @@ describe('parseOkx', () => {
   it('drops zero rates', () => {
     const response = { code: '0', msg: '', data: [{ ccy: 'BTC', lendingRate: '0', ts: '1' }] };
     expect(parseOkx(response, ASSETS)).toEqual([]);
+  });
+});
+
+describe('parseOkxProducts', () => {
+  const regular = parseOkx(fixture('okx.json'), ASSETS);
+  const products = fixture('okx-products.json');
+
+  it('reads new-user bonuses for USDT/USDC with their cap and the rate after', () => {
+    // XAUT also has a new-user bonus, DOGE only a plain flexible rate, and USDT a sold-out 90-day term.
+    expect(parseOkxProducts(products, ASSETS, regular)).toEqual([
+      {
+        platformId: 'okx',
+        asset: 'USDT',
+        product: 'Simple Earn',
+        termDays: 0,
+        rate: 10,
+        type: 'APR',
+        audience: 'new-user',
+        maxAmount: 500,
+        note: 'For 180 days, then 3.47%',
+      },
+      {
+        platformId: 'okx',
+        asset: 'USDC',
+        product: 'Simple Earn',
+        termDays: 0,
+        rate: 10,
+        type: 'APR',
+        audience: 'new-user',
+        maxAmount: 500,
+        note: 'For 180 days',
+      },
+    ]);
+  });
+
+  it('keeps open fixed terms', () => {
+    const open = structuredClone(products);
+    open.data.allProducts.currencies[0].products[1].purchaseStatus = 1;
+    expect(parseOkxProducts(open, ASSETS, regular)).toContainEqual({
+      platformId: 'okx',
+      asset: 'USDT',
+      product: 'Simple Earn',
+      termDays: 90,
+      rate: 4,
+      type: 'APR',
+    });
+  });
+
+  it('throws on an API error', () => {
+    expect(() => parseOkxProducts({ code: 1, msg: 'bad' } as never, ASSETS, regular)).toThrow(/bad/);
   });
 });
 
