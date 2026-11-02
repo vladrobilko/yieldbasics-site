@@ -438,6 +438,72 @@
       "rate": 2,
       "type": "APR",
       "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "gate",
+      "asset": "USDT",
+      "product": "Simple Earn",
+      "termDays": 0,
+      "rate": 7.63,
+      "type": "APR",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 500,
+          "rate": 7.63
+        },
+        {
+          "min": 500,
+          "max": null,
+          "rate": 2.63
+        }
+      ],
+      "note": "5% bonus paid in GT",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "gate",
+      "asset": "BTC",
+      "product": "Simple Earn",
+      "termDays": 0,
+      "rate": 5.1,
+      "type": "APR",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 0.01,
+          "rate": 5.1
+        },
+        {
+          "min": 0.01,
+          "max": null,
+          "rate": 0.1
+        }
+      ],
+      "note": "5% bonus paid in GT",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "gate",
+      "asset": "ETH",
+      "product": "Simple Earn",
+      "termDays": 0,
+      "rate": 6.86,
+      "type": "APR",
+      "tiers": [
+        {
+          "min": 0,
+          "max": 0.2,
+          "rate": 6.86
+        },
+        {
+          "min": 0.2,
+          "max": null,
+          "rate": 1.86
+        }
+      ],
+      "note": "5% bonus paid in GT",
+      "verifiedAt": "2026-11-02"
     }
   ]
 }
