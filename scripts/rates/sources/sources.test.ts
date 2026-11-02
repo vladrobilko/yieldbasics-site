@@ -231,7 +231,8 @@ describe('parseKucoin', () => {
   const regular = offers.filter((o) => !o.audience);
 
   it('reads flexible and fixed Simple Earn and plain staking', () => {
-    expect(regular.filter((o) => o.asset === 'USDT').map((o) => [o.termDays, o.rate])).toEqual([
+    const simple = regular.filter((o) => o.asset === 'USDT' && o.product === 'Simple Earn');
+    expect(simple.map((o) => [o.termDays, o.rate])).toEqual([
       [0, 1.25],
       [7, 1.8],
       [14, 2.2],
@@ -246,7 +247,24 @@ describe('parseKucoin', () => {
   it('skips structured and private-wealth products', () => {
     // The fixture also has dual investment, shark fin and PWM funds.
     expect(Math.max(...regular.map((o) => o.rate))).toBeLessThan(5);
-    expect(new Set(offers.map((o) => o.product))).toEqual(new Set(['Simple Earn', 'Staking']));
+    expect(new Set(offers.map((o) => o.product))).toEqual(new Set(['Simple Earn', 'Staking', 'KCUSD']));
+  });
+
+  it('reads KCUSD with what you end up holding', () => {
+    expect(offers.find((o) => o.product === 'KCUSD')).toMatchObject({
+      asset: 'USDT',
+      termDays: 0,
+      rate: 4,
+      note: 'Held as KCUSD',
+    });
+  });
+
+  it('skips VIP-only products, even new-user ones', () => {
+    const response = fixture('kucoin.json');
+    const regularUsdt = { id: 9, currency: 'USDT', category_group2: 'SIMPLE_EARN', category: 'ACTIVITY' };
+    const vipOnly = { ...regularUsdt, type: 'MULTI_TIME', status: 'ONGOING', duration: 30, total_apr: '6' };
+    response.data[0].products.push({ ...vipOnly, tags: ['NEWBIE', 'VIP_ONLY'] });
+    expect(parseKucoin(response, ASSETS).filter((o) => o.audience)).toHaveLength(1);
   });
 
   it('marks the NEWBIE offer as new-user, with the cap from its detail request', () => {
