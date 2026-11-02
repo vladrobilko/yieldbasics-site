@@ -18,6 +18,7 @@ import {
   emptyMessage,
   filterByTerm,
   formatRate,
+  newUserHighlights,
   placePopover,
   productsLabel,
   ratesForAsset,
@@ -119,6 +120,27 @@ describe('sortByReward', () => {
   it('ranks by reward and puts unknown rewards last, by rate', () => {
     expect(sortByReward(rows).map((r) => r.id)).toEqual(['a', 'c', 'd', 'b']);
     expect(sortByReward(rows, false).map((r) => r.id)).toEqual(['c', 'a', 'd', 'b']);
+  });
+});
+
+describe('newUserHighlights', () => {
+  const rows = [
+    { id: 'a', asset: 'USDT', audience: 'new-user', reward: 3.84, rate: 100 },
+    { id: 'b', asset: 'USDT', audience: 'all', reward: null, rate: 10 },
+    { id: 'c', asset: 'USDT', audience: 'new-user', reward: 6.58, rate: 600 },
+    { id: 'd', asset: 'BTC', audience: 'new-user', reward: null, rate: 600 },
+    { id: 'e', asset: 'USDT', audience: 'new-user', reward: null, rate: 555 },
+    { id: 'f', asset: 'USDT', audience: 'new-user', reward: 4.11, rate: 100 },
+  ];
+
+  it("counts one coin's new-user offers and keeps the top ones by reward", () => {
+    const { count, top } = newUserHighlights(rows, 'USDT');
+    expect(count).toBe(4);
+    expect(top.map((r) => r.id)).toEqual(['c', 'f', 'a']);
+  });
+
+  it('is empty for a coin without new-user offers', () => {
+    expect(newUserHighlights(rows, 'ETH')).toEqual({ count: 0, top: [] });
   });
 });
 
