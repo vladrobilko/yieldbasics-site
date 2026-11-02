@@ -43,11 +43,13 @@ export const parseCoinw = (response: CoinwResponse, assets: readonly string[]): 
     const invest = product.productInvestList[0];
     const income = product.productIncomeList[0];
     const asset = invest && canonicalAsset(invest.currencyName, assets);
-    if (!asset || !income || invest.isSellOut === 1) return [];
+    const fixed = product.productClassifiy === 'REGULAR_FINANCIAL';
+    // isSellOut just means deposits reached the pool cap. Flexible pools keep taking deposits
+    // far past it (USDT held 10x its cap in Nov 2026), so only fixed products are skipped.
+    if (!asset || !income || (fixed && invest.isSellOut === 1)) return [];
     const newUser = invest.isNewerProduct === 1;
     // New-user offers are kept for the "New users" tab, USDT/USDC only.
     if (newUser && !NEW_USER_ASSETS.includes(asset)) return [];
-    const fixed = product.productClassifiy === 'REGULAR_FINANCIAL';
     const tiers: RateTier[] = product.incomeFloatList.map((band, index, list) => ({
       min: Number(band.minAmount),
       // The last band's max is just the product's overall cap.

@@ -219,9 +219,17 @@ describe('parseCoinw', () => {
     ]);
   });
 
-  it('skips sold-out products', () => {
-    // The flexible USDT product (10.8%) is sold out.
-    expect(offers.some((o) => o.asset === 'USDT' && o.termDays === 0)).toBe(false);
+  it('keeps sold-out flexible products', () => {
+    // The flexible USDT product (10.8%) is flagged sold out but still takes deposits.
+    expect(offers.find((o) => o.asset === 'USDT' && o.termDays === 0)).toMatchObject({ rate: 10.8 });
+  });
+
+  it('skips sold-out fixed products', () => {
+    const response = fixture('coinw.json');
+    for (const product of response.data.rows) {
+      if (product.productClassifiy === 'REGULAR_FINANCIAL') product.productInvestList[0].isSellOut = 1;
+    }
+    expect(parseCoinw(response, ASSETS).every((o) => o.termDays === 0)).toBe(true);
   });
 
   it('keeps the new-user offer with its cap', () => {
