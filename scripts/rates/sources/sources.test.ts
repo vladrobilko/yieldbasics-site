@@ -9,7 +9,7 @@ import { parseGateFixed, parseGateFlexible } from './gate';
 import { kucoinNewUserProductIds, parseKucoin, parseKucoinCap } from './kucoin';
 import { parseOkx } from './okx';
 
-// Fixtures are trimmed real responses saved on 2026-10-14.
+// Fixtures are trimmed real responses saved on 2026-10-14 (okx.json on 2026-11-02).
 const fixture = (name: string) => JSON.parse(readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8'));
 
 const ASSETS = ['USDT', 'USDC', 'BTC', 'ETH', 'BNB', 'DOGE', 'XAUT'];
@@ -104,11 +104,18 @@ describe('parseBinance', () => {
 });
 
 describe('parseOkx', () => {
-  it('converts the estimated rate to a percentage', () => {
+  it('reads the latest rate savers get, not the borrow rate', () => {
+    // The fixture also holds an older USDT row (9.99%) and SHIB, which is not in ASSETS.
     expect(parseOkx(fixture('okx.json'), ASSETS)).toEqual([
-      { platformId: 'okx', asset: 'BTC', product: 'Simple Earn', termDays: 0, rate: 0.5, type: 'APR' },
-      { platformId: 'okx', asset: 'USDT', product: 'Simple Earn', termDays: 0, rate: 3.5, type: 'APR' },
+      { platformId: 'okx', asset: 'USDT', product: 'Simple Earn', termDays: 0, rate: 3.47, type: 'APR' },
+      { platformId: 'okx', asset: 'DOGE', product: 'Simple Earn', termDays: 0, rate: 0.05, type: 'APR' },
+      { platformId: 'okx', asset: 'BTC', product: 'Simple Earn', termDays: 0, rate: 0.01, type: 'APR' },
     ]);
+  });
+
+  it('drops zero rates', () => {
+    const response = { code: '0', msg: '', data: [{ ccy: 'BTC', lendingRate: '0', ts: '1' }] };
+    expect(parseOkx(response, ASSETS)).toEqual([]);
   });
 });
 
