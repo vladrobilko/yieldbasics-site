@@ -16,7 +16,7 @@ The daily rates job (`npm run rates`, GitHub Action) updates everything a public
 | -------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Binance  | binance.com/en/earn/simple-earn                            | automatic                                                                                      |
 | Bybit    | bybit.com/en/earn/easy-earn                                | flexible and on-chain automatic; fixed terms and new-user offer manual                         |
-| OKX      | okx.com/earn/simple-earn                                   | automatic                                                                                      |
+| OKX      | okx.com/earn/simple-earn                                   | automatic; new-user bonuses manual (caps in the page FAQ), GitHub servers don't get them       |
 | Gate     | gate.com/earn/simple-earn                                  | automatic; flexible bonuses (USDT, BTC, ETH) manual, they replace the fetched base rate        |
 | KuCoin   | kucoin.com/earn                                            | automatic                                                                                      |
 | CoinW    | coinw.com/earn/crypto-savings                              | automatic                                                                                      |
