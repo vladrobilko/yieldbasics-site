@@ -62,6 +62,7 @@ jobs:
           fi
           ls "$RUNNER_TEMP/pending-history"
 
+      # MEXC is read through the runner's preinstalled Google Chrome (playwright-core, channel "chrome").
       - name: Fetch rates
         env:
           # Bybit blocks GitHub's runners; this is our Cloudflare Worker (see AGENTS.md).

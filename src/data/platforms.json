@@ -261,6 +261,57 @@
     }
   },
   {
+    "id": "mexc",
+    "name": "MEXC",
+    "kind": "cex",
+    "website": "https://www.mexc.com/",
+    "referralUrl": "https://s.mexc.com/referral/9iFGd9XcZr",
+    "logo": "platform-mexc",
+    "mark": "MX",
+    "markClass": "bg-[#1972F5] text-white",
+    "profile": {
+      "summary": "MEXC is a crypto exchange founded in 2018 and registered in Seychelles. Its Earn section has flexible and fixed savings, and first-deposit offers for new users that pay a very high rate on a small capped amount for a day or two. MEXC has no licence under the EU's MiCA rules and has been warned by regulators in the Netherlands and Japan for serving users without one. It does not accept users from the US, the UK, Canada and several other countries.",
+      "facts": [
+        {
+          "label": "Founded",
+          "value": "2018"
+        },
+        {
+          "label": "Headquarters",
+          "value": "Seychelles"
+        },
+        {
+          "label": "Regulation",
+          "value": "No MiCA licence; warnings from the Dutch AFM (2025) and Japan's FSA"
+        },
+        {
+          "label": "Proof of reserves",
+          "value": "Yes: reserve ratios per coin with a Merkle tree check, audited by Hacken"
+        }
+      ],
+      "proofOfReserves": "https://www.mexc.com/Proof_of_Trust",
+      "sources": [
+        {
+          "title": "MEXC (CoinGecko)",
+          "url": "https://www.coingecko.com/en/exchanges/mexc"
+        },
+        {
+          "title": "MEXC proof of reserves",
+          "url": "https://www.mexc.com/Proof_of_Trust"
+        },
+        {
+          "title": "MEXC restricted countries",
+          "url": "https://www.mexc.com/learn/article/mexc-restricted-countries-complete-list-of-prohibited-limited-regions/1"
+        },
+        {
+          "title": "MEXC October 2026 proof of reserves (Crypto Briefing)",
+          "url": "https://cryptobriefing.com/mexc-releases-october-2026-proof-of-reserves-reinforcing-user-trust-through-verifiable-transparency/"
+        }
+      ],
+      "checkedAt": "2026-11-02"
+    }
+  },
+  {
     "id": "telegram-wallet",
     "slug": "walt",
     "name": "Walt",

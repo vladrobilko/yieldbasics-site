@@ -1,12 +1,15 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
+import { offerId } from '../../../src/utils/rates';
+
 import { parseAave } from './aave';
 import { parseBinance } from './binance';
 import { bybitHosts, hideProxy, parseBybit, PROXY_ATTEMPTS } from './bybit';
 import { mergeCoinwResponses, parseCoinw } from './coinw';
 import { parseGateFixed, parseGateFlexible } from './gate';
 import { kucoinNewUserProductIds, parseKucoin, parseKucoinCap } from './kucoin';
+import { parseMexc } from './mexc';
 import { parseOkx, parseOkxProducts } from './okx';
 
 // Fixtures are trimmed real responses saved on 2026-10-14 (okx*.json, binance-extras.json and gate-fixed.json on 2026-11-02).
@@ -293,6 +296,40 @@ describe('parseKucoin', () => {
         maxAmount: 100,
       },
     ]);
+  });
+});
+
+describe('parseMexc', () => {
+  // mexc.json is a trimmed real response saved on 2026-11-02.
+  const offers = parseMexc(fixture('mexc.json'), ASSETS);
+
+  it('adds each band subsidy to the base APR', () => {
+    expect(offers.find((o) => o.asset === 'BTC' && !o.audience)?.tiers).toEqual([
+      { min: 0, max: 0.002, rate: 7 },
+      { min: 0.002, max: 0.03, rate: 0.3 },
+      { min: 0.03, max: null, rate: 0.1 },
+    ]);
+  });
+
+  it('names a second flexible product "Earn Plus" so both are kept', () => {
+    const usdt = offers.filter((o) => o.asset === 'USDT' && !o.audience);
+    expect(usdt.map((o) => [o.product, o.rate])).toEqual(
+      expect.arrayContaining([
+        ['Flexible Savings', 6],
+        ['Earn Plus', 10],
+      ])
+    );
+    expect(new Set(usdt.map(offerId)).size).toBe(usdt.length);
+  });
+
+  it('keeps live first-deposit (EFTD) offers as new-user offers on any coin', () => {
+    // The fixture's SOL offer is not live (financialState 3) and TRX is skipped (not in ASSETS).
+    expect(offers.filter((o) => o.audience).map((o) => [o.asset, o.termDays, o.rate, o.maxAmount])).toEqual([
+      ['USDT', 2, 600, 200],
+      ['BTC', 1, 600, 0.005],
+      ['ETH', 1, 200, 0.1],
+    ]);
+    expect(offers.every((o) => o.platformId === 'mexc' && o.type === 'APR')).toBe(true);
   });
 });
 

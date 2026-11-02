@@ -19,6 +19,7 @@ The daily rates job (`npm run rates`, GitHub Action) updates everything a public
 | OKX      | okx.com/earn/simple-earn                                   | automatic; new-user bonuses manual (caps in the page FAQ), GitHub servers don't get them       |
 | Gate     | gate.com/earn/simple-earn                                  | automatic; flexible bonuses (USDT, BTC, ETH) manual, they replace the fetched base rate        |
 | KuCoin   | kucoin.com/earn                                            | automatic                                                                                      |
+| MEXC     | mexc.com/earn (3 pages)                                    | automatic (headless Chrome); "Earn Plus" is the second USDT flexible product                   |
 | CoinW    | coinw.com/earn/crypto-savings                              | automatic                                                                                      |
 | Aave     | app.aave.com/markets                                       | automatic, best chain via DefiLlama; Aave App offers manual from the owner's phone screenshots |
 | WEEX     | weex.com/staking and weex.com/autoearn                     | manual                                                                                         |

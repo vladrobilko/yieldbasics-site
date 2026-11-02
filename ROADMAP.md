@@ -171,7 +171,7 @@ New posts in `src/data/post/`, in the same style as the existing ones: no rate s
 **For each platform, once its referral link arrives:**
 
 1. Add it to `src/data/platforms.json` (name, kind, website, `referralUrl`, logo).
-2. Find a rates source: an official public API first, then a public web JSON endpoint, then a headless browser (MEXC used one through `playwright-core`; both were removed with MEXC on 2026-10-21, so restore them from git history if needed). If none works, use `src/data/manual-rates.json`.
+2. Find a rates source: an official public API first, then a public web JSON endpoint, then a headless browser (`scripts/rates/browser.ts`, through `playwright-core`, as MEXC does). If none works, use `src/data/manual-rates.json`.
 3. Add a parser in `scripts/rates/sources/<id>.ts` with a trimmed real response in `fixtures/` and tests. One PR per platform.
 
 ### To-do: register
@@ -196,7 +196,7 @@ Wallets.
 
 - [ ] **Tangem**: Yield Mode supplies USDT/USDC to Aave. Its referral program only pays per hardware wallet sold (5 USDT), so it is a weak fit.
 
-**Not suitable for the owner:** LBank, Toobit and Bitget (owner can't register). MEXC was removed on 2026-10-21 after it left Russia and Belarus. YouHodler and Nexo look unlikely; check before spending time on them.
+**Not suitable for the owner:** LBank, Toobit and Bitget (owner can't register). MEXC left Russia and Belarus on 2026-10-20; the owner registers through a Georgian residence permit, so it was added back on 2026-11-02. YouHodler and Nexo look unlikely; check before spending time on them.
 
 ## Russian version of the site (later)
 
