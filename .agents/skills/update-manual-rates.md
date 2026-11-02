@@ -1,6 +1,6 @@
-# Update Manual Rates (WEEX, Walt, Aave App)
+# Update Manual Rates (WEEX, Walt, Aave App, Bybit fixed terms)
 
-WEEX and Walt (`telegram-wallet`) show earn rates only to signed-in users, and the Aave App only inside its mobile app (entries use `platformId: "aave"`, `product: "Aave App"`, next to the fetched Aave protocol rates), so the owner takes screenshots and an agent copies the rates into `src/data/manual-rates.json`. Manual offers drop off the site 30 days after their `verifiedAt`; the daily rates PR warns 7 days before ("Manual rates to re-check"). Aim to re-check every 2–3 days.
+WEEX and Walt (`telegram-wallet`) show earn rates only to signed-in users, and the Aave App only inside its mobile app (entries use `platformId: "aave"`, `product: "Aave App"`, next to the fetched Aave protocol rates). Bybit's fixed terms and new-user offer (`Fixed Savings`, `Fixed Rate Loan`) are only on bybit.com/en/earn/easy-earn, behind bot protection; its flexible and on-chain rates are fetched. Skip products marked "VIP Only". So the owner takes screenshots and an agent copies the rates into `src/data/manual-rates.json`. Manual offers drop off the site 30 days after their `verifiedAt`; the daily rates PR warns 7 days before ("Manual rates to re-check"). Aim to re-check every 2–3 days.
 
 **Never** sign in to these platforms or automate a browser session on them. **Never** commit the screenshots (the repo is public).
 

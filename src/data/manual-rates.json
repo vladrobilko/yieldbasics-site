@@ -49,7 +49,7 @@
           "rate": 3
         }
       ],
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -61,7 +61,7 @@
       "audience": "new-user",
       "maxAmount": 200,
       "note": "Then 3% APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -113,7 +113,7 @@
       "termDays": 30,
       "rate": 2,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -143,7 +143,7 @@
       "termDays": 7,
       "rate": 2.3,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -152,7 +152,7 @@
       "termDays": 14,
       "rate": 2.5,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -161,7 +161,7 @@
       "termDays": 30,
       "rate": 3,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -191,7 +191,7 @@
       "termDays": 7,
       "rate": 4.2,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -200,7 +200,7 @@
       "termDays": 14,
       "rate": 4.5,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -209,7 +209,7 @@
       "termDays": 30,
       "rate": 5,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -239,7 +239,7 @@
       "termDays": 0,
       "rate": 2,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -248,7 +248,7 @@
       "termDays": 0,
       "rate": 2,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -257,7 +257,7 @@
       "termDays": 0,
       "rate": 2,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -266,7 +266,7 @@
       "termDays": 0,
       "rate": 3,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "weex",
@@ -275,66 +275,169 @@
       "termDays": 0,
       "rate": 0.5,
       "type": "APR",
-      "verifiedAt": "2026-10-30"
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "weex",
+      "asset": "LINK",
+      "product": "Earn",
+      "termDays": 30,
+      "rate": 2,
+      "type": "APR",
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "telegram-wallet",
       "asset": "USDT",
       "product": "Earn",
       "termDays": 0,
-      "rate": 4.13,
+      "rate": 9,
       "type": "APY",
-      "note": "Walt Dollars balance",
-      "verifiedAt": "2026-10-21"
+      "tiers": [
+        {
+          "min": 0,
+          "max": 100,
+          "rate": 9
+        },
+        {
+          "min": 100,
+          "max": null,
+          "rate": 4.35
+        }
+      ],
+      "note": "Walt Dollars balance, held as Ethena USDe",
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "telegram-wallet",
       "asset": "ETH",
       "product": "Earn",
       "termDays": 0,
-      "rate": 4.35,
+      "rate": 4.99,
       "type": "APY",
       "tiers": [
         {
           "min": 0,
           "max": 4.2,
-          "rate": 4.35
+          "rate": 4.99
         },
         {
           "min": 4.2,
           "max": null,
-          "rate": 2.21
+          "rate": 2.94
         }
       ],
       "note": "Bonus rate for the first 30 days",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "telegram-wallet",
       "asset": "SOL",
       "product": "Earn",
       "termDays": 0,
-      "rate": 4.57,
+      "rate": 15.09,
       "type": "APY",
-      "verifiedAt": "2026-10-21"
+      "tiers": [
+        {
+          "min": 0,
+          "max": 7,
+          "rate": 15.09
+        },
+        {
+          "min": 7,
+          "max": null,
+          "rate": 4.63
+        }
+      ],
+      "note": "Bonus rate for the first 30 days",
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "telegram-wallet",
       "asset": "TRX",
       "product": "Earn",
       "termDays": 0,
-      "rate": 3.38,
+      "rate": 13.8,
       "type": "APY",
-      "verifiedAt": "2026-10-21"
+      "tiers": [
+        {
+          "min": 0,
+          "max": 2500,
+          "rate": 13.8
+        },
+        {
+          "min": 2500,
+          "max": null,
+          "rate": 3.46
+        }
+      ],
+      "note": "Bonus rate for the first 60 days",
+      "verifiedAt": "2026-11-02"
     },
     {
       "platformId": "telegram-wallet",
       "asset": "GRAM",
       "product": "Earn",
       "termDays": 0,
-      "rate": 13.41,
+      "rate": 14.41,
       "type": "APY",
-      "verifiedAt": "2026-10-21"
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "bybit",
+      "asset": "USDT",
+      "product": "Fixed Savings",
+      "termDays": 2,
+      "rate": 555,
+      "type": "APR",
+      "audience": "new-user",
+      "note": "Bybit Earn new users only",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "bybit",
+      "asset": "USDT",
+      "product": "Fixed Savings",
+      "termDays": 7,
+      "rate": 2,
+      "type": "APR",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "bybit",
+      "asset": "USDT",
+      "product": "Fixed Rate Loan",
+      "termDays": 90,
+      "rate": 4.5,
+      "type": "APR",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "bybit",
+      "asset": "USDC",
+      "product": "Fixed Rate Loan",
+      "termDays": 7,
+      "rate": 3.4,
+      "type": "APR",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "bybit",
+      "asset": "XAUT",
+      "product": "Fixed Savings",
+      "termDays": 90,
+      "rate": 2.83,
+      "type": "APR",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "bybit",
+      "asset": "XRP",
+      "product": "Fixed Savings",
+      "termDays": 90,
+      "rate": 2,
+      "type": "APR",
+      "verifiedAt": "2026-11-02"
     }
   ]
 }
