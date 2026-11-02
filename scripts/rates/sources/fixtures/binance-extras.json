@@ -1,0 +1,74 @@
+{
+  "code": "000000",
+  "message": null,
+  "data": {
+    "total": "3",
+    "list": [
+      {
+        "asset": "ETH",
+        "productDetailList": [
+          {
+            "productType": "ETH_TWO",
+            "duration": "0",
+            "status": "ENABLE",
+            "sellOut": false,
+            "apy": "0.02193650",
+            "marketApr": null,
+            "apyTierOption": null,
+            "tag": null
+          }
+        ]
+      },
+      {
+        "asset": "USDT",
+        "productDetailList": [
+          {
+            "productType": "BFUSD",
+            "duration": "0",
+            "status": "ENABLE",
+            "sellOut": false,
+            "apy": "0.05118364",
+            "marketApr": null,
+            "apyTierOption": null,
+            "tag": null
+          },
+          {
+            "productType": "RWUSD",
+            "duration": "0",
+            "status": "ENABLE",
+            "sellOut": false,
+            "apy": "0.03610000",
+            "marketApr": null,
+            "apyTierOption": null,
+            "tag": null
+          },
+          {
+            "productType": "FIXED_LOAN_SUPPLY",
+            "duration": "90",
+            "status": "ENABLE",
+            "sellOut": false,
+            "apy": "0.03443478",
+            "marketApr": null,
+            "apyTierOption": null,
+            "tag": null
+          }
+        ]
+      },
+      {
+        "asset": "SOL",
+        "productDetailList": [
+          {
+            "productType": "BN_SOL_STAKING",
+            "duration": "0",
+            "status": "ENABLE",
+            "sellOut": false,
+            "apy": "0.04468734",
+            "marketApr": null,
+            "apyTierOption": null,
+            "tag": null
+          }
+        ]
+      }
+    ]
+  }
+}

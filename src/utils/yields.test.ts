@@ -123,12 +123,8 @@ describe('sortByReward', () => {
 });
 
 describe('emptyMessage', () => {
-  it('explains which assets have new-user offers', () => {
-    expect(emptyMessage('BTC', 'new-user', ['USDT', 'USDC'])).toBe(
-      'New-user offers are tracked for USDT and USDC only.'
-    );
-    expect(emptyMessage('USDT', 'new-user', ['USDT', 'USDC'])).toMatch(/No matching USDT offers/);
-    expect(emptyMessage('BTC', 'fixed', ['USDT', 'USDC'])).toMatch(/No matching BTC offers/);
+  it('names the asset', () => {
+    expect(emptyMessage('BTC')).toMatch(/No matching BTC offers/);
   });
 });
 

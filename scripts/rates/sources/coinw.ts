@@ -1,19 +1,14 @@
-import {
-  canonicalAsset,
-  fractionToPercent,
-  NEW_USER_ASSETS,
-  roundRate,
-  type RateOffer,
-  type RateTier,
-} from '../../../src/utils/rates';
+import { canonicalAsset, fractionToPercent, roundRate, type RateOffer, type RateTier } from '../../../src/utils/rates';
 import type { Source } from '../types';
 
 // The public JSON behind coinw.com/earn/crypto-savings.
 const API = 'https://spotapi.coinw.com/web/v3/spot/financial/v1/invest/getFinancialList';
-/** productType 1 = flexible savings, 2 = fixed-term savings. */
-const PRODUCT_TYPES = [1, 2];
+// Flexible products only come back when filtered by class: productType=1 has returned nothing since late Oct 2026.
+// For fixed products, productType=2 is the main list and 3 adds BTC terms (7 and 60 days) that 2 misses.
+const QUERIES = ['productClassifiy=CURRENT_FINANCIAL', 'productType=2', 'productType=3'];
 
 interface CoinwProduct {
+  productId: number;
   productClassifiy: string;
   /** Lock-up in days for fixed products, null for flexible ones. */
   deadline: string | number | null;
@@ -41,11 +36,11 @@ export const parseCoinw = (response: CoinwResponse, assets: readonly string[]): 
     const invest = product.productInvestList[0];
     const income = product.productIncomeList[0];
     const asset = invest && canonicalAsset(invest.currencyName, assets);
-    if (!asset || !income || invest.isSellOut === 1) return [];
-    const newUser = invest.isNewerProduct === 1;
-    // New-user offers are kept for the "New users" tab, USDT/USDC only.
-    if (newUser && !NEW_USER_ASSETS.includes(asset)) return [];
     const fixed = product.productClassifiy === 'REGULAR_FINANCIAL';
+    // isSellOut just means deposits reached the pool cap. Flexible pools keep taking deposits
+    // far past it (USDT held 10x its cap in Nov 2026), so only fixed products are skipped.
+    if (!asset || !income || (fixed && invest.isSellOut === 1)) return [];
+    const newUser = invest.isNewerProduct === 1;
     const tiers: RateTier[] = product.incomeFloatList.map((band, index, list) => ({
       min: Number(band.minAmount),
       // The last band's max is just the product's overall cap.
@@ -73,13 +68,21 @@ export const parseCoinw = (response: CoinwResponse, assets: readonly string[]): 
   });
 };
 
+/** Joins the lists into one response, keeping each product once (the lists overlap). */
+export const mergeCoinwResponses = (responses: CoinwResponse[]): CoinwResponse => {
+  const failed = responses.find((response) => response.code !== 200);
+  if (failed) return failed;
+  const rows = [...new Map(responses.flatMap((r) => r.data.rows).map((row) => [row.productId, row])).values()];
+  return { code: 200, data: { total: rows.length, rows } };
+};
+
 export const coinw: Source = {
   platformId: 'coinw',
   kind: 'web',
   fetch: async (fetchJson, assets) => {
-    const responses = await Promise.all(
-      PRODUCT_TYPES.map((type) => fetchJson(`${API}?pageSize=1000&page=1&productType=${type}`))
-    );
-    return responses.flatMap((response) => parseCoinw(response as CoinwResponse, assets));
+    const responses = (await Promise.all(
+      QUERIES.map((query) => fetchJson(`${API}?pageSize=1000&page=1&${query}`))
+    )) as CoinwResponse[];
+    return parseCoinw(mergeCoinwResponses(responses), assets);
   },
 };

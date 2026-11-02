@@ -120,10 +120,8 @@ export const bestOffer = <T extends { asset: string; rate: number; termDays: num
 ): T | undefined => filterByTerm(ratesForAsset(items, symbol), 'all')[0];
 
 /** Text for an empty table. */
-export const emptyMessage = (asset: string, term: TermFilter, newUserAssets: readonly string[]): string =>
-  term === 'new-user' && !newUserAssets.includes(asset)
-    ? `New-user offers are tracked for ${newUserAssets.join(' and ')} only.`
-    : `No matching ${asset} offers right now — try another term or asset.`;
+export const emptyMessage = (asset: string): string =>
+  `No matching ${asset} offers right now — try another term or asset.`;
 
 /** Live counts for the home page: offers, platforms and coins that have at least one offer. */
 export const siteStats = (rows: readonly { platformId: string; asset: string }[]) => ({

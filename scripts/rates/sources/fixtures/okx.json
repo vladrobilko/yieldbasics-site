@@ -1,30 +1,41 @@
 {
   "code": "0",
+  "msg": "",
   "data": [
     {
-      "avgAmt": "",
-      "avgAmtUsd": "",
-      "avgRate": "0.005",
-      "ccy": "BTC",
-      "estRate": "0.005",
-      "preRate": "0.005"
-    },
-    {
-      "avgAmt": "",
-      "avgAmtUsd": "",
-      "avgRate": "0.035",
+      "amt": "",
       "ccy": "USDT",
-      "estRate": "0.035",
-      "preRate": "0.035"
+      "lendingRate": "0.0347",
+      "rate": "0.04",
+      "ts": "1793606400000"
     },
     {
-      "avgAmt": "",
-      "avgAmtUsd": "",
-      "avgRate": "0.01",
-      "ccy": "OKB",
-      "estRate": "0.01",
-      "preRate": "0.01"
+      "amt": "",
+      "ccy": "SHIB",
+      "lendingRate": "0.0004",
+      "rate": "0.01",
+      "ts": "1793606400000"
+    },
+    {
+      "amt": "",
+      "ccy": "DOGE",
+      "lendingRate": "0.0005",
+      "rate": "0.01",
+      "ts": "1793606400000"
+    },
+    {
+      "amt": "",
+      "ccy": "BTC",
+      "lendingRate": "0.0001",
+      "rate": "0.005",
+      "ts": "1793606400000"
+    },
+    {
+      "amt": "",
+      "ccy": "USDT",
+      "lendingRate": "0.0999",
+      "rate": "0.04",
+      "ts": "1793602800000"
     }
-  ],
-  "msg": ""
+  ]
 }

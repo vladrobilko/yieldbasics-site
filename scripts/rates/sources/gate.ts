@@ -20,9 +20,15 @@ interface GateFixedProduct {
   type: number;
   status: number;
   sale_status: number;
+  /** 1 = everyone, 2 = users who pass `check_user_crowd_url`, 0 = invited groups. */
   is_for_all_user: number;
+  check_user_crowd_url: string;
   min_vip: number;
   max_vip: number;
+  /** 2 = listed on gate.com, 1 = hidden. */
+  show_status: number;
+  /** Per-user cap, in the coin. */
+  user_max_lend_volume: string;
 }
 
 interface GateFixedResponse {
@@ -40,12 +46,25 @@ export const parseGateFlexible = (rates: GateFlexibleRate[], assets: readonly st
   });
 
 /**
+ * The "New Users Exclusive" product shown on gate.com. Type 3 holds event products; other events
+ * with a user check (e.g. "Crazy Wednesday": net deposit of 1,000 USDT) are skipped.
+ */
+export const isGateNewUserFixed = (product: GateFixedProduct): boolean =>
+  product.type === 3 &&
+  product.status === 2 &&
+  product.show_status === 2 &&
+  product.sale_status === 1 &&
+  product.is_for_all_user === 2 &&
+  product.check_user_crowd_url === 'uniloan_first_subscribe_api';
+
+/**
  * Gate lists many fixed products that only some users can buy (VIP levels,
  * invited groups, launch pools). Keep the ones open to everyone and on sale.
  */
 export const isOpenGateFixed = (product: GateFixedProduct): boolean =>
   product.type === 1 &&
   product.status === 2 &&
+  product.show_status === 2 &&
   product.sale_status === 1 &&
   product.is_for_all_user === 1 &&
   product.min_vip === 0 &&
@@ -55,17 +74,19 @@ export const parseGateFixed = (response: GateFixedResponse, assets: readonly str
   if (response.code !== 0) throw new Error(`Gate error ${response.code}: ${response.message}`);
   return response.data.list.flatMap((product): RateOffer[] => {
     const asset = canonicalAsset(product.asset, assets);
-    if (!asset || !isOpenGateFixed(product)) return [];
-    return [
-      {
-        platformId: 'gate',
-        asset,
-        product: 'Fixed Earn',
-        termDays: product.lock_up_period,
-        rate: fractionToPercent(product.year_rate),
-        type: 'APR',
-      },
-    ];
+    if (!asset) return [];
+    const offer: RateOffer = {
+      platformId: 'gate',
+      asset,
+      product: 'Fixed Earn',
+      termDays: product.lock_up_period,
+      rate: fractionToPercent(product.year_rate),
+      type: 'APR',
+    };
+    if (isOpenGateFixed(product)) return [offer];
+    if (!isGateNewUserFixed(product)) return [];
+    const cap = Number(product.user_max_lend_volume);
+    return [{ ...offer, audience: 'new-user', ...(cap > 0 ? { maxAmount: cap } : {}) }];
   });
 };
 

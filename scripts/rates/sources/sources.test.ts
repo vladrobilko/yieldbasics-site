@@ -4,12 +4,12 @@ import { describe, expect, it } from 'vitest';
 import { parseAave } from './aave';
 import { parseBinance } from './binance';
 import { bybitHosts, hideProxy, parseBybit, PROXY_ATTEMPTS } from './bybit';
-import { parseCoinw } from './coinw';
+import { mergeCoinwResponses, parseCoinw } from './coinw';
 import { parseGateFixed, parseGateFlexible } from './gate';
 import { kucoinNewUserProductIds, parseKucoin, parseKucoinCap } from './kucoin';
-import { parseOkx } from './okx';
+import { parseOkx, parseOkxProducts } from './okx';
 
-// Fixtures are trimmed real responses saved on 2026-10-14.
+// Fixtures are trimmed real responses saved on 2026-10-14 (okx*.json, binance-extras.json and gate-fixed.json on 2026-11-02).
 const fixture = (name: string) => JSON.parse(readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8'));
 
 const ASSETS = ['USDT', 'USDC', 'BTC', 'ETH', 'BNB', 'DOGE', 'XAUT'];
@@ -91,24 +91,103 @@ describe('parseBinance', () => {
     });
   });
 
-  it('reads locked products by duration and skips unlisted assets', () => {
+  it('reads locked products by duration and skips VIP-only and unlisted ones', () => {
+    // The fixture's BNB 7-day product at 0.3% is tagged VIP.
     const locked = offers.filter((o) => o.product === 'Simple Earn Locked').map((o) => [o.termDays, o.rate]);
     expect(locked).toEqual([
-      [7, 0.3],
       [7, 0.25],
       [90, 0.3],
       [120, 0.3],
     ]);
     expect(offers.some((o) => o.asset === 'SENT')).toBe(false);
   });
+
+  it('reads staking, BFUSD, RWUSD and fixed loan supply with what you end up holding', () => {
+    const extras = parseBinance(fixture('binance-extras.json'), [...ASSETS, 'SOL']);
+    expect(extras.map((o) => [o.asset, o.product, o.termDays, o.rate, o.note])).toEqual([
+      ['ETH', 'ETH Staking', 0, 2.19, 'Staked as WBETH'],
+      ['USDT', 'BFUSD', 0, 5.12, 'Held as BFUSD, usable as futures margin'],
+      ['USDT', 'RWUSD', 0, 3.61, 'Held as RWUSD'],
+      ['USDT', 'Fixed Loan Supply', 90, 3.44, 'Lent at a fixed rate'],
+      ['SOL', 'SOL Staking', 0, 4.47, 'Staked as BNSOL'],
+    ]);
+  });
 });
 
 describe('parseOkx', () => {
-  it('converts the estimated rate to a percentage', () => {
+  it('reads the latest rate savers get, not the borrow rate', () => {
+    // The fixture also holds an older USDT row (9.99%) and SHIB, which is not in ASSETS.
     expect(parseOkx(fixture('okx.json'), ASSETS)).toEqual([
-      { platformId: 'okx', asset: 'BTC', product: 'Simple Earn', termDays: 0, rate: 0.5, type: 'APR' },
-      { platformId: 'okx', asset: 'USDT', product: 'Simple Earn', termDays: 0, rate: 3.5, type: 'APR' },
+      { platformId: 'okx', asset: 'USDT', product: 'Simple Earn', termDays: 0, rate: 3.47, type: 'APR' },
+      { platformId: 'okx', asset: 'DOGE', product: 'Simple Earn', termDays: 0, rate: 0.05, type: 'APR' },
+      { platformId: 'okx', asset: 'BTC', product: 'Simple Earn', termDays: 0, rate: 0.01, type: 'APR' },
     ]);
+  });
+
+  it('drops zero rates', () => {
+    const response = { code: '0', msg: '', data: [{ ccy: 'BTC', lendingRate: '0', ts: '1' }] };
+    expect(parseOkx(response, ASSETS)).toEqual([]);
+  });
+});
+
+describe('parseOkxProducts', () => {
+  const regular = parseOkx(fixture('okx.json'), ASSETS);
+  const products = fixture('okx-products.json');
+
+  it('reads new-user bonuses with their cap and the rate after', () => {
+    // DOGE only has a plain flexible rate, and USDT a sold-out 90-day term.
+    expect(parseOkxProducts(products, ASSETS, regular)).toEqual([
+      {
+        platformId: 'okx',
+        asset: 'USDT',
+        product: 'Simple Earn',
+        termDays: 0,
+        rate: 10,
+        type: 'APR',
+        audience: 'new-user',
+        maxAmount: 500,
+        note: 'For 180 days, then 3.47%',
+      },
+      {
+        platformId: 'okx',
+        asset: 'USDC',
+        product: 'Simple Earn',
+        termDays: 0,
+        rate: 10,
+        type: 'APR',
+        audience: 'new-user',
+        maxAmount: 500,
+        note: 'For 180 days',
+      },
+      {
+        platformId: 'okx',
+        asset: 'XAUT',
+        product: 'Simple Earn',
+        termDays: 0,
+        rate: 13,
+        type: 'APR',
+        audience: 'new-user',
+        maxAmount: 0.1,
+        note: 'For 90 days',
+      },
+    ]);
+  });
+
+  it('keeps open fixed terms', () => {
+    const open = structuredClone(products);
+    open.data.allProducts.currencies[0].products[1].purchaseStatus = 1;
+    expect(parseOkxProducts(open, ASSETS, regular)).toContainEqual({
+      platformId: 'okx',
+      asset: 'USDT',
+      product: 'Simple Earn',
+      termDays: 90,
+      rate: 4,
+      type: 'APR',
+    });
+  });
+
+  it('throws on an API error', () => {
+    expect(() => parseOkxProducts({ code: 1, msg: 'bad' } as never, ASSETS, regular)).toThrow(/bad/);
   });
 });
 
@@ -121,12 +200,14 @@ describe('Gate', () => {
     ]);
   });
 
-  it('keeps only fixed products open to everyone and on sale', () => {
+  it('keeps only fixed products listed for everyone and on sale, plus the new-user one', () => {
     const offers = parseGateFixed(fixture('gate-fixed.json'), ASSETS);
-    // The fixture also holds VIP-only, invited-group and sold-out USDT products.
-    expect(offers.map((o) => [o.termDays, o.rate])).toEqual([
-      [30, 3.2],
-      [14, 2.8],
+    // The fixture also holds sold-out, hidden (3 days 6%), VIP-only, invited-group, hidden new-user
+    // and "Crazy Wednesday" (needs a 1,000 USDT net deposit) products.
+    expect(offers.map((o) => [o.termDays, o.rate, o.audience, o.maxAmount])).toEqual([
+      [30, 3.2, undefined, undefined],
+      [14, 2.8, undefined, undefined],
+      [3, 100, 'new-user', 500],
     ]);
   });
 });
@@ -161,7 +242,8 @@ describe('parseKucoin', () => {
   const regular = offers.filter((o) => !o.audience);
 
   it('reads flexible and fixed Simple Earn and plain staking', () => {
-    expect(regular.filter((o) => o.asset === 'USDT').map((o) => [o.termDays, o.rate])).toEqual([
+    const simple = regular.filter((o) => o.asset === 'USDT' && o.product === 'Simple Earn');
+    expect(simple.map((o) => [o.termDays, o.rate])).toEqual([
       [0, 1.25],
       [7, 1.8],
       [14, 2.2],
@@ -176,7 +258,24 @@ describe('parseKucoin', () => {
   it('skips structured and private-wealth products', () => {
     // The fixture also has dual investment, shark fin and PWM funds.
     expect(Math.max(...regular.map((o) => o.rate))).toBeLessThan(5);
-    expect(new Set(offers.map((o) => o.product))).toEqual(new Set(['Simple Earn', 'Staking']));
+    expect(new Set(offers.map((o) => o.product))).toEqual(new Set(['Simple Earn', 'Staking', 'KCUSD']));
+  });
+
+  it('reads KCUSD with what you end up holding', () => {
+    expect(offers.find((o) => o.product === 'KCUSD')).toMatchObject({
+      asset: 'USDT',
+      termDays: 0,
+      rate: 4,
+      note: 'Held as KCUSD',
+    });
+  });
+
+  it('skips VIP-only products, even new-user ones', () => {
+    const response = fixture('kucoin.json');
+    const regularUsdt = { id: 9, currency: 'USDT', category_group2: 'SIMPLE_EARN', category: 'ACTIVITY' };
+    const vipOnly = { ...regularUsdt, type: 'MULTI_TIME', status: 'ONGOING', duration: 30, total_apr: '6' };
+    response.data[0].products.push({ ...vipOnly, tags: ['NEWBIE', 'VIP_ONLY'] });
+    expect(parseKucoin(response, ASSETS).filter((o) => o.audience)).toHaveLength(1);
   });
 
   it('marks the NEWBIE offer as new-user, with the cap from its detail request', () => {
@@ -219,14 +318,39 @@ describe('parseCoinw', () => {
     ]);
   });
 
-  it('skips sold-out products', () => {
-    // The flexible USDT product (10.8%) is sold out.
-    expect(offers.some((o) => o.asset === 'USDT' && o.termDays === 0)).toBe(false);
+  it('keeps sold-out flexible products', () => {
+    // The flexible USDT product (10.8%) is flagged sold out but still takes deposits.
+    expect(offers.find((o) => o.asset === 'USDT' && o.termDays === 0)).toMatchObject({ rate: 10.8 });
+  });
+
+  it('skips sold-out fixed products', () => {
+    const response = fixture('coinw.json');
+    for (const product of response.data.rows) {
+      if (product.productClassifiy === 'REGULAR_FINANCIAL') product.productInvestList[0].isSellOut = 1;
+    }
+    expect(parseCoinw(response, ASSETS).every((o) => o.termDays === 0)).toBe(true);
   });
 
   it('keeps the new-user offer with its cap', () => {
     expect(offers.filter((o) => o.audience)).toMatchObject([
       { asset: 'USDT', termDays: 3, rate: 100, audience: 'new-user', maxAmount: 100 },
     ]);
+  });
+});
+
+describe('mergeCoinwResponses', () => {
+  const ok = (ids: number[]) => ({
+    code: 200,
+    data: { total: ids.length, rows: ids.map((productId) => ({ productId })) },
+  });
+
+  it('joins the lists and keeps each product once', () => {
+    const merged = mergeCoinwResponses([ok([1, 2]), ok([2, 3]), ok([])] as never);
+    expect(merged.data.rows.map((row) => row.productId)).toEqual([1, 2, 3]);
+  });
+
+  it('passes an API error through so the parser throws', () => {
+    const merged = mergeCoinwResponses([ok([1]), { code: 500, msg: 'down', data: { total: 0, rows: [] } }] as never);
+    expect(() => parseCoinw(merged, ASSETS)).toThrow(/500/);
   });
 });

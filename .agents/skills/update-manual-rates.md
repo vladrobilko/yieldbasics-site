@@ -1,8 +1,8 @@
-# Update Manual Rates (WEEX, Walt, Aave App)
+# Update Manual Rates (WEEX, Walt, Aave App, Bybit fixed terms)
 
-WEEX and Walt (`telegram-wallet`) show earn rates only to signed-in users, and the Aave App only inside its mobile app (entries use `platformId: "aave"`, `product: "Aave App"`, next to the fetched Aave protocol rates), so the owner takes screenshots and an agent copies the rates into `src/data/manual-rates.json`. Manual offers drop off the site 30 days after their `verifiedAt`; the daily rates PR warns 7 days before ("Manual rates to re-check"). Aim to re-check every 2–3 days.
+WEEX and Walt (`telegram-wallet`) show earn rates only to signed-in users, and the Aave App only inside its mobile app (entries use `platformId: "aave"`, `product: "Aave App"`, next to the fetched Aave protocol rates). Bybit's fixed terms and new-user offer (`Fixed Savings`, `Fixed Rate Loan`) are only on bybit.com/en/earn/easy-earn, behind bot protection; its flexible and on-chain rates are fetched. Skip products marked "VIP Only". So the owner takes screenshots and an agent copies the rates into `src/data/manual-rates.json`. Manual offers drop off the site 30 days after their `verifiedAt`; the daily rates PR warns 7 days before ("Manual rates to re-check"). Aim to re-check every 2–3 days.
 
-**Never** sign in to these platforms or automate a browser session on them. **Never** commit the screenshots (the repo is public).
+The rates come either from the owner's screenshots (below) or from the owner's own Chrome during `check-rates-in-browser.md`. **Never** sign in, type a password or solve a bot check yourself; the owner signs in. **Never** commit the screenshots (the repo is public).
 
 ## Where the screenshots are
 
@@ -24,7 +24,7 @@ Use the newest date folder unless the owner names another. The folder date is th
 2. **Match** each one to an entry in `src/data/manual-rates.json` by `platformId` + `asset` + `product` + `termDays` + `audience`.
    - **Same rate:** only set `verifiedAt` to the folder date.
    - **Changed:** update `rate`, `tiers`, `maxAmount` and `note` as shown, and set `verifiedAt`.
-   - **New offer:** add it only if the coin is in `assets` in `src/data/yields.ts` (new-user offers only for USDT/USDC). Otherwise list it under "Skipped".
+   - **New offer:** add it only if the coin is in `assets` in `src/data/yields.ts` (new-user offers included). Otherwise list it under "Skipped".
    - **Missing from the screenshots:** leave it, with its old `verifiedAt`. Never re-date a rate nobody saw. Remove it only if the screenshots clearly show the product is gone (e.g. the full earn list without it), and say so in the PR.
 3. `rate` is the headline (highest) rate. Tiers use amounts in the coin (`max: null` for no upper limit). Keep the file's existing style: 2-space JSON, entries grouped by platform.
 4. **Publish to `rates.json`:** `npm run rates:manual`. It rebuilds only the manual offers, keeps the fetched ones, and prints the change summary. Never edit `rates.json` by hand.

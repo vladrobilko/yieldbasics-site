@@ -1,4 +1,4 @@
-import { canonicalAsset, NEW_USER_ASSETS, roundRate, type RateOffer } from '../../../src/utils/rates';
+import { canonicalAsset, roundRate, type RateOffer } from '../../../src/utils/rates';
 import type { Source } from '../types';
 
 // The public JSON behind kucoin.com/earn. The official /api/v1/earn
@@ -37,12 +37,14 @@ const flatten = (nodes: KucoinNode[]): KucoinProduct[] =>
   nodes.flatMap((node) => (node.id ? [node as KucoinProduct] : flatten(node.products ?? [])));
 
 /**
- * Simple Earn (flexible and fixed) and plain staking. Dual investment, shark
- * fin and the private-wealth funds are structured products, not deposits.
+ * Simple Earn (flexible and fixed), plain staking and KCUSD (USDT/USDC swapped into KuCoin's
+ * Treasury-backed coin). Dual investment, shark fin and the private-wealth funds are structured
+ * products, not deposits.
  */
 const productName = (product: KucoinProduct): string | null => {
   if (product.category_group2 === 'SIMPLE_EARN') return 'Simple Earn';
   if (product.category_group2 === 'STAKING' && product.category === 'STAKING') return 'Staking';
+  if (product.category_group2 === 'KCUSD') return 'KCUSD';
   return null;
 };
 
@@ -52,9 +54,8 @@ const listedProducts = (response: KucoinResponse, assets: readonly string[]) =>
   flatten(response.data.flatMap((coin) => coin.products)).flatMap((product) => {
     const asset = canonicalAsset(product.currency, assets);
     const name = productName(product);
-    if (!asset || !name || product.status !== 'ONGOING') return [];
-    // NEWBIE offers (new users only) are kept for the "New users" tab, USDT/USDC only.
-    if (isNewUser(product) && !NEW_USER_ASSETS.includes(asset)) return [];
+    // VIP_ONLY products are hidden from regular users (e.g. a USDT 30-day 6% tagged NEWBIE too).
+    if (!asset || !name || product.status !== 'ONGOING' || product.tags.includes('VIP_ONLY')) return [];
     return [{ product, asset, name }];
   });
 
@@ -89,6 +90,7 @@ export const parseKucoin = (
       termDays: Math.max(0, product.duration),
       rate: roundRate(Number(product.total_apr)),
       type: 'APR',
+      ...(name === 'KCUSD' ? { note: 'Held as KCUSD' } : {}),
       ...(isNewUser(product) ? { audience: 'new-user' as const } : {}),
       ...(cap ? { maxAmount: cap } : {}),
     };
