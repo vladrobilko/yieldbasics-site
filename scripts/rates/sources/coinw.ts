@@ -1,11 +1,4 @@
-import {
-  canonicalAsset,
-  fractionToPercent,
-  NEW_USER_ASSETS,
-  roundRate,
-  type RateOffer,
-  type RateTier,
-} from '../../../src/utils/rates';
+import { canonicalAsset, fractionToPercent, roundRate, type RateOffer, type RateTier } from '../../../src/utils/rates';
 import type { Source } from '../types';
 
 // The public JSON behind coinw.com/earn/crypto-savings.
@@ -48,8 +41,6 @@ export const parseCoinw = (response: CoinwResponse, assets: readonly string[]): 
     // far past it (USDT held 10x its cap in Nov 2026), so only fixed products are skipped.
     if (!asset || !income || (fixed && invest.isSellOut === 1)) return [];
     const newUser = invest.isNewerProduct === 1;
-    // New-user offers are kept for the "New users" tab, USDT/USDC only.
-    if (newUser && !NEW_USER_ASSETS.includes(asset)) return [];
     const tiers: RateTier[] = product.incomeFloatList.map((band, index, list) => ({
       min: Number(band.minAmount),
       // The last band's max is just the product's overall cap.

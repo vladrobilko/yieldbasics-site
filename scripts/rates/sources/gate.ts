@@ -1,4 +1,4 @@
-import { canonicalAsset, fractionToPercent, NEW_USER_ASSETS, type RateOffer } from '../../../src/utils/rates';
+import { canonicalAsset, fractionToPercent, type RateOffer } from '../../../src/utils/rates';
 import type { Source } from '../types';
 
 // Official public API v4: https://www.gate.com/docs/developers/apiv4/#earn-uni
@@ -84,7 +84,7 @@ export const parseGateFixed = (response: GateFixedResponse, assets: readonly str
       type: 'APR',
     };
     if (isOpenGateFixed(product)) return [offer];
-    if (!isGateNewUserFixed(product) || !NEW_USER_ASSETS.includes(asset)) return [];
+    if (!isGateNewUserFixed(product)) return [];
     const cap = Number(product.user_max_lend_volume);
     return [{ ...offer, audience: 'new-user', ...(cap > 0 ? { maxAmount: cap } : {}) }];
   });

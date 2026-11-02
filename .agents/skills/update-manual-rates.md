@@ -24,7 +24,7 @@ Use the newest date folder unless the owner names another. The folder date is th
 2. **Match** each one to an entry in `src/data/manual-rates.json` by `platformId` + `asset` + `product` + `termDays` + `audience`.
    - **Same rate:** only set `verifiedAt` to the folder date.
    - **Changed:** update `rate`, `tiers`, `maxAmount` and `note` as shown, and set `verifiedAt`.
-   - **New offer:** add it only if the coin is in `assets` in `src/data/yields.ts` (new-user offers only for USDT/USDC). Otherwise list it under "Skipped".
+   - **New offer:** add it only if the coin is in `assets` in `src/data/yields.ts` (new-user offers included). Otherwise list it under "Skipped".
    - **Missing from the screenshots:** leave it, with its old `verifiedAt`. Never re-date a rate nobody saw. Remove it only if the screenshots clearly show the product is gone (e.g. the full earn list without it), and say so in the PR.
 3. `rate` is the headline (highest) rate. Tiers use amounts in the coin (`max: null` for no upper limit). Keep the file's existing style: 2-space JSON, entries grouped by platform.
 4. **Publish to `rates.json`:** `npm run rates:manual`. It rebuilds only the manual offers, keeps the fetched ones, and prints the change summary. Never edit `rates.json` by hand.

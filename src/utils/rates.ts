@@ -77,8 +77,8 @@ export const MAX_RATE = 100;
 /** New-user offers are tiny and short, so their APRs run far higher; this only catches parsing errors. */
 export const MAX_NEW_USER_RATE = 1000;
 
-/** New-user offers are listed for these assets only (the "New users" tab). */
-export const NEW_USER_ASSETS: readonly string[] = ['USDT', 'USDC'];
+/** Dollar coins: for these a new-user offer's estimated reward is shown in dollars. */
+export const DOLLAR_ASSETS: readonly string[] = ['USDT', 'USDC', 'USDS', 'GHO', 'USDe'];
 
 /** Manual offers are dropped this long after they were last verified, so forgotten entries don't linger. */
 export const MANUAL_MAX_AGE_DAYS = 30;
@@ -119,11 +119,11 @@ const bestTier = (tiers: readonly RateTier[]): RateTier =>
   tiers.reduce((top, tier) => (tier.rate > top.rate ? tier : top));
 
 /**
- * Most a new user can earn from an offer: cap × rate × term. Null without a
- * cap or a fixed term. For the stablecoins in NEW_USER_ASSETS this is dollars.
+ * Most a new user can earn from an offer, in dollars: cap × rate × term. Null without a
+ * cap or a fixed term, and for coins outside DOLLAR_ASSETS.
  */
 export const estimatedReward = (offer: RateOffer): number | null => {
-  if (!offer.maxAmount || !offer.termDays) return null;
+  if (!offer.maxAmount || !offer.termDays || !DOLLAR_ASSETS.includes(offer.asset)) return null;
   return Math.round(((offer.maxAmount * offer.rate) / 100) * (offer.termDays / 365) * 100) / 100;
 };
 
@@ -207,8 +207,6 @@ export const offerProblem = (
   if (!knownPlatforms.includes(offer.platformId)) return `unknown platform ${offer.platformId}`;
   if (!knownAssets.includes(offer.asset)) return `unknown asset ${offer.asset}`;
   const newUser = offer.audience === 'new-user';
-  if (newUser && !NEW_USER_ASSETS.includes(offer.asset))
-    return `new-user offers are listed for ${NEW_USER_ASSETS.join('/')} only`;
   const maxRate = newUser ? MAX_NEW_USER_RATE : MAX_RATE;
   if (!Number.isFinite(offer.rate) || offer.rate <= 0 || offer.rate > maxRate)
     return `rate out of range: ${offer.rate}`;
@@ -276,7 +274,7 @@ export const mergeRates = ({ previous, results, manual, now }: MergeInput): Rate
 /**
  * Replaces the manual offers of a rates file with the current ones from
  * manual-rates.json (dropping those verified more than MANUAL_MAX_AGE_DAYS
- * ago, and those whose id a fetched offer already has: the fetched one wins).
+ * ago). A manual offer replaces a fetched one with the same id: it adds what the API lacks, e.g. a bonus).
  * Fetched offers and `generatedAt` are kept, so `npm run rates:manual`
  * can publish a manual check without fetching every source again.
  */
@@ -287,12 +285,9 @@ export const applyManualOffers = (file: RatesFile, manual: readonly ManualOffer[
       .map(([platformId]) => platformId)
   );
   const sources = Object.fromEntries(Object.entries(file.sources).filter(([platformId]) => fetched.has(platformId)));
-  const offers = file.offers.filter((offer) => offer.source !== 'manual');
-  const fetchedIds = new Set(offers.map((offer) => offer.id));
-
-  const manualOffers = dedupeOffers(
-    manual.filter((offer) => !fetchedIds.has(offerId(offer)) && !isStale(offer.verifiedAt, now, MANUAL_MAX_AGE_DAYS))
-  );
+  const manualOffers = dedupeOffers(manual.filter((offer) => !isStale(offer.verifiedAt, now, MANUAL_MAX_AGE_DAYS)));
+  const manualIds = new Set(manualOffers.map((offer) => offerId(offer)));
+  const offers = file.offers.filter((offer) => offer.source !== 'manual' && !manualIds.has(offer.id));
   for (const { verifiedAt, ...offer } of manualOffers) {
     offers.push({ ...offer, id: offerId(offer), source: 'manual', updatedAt: new Date(verifiedAt).toISOString() });
   }

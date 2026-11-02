@@ -134,8 +134,8 @@ describe('parseOkxProducts', () => {
   const regular = parseOkx(fixture('okx.json'), ASSETS);
   const products = fixture('okx-products.json');
 
-  it('reads new-user bonuses for USDT/USDC with their cap and the rate after', () => {
-    // XAUT also has a new-user bonus, DOGE only a plain flexible rate, and USDT a sold-out 90-day term.
+  it('reads new-user bonuses with their cap and the rate after', () => {
+    // DOGE only has a plain flexible rate, and USDT a sold-out 90-day term.
     expect(parseOkxProducts(products, ASSETS, regular)).toEqual([
       {
         platformId: 'okx',
@@ -158,6 +158,17 @@ describe('parseOkxProducts', () => {
         audience: 'new-user',
         maxAmount: 500,
         note: 'For 180 days',
+      },
+      {
+        platformId: 'okx',
+        asset: 'XAUT',
+        product: 'Simple Earn',
+        termDays: 0,
+        rate: 13,
+        type: 'APR',
+        audience: 'new-user',
+        maxAmount: 0.1,
+        note: 'For 90 days',
       },
     ]);
   });

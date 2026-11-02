@@ -1,4 +1,4 @@
-import { canonicalAsset, NEW_USER_ASSETS, roundRate, type RateOffer } from '../../../src/utils/rates';
+import { canonicalAsset, roundRate, type RateOffer } from '../../../src/utils/rates';
 import type { Source } from '../types';
 
 // The public JSON behind kucoin.com/earn. The official /api/v1/earn
@@ -56,8 +56,6 @@ const listedProducts = (response: KucoinResponse, assets: readonly string[]) =>
     const name = productName(product);
     // VIP_ONLY products are hidden from regular users (e.g. a USDT 30-day 6% tagged NEWBIE too).
     if (!asset || !name || product.status !== 'ONGOING' || product.tags.includes('VIP_ONLY')) return [];
-    // NEWBIE offers (new users only) are kept for the "New users" tab, USDT/USDC only.
-    if (isNewUser(product) && !NEW_USER_ASSETS.includes(asset)) return [];
     return [{ product, asset, name }];
   });
 

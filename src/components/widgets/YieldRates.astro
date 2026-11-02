@@ -14,7 +14,6 @@ import {
 } from '~/data/yields';
 import { assetSlug } from '~/utils/assetPages';
 import { getPermalink } from '~/utils/permalinks';
-import { NEW_USER_ASSETS } from '~/utils/rates';
 import {
   COLLAPSED_ROWS,
   emptyMessage,
@@ -243,7 +242,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
                 class="block px-5 py-10 lg:table-cell text-center text-sm text-slate-500 dark:text-slate-400"
                 data-empty-text
               >
-                {emptyMessage(defaultAsset.symbol, 'all', NEW_USER_ASSETS)}
+                {emptyMessage(defaultAsset.symbol)}
               </td>
             </tr>
           </tbody>
@@ -297,7 +296,6 @@ const termOptions: { id: TermFilter; label: string }[] = [
 
 <script>
   import { assetSlug } from '~/utils/assetPages';
-  import { NEW_USER_ASSETS } from '~/utils/rates';
   import {
     COLLAPSED_ROWS,
     emptyMessage,
@@ -355,7 +353,7 @@ const termOptions: { id: TermFilter; label: string }[] = [
         }
         empty.hidden = visible.length > 0;
         const emptyText = empty.querySelector('[data-empty-text]');
-        if (emptyText) emptyText.textContent = emptyMessage(asset, term, NEW_USER_ASSETS);
+        if (emptyText) emptyText.textContent = emptyMessage(asset);
 
         this.querySelectorAll('[data-asset-label]').forEach((label) => (label.textContent = asset));
         const count = this.querySelector('[data-count]');

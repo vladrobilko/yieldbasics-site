@@ -1,10 +1,4 @@
-import {
-  canonicalAsset,
-  fractionToPercent,
-  NEW_USER_ASSETS,
-  roundRate,
-  type RateOffer,
-} from '../../../src/utils/rates';
+import { canonicalAsset, fractionToPercent, roundRate, type RateOffer } from '../../../src/utils/rates';
 import type { Source } from '../types';
 
 // Official public API (Simple Earn flexible lending rate history):
@@ -16,7 +10,7 @@ const RATES_API = 'https://www.okx.com/api/v5/finance/savings/lending-rate-histo
 // rates and fixed terms. It skips the regular flexible rate of coins that have a bonus, so both are needed.
 const PRODUCTS_API = 'https://www.okx.com/priapi/v1/earn/simple-earn/all-products?type=all';
 /** Per-user bonus caps from the FAQ on okx.com/earn/simple-earn (checked 2026-11-02); not in the JSON. */
-const NEW_USER_CAPS: Record<string, number> = { USDT: 500, USDC: 500 };
+const NEW_USER_CAPS: Record<string, number> = { USDT: 500, USDC: 500, BTC: 0.01, ETH: 0.2, XAUT: 0.1 };
 
 interface OkxRatesResponse {
   code: string;
@@ -75,7 +69,7 @@ export const parseOkxProducts = (
         if (product.term.type !== 'DAY') return [];
         return [{ platformId: 'okx', asset, product: 'Simple Earn', termDays: product.term.value, rate, type: 'APR' }];
       }
-      if (!/new users only/i.test(product.bonusDescription) || !NEW_USER_ASSETS.includes(asset)) return [];
+      if (!/new users only/i.test(product.bonusDescription)) return [];
       const days = /for (\d+) days/i.exec(product.bonusDescription)?.[1];
       const after = regular.find((offer) => offer.asset === asset)?.rate;
       const then = after === undefined ? '' : `then ${after}%`;

@@ -157,8 +157,6 @@ describe('mergeRates', () => {
   };
   const manual: ManualOffer[] = [
     { ...offer({ platformId: 'weex', product: 'Savings', rate: 3 }), verifiedAt: '2026-10-12' },
-    // Ignored: the fetched bybit offer has the same id.
-    { ...offer({ rate: 99 }), verifiedAt: '2026-10-12' },
   ];
 
   const merged = mergeRates({
@@ -202,12 +200,22 @@ describe('mergeRates', () => {
     now,
   });
 
-  it('keeps a manual offer next to fetched ones unless the fetched offer has its id', () => {
+  it('keeps a manual offer next to fetched ones', () => {
     const bybit = withApp.offers.filter((o) => o.platformId === 'bybit');
     expect(bybit.map((o) => [o.product, o.rate, o.source])).toEqual([
       ['App Savings', 6, 'manual'],
       ['Flexible Savings', 6.9, 'api'],
     ]);
+  });
+
+  it('lets a manual offer replace the fetched one with the same id (e.g. a bonus the API lacks)', () => {
+    const bonus = mergeRates({
+      previous: null,
+      results: { bybit: { ok: true, source: 'api', offers: [offer({ rate: 6.9 })] } },
+      manual: [{ ...offer({ rate: 9.5, note: 'Bonus on the first 500' }), verifiedAt: '2026-10-12' }],
+      now,
+    });
+    expect(bonus.offers.map((o) => [o.rate, o.source])).toEqual([[9.5, 'manual']]);
   });
 
   it('explains a removed manual offer on a platform that is also fetched', () => {
@@ -378,11 +386,11 @@ describe('new-user offers', () => {
     ).toBe(false);
   });
 
-  it('allows high rates for USDT/USDC only', () => {
+  it('allows high rates, on any listed coin', () => {
     const assets = ['USDT', 'BTC'];
     expect(offerProblem(weex, assets, ['weex'])).toBeNull();
     expect(offerProblem({ ...weex, rate: 1500 }, assets, ['weex'])).toMatch(/rate out of range/);
-    expect(offerProblem({ ...weex, asset: 'BTC' }, assets, ['weex'])).toMatch('USDT/USDC only');
+    expect(offerProblem({ ...weex, asset: 'BTC' }, assets, ['weex'])).toBeNull();
     expect(offerProblem({ ...weex, audience: undefined }, assets, ['weex'])).toMatch(/rate out of range/);
   });
 
@@ -441,11 +449,13 @@ describe('applyManualOffers', () => {
   it('replaces manual offers and keeps fetched ones and generatedAt', () => {
     const next = applyManualOffers(
       file,
-      [manual('weex', 12, '2026-10-30'), manual('bybit', 99, '2026-10-30'), manual('walt', 4, '2026-09-20')],
+      [manual('weex', 12, '2026-10-30'), manual('bybit', 9, '2026-10-30'), manual('walt', 4, '2026-09-20')],
       now
     );
     expect(next.generatedAt).toBe(file.generatedAt);
-    expect(next.offers.filter((o) => o.source === 'api')).toEqual(file.offers.slice(0, 2));
+    // The fresh manual bybit offer has the fetched one's id, so it replaces it.
+    expect(next.offers.filter((o) => o.source === 'api')).toEqual([file.offers[1]]);
+    expect(next.offers.find((o) => o.platformId === 'bybit')).toMatchObject({ rate: 9, source: 'manual' });
     expect(next.offers.find((o) => o.platformId === 'weex')).toMatchObject({
       rate: 12,
       source: 'manual',
