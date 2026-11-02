@@ -91,15 +91,26 @@ describe('parseBinance', () => {
     });
   });
 
-  it('reads locked products by duration and skips unlisted assets', () => {
+  it('reads locked products by duration and skips VIP-only and unlisted ones', () => {
+    // The fixture's BNB 7-day product at 0.3% is tagged VIP.
     const locked = offers.filter((o) => o.product === 'Simple Earn Locked').map((o) => [o.termDays, o.rate]);
     expect(locked).toEqual([
-      [7, 0.3],
       [7, 0.25],
       [90, 0.3],
       [120, 0.3],
     ]);
     expect(offers.some((o) => o.asset === 'SENT')).toBe(false);
+  });
+
+  it('reads staking, BFUSD, RWUSD and fixed loan supply with what you end up holding', () => {
+    const extras = parseBinance(fixture('binance-extras.json'), [...ASSETS, 'SOL']);
+    expect(extras.map((o) => [o.asset, o.product, o.termDays, o.rate, o.note])).toEqual([
+      ['ETH', 'ETH Staking', 0, 2.19, 'Staked as WBETH'],
+      ['USDT', 'BFUSD', 0, 5.12, 'Held as BFUSD, usable as futures margin'],
+      ['USDT', 'RWUSD', 0, 3.61, 'Held as RWUSD'],
+      ['USDT', 'Fixed Loan Supply', 90, 3.44, 'Lent at a fixed rate'],
+      ['SOL', 'SOL Staking', 0, 4.47, 'Staked as BNSOL'],
+    ]);
   });
 });
 
