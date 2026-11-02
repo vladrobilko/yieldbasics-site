@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { parseAave } from './aave';
 import { parseBinance } from './binance';
 import { bybitHosts, hideProxy, parseBybit, PROXY_ATTEMPTS } from './bybit';
-import { parseCoinw } from './coinw';
+import { mergeCoinwResponses, parseCoinw } from './coinw';
 import { parseGateFixed, parseGateFlexible } from './gate';
 import { kucoinNewUserProductIds, parseKucoin, parseKucoinCap } from './kucoin';
 import { parseOkx } from './okx';
@@ -228,5 +228,22 @@ describe('parseCoinw', () => {
     expect(offers.filter((o) => o.audience)).toMatchObject([
       { asset: 'USDT', termDays: 3, rate: 100, audience: 'new-user', maxAmount: 100 },
     ]);
+  });
+});
+
+describe('mergeCoinwResponses', () => {
+  const ok = (ids: number[]) => ({
+    code: 200,
+    data: { total: ids.length, rows: ids.map((productId) => ({ productId })) },
+  });
+
+  it('joins the lists and keeps each product once', () => {
+    const merged = mergeCoinwResponses([ok([1, 2]), ok([2, 3]), ok([])] as never);
+    expect(merged.data.rows.map((row) => row.productId)).toEqual([1, 2, 3]);
+  });
+
+  it('passes an API error through so the parser throws', () => {
+    const merged = mergeCoinwResponses([ok([1]), { code: 500, msg: 'down', data: { total: 0, rows: [] } }] as never);
+    expect(() => parseCoinw(merged, ASSETS)).toThrow(/500/);
   });
 });
