@@ -42,6 +42,22 @@ export const sortByReward = <T extends { reward: number | null; rate: number }>(
     return descending ? b.reward - a.reward : a.reward - b.reward;
   });
 
+/** Rows shown in the "Sign-up offers" block under the "All" list. */
+export const NEW_USER_HIGHLIGHTS = 3;
+
+/**
+ * New-user offers for one coin, best total reward first: their count (the badge
+ * on the "New users" tab) and the top few for the block under the "All" list.
+ */
+export const newUserHighlights = <T extends { asset: string; audience: string; reward: number | null; rate: number }>(
+  items: readonly T[],
+  asset: string,
+  limit = NEW_USER_HIGHLIGHTS
+): { count: number; top: T[] } => {
+  const offers = sortByReward(items.filter((item) => item.asset === asset && item.audience === 'new-user'));
+  return { count: offers.length, top: offers.slice(0, limit) };
+};
+
 /** Label of the sort toggle for the current order. */
 export const sortLabel = (descending: boolean, by: 'rate' | 'reward' = 'rate'): string =>
   `${descending ? 'Highest' : 'Lowest'} ${by === 'reward' ? 'reward' : 'APR'}`;
