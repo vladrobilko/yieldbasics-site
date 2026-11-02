@@ -504,6 +504,66 @@
       ],
       "note": "5% bonus paid in GT",
       "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "okx",
+      "asset": "USDT",
+      "product": "Simple Earn",
+      "termDays": 0,
+      "rate": 10,
+      "type": "APR",
+      "audience": "new-user",
+      "maxAmount": 500,
+      "note": "For 180 days, then the regular rate",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "okx",
+      "asset": "USDC",
+      "product": "Simple Earn",
+      "termDays": 0,
+      "rate": 10,
+      "type": "APR",
+      "audience": "new-user",
+      "maxAmount": 500,
+      "note": "For 180 days, then the regular rate",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "okx",
+      "asset": "BTC",
+      "product": "Simple Earn",
+      "termDays": 0,
+      "rate": 5,
+      "type": "APR",
+      "audience": "new-user",
+      "maxAmount": 0.01,
+      "note": "For 180 days, then the regular rate",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "okx",
+      "asset": "ETH",
+      "product": "Simple Earn",
+      "termDays": 0,
+      "rate": 5,
+      "type": "APR",
+      "audience": "new-user",
+      "maxAmount": 0.2,
+      "note": "For 180 days, then the regular rate",
+      "verifiedAt": "2026-11-02"
+    },
+    {
+      "platformId": "okx",
+      "asset": "XAUT",
+      "product": "Simple Earn",
+      "termDays": 0,
+      "rate": 13,
+      "type": "APR",
+      "audience": "new-user",
+      "maxAmount": 0.1,
+      "note": "For 90 days, then the regular rate",
+      "verifiedAt": "2026-11-02"
     }
   ]
 }
