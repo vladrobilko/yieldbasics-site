@@ -196,7 +196,7 @@ Wallets.
 
 - [ ] **Tangem**: Yield Mode supplies USDT/USDC to Aave. Its referral program only pays per hardware wallet sold (5 USDT), so it is a weak fit.
 
-**Not suitable for the owner:** LBank, Toobit and Bitget (owner can't register). MEXC left Russia and Belarus on 2026-10-20; the owner registers through a Georgian residence permit, so it was added back on 2026-11-02. YouHodler and Nexo look unlikely; check before spending time on them.
+**Not suitable for the owner:** LBank, Toobit and Bitget (owner can't register). YouHodler and Nexo look unlikely; check before spending time on them.
 
 ## Russian version of the site (later)
 
