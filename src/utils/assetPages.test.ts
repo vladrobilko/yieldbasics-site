@@ -75,7 +75,7 @@ describe('page text', () => {
   const summary = summarizeAsset(rows);
 
   it('keeps the title within 60 characters with the site suffix', () => {
-    expect(`${assetPageTitle('USDT')} — YieldBasics`.length).toBeLessThanOrEqual(60);
+    expect(`${assetPageTitle('USDT')} | YieldBasics`.length).toBeLessThanOrEqual(60);
   });
 
   it('writes a description of at most 160 characters naming the best offer', () => {

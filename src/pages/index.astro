@@ -18,7 +18,7 @@ import { SITE, METADATA, I18N } from 'astrowind:config';
 const stats = siteStats(rateRows);
 
 const metadata = {
-  title: `${SITE?.name} — Compare crypto earn rates`,
+  title: `${SITE?.name} | Compare crypto earn rates`,
   description: `Compare crypto earn rates (APR / APY) across ${stats.platforms} exchanges, DeFi and wallets for USDT, BTC, ETH and ${stats.coins - 3} more coins. Updated daily.`,
   ignoreTitleTemplate: true,
 };
@@ -75,7 +75,7 @@ const faq = [
   {
     title: 'What are new-user offers?',
     description:
-      'Some platforms pay a very high APR, sometimes hundreds of percent, on a small amount for a few days to attract new accounts. Because they are capped and short, we list them in their own "New users" tab and rank them by the total you can earn, not by APR. See <a href="/guides/new-user-crypto-earn-offers">what new-user offers really pay</a>.',
+      'Some platforms pay a very high APR, sometimes hundreds of percent, on a small amount for a few days to attract new accounts. Because they are capped and short, we list them in their own "New users" tab and rank them by the total you can earn instead of the APR. See <a href="/guides/new-user-crypto-earn-offers">what new-user offers really pay</a>.',
   },
   {
     title: 'How does YieldBasics make money?',
@@ -85,7 +85,7 @@ const faq = [
   {
     title: 'Is earning interest on crypto safe?',
     description:
-      'It carries real risk: platforms can fail, pause withdrawals or change terms, and DeFi protocols can have smart-contract bugs. Spread your deposits, read the terms of each offer, and only deposit what you can afford to lose. Read more in <a href="/guides/is-crypto-earn-safe">is crypto earn safe?</a> Nothing here is financial advice.',
+      'It carries real risk. Platforms can fail or pause withdrawals, and DeFi protocols can have smart-contract bugs. Spread your deposits and only put in what you could afford to lose. Read more in <a href="/guides/is-crypto-earn-safe">is crypto earn safe?</a> Nothing here is financial advice.',
   },
 ];
 ---
