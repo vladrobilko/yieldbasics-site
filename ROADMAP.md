@@ -5,22 +5,20 @@ Planned work that isn't done yet, in priority order. Remove an item once its PR 
 1. [More evergreen guides](#more-evergreen-guides), about one a week alongside the rest; next: CeFi vs DeFi earn.
 2. [Email signup and weekly digest](#email-signup-and-weekly-digest): start collecting subscribers early.
 3. [First Search Console check](#first-search-console-check): around mid-November 2026.
-4. [Growth chart on the calculator](#growth-chart-on-the-calculator)
-5. [Table filters and platform type switch](#table-filters-and-platform-type-switch): the type switch first.
-6. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
-7. [Rate history chart](#rate-history-chart): the daily data is already saved; the chart once there are about 30 days.
-8. [Countries data](#countries-data)
-9. [Where to buy pages](#where-to-buy-pages)
-10. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
-11. [Country pages](#country-pages)
-12. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
-13. [Affiliate programs](#affiliate-programs)
-14. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
-15. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
-16. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
-17. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
-18. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
-19. [Russian version of the site (later)](#russian-version-of-the-site-later): after the English site has steady traffic.
+4. [Growth chart on the calculator](#growth-chart-on-the-calculator): APR vs APY earnings over the years.
+5. [Daily posts on X](#daily-posts-on-x): the post text is in each daily rates PR; next: optional image, then automatic posting and the inbox tool once the owner has X keys.
+6. [Rate history chart](#rate-history-chart): the daily data is already saved; the chart once there are about 30 days.
+7. [Countries data](#countries-data)
+8. [Where to buy pages](#where-to-buy-pages)
+9. [Fees and exchange comparisons](#fees-and-exchange-comparisons)
+10. [Country pages](#country-pages)
+11. [Full SEO audit and backlinks](#full-seo-audit-and-backlinks)
+12. [Affiliate programs](#affiliate-programs)
+13. [Market strip](#market-strip): live prices, Fear & Greed, offer count.
+14. [Traditional yields](#traditional-yields): US Treasuries, "stablecoins vs T-bills".
+15. [Google Analytics, consent banner and ads](#google-analytics-consent-banner-and-ads)
+16. [Add more platforms](#add-more-platforms): waiting for the owner to register and send referral links.
+17. [Sponsored slots and newsletter sponsors](#sponsored-slots-and-newsletter-sponsors)
 
 **Ongoing, not in the queue:** [AI search visibility](#ai-search-visibility) (monthly check from December 2026) and [Community answers](#community-answers) (owner posts by hand).
 
@@ -81,21 +79,11 @@ Answer real questions on Reddit (r/CryptoCurrency, r/stablecoins, r/personalfina
 ## Countries data
 
 - Add a `countries` block to each platform in `src/data/platforms.json`: the restricted countries, a link to the platform's terms, and the date it was checked. Tested helpers in `src/data/platforms.ts`.
-- Show it in a countries section on the platform pages (`/platforms/<slug>`). It is also needed for the country pages, the "available in my country" filter and the Russian version.
-
-## Table filters and platform type switch
-
-The table already filters by coin and term and sorts by rate. Add, in this order:
-
-- a type switch: All · Exchanges · DeFi · Wallets (from `kind` in `platforms.json`; needs nothing new)
-- a minimum lock period filter for fixed terms
-- a platform picker and "available in my country" (after the [countries data](#countries-data))
-
-Put the filter logic in `src/utils/yields.ts` with tests.
+- Show it in a countries section on the platform pages (`/platforms/<slug>`). It is also needed for the country pages.
 
 ## Growth chart on the calculator
 
-On `/apr-to-apy-calculator`, under the result, add a chart of the balance over 1–10 years: no compounding vs the chosen compounding. Use inline SVG, no chart library, working in both themes. Put the series maths in `src/utils/compounding.ts` with tests. Later reuse it on the coin pages.
+On `/apr-to-apy-calculator`, add an interactive chart of what you earn over the years, for example 10,000 at 10%: one line for APR (no compounding) and one for APY (the chosen compounding), so the gap between them is easy to see. The chart follows the calculator inputs (amount, rate, compounding) and has a years control (1 to 10). Hovering or tapping a year shows both amounts. Use inline SVG, no chart library, working in both themes and on phones. Put the series maths in `src/utils/compounding.ts` with tests. Later reuse it on the coin pages.
 
 ## Where to buy pages
 
@@ -196,17 +184,3 @@ Wallets.
 - [ ] **Tangem**: Yield Mode supplies USDT/USDC to Aave. Its referral program only pays per hardware wallet sold (5 USDT), so it is a weak fit.
 
 **Not suitable for the owner:** LBank, Toobit and Bitget (owner can't register). YouHodler and Nexo look unlikely; check before spending time on them.
-
-## Russian version of the site (later)
-
-Start only once the English site has steady traffic. The Russian-speaking audience (Russia, Belarus, Kazakhstan, Uzbekistan, the Caucasus, emigrants) is large and active in crypto, and Russian-language search has few comparisons of daily-updated earn rates. Income would come from the platforms already listed, many of which are popular with this audience.
-
-**Plan, in steps:**
-
-1. Add Russian versions of the home page and the `/rates/<coin>` pages only, under `/ru/`, with `hreflang` links between languages. The page text, FAQ answers (`src/utils/assetPages.ts`) and the table UI need translating; the rates data is shared.
-2. Mark offers that aren't available to people in Russia or Belarus (for example, platforms that block those countries). This needs a per-platform list of restricted countries in `src/data/platforms.json`, kept up to date.
-3. Measure traffic for a few months. Only then translate guides and other pages.
-
-**Keep out:** Belarusian and Russian venues have no earn products (BYNEX, Whitebird, the Moscow and SPB stock exchanges), and some Russian exchanges are sanctioned or high-risk (Grinex, Rapira, ABCEX). Don't list them.
-
-**Decision needed from the owner first:** check the advertising rules for crypto services in Russia and Belarus (Belarus blocked several exchange sites over advertising in December 2025), and whether the Russian pages could get the site blocked there.
