@@ -14,7 +14,7 @@ YieldBasics compares crypto earn rates (APR / APY) published by exchanges, walle
 
 ## Not financial advice
 
-Nothing on the Site is financial, investment, legal or tax advice, or a recommendation to use any platform or product. Crypto assets are volatile, and earn products carry real risks, including the platform failing, restricting withdrawals, changing terms, smart-contract bugs and losses from price moves. Do your own research, read each platform's terms, and only deposit what you can afford to lose.
+Nothing on the Site is financial, investment, legal or tax advice, or a recommendation to use any platform or product. Crypto assets are volatile, and earn products carry real risks, including the platform failing, restricting withdrawals, changing terms, smart-contract bugs and losses from price moves. Do your own research and read each platform's terms. Only deposit what you can afford to lose.
 
 ## Rates can be wrong or out of date
 
@@ -26,7 +26,7 @@ Some links on the Site, including the "View offer" buttons in the rates table, a
 
 ## Ads
 
-The Site shows ads from a third-party ad network in a bar labeled "Ad" at the top of the page. We don't choose or endorse the individual advertisers, an ad is not a recommendation, and ads never affect how offers are ordered.
+The Site shows ads from a third-party ad network in a bar labeled "Ad" at the top of the page. We don't choose or endorse the individual advertisers, so an ad is not a recommendation. Ads never affect how offers are ordered.
 
 ## Third-party sites
 

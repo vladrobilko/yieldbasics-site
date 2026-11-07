@@ -137,7 +137,7 @@ export const bestOffer = <T extends { asset: string; rate: number; termDays: num
 
 /** Text for an empty table. */
 export const emptyMessage = (asset: string): string =>
-  `No matching ${asset} offers right now — try another term or asset.`;
+  `No matching ${asset} offers right now. Try another term or coin.`;
 
 /** Live counts for the home page: offers, platforms and coins that have at least one offer. */
 export const siteStats = (rows: readonly { platformId: string; asset: string }[]) => ({

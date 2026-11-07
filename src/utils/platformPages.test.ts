@@ -62,7 +62,7 @@ describe('platform page text', () => {
 
   it('keeps every title within 60 characters with the site suffix', () => {
     for (const platform of platforms) {
-      expect(`${platformPageTitle(platform.name)} — YieldBasics`.length, platform.id).toBeLessThanOrEqual(60);
+      expect(`${platformPageTitle(platform.name)} | YieldBasics`.length, platform.id).toBeLessThanOrEqual(60);
     }
   });
 

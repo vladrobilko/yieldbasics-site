@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**YieldBasics** ([yieldbasics.com](https://yieldbasics.com)) compares crypto earn rates (APR / APY) across exchanges, DeFi and wallets, refreshed daily, with referral links on every offer. Plain-language guides are planned (`/guides` is a "coming soon" page; the blog is switched off in `config.yaml` until there is content). English only. The brand is "YieldBasics" — never publish a personal name. Content is educational, not financial advice.
+**YieldBasics** ([yieldbasics.com](https://yieldbasics.com)) compares crypto earn rates (APR / APY) across exchanges, DeFi and wallets, refreshed daily, with referral links on every offer. Plain-language guides live at `/guides` (see [Writing style](#writing-style)). English only. The brand is "YieldBasics" — never publish a personal name. Content is educational, not financial advice.
 
 It is a fully static site built on the open-source **AstroWind** template (Astro v7 + Tailwind CSS v4) hosted on **GitHub Pages** at yieldbasics.com: `.github/workflows/deploy.yaml` builds and publishes every push to `master` (`public/CNAME` holds the domain). Pages are emitted as `about.html` (`build.format: 'file'`) so `/about` is served without a redirect; `getCanonical` strips the `.html`.
 
@@ -146,6 +146,10 @@ Components use `twMerge` from `tailwind-merge` v3 for conditional class composit
 Defined in `src/content.config.ts` using Astro's Content Layer API with `glob()` loader. Posts are in `src/data/post/` as `.md` or `.mdx` files.
 
 Post frontmatter: `title` (required), `publishDate`, `updateDate`, `draft`, `excerpt`, `image`, `category`, `tags`, `author`, `metadata`.
+
+## Writing style
+
+All visible text (guides, page copy, FAQ answers, meta titles and descriptions, platform summaries, X posts) must not read as AI-written. Follow the Wikipedia article ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing): no em dashes; none of its AI words (delve, crucial, pivotal, showcase, underscore, and the newer ones such as matters, practical, clearer, steady, quietly); no "X, not Y" punchlines, habitual lists of three, tacked-on "-ing" endings or recap endings; plain "is/has" verbs; little bold in running text and no runs of bold-label bullets; sentences of mixed length. Guides stay evergreen (no rate snapshots). Tab titles use " | " before "YieldBasics". `src/utils/writingStyle.test.ts` fails on em dashes and a few of the strongest signs in guides and pages.
 
 ## Component Patterns
 
