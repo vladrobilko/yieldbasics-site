@@ -6,7 +6,7 @@ layout: '~/layouts/MarkdownLayout.astro'
 
 _Last updated_: October 25, 2026
 
-This page explains what information YieldBasics ("we", "us") handles when you use yieldbasics.com (the "Site"). In short: we don't have accounts and set no cookies ourselves, the ad at the top of the page comes from an ad network that may use cookies, we count visits with a privacy-first tool that doesn't identify you, and we only see personal information you choose to send us through the contact form or by email.
+This page explains what information YieldBasics ("we", "us") handles when you use yieldbasics.com (the "Site"). The short version: we don't have accounts and set no cookies ourselves. The ad at the top of the page comes from an ad network that may use cookies, and we count visits with a tool that doesn't identify you. We only see personal information you choose to send us through the contact form or by email.
 
 ## Information we collect
 

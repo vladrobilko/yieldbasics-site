@@ -38,7 +38,7 @@ export const summarizeAsset = (rows: readonly RateRow[]): AssetSummary => {
 const offerText = (row: RateRow, platformName: (id: string) => string) =>
   `${formatRate(row.rate)} ${row.type} on ${platformName(row.platformId)}`;
 
-/** Page title (the site template appends " — YieldBasics"; the whole stays within 60 characters). */
+/** Page title (the site template appends " | YieldBasics"; the whole stays within 60 characters). */
 export const assetPageTitle = (symbol: string): string => `${symbol} Earn Rates Today: Best APR / APY`;
 
 /** Meta description, at most 160 characters. */
@@ -121,7 +121,7 @@ export const assetFaq = (
   if (bestNewUser) {
     items.push({
       title: `Are there ${symbol} offers for new users?`,
-      description: `Yes. Some platforms pay a much higher rate on a small, capped amount for new accounts or first deposits. Right now the most rewarding is ${offerText(bestNewUser, platformName)}${bestNewUser.maxReward !== null ? `, worth about $${bestNewUser.maxReward.toFixed(2)} in total` : ''}. These offers are short and capped, so compare the total reward, not just the APR.`,
+      description: `Yes. Some platforms pay a much higher rate on a small, capped amount for new accounts or first deposits. Right now the most rewarding is ${offerText(bestNewUser, platformName)}${bestNewUser.maxReward !== null ? `, worth about $${bestNewUser.maxReward.toFixed(2)} in total` : ''}. These offers are short and capped, so look at the total reward as well as the APR.`,
     });
   }
   items.push({

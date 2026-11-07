@@ -10,7 +10,7 @@ site:
 metadata:
   title:
     default: YieldBasics
-    template: '%s — YieldBasics'
+    template: '%s | YieldBasics'
   description: 'Compare crypto earn rates (APR / APY) across exchanges, DeFi and wallets, updated daily.'
   robots:
     index: true

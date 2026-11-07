@@ -37,7 +37,7 @@ export const sortByAssetThenRate = <T extends Pick<RateRow, 'asset' | 'rate'>>(
 /** "6.93% APR on USDT" */
 const offerText = (row: RateRow) => `${formatRate(row.rate)} ${row.type} on ${row.asset}`;
 
-/** Page title (the site template appends " — YieldBasics"; the whole stays within 60 characters). */
+/** Page title (the site template appends " | YieldBasics"; the whole stays within 60 characters). */
 export const platformPageTitle = (name: string): string => `${name} Earn Rates Today: Savings & Staking`;
 
 /** Meta description, at most 160 characters. */
@@ -113,7 +113,7 @@ export const platformFaq = ({
   if (summary.bestNewUser) {
     items.push({
       title: `Is there a ${name} offer for new users?`,
-      description: `Yes. New accounts or first deposits can get ${offerText(summary.bestNewUser)} on a capped amount${summary.bestNewUser.maxReward !== null ? `, worth about $${summary.bestNewUser.maxReward.toFixed(2)} in total` : ''}. These offers are short, so compare the total reward, not just the APR.`,
+      description: `Yes. New accounts or first deposits can get ${offerText(summary.bestNewUser)} on a capped amount${summary.bestNewUser.maxReward !== null ? `, worth about $${summary.bestNewUser.maxReward.toFixed(2)} in total` : ''}. These offers are short, so look at the total reward as well as the APR.`,
     });
   }
   items.push({
