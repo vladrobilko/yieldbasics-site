@@ -2,7 +2,7 @@
 
 Planned work that isn't done yet, in priority order. Remove an item once its PR is merged. The [growth strategy](#growth-strategy) below explains why the work is in this order.
 
-1. [More evergreen guides](#more-evergreen-guides), about one a week alongside the rest; next: flexible vs fixed-term earn.
+1. [More evergreen guides](#more-evergreen-guides), about one a week alongside the rest; next: CeFi vs DeFi earn.
 2. [Email signup and weekly digest](#email-signup-and-weekly-digest): start collecting subscribers early.
 3. [First Search Console check](#first-search-console-check): around mid-November 2026.
 4. [Growth chart on the calculator](#growth-chart-on-the-calculator)
@@ -159,7 +159,6 @@ A clearly labeled "Featured" slot sold to platforms, kept separate from the rank
 
 New posts in `src/data/post/`, in the same style as the existing ones: no rate snapshots or tables, and they link to the `/rates/<coin>` pages instead. Planned:
 
-- Flexible vs fixed-term earn
 - CeFi vs DeFi earn (exchanges vs Aave-style protocols)
 - How tiered rates work (why "up to X%" applies only to the first amount)
 - How we collect rates (sources, daily updates, stale and manual rates)
