@@ -1,62 +1,62 @@
 {
-  "generatedAt": "2026-11-16T02:44:05.690Z",
+  "generatedAt": "2026-11-17T05:05:13.514Z",
   "sources": {
     "binance": {
       "status": "ok",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
-      "updatedAt": "2026-11-16T02:44:05.690Z",
+      "checkedAt": "2026-11-17T05:05:13.514Z",
+      "updatedAt": "2026-11-17T05:05:13.514Z",
       "offers": 56
     },
     "bybit": {
       "status": "ok",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
-      "updatedAt": "2026-11-16T02:44:05.690Z",
+      "checkedAt": "2026-11-17T05:05:13.514Z",
+      "updatedAt": "2026-11-17T05:05:13.514Z",
       "offers": 31
     },
     "okx": {
       "status": "ok",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
-      "updatedAt": "2026-11-16T02:44:05.690Z",
+      "checkedAt": "2026-11-17T05:05:13.514Z",
+      "updatedAt": "2026-11-17T05:05:13.514Z",
       "offers": 20
     },
     "gate": {
       "status": "ok",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
-      "updatedAt": "2026-11-16T02:44:05.690Z",
+      "checkedAt": "2026-11-17T05:05:13.514Z",
+      "updatedAt": "2026-11-17T05:05:13.514Z",
       "offers": 41
     },
     "kucoin": {
       "status": "ok",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
-      "updatedAt": "2026-11-16T02:44:05.690Z",
-      "offers": 73
+      "checkedAt": "2026-11-17T05:05:13.514Z",
+      "updatedAt": "2026-11-17T05:05:13.514Z",
+      "offers": 72
     },
     "mexc": {
       "status": "ok",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
-      "updatedAt": "2026-11-16T02:44:05.690Z",
+      "checkedAt": "2026-11-17T05:05:13.514Z",
+      "updatedAt": "2026-11-17T05:05:13.514Z",
       "offers": 15
     },
     "coinw": {
       "status": "ok",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
-      "updatedAt": "2026-11-16T02:44:05.690Z",
+      "checkedAt": "2026-11-17T05:05:13.514Z",
+      "updatedAt": "2026-11-17T05:05:13.514Z",
       "offers": 37
     },
     "aave": {
       "status": "ok",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
-      "updatedAt": "2026-11-16T02:44:05.690Z",
+      "checkedAt": "2026-11-17T05:05:13.514Z",
+      "updatedAt": "2026-11-17T05:05:13.514Z",
       "offers": 9
     },
     "weex": {
       "status": "manual",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
+      "checkedAt": "2026-11-17T05:05:13.514Z",
       "offers": 20
     },
     "telegram-wallet": {
       "status": "manual",
-      "checkedAt": "2026-11-16T02:44:05.690Z",
+      "checkedAt": "2026-11-17T05:05:13.514Z",
       "offers": 5
     }
   },
@@ -71,7 +71,7 @@
       "note": "WAVAX on Avalanche",
       "id": "aave-avax-supply-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "aave",
@@ -83,31 +83,31 @@
       "note": "WBTC on OP Mainnet",
       "id": "aave-btc-supply-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "aave",
       "asset": "ETH",
       "product": "Supply",
       "termDays": 0,
-      "rate": 1.44,
+      "rate": 1.45,
       "type": "APY",
       "note": "WETH on Ethereum",
       "id": "aave-eth-supply-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "aave",
       "asset": "EURC",
       "product": "Supply",
       "termDays": 0,
-      "rate": 2.3,
+      "rate": 2.35,
       "type": "APY",
       "note": "EURC on Ethereum",
       "id": "aave-eurc-supply-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "aave",
@@ -126,12 +126,12 @@
       "asset": "GHO",
       "product": "Supply",
       "termDays": 0,
-      "rate": 1.83,
+      "rate": 1.85,
       "type": "APY",
       "note": "GHO on Ethereum (Prime Instance)",
       "id": "aave-gho-supply-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "aave",
@@ -143,7 +143,7 @@
       "note": "LINK on Ethereum",
       "id": "aave-link-supply-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "aave",
@@ -162,12 +162,12 @@
       "asset": "USDC",
       "product": "Supply",
       "termDays": 0,
-      "rate": 5.04,
+      "rate": 6.02,
       "type": "APY",
       "note": "USDC on Base",
       "id": "aave-usdc-supply-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "aave",
@@ -179,7 +179,7 @@
       "note": "USDE on Monad, incl. 1% rewards",
       "id": "aave-usde-supply-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "aave",
@@ -198,12 +198,12 @@
       "asset": "USDT",
       "product": "Supply",
       "termDays": 0,
-      "rate": 3.22,
+      "rate": 3.1,
       "type": "APY",
       "note": "USDT on Ethereum",
       "id": "aave-usdt-supply-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -214,7 +214,7 @@
       "type": "APR",
       "id": "binance-ada-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -225,7 +225,7 @@
       "type": "APR",
       "id": "binance-ada-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -236,18 +236,18 @@
       "type": "APR",
       "id": "binance-ada-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "AVAX",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.52,
+      "rate": 0.49,
       "type": "APR",
       "id": "binance-avax-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -258,7 +258,7 @@
       "type": "APR",
       "id": "binance-avax-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -269,7 +269,7 @@
       "type": "APR",
       "id": "binance-avax-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -292,7 +292,7 @@
       ],
       "id": "binance-bnb-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -303,7 +303,7 @@
       "type": "APR",
       "id": "binance-bnb-simple-earn-locked-120d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -314,7 +314,7 @@
       "type": "APR",
       "id": "binance-bnb-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -325,7 +325,7 @@
       "type": "APR",
       "id": "binance-bnb-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -348,7 +348,7 @@
       ],
       "id": "binance-btc-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -359,18 +359,18 @@
       "type": "APR",
       "id": "binance-doge-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "DOT",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.14,
+      "rate": 0.15,
       "type": "APR",
       "id": "binance-dot-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -381,7 +381,7 @@
       "type": "APR",
       "id": "binance-dot-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -392,42 +392,42 @@
       "type": "APR",
       "id": "binance-dot-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "ETH",
       "product": "ETH Staking",
       "termDays": 0,
-      "rate": 2.41,
+      "rate": 2.24,
       "type": "APR",
       "note": "Staked as WBETH",
       "id": "binance-eth-eth-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "ETH",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 1.29,
+      "rate": 1.23,
       "type": "APR",
       "tiers": [
         {
           "min": 0,
           "max": 0.2,
-          "rate": 1.29
+          "rate": 1.23
         },
         {
           "min": 0.2,
           "max": null,
-          "rate": 1.19
+          "rate": 1.13
         }
       ],
       "id": "binance-eth-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -438,7 +438,7 @@
       "type": "APR",
       "id": "binance-eth-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -449,18 +449,18 @@
       "type": "APR",
       "id": "binance-eth-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "GRAM",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.16,
+      "rate": 0.11,
       "type": "APR",
       "id": "binance-gram-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -471,7 +471,7 @@
       "type": "APR",
       "id": "binance-gram-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -482,18 +482,18 @@
       "type": "APR",
       "id": "binance-gram-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "HYPE",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.01,
+      "rate": 0.02,
       "type": "APR",
       "id": "binance-hype-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -504,7 +504,7 @@
       "type": "APR",
       "id": "binance-hype-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -515,7 +515,7 @@
       "type": "APR",
       "id": "binance-hype-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -526,29 +526,29 @@
       "type": "APR",
       "id": "binance-link-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "LTC",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.18,
+      "rate": 0.19,
       "type": "APR",
       "id": "binance-ltc-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "NEAR",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.19,
+      "rate": 0.2,
       "type": "APR",
       "id": "binance-near-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -559,7 +559,7 @@
       "type": "APR",
       "id": "binance-near-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -570,18 +570,18 @@
       "type": "APR",
       "id": "binance-near-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "POL",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 2.16,
+      "rate": 2.01,
       "type": "APR",
       "id": "binance-pol-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -592,7 +592,7 @@
       "type": "APR",
       "id": "binance-pol-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -603,18 +603,18 @@
       "type": "APR",
       "id": "binance-pol-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "SOL",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 2.32,
+      "rate": 2.3,
       "type": "APR",
       "id": "binance-sol-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -625,7 +625,7 @@
       "type": "APR",
       "id": "binance-sol-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -636,30 +636,30 @@
       "type": "APR",
       "id": "binance-sol-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "SOL",
       "product": "SOL Staking",
       "termDays": 0,
-      "rate": 4.67,
+      "rate": 4.62,
       "type": "APR",
       "note": "Staked as BNSOL",
       "id": "binance-sol-sol-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "SUI",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.06,
+      "rate": 0.07,
       "type": "APR",
       "id": "binance-sui-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -670,7 +670,7 @@
       "type": "APR",
       "id": "binance-sui-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -681,18 +681,18 @@
       "type": "APR",
       "id": "binance-sui-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "TRX",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 3.73,
+      "rate": 3.9,
       "type": "APR",
       "id": "binance-trx-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -703,7 +703,7 @@
       "type": "APR",
       "id": "binance-trx-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -714,7 +714,7 @@
       "type": "APR",
       "id": "binance-trx-simple-earn-locked-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -726,42 +726,42 @@
       "note": "Lent at a fixed rate",
       "id": "binance-usdc-fixed-loan-supply-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "USDC",
       "product": "RWUSD",
       "termDays": 0,
-      "rate": 3.61,
+      "rate": 3.7,
       "type": "APR",
       "note": "Held as RWUSD",
       "id": "binance-usdc-rwusd-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "USDC",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 8.56,
+      "rate": 8.47,
       "type": "APR",
       "tiers": [
         {
           "min": 0,
           "max": 10000,
-          "rate": 8.56
+          "rate": 8.47
         },
         {
           "min": 10000,
           "max": null,
-          "rate": 1.56
+          "rate": 1.47
         }
       ],
       "id": "binance-usdc-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -772,7 +772,7 @@
       "type": "APR",
       "id": "binance-usds-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -783,7 +783,7 @@
       "type": "APR",
       "id": "binance-usds-simple-earn-locked-15d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -794,7 +794,7 @@
       "type": "APR",
       "id": "binance-usds-simple-earn-locked-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -805,66 +805,66 @@
       "type": "APR",
       "id": "binance-usds-simple-earn-locked-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "USDT",
       "product": "BFUSD",
       "termDays": 0,
-      "rate": 4.28,
+      "rate": 3.55,
       "type": "APR",
       "note": "Held as BFUSD, usable as futures margin",
       "id": "binance-usdt-bfusd-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "USDT",
       "product": "Fixed Loan Supply",
-      "termDays": 90,
-      "rate": 3.5,
+      "termDays": 180,
+      "rate": 3.47,
       "type": "APR",
       "note": "Lent at a fixed rate",
-      "id": "binance-usdt-fixed-loan-supply-90d",
+      "id": "binance-usdt-fixed-loan-supply-180d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "USDT",
       "product": "RWUSD",
       "termDays": 0,
-      "rate": 3.61,
+      "rate": 3.7,
       "type": "APR",
       "note": "Held as RWUSD",
       "id": "binance-usdt-rwusd-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
       "asset": "USDT",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 10.31,
+      "rate": 10.17,
       "type": "APR",
       "tiers": [
         {
           "min": 0,
           "max": 1000,
-          "rate": 10.31
+          "rate": 10.17
         },
         {
           "min": 1000,
           "max": null,
-          "rate": 2.31
+          "rate": 2.17
         }
       ],
       "id": "binance-usdt-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -875,7 +875,7 @@
       "type": "APR",
       "id": "binance-xaut-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "binance",
@@ -886,7 +886,7 @@
       "type": "APR",
       "id": "binance-xrp-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -897,7 +897,7 @@
       "type": "APR",
       "id": "bybit-ada-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -908,18 +908,18 @@
       "type": "APR",
       "id": "bybit-ada-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "AVAX",
       "product": "Flexible Savings",
       "termDays": 0,
-      "rate": 1.23,
+      "rate": 1.49,
       "type": "APR",
       "id": "bybit-avax-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -930,7 +930,7 @@
       "type": "APR",
       "id": "bybit-bnb-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -953,7 +953,7 @@
       ],
       "id": "bybit-btc-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -964,18 +964,18 @@
       "type": "APR",
       "id": "bybit-btc-on-chain-earn-45d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "DOGE",
       "product": "Flexible Savings",
       "termDays": 0,
-      "rate": 0.52,
+      "rate": 0.62,
       "type": "APR",
       "id": "bybit-doge-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -986,18 +986,18 @@
       "type": "APR",
       "id": "bybit-dot-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "DOT",
       "product": "On-chain Earn",
       "termDays": 0,
-      "rate": 2.92,
+      "rate": 2.96,
       "type": "APR",
       "id": "bybit-dot-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1008,41 +1008,41 @@
       "type": "APR",
       "id": "bybit-eth-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "ETH",
       "product": "On-chain Earn",
       "termDays": 0,
-      "rate": 2.19,
+      "rate": 2.31,
       "type": "APR",
       "note": "Staked as STETH",
       "id": "bybit-eth-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "GRAM",
       "product": "Flexible Savings",
       "termDays": 0,
-      "rate": 1.38,
+      "rate": 1.59,
       "type": "APR",
       "id": "bybit-gram-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "GRAM",
       "product": "On-chain Earn",
       "termDays": 0,
-      "rate": 14.88,
+      "rate": 15.88,
       "type": "APR",
       "id": "bybit-gram-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1053,7 +1053,7 @@
       "type": "APR",
       "id": "bybit-hype-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1064,7 +1064,7 @@
       "type": "APR",
       "id": "bybit-hype-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1075,7 +1075,7 @@
       "type": "APR",
       "id": "bybit-link-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1086,7 +1086,7 @@
       "type": "APR",
       "id": "bybit-ltc-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1097,18 +1097,18 @@
       "type": "APR",
       "id": "bybit-near-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "NEAR",
       "product": "On-chain Earn",
       "termDays": 0,
-      "rate": 4.76,
+      "rate": 4.75,
       "type": "APR",
       "id": "bybit-near-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1119,7 +1119,7 @@
       "type": "APR",
       "id": "bybit-pol-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1130,19 +1130,18 @@
       "type": "APR",
       "id": "bybit-sol-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "SOL",
       "product": "On-chain Earn",
       "termDays": 0,
-      "rate": 4.65,
+      "rate": 4.83,
       "type": "APR",
-      "note": "Staked as BBSOL",
       "id": "bybit-sol-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1153,7 +1152,7 @@
       "type": "APR",
       "id": "bybit-sui-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1164,18 +1163,18 @@
       "type": "APR",
       "id": "bybit-sui-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "TRX",
       "product": "Flexible Savings",
       "termDays": 0,
-      "rate": 2.79,
+      "rate": 3.06,
       "type": "APR",
       "id": "bybit-trx-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1193,34 +1192,34 @@
       "asset": "USDC",
       "product": "Flexible Savings",
       "termDays": 0,
-      "rate": 4.5,
+      "rate": 4.92,
       "type": "APR",
       "tiers": [
         {
           "min": 0,
           "max": 100,
-          "rate": 4.5
+          "rate": 4.92
         },
         {
           "min": 100,
           "max": null,
-          "rate": 1.5
+          "rate": 1.92
         }
       ],
       "id": "bybit-usdc-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
       "asset": "USDC",
       "product": "On-chain Earn",
       "termDays": 0,
-      "rate": 9.62,
+      "rate": 9.79,
       "type": "APR",
       "id": "bybit-usdc-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1273,23 +1272,23 @@
       "asset": "USDT",
       "product": "Flexible Savings",
       "termDays": 0,
-      "rate": 7.15,
+      "rate": 7.08,
       "type": "APR",
       "tiers": [
         {
           "min": 0,
           "max": 100,
-          "rate": 7.15
+          "rate": 7.08
         },
         {
           "min": 100,
           "max": null,
-          "rate": 2.15
+          "rate": 2.08
         }
       ],
       "id": "bybit-usdt-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1300,7 +1299,7 @@
       "type": "APR",
       "id": "bybit-usdt-on-chain-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1334,7 +1333,7 @@
       ],
       "id": "bybit-xaut-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "bybit",
@@ -1356,7 +1355,7 @@
       "type": "APR",
       "id": "bybit-xrp-flexible-savings-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1369,7 +1368,7 @@
       "maxAmount": 600,
       "id": "coinw-ada-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1392,7 +1391,7 @@
       ],
       "id": "coinw-ada-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1405,7 +1404,7 @@
       "maxAmount": 20,
       "id": "coinw-avax-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1428,7 +1427,7 @@
       ],
       "id": "coinw-avax-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1453,7 +1452,7 @@
       "maxAmount": 1.8,
       "id": "coinw-bnb-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1476,31 +1475,31 @@
       ],
       "id": "coinw-bnb-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
       "asset": "BTC",
       "product": "Fixed Savings",
       "termDays": 180,
-      "rate": 14.19,
+      "rate": 14.25,
       "type": "APR",
-      "note": "14.18% of it paid in CWC",
+      "note": "14.24% of it paid in CWC",
       "id": "coinw-btc-fixed-savings-180d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
       "asset": "BTC",
       "product": "Fixed Savings",
       "termDays": 365,
-      "rate": 19.58,
+      "rate": 19.66,
       "type": "APR",
-      "note": "19.57% of it paid in CWC",
+      "note": "19.65% of it paid in CWC",
       "id": "coinw-btc-fixed-savings-365d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1525,31 +1524,31 @@
       "maxAmount": 0.02,
       "id": "coinw-btc-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
       "asset": "BTC",
       "product": "Fixed Savings",
       "termDays": 60,
-      "rate": 10.33,
+      "rate": 10.37,
       "type": "APR",
-      "note": "10.32% of it paid in CWC",
+      "note": "10.36% of it paid in CWC",
       "id": "coinw-btc-fixed-savings-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
       "asset": "BTC",
       "product": "Fixed Savings",
       "termDays": 7,
-      "rate": 7.62,
+      "rate": 7.65,
       "type": "APR",
-      "note": "7.61% of it paid in CWC",
+      "note": "7.64% of it paid in CWC",
       "id": "coinw-btc-fixed-savings-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1572,7 +1571,7 @@
       ],
       "id": "coinw-btc-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1597,7 +1596,7 @@
       "maxAmount": 12000,
       "id": "coinw-doge-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1620,7 +1619,7 @@
       ],
       "id": "coinw-doge-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1643,7 +1642,7 @@
       ],
       "id": "coinw-dot-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1668,7 +1667,7 @@
       "maxAmount": 0.5,
       "id": "coinw-eth-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1696,7 +1695,7 @@
       ],
       "id": "coinw-eth-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1719,7 +1718,7 @@
       ],
       "id": "coinw-hype-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1730,7 +1729,7 @@
       "type": "APR",
       "id": "coinw-link-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1753,7 +1752,7 @@
       ],
       "id": "coinw-ltc-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1764,7 +1763,7 @@
       "type": "APR",
       "id": "coinw-near-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1787,7 +1786,7 @@
       ],
       "id": "coinw-pol-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1812,7 +1811,7 @@
       "maxAmount": 12,
       "id": "coinw-sol-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1835,7 +1834,7 @@
       ],
       "id": "coinw-sol-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1848,7 +1847,7 @@
       "maxAmount": 150,
       "id": "coinw-sui-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1871,7 +1870,7 @@
       ],
       "id": "coinw-sui-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1896,7 +1895,7 @@
       "maxAmount": 5500,
       "id": "coinw-trx-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1919,7 +1918,7 @@
       ],
       "id": "coinw-trx-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1944,7 +1943,7 @@
       "maxAmount": 1500,
       "id": "coinw-usdc-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1967,7 +1966,7 @@
       ],
       "id": "coinw-usdc-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1978,7 +1977,7 @@
       "type": "APR",
       "id": "coinw-usdt-fixed-savings-180d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -1991,7 +1990,7 @@
       "maxAmount": 100,
       "id": "coinw-usdt-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -2002,18 +2001,18 @@
       "type": "APR",
       "id": "coinw-usdt-fixed-savings-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
       "asset": "USDT",
       "product": "Flexible Savings",
       "termDays": 0,
-      "rate": 12,
+      "rate": 11.2,
       "type": "APR",
       "id": "coinw-usdt-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -2024,7 +2023,7 @@
       "type": "APR",
       "id": "coinw-xaut-fixed-savings-180d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -2037,7 +2036,7 @@
       "maxAmount": 120,
       "id": "coinw-xrp-fixed-savings-3d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "coinw",
@@ -2060,40 +2059,40 @@
       ],
       "id": "coinw-xrp-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "ADA",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.22,
+      "rate": 0.24,
       "type": "APR",
       "id": "gate-ada-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "AVAX",
       "product": "Fixed Earn",
       "termDays": 14,
-      "rate": 1.02,
+      "rate": 1.01,
       "type": "APR",
       "id": "gate-avax-fixed-earn-14d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "AVAX",
       "product": "Fixed Earn",
       "termDays": 30,
-      "rate": 1.04,
+      "rate": 1.05,
       "type": "APR",
       "id": "gate-avax-fixed-earn-30d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2104,29 +2103,29 @@
       "type": "APR",
       "id": "gate-avax-fixed-earn-7d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "AVAX",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 1.02,
+      "rate": 1.05,
       "type": "APR",
       "id": "gate-avax-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "BNB",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.22,
+      "rate": 0.16,
       "type": "APR",
       "id": "gate-bnb-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2137,7 +2136,7 @@
       "type": "APR",
       "id": "gate-btc-fixed-earn-14d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2148,7 +2147,7 @@
       "type": "APR",
       "id": "gate-btc-fixed-earn-30d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2159,7 +2158,7 @@
       "type": "APR",
       "id": "gate-btc-fixed-earn-7d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2194,7 +2193,7 @@
       "type": "APR",
       "id": "gate-doge-fixed-earn-14d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2205,7 +2204,7 @@
       "type": "APR",
       "id": "gate-doge-fixed-earn-30d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2216,7 +2215,7 @@
       "type": "APR",
       "id": "gate-doge-fixed-earn-7d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2227,7 +2226,7 @@
       "type": "APR",
       "id": "gate-doge-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2238,7 +2237,7 @@
       "type": "APR",
       "id": "gate-dot-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2249,7 +2248,7 @@
       "type": "APR",
       "id": "gate-eth-fixed-earn-14d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2260,7 +2259,7 @@
       "type": "APR",
       "id": "gate-eth-fixed-earn-30d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2271,7 +2270,7 @@
       "type": "APR",
       "id": "gate-eth-fixed-earn-7d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2302,11 +2301,11 @@
       "asset": "GRAM",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 6.79,
+      "rate": 5.87,
       "type": "APR",
       "id": "gate-gram-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2317,7 +2316,7 @@
       "type": "APR",
       "id": "gate-hype-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2328,7 +2327,7 @@
       "type": "APR",
       "id": "gate-link-fixed-earn-14d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2339,7 +2338,7 @@
       "type": "APR",
       "id": "gate-link-fixed-earn-30d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2350,7 +2349,7 @@
       "type": "APR",
       "id": "gate-link-fixed-earn-7d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2361,51 +2360,51 @@
       "type": "APR",
       "id": "gate-link-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "LTC",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.2,
+      "rate": 0.19,
       "type": "APR",
       "id": "gate-ltc-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "NEAR",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 1.88,
+      "rate": 2.69,
       "type": "APR",
       "id": "gate-near-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "POL",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 1.35,
+      "rate": 1.27,
       "type": "APR",
       "id": "gate-pol-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "SOL",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 3.35,
+      "rate": 3.36,
       "type": "APR",
       "id": "gate-sol-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2416,29 +2415,29 @@
       "type": "APR",
       "id": "gate-sui-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "TRX",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 5.97,
+      "rate": 6.19,
       "type": "APR",
       "id": "gate-trx-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "USDC",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 4.89,
+      "rate": 4.9,
       "type": "APR",
       "id": "gate-usdc-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2449,7 +2448,7 @@
       "type": "APR",
       "id": "gate-usde-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2460,7 +2459,7 @@
       "type": "APR",
       "id": "gate-usdt-fixed-earn-14d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2471,7 +2470,7 @@
       "type": "APR",
       "id": "gate-usdt-fixed-earn-30d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2506,7 +2505,7 @@
       "type": "APR",
       "id": "gate-xaut-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2517,7 +2516,7 @@
       "type": "APR",
       "id": "gate-xrp-fixed-earn-14d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2528,18 +2527,18 @@
       "type": "APR",
       "id": "gate-xrp-fixed-earn-30d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
       "asset": "XRP",
       "product": "Fixed Earn",
       "termDays": 7,
-      "rate": 0.17,
+      "rate": 0.18,
       "type": "APR",
       "id": "gate-xrp-fixed-earn-7d",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "gate",
@@ -2550,7 +2549,7 @@
       "type": "APR",
       "id": "gate-xrp-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2561,7 +2560,7 @@
       "type": "APR",
       "id": "kucoin-ada-simple-earn-14d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2572,7 +2571,7 @@
       "type": "APR",
       "id": "kucoin-ada-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2583,7 +2582,7 @@
       "type": "APR",
       "id": "kucoin-ada-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2594,7 +2593,7 @@
       "type": "APR",
       "id": "kucoin-ada-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2605,7 +2604,7 @@
       "type": "APR",
       "id": "kucoin-ada-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2616,7 +2615,7 @@
       "type": "APR",
       "id": "kucoin-avax-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2627,7 +2626,7 @@
       "type": "APR",
       "id": "kucoin-avax-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2638,7 +2637,7 @@
       "type": "APR",
       "id": "kucoin-avax-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2649,7 +2648,7 @@
       "type": "APR",
       "id": "kucoin-avax-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2660,7 +2659,7 @@
       "type": "APR",
       "id": "kucoin-bnb-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2671,7 +2670,7 @@
       "type": "APR",
       "id": "kucoin-bnb-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2682,7 +2681,7 @@
       "type": "APR",
       "id": "kucoin-btc-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2693,7 +2692,7 @@
       "type": "APR",
       "id": "kucoin-btc-simple-earn-365d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2704,7 +2703,7 @@
       "type": "APR",
       "id": "kucoin-btc-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2717,18 +2716,7 @@
       "maxAmount": 1,
       "id": "kucoin-btc-simple-earn-7d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
-    },
-    {
-      "platformId": "kucoin",
-      "asset": "BTC",
-      "product": "Simple Earn",
-      "termDays": 0,
-      "rate": 0.01,
-      "type": "APR",
-      "id": "kucoin-btc-simple-earn-flexible",
-      "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2739,7 +2727,7 @@
       "type": "APR",
       "id": "kucoin-doge-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2750,7 +2738,7 @@
       "type": "APR",
       "id": "kucoin-dot-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2761,7 +2749,7 @@
       "type": "APR",
       "id": "kucoin-dot-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2772,7 +2760,7 @@
       "type": "APR",
       "id": "kucoin-dot-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2783,7 +2771,7 @@
       "type": "APR",
       "id": "kucoin-dot-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2794,7 +2782,7 @@
       "type": "APR",
       "id": "kucoin-eth-simple-earn-14d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2805,7 +2793,7 @@
       "type": "APR",
       "id": "kucoin-eth-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2816,7 +2804,7 @@
       "type": "APR",
       "id": "kucoin-eth-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2827,7 +2815,7 @@
       "type": "APR",
       "id": "kucoin-eth-simple-earn-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2838,18 +2826,18 @@
       "type": "APR",
       "id": "kucoin-eth-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
       "asset": "ETH",
       "product": "Staking",
       "termDays": 0,
-      "rate": 2.39,
+      "rate": 2.12,
       "type": "APR",
       "id": "kucoin-eth-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2860,7 +2848,7 @@
       "type": "APR",
       "id": "kucoin-gram-simple-earn-14d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2871,7 +2859,7 @@
       "type": "APR",
       "id": "kucoin-gram-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2882,7 +2870,7 @@
       "type": "APR",
       "id": "kucoin-gram-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2893,7 +2881,7 @@
       "type": "APR",
       "id": "kucoin-gram-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2904,18 +2892,18 @@
       "type": "APR",
       "id": "kucoin-link-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
       "asset": "LTC",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.06,
+      "rate": 0.07,
       "type": "APR",
       "id": "kucoin-ltc-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2926,7 +2914,7 @@
       "type": "APR",
       "id": "kucoin-near-simple-earn-14d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2937,7 +2925,7 @@
       "type": "APR",
       "id": "kucoin-near-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2948,7 +2936,7 @@
       "type": "APR",
       "id": "kucoin-near-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2959,7 +2947,7 @@
       "type": "APR",
       "id": "kucoin-near-simple-earn-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2970,7 +2958,7 @@
       "type": "APR",
       "id": "kucoin-near-simple-earn-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2981,7 +2969,7 @@
       "type": "APR",
       "id": "kucoin-near-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -2992,7 +2980,7 @@
       "type": "APR",
       "id": "kucoin-near-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3003,7 +2991,7 @@
       "type": "APR",
       "id": "kucoin-pol-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3014,7 +3002,7 @@
       "type": "APR",
       "id": "kucoin-pol-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3025,7 +3013,7 @@
       "type": "APR",
       "id": "kucoin-pol-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3036,7 +3024,7 @@
       "type": "APR",
       "id": "kucoin-pol-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3047,7 +3035,7 @@
       "type": "APR",
       "id": "kucoin-sol-simple-earn-14d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3058,7 +3046,7 @@
       "type": "APR",
       "id": "kucoin-sol-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3069,7 +3057,7 @@
       "type": "APR",
       "id": "kucoin-sol-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3080,7 +3068,7 @@
       "type": "APR",
       "id": "kucoin-sol-simple-earn-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3091,7 +3079,7 @@
       "type": "APR",
       "id": "kucoin-sol-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3102,7 +3090,7 @@
       "type": "APR",
       "id": "kucoin-sol-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3113,7 +3101,7 @@
       "type": "APR",
       "id": "kucoin-sui-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3124,7 +3112,7 @@
       "type": "APR",
       "id": "kucoin-sui-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3135,7 +3123,7 @@
       "type": "APR",
       "id": "kucoin-sui-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3146,7 +3134,7 @@
       "type": "APR",
       "id": "kucoin-sui-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3157,7 +3145,7 @@
       "type": "APR",
       "id": "kucoin-trx-simple-earn-14d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3168,7 +3156,7 @@
       "type": "APR",
       "id": "kucoin-trx-simple-earn-30d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3179,7 +3167,7 @@
       "type": "APR",
       "id": "kucoin-trx-simple-earn-60d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3190,7 +3178,7 @@
       "type": "APR",
       "id": "kucoin-trx-simple-earn-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3201,7 +3189,7 @@
       "type": "APR",
       "id": "kucoin-trx-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3212,7 +3200,7 @@
       "type": "APR",
       "id": "kucoin-trx-staking-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3224,7 +3212,7 @@
       "note": "Held as KCUSD",
       "id": "kucoin-usdc-kcusd-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3235,18 +3223,18 @@
       "type": "APR",
       "id": "kucoin-usdc-simple-earn-14d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
       "asset": "USDC",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.14,
+      "rate": 0.15,
       "type": "APR",
       "id": "kucoin-usdc-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3257,7 +3245,7 @@
       "type": "APR",
       "id": "kucoin-usde-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3269,7 +3257,7 @@
       "note": "Held as KCUSD",
       "id": "kucoin-usdt-kcusd-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3280,7 +3268,7 @@
       "type": "APR",
       "id": "kucoin-usdt-simple-earn-14d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3291,7 +3279,7 @@
       "type": "APR",
       "id": "kucoin-usdt-simple-earn-180d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3302,7 +3290,7 @@
       "type": "APR",
       "id": "kucoin-usdt-simple-earn-35d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3313,7 +3301,7 @@
       "type": "APR",
       "id": "kucoin-usdt-simple-earn-365d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3324,7 +3312,7 @@
       "type": "APR",
       "id": "kucoin-usdt-simple-earn-7d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3337,7 +3325,7 @@
       "maxAmount": 100,
       "id": "kucoin-usdt-simple-earn-7d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
@@ -3348,18 +3336,18 @@
       "type": "APR",
       "id": "kucoin-usdt-simple-earn-90d",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "kucoin",
       "asset": "USDT",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 1.23,
+      "rate": 1.17,
       "type": "APR",
       "id": "kucoin-usdt-simple-earn-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3372,7 +3360,7 @@
       "maxAmount": 0.005,
       "id": "mexc-btc-fixed-savings-1d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3400,7 +3388,7 @@
       ],
       "id": "mexc-btc-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3423,7 +3411,7 @@
       ],
       "id": "mexc-doge-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3436,7 +3424,7 @@
       "maxAmount": 0.1,
       "id": "mexc-eth-fixed-savings-1d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3464,7 +3452,7 @@
       ],
       "id": "mexc-eth-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3487,7 +3475,7 @@
       ],
       "id": "mexc-hype-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3500,7 +3488,7 @@
       "maxAmount": 2,
       "id": "mexc-sol-fixed-savings-1d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3523,7 +3511,7 @@
       ],
       "id": "mexc-sol-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3546,7 +3534,7 @@
       ],
       "id": "mexc-sui-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3557,7 +3545,7 @@
       "type": "APR",
       "id": "mexc-trx-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3580,7 +3568,7 @@
       ],
       "id": "mexc-usdc-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3608,7 +3596,7 @@
       ],
       "id": "mexc-usdt-earn-plus-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3621,7 +3609,7 @@
       "maxAmount": 200,
       "id": "mexc-usdt-fixed-savings-2d-new-user",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3649,7 +3637,7 @@
       ],
       "id": "mexc-usdt-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "mexc",
@@ -3672,40 +3660,40 @@
       ],
       "id": "mexc-xrp-flexible-savings-flexible",
       "source": "web",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "ADA",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.4,
+      "rate": 0.36,
       "type": "APR",
       "id": "okx-ada-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "AVAX",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 1.42,
+      "rate": 1.3,
       "type": "APR",
       "id": "okx-avax-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "BNB",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.18,
+      "rate": 0.16,
       "type": "APR",
       "id": "okx-bnb-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
@@ -3716,7 +3704,7 @@
       "type": "APR",
       "id": "okx-btc-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
@@ -3741,29 +3729,29 @@
       "type": "APR",
       "id": "okx-doge-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "DOT",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 13.23,
+      "rate": 4.55,
       "type": "APR",
       "id": "okx-dot-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "ETH",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.87,
+      "rate": 0.85,
       "type": "APR",
       "id": "okx-eth-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
@@ -3784,110 +3772,110 @@
       "asset": "GRAM",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 9.32,
+      "rate": 16.07,
       "type": "APR",
       "id": "okx-gram-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "HYPE",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.08,
+      "rate": 0.24,
       "type": "APR",
       "id": "okx-hype-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "LINK",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.12,
+      "rate": 0.1,
       "type": "APR",
       "id": "okx-link-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "LTC",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.13,
+      "rate": 0.14,
       "type": "APR",
       "id": "okx-ltc-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "NEAR",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.42,
+      "rate": 0.37,
       "type": "APR",
       "id": "okx-near-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "POL",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 6.74,
+      "rate": 6.26,
       "type": "APR",
       "id": "okx-pol-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "SOL",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 4.98,
+      "rate": 4.76,
       "type": "APR",
       "id": "okx-sol-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "SUI",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.58,
+      "rate": 0.63,
       "type": "APR",
       "id": "okx-sui-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "TRX",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 5.5,
+      "rate": 6.74,
       "type": "APR",
       "id": "okx-trx-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
       "asset": "USDC",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 2.13,
+      "rate": 2.2,
       "type": "APR",
       "id": "okx-usdc-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
@@ -3908,11 +3896,11 @@
       "asset": "USDT",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 2.96,
+      "rate": 2.89,
       "type": "APR",
       "id": "okx-usdt-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
@@ -3933,11 +3921,11 @@
       "asset": "XAUT",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.54,
+      "rate": 0.22,
       "type": "APR",
       "id": "okx-xaut-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "okx",
@@ -3958,11 +3946,11 @@
       "asset": "XRP",
       "product": "Simple Earn",
       "termDays": 0,
-      "rate": 0.32,
+      "rate": 0.35,
       "type": "APR",
       "id": "okx-xrp-simple-earn-flexible",
       "source": "api",
-      "updatedAt": "2026-11-16T02:44:05.690Z"
+      "updatedAt": "2026-11-17T05:05:13.514Z"
     },
     {
       "platformId": "telegram-wallet",
